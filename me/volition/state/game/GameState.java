@@ -3,6 +3,7 @@ package me.volition.state.game;
 import me.volition.entity.Player;
 import me.volition.state.State;
 import me.volition.state.StateManager;
+import me.volition.util.GameManager;
 
 import java.awt.*;
 
@@ -10,8 +11,7 @@ import java.awt.*;
  * Created by Demerzel on 2/3/16.
  */
 public class GameState implements State {
-
-    private Player player;
+    GameManager gameManager = GameManager.getInstance();
 
     @Override
     public void init() {
@@ -20,7 +20,7 @@ public class GameState implements State {
 
     @Override
     public void update() {
-        if (player.isDead())
+        if (gameManager.getPlayer().isDead())
             StateManager.setCurrentState(StateManager.MAIN_MENU_INDEX);
     }
 

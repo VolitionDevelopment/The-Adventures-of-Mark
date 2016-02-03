@@ -21,7 +21,7 @@ public class Player extends Entity{
     public Player(Location location) {
         super("Mark", "", 100, 30, 5, location);
 
-        
+
     }
 
     public int getLevel() {

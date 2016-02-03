@@ -14,12 +14,17 @@ public class StateManager {
     private static State currentState;
 
     public static void setCurrentState(int index){
-        if (index == MAIN_MENU_INDEX)
-            currentState = new MainMenu();
-        else if (index == HELP_MENU_INDEX)
-            currentState = new HelpMenu();
-        else if (index == GAME_INDEX)
-            currentState = new GameState();
+        switch(index){
+            case MAIN_MENU_INDEX:
+                currentState = new MainMenu();
+                break;
+            case HELP_MENU_INDEX:
+                currentState = new HelpMenu();
+                break;
+            case GAME_INDEX:
+                currentState = new GameState();
+                break;
+        }
 
         currentState.init();
     }

@@ -64,7 +64,7 @@ public abstract class MenuState implements State {
             else
                 g.setColor(textColor);
 
-            g.drawString(menuOptions[i], (Window.WINDOW_WIDTH / 2) - (g.getFontMetrics().stringWidth(menuOptions[i])), Window.WINDOW_HEIGHT / 2 + 32 * i);
+            g.drawString(menuOptions[i], (Window.WINDOW_WIDTH / 2) - (g.getFontMetrics().stringWidth(menuOptions[i]) / 2), Window.WINDOW_HEIGHT / 2 + 32 * i);
         }
     }
 

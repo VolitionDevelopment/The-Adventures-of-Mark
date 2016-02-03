@@ -19,7 +19,7 @@ public class MainMenu extends MenuState {
         if (index == 0) //Play
             StateManager.setCurrentState(StateManager.GAME_INDEX);
         else if (index == 1) //Help
-            System.out.println("Help is for the weak!");
+            StateManager.setCurrentState(StateManager.HELP_MENU_INDEX);
         else //Quit
             System.exit(0);
     }

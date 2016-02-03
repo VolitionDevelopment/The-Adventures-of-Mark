@@ -39,10 +39,8 @@ public class Main extends JPanel{
         });
 
         //noinspection InfiniteLoopStatement
-        while (true) {
+        while (true)
             loop();
-            repaint();
-        }
     }
 
     public void loop(){

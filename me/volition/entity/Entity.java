@@ -21,6 +21,8 @@ public abstract class Entity {
         this.baseMana = baseMana;
         this.baseSpeed = baseSpeed;
         this.location = location;
+
+        heal();
     }
 
     public String getName() {

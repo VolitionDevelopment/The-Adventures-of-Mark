@@ -5,16 +5,29 @@ import java.awt.*;
 /**
  * Created by mccloskeybr on 2/3/16.
  */
-public interface State {
+public abstract class State {
+    private int state;
 
-    void init();
+    public State(int state){
+        this.state = state;
+    }
 
-    void update();
+    public int getState() {
+        return state;
+    }
 
-    void render(Graphics g);
+    public void setState(int state) {
+        this.state = state;
+    }
 
-    void keyPressed(int k);
+    public abstract void init();
 
-    void keyReleased(int k);
+    public abstract void update();
+
+    public abstract void render(Graphics g);
+
+    public abstract void keyPressed(int k);
+
+    public abstract void keyReleased(int k);
 
 }

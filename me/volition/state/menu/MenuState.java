@@ -3,6 +3,7 @@ package me.volition.state.menu;
 import java.awt.event.KeyEvent;
 import me.volition.state.State;
 import me.volition.Window;
+import me.volition.state.StateManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -10,7 +11,7 @@ import java.awt.image.BufferedImage;
 /**
  * Created by mccloskeybr on 2/3/16.
  */
-public abstract class MenuState implements State {
+public abstract class MenuState extends State {
 
     private Color textColor, textColor_select;
     private String[] menuOptions;
@@ -19,14 +20,18 @@ public abstract class MenuState implements State {
     private BufferedImage backgroundImage;
     private Font menuFont;
 
-    public MenuState(BufferedImage backgroundImage, String[]menuOptions, Color textColor, Color textColor_select){
+
+
+    public MenuState(BufferedImage backgroundImage, String[]menuOptions, Color textColor, Color textColor_select, int state){
+        super(state);
         this.backgroundImage = backgroundImage;
         this.menuOptions = menuOptions;
         this.textColor = textColor;
         this.textColor_select = textColor_select;
     }
 
-    public MenuState(BufferedImage backgroundImage, String[]menuOptions, Font menuFont, Color textColor, Color textColor_select){
+    public MenuState(BufferedImage backgroundImage, String[]menuOptions, Font menuFont, Color textColor, Color textColor_select, int state){
+        super(state);
         this.backgroundImage = backgroundImage;
         this.menuOptions = menuOptions;
         this.menuFont = menuFont;
@@ -77,6 +82,8 @@ public abstract class MenuState implements State {
 
         else if (k == KeyEvent.VK_ENTER)
             hasSelected = true;
+
+        System.out.println(currentIndex);
     }
 
     @Override
@@ -86,4 +93,7 @@ public abstract class MenuState implements State {
 
     public abstract void select(int index);
 
+    public void register(StateManager manager){
+        manager.add(getState(), this);
+    }
 }

@@ -1,6 +1,7 @@
 package me.volition.state.menu;
 
 import me.volition.state.StateManager;
+import me.volition.util.GameManager;
 import me.volition.util.ImageManager;
 
 import java.awt.*;
@@ -11,12 +12,14 @@ import java.awt.*;
 public class HelpMenu extends MenuState {
 
     public HelpMenu(){
-        super (new ImageManager().loadImage("/assets/image/menus/helpmenu.png"), new String[]{"Go back"}, new Color(255, 0, 0), new Color(255, 0, 0));
+        super (new ImageManager().loadImage("/assets/image/menus/helpmenu.png"), new String[]{"Go back"}, new Color(255, 0, 0), new Color(255, 0, 0), 1);
     }
 
     @Override
     public void select(int index) {
+        StateManager manager = StateManager.getInstance();
+
         if (index == 0)
-            StateManager.setCurrentState(StateManager.MAIN_MENU_INDEX);
+            manager.setCurrentState(MainMenu.class);
     }
 }

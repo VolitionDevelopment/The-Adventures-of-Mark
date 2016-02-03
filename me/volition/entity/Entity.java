@@ -13,6 +13,7 @@ public abstract class Entity {
     private int baseSpeed;
     private Location location;
 
+
     public Entity(String name, String bio, int baseHealth, int baseMana, int baseSpeed, Location location) {
         this.name = name;
         this.bio = bio;
@@ -104,5 +105,10 @@ public abstract class Entity {
 
     public boolean isDead(){
         return health <= 0;
+    }
+
+    public void heal(){
+        setHealth(getBaseHealth());
+        setMana(getBaseMana());
     }
 }

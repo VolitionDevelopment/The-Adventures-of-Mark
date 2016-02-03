@@ -19,6 +19,7 @@ public class StateManager {
 
         new HelpMenu().register(this);
         new MainMenu().register(this);
+        new GameState().register(this);
     }
 
     public static StateManager getInstance(){

@@ -11,7 +11,11 @@ import java.awt.*;
 public class MainMenu extends MenuState {
 
     public MainMenu(){
+<<<<<<< Updated upstream
         super(new ImageManager().loadImage("/me/volition/assets/image/menus/mainmenu.png"), new String[]{"Play", "Help", "Quit"}, new Color(0, 0, 0), new Color(255, 0, 0), 0);
+=======
+        super(new ImageManager().loadImage("/assets/image/menus/mainmenu.png"), new String[]{"Play", "Help", "Quit"}, new Color(0, 0, 0), new Color(255, 0, 0), -1);
+>>>>>>> Stashed changes
     }
 
     @Override

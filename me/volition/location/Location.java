@@ -3,6 +3,7 @@ package me.volition.location;
 import me.volition.entity.Entity;
 
 import java.awt.*;
+
 import java.util.ArrayList;
 
 /**

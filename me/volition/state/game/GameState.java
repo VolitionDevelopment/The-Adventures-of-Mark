@@ -68,5 +68,4 @@ public class GameState extends State {
         else if (k == KeyEvent.VK_D)
             gameManager.getPlayer().setGoingRight(false);
     }
-
 }

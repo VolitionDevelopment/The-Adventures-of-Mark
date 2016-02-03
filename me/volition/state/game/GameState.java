@@ -16,8 +16,11 @@ import java.awt.event.KeyEvent;
 public class GameState extends State {
     GameManager gameManager = GameManager.getInstance();
 
+    private Player player;
+
     public GameState() {
         super(0);
+        player = gameManager.getPlayer();
     }
 
     @Override
@@ -38,7 +41,8 @@ public class GameState extends State {
 
     @Override
     public void render(Graphics g) {
-
+        gameManager.getPlayer().getLocation().render(g);
+        player.render(g);
     }
 
     @Override

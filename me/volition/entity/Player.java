@@ -3,6 +3,7 @@ package me.volition.entity;
 import me.volition.item.Item;
 import me.volition.item.ItemSlot;
 import me.volition.location.Location;
+import me.volition.util.ImageManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,9 +20,20 @@ public class Player extends Entity{
     private HashMap<ItemSlot, Item> equippedItems;
 
     public Player(Location location) {
-        super("Mark", "", 100, 30, 5, location);
+        super(new ImageManager().loadImage("/me/volition/assets/image/entities/player.png"), "Mark", "", 100, 30, 5, location, 0, 0);
+    }
 
+    @Override
+    public void update(){
+        if (isGoingDown())
+            setY(getY() + getBaseSpeed());
+        else if (isGoingUp())
+            setY(getY() - getBaseSpeed());
 
+        if (isGoingLeft())
+            setY(getX() - getBaseSpeed());
+        else if (isGoingRight())
+            setY(getX() + getBaseSpeed());
     }
 
     public int getLevel() {
@@ -104,4 +116,5 @@ public class Player extends Entity{
         double LEVEL_CONSTANT = 20;
         return (int) (LEVEL_CONSTANT * (level) * (level + 5) - getExp());
     }
+
 }

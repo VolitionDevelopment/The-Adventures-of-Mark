@@ -83,7 +83,6 @@ public abstract class MenuState extends State {
         else if (k == KeyEvent.VK_ENTER)
             hasSelected = true;
 
-        System.out.println(currentIndex);
     }
 
     @Override
@@ -93,7 +92,5 @@ public abstract class MenuState extends State {
 
     public abstract void select(int index);
 
-    public void register(StateManager manager){
-        manager.add(getState(), this);
-    }
+
 }

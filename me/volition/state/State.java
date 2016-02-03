@@ -20,6 +20,10 @@ public abstract class State {
         this.state = state;
     }
 
+    public void register(StateManager manager){
+        manager.add(getState(), this);
+    }
+
     public abstract void init();
 
     public abstract void update();

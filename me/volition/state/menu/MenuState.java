@@ -46,7 +46,7 @@ public abstract class MenuState extends State {
     }
 
     @Override
-    public void update() {
+    public void update(double delta) {
         if (currentIndex > menuOptions.length - 1)
             currentIndex = 0;
         else if (currentIndex < 0)

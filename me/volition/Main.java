@@ -16,7 +16,6 @@ public class Main extends JPanel{
     private Window window;
 
     private long oldTime;
-    private long threshold = 20;
 
     public Main(){
 
@@ -44,14 +43,15 @@ public class Main extends JPanel{
     }
 
     public void loop(){
-        long deltaTime = System.currentTimeMillis() - oldTime;
+        float deltaTime = System.currentTimeMillis() - oldTime;
 
-        if (deltaTime >= threshold) {
-            oldTime = System.currentTimeMillis();
-            StateManager.getInstance().getCurrentState().update();
+        if (deltaTime > 0.02f)
+            deltaTime = 0.02f;
 
-            repaint();
-        }
+        oldTime = System.currentTimeMillis();
+        StateManager.getInstance().getCurrentState().update(deltaTime);
+
+        repaint();
     }
 
     public void paintComponent(Graphics g){

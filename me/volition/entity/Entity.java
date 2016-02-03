@@ -179,7 +179,7 @@ public abstract class Entity {
         this.animator = animator;
     }
 
-    abstract void update();
+    abstract void update(double delta);
 
     abstract void loadImages();
 

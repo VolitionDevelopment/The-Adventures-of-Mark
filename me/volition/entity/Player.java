@@ -50,12 +50,12 @@ public class Player extends Entity{
     }
 
     @Override
-    public void update(){
+    public void update(double delta){
         if (!isGoingRight() && !isGoingLeft() && !isGoingUp() && !isGoingDown())
             setAnimator(idle);
         else {
             if (isGoingDown()) {
-                setY(getY() + getBaseSpeed());
+                setY(delta * (getY() + getBaseSpeed()));
                 setAnimator(walkDown);
             } else if (isGoingUp()) {
                 setY(getY() - getBaseSpeed());

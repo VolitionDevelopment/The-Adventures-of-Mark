@@ -3,8 +3,10 @@ package me.volition.entity;
 import me.volition.item.Item;
 import me.volition.item.ItemSlot;
 import me.volition.location.Location;
+import me.volition.util.Animator;
 import me.volition.util.ImageManager;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -18,22 +20,56 @@ public class Player extends Entity{
     private int money;
     private ArrayList<Item> inventory;
     private HashMap<ItemSlot, Item> equippedItems;
+    private Animator idle, walkRight, walkLeft, walkUp, walkDown;
 
     public Player(Location location) {
-        super(new ImageManager().loadImage("/me/volition/assets/image/entities/player.png"), "Mark", "", 100, 30, 5, location, 0, 0);
+        super("Mark", "", 100, 30, 5, location, 0, 0);
+    }
+
+    @Override
+    public void loadImages(){
+
+        BufferedImage spriteSheet = new ImageManager().loadImage("/me/volition/assets/image/entity/player_spritesheet.png");
+
+        BufferedImage[] rightFrames = new BufferedImage[4];
+        walkRight = new Animator(rightFrames);
+
+        BufferedImage[] leftFrames = new BufferedImage[4];
+        walkLeft = new Animator(leftFrames);
+
+        BufferedImage[] upFrames = new BufferedImage[4];
+        walkUp = new Animator(upFrames);
+
+        BufferedImage[] downFrames = new BufferedImage[4];
+        walkDown = new Animator(downFrames);
+
+        BufferedImage[] idleFrames = new BufferedImage[2];
+        idle = new Animator(idleFrames);
+
+        setAnimator(idle);
     }
 
     @Override
     public void update(){
-        if (isGoingDown())
-            setY(getY() + getBaseSpeed());
-        else if (isGoingUp())
-            setY(getY() - getBaseSpeed());
+        if (!isGoingRight() && !isGoingLeft() && !isGoingUp() && !isGoingDown())
+            setAnimator(idle);
+        else {
+            if (isGoingDown()) {
+                setY(getY() + getBaseSpeed());
+                setAnimator(walkDown);
+            } else if (isGoingUp()) {
+                setY(getY() - getBaseSpeed());
+                setAnimator(walkUp);
+            }
 
-        if (isGoingLeft())
-            setY(getX() - getBaseSpeed());
-        else if (isGoingRight())
-            setY(getX() + getBaseSpeed());
+            if (isGoingLeft()) {
+                setY(getX() - getBaseSpeed());
+                setAnimator(walkLeft);
+            } else if (isGoingRight()) {
+                setY(getX() + getBaseSpeed());
+                setAnimator(walkRight);
+            }
+        }
     }
 
     public int getLevel() {

@@ -1,6 +1,7 @@
 package me.volition.entity;
 
 import me.volition.location.Location;
+import me.volition.util.Animator;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -17,10 +18,12 @@ public abstract class Entity {
     private Location location;
     private boolean goingRight, goingLeft, goingUp, goingDown;
     private double x, y;
-    private BufferedImage image;
+    private Animator animator;
 
-    public Entity(BufferedImage image, String name, String bio, int baseHealth, int baseMana, int baseSpeed, Location location, double x, double y) {
-        this.image = image;
+    public Entity(String name, String bio, int baseHealth, int baseMana, int baseSpeed, Location location, double x, double y) {
+
+        loadImages();
+
         this.name = name;
         this.bio = bio;
         this.baseHealth = baseHealth;
@@ -119,7 +122,7 @@ public abstract class Entity {
     }
 
     public boolean isGoingDown(){
-        return isGoingDown();
+        return goingDown;
     }
 
     public void setGoingRight(boolean goingRight) {
@@ -171,9 +174,16 @@ public abstract class Entity {
         setMana(getBaseMana());
     }
 
+    public void setAnimator(Animator animator){
+        this.animator.reset();
+        this.animator = animator;
+    }
+
     abstract void update();
 
+    abstract void loadImages();
+
     public void render(Graphics g){
-        g.drawImage(image, (int) x, (int) y, null);
+        g.drawImage(animator.getCurrentImage(), (int) x, (int) y, null);
     }
 }

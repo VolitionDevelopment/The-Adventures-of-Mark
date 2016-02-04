@@ -96,7 +96,7 @@ public class Player extends Entity{
             heal();
             Random r = new Random();
             modBaseTolerance(Math.max(1, r.nextInt(15)));
-            modBaseMana(Math.max(1, r.nextInt(10)));
+            modBaseBrainpower(Math.max(1, r.nextInt(10)));
         }
     }
 

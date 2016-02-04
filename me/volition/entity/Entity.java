@@ -93,7 +93,7 @@ public abstract class Entity {
         this.baseBrainpower = baseBrainpower;
     }
 
-    public void modBaseMana(int mana){
+    public void modBaseBrainpower(int mana){
         this.baseBrainpower += mana;
     }
 

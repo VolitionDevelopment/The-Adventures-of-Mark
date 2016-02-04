@@ -16,6 +16,7 @@ public abstract class Location {
     public Location(String name) {
         entities = new ArrayList<>();
         this.name = name;
+        exits = new ArrayList<>();
     }
 
     public void addEntity(Entity entity){

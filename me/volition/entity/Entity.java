@@ -26,6 +26,9 @@ public abstract class Entity {
     private ArrayList<Move> moves;
 
     public Entity(BufferedImage image, String name, String bio, int baseTolerance, int baseBrainpower, int baseSpeed, Location location, double x, double y) {
+
+        loadImages();
+
         this.image = image;
         this.name = name;
         this.bio = bio;
@@ -180,7 +183,8 @@ public abstract class Entity {
     }
 
     public void setAnimator(Animator animator){
-        this.animator.reset();
+        if (this.animator != null)
+            this.animator.reset();
         this.animator = animator;
     }
 

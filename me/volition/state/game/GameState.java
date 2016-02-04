@@ -19,7 +19,6 @@ public class GameState extends State {
     private Player player;
 
     public GameState() {
-        super(0);
         player = gameManager.getPlayer();
     }
 

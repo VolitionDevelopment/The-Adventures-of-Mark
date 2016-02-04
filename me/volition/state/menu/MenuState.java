@@ -17,26 +17,44 @@ public abstract class MenuState extends State {
     private String[] menuOptions;
     private int currentIndex;
     private boolean hasSelected;
-    private BufferedImage backgroundImage;
     private Font menuFont;
+    private BufferedImage backgroundImage;
 
 
 
-    public MenuState(BufferedImage backgroundImage, String[]menuOptions, Color textColor, Color textColor_select, int state){
-        super(state);
+    public MenuState(BufferedImage backgroundImage, String[]menuOptions, Color textColor, Color textColor_select){
         this.backgroundImage = backgroundImage;
         this.menuOptions = menuOptions;
         this.textColor = textColor;
         this.textColor_select = textColor_select;
     }
 
-    public MenuState(BufferedImage backgroundImage, String[]menuOptions, Font menuFont, Color textColor, Color textColor_select, int state){
-        super(state);
+    public MenuState(BufferedImage backgroundImage, String[]menuOptions, Font menuFont, Color textColor, Color textColor_select){
         this.backgroundImage = backgroundImage;
         this.menuOptions = menuOptions;
         this.menuFont = menuFont;
         this.textColor = textColor;
         this.textColor_select = textColor_select;
+    }
+
+    public Font getMenuFont(){
+        return menuFont;
+    }
+
+    public int getCurrentIndex(){
+        return currentIndex;
+    }
+
+    public String[] getMenuOptions(){
+        return menuOptions;
+    }
+
+    public Color getTextColor() {
+        return textColor;
+    }
+
+    public Color getTextColor_select() {
+        return textColor_select;
     }
 
     @Override
@@ -57,27 +75,10 @@ public abstract class MenuState extends State {
     }
 
     @Override
-    public void render(Graphics g) {
-        g.drawImage(backgroundImage, 0, 0, Window.WINDOW_WIDTH, Window.WINDOW_HEIGHT, null);
-
-        if (menuFont != null)
-            g.setFont(menuFont);
-
-        for (int i = 0; i < menuOptions.length; i++){
-            if (i == currentIndex)
-                g.setColor(textColor_select);
-            else
-                g.setColor(textColor);
-
-            g.drawString(menuOptions[i], (Window.WINDOW_WIDTH / 2) - (g.getFontMetrics().stringWidth(menuOptions[i]) / 2), Window.WINDOW_HEIGHT / 2 + 32 * i);
-        }
-    }
-
-    @Override
     public void keyPressed(int k) {
-        if (k == KeyEvent.VK_S)
+        if (k == KeyEvent.VK_S || k == KeyEvent.VK_D)
             currentIndex++;
-        else if (k == KeyEvent.VK_W)
+        else if (k == KeyEvent.VK_W || k == KeyEvent.VK_A)
             currentIndex--;
 
         else if (k == KeyEvent.VK_ENTER)
@@ -86,8 +87,11 @@ public abstract class MenuState extends State {
     }
 
     @Override
-    public void keyReleased(int k) {
+    public void keyReleased(int k) {}
 
+    @Override
+    public void render(Graphics g){
+        g.drawImage(backgroundImage, 0, 0, null);
     }
 
     public abstract void select(int index);

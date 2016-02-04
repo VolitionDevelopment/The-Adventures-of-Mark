@@ -8,10 +8,10 @@ import java.awt.*;
 /**
  * Created by mccloskeybr on 2/3/16.
  */
-public class HelpMenu extends MenuState {
+public class HelpMenu extends CenterTextMenu {
 
     public HelpMenu(){
-        super (new ImageManager().loadImage("/me/volition/assets/image/menus/helpmenu.png"), new String[]{"Go back"}, new Color(255, 0, 0), new Color(255, 0, 0), 1);
+        super (new ImageManager().loadImage("/me/volition/assets/image/menus/helpmenu.png"), new String[]{"Go back"}, new Color(255, 0, 0), new Color(255, 0, 0));
     }
 
     @Override

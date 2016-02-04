@@ -8,10 +8,10 @@ import java.awt.*;
 /**
  * Created by mccloskeybr on 2/3/16.
  */
-public class MainMenu extends MenuState {
+public class MainMenu extends CenterTextMenu {
 
     public MainMenu(){
-        super(new ImageManager().loadImage("/me/volition/assets/image/menus/mainmenu.png"), new String[]{"Play", "Help", "Quit"}, new Color(0, 0, 0), new Color(255, 0, 0), 0);
+        super(new ImageManager().loadImage("/me/volition/assets/image/menus/mainmenu.png"), new String[]{"Play", "Help", "Quit"}, new Color(0, 0, 0), new Color(255, 0, 0));
     }
 
     @Override

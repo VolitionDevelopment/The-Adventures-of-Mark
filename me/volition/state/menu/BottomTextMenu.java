@@ -14,6 +14,10 @@ public abstract class BottomTextMenu extends MenuState {
         super(backgroundImage, menuOptions, textColor, textColor_select);
     }
 
+    public BottomTextMenu(BufferedImage backgroundImage, String[] menuOptions, Font font, Color textColor, Color textColor_select) {
+        super(backgroundImage, menuOptions, font, textColor, textColor_select);
+    }
+
     @Override
     public void render(Graphics g) {
         super.render(g);

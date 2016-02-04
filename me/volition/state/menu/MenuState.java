@@ -27,6 +27,7 @@ public abstract class MenuState extends State {
         this.menuOptions = menuOptions;
         this.textColor = textColor;
         this.textColor_select = textColor_select;
+        menuFont = new Font("Verdana", Font.PLAIN, 12);
     }
 
     public MenuState(BufferedImage backgroundImage, String[]menuOptions, Font menuFont, Color textColor, Color textColor_select){

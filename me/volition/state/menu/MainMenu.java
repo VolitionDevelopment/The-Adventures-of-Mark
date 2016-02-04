@@ -11,7 +11,7 @@ import java.awt.*;
 public class MainMenu extends CenterTextMenu {
 
     public MainMenu(){
-        super(new ImageManager().loadImage("/me/volition/assets/image/menus/mainmenu.png"), new String[]{"Play", "Help", "Quit"}, new Color(0, 0, 0), new Color(255, 0, 0));
+        super(new ImageManager().loadImage("/me/volition/assets/image/menus/mainmenu.png"), new String[]{"Play", "Help", "About", "Quit"}, new Color(0, 0, 0), new Color(255, 0, 0));
     }
 
     @Override
@@ -23,6 +23,10 @@ public class MainMenu extends CenterTextMenu {
         //help menu
         else if (index == 1)
             StateManager.setCurrentState(StateManager.HELP_MENU_INDEX);
+
+        //about
+        else if (index == 2)
+            StateManager.setCurrentState(StateManager.ABOUT_INDEX);
 
         //exit
         else

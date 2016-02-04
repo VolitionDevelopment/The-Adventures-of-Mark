@@ -1,6 +1,7 @@
 package me.volition.state;
 
 import me.volition.state.game.GameState;
+import me.volition.state.menu.AboutMenu;
 import me.volition.state.menu.HelpMenu;
 import me.volition.state.menu.MainMenu;
 
@@ -10,7 +11,7 @@ import me.volition.state.menu.MainMenu;
  */
 public class StateManager {
 
-    public static final int MAIN_MENU_INDEX = 0, HELP_MENU_INDEX = 1, GAME_INDEX = 2;
+    public static final int MAIN_MENU_INDEX = 0, HELP_MENU_INDEX = 1, GAME_INDEX = 2, ABOUT_INDEX = 3;
 
     private static State currentState;
 
@@ -21,6 +22,8 @@ public class StateManager {
             currentState = new HelpMenu();
         else if (state == GAME_INDEX)
             currentState = new GameState();
+        else if(state == ABOUT_INDEX)
+            currentState = new AboutMenu();
 
         currentState.init();
     }

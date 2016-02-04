@@ -28,8 +28,7 @@ public abstract class BottomTextMenu extends MenuState {
         Color textColor = getTextColor();
         Color textColor_select = getTextColor_select();
 
-        if (menuFont != null)
-            g.setFont(menuFont);
+        g.setFont(menuFont);
 
         for (int i = 0; i < menuOptions.length; i++) {
             if (i == currentIndex)

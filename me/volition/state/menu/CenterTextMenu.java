@@ -15,6 +15,10 @@ public abstract class CenterTextMenu extends MenuState {
         super(backgroundImage, menuOptions, textColor, textColor_select);
     }
 
+    public CenterTextMenu(BufferedImage backgroundImage, String[] menuOptions, Font font, Color textColor, Color textColor_select) {
+        super(backgroundImage, menuOptions, font, textColor, textColor_select);
+    }
+
     public abstract void select(int index);
 
     public void render(Graphics g) {
@@ -25,9 +29,7 @@ public abstract class CenterTextMenu extends MenuState {
         int currentIndex = getCurrentIndex();
         Color textColor = getTextColor();
         Color textColor_select = getTextColor_select();
-
-        if (menuFont != null)
-            g.setFont(menuFont);
+        g.setFont(menuFont);
 
         for (int i = 0; i < menuOptions.length; i++){
             if (i == currentIndex)

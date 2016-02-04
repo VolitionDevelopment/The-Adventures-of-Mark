@@ -7,14 +7,18 @@ import java.awt.*;
 /**
  * Created by Demerzel on 2/3/16.
  */
-public class Start extends Location {
+public class MarkApartment extends Location {
 
-    public Start(String name, int x, int y) {
-        super(name);
+    public MarkApartment() {
+        super("Mark's Apartment");
     }
 
     @Override
     public void render(Graphics g) {
 
+    }
+
+    public String s(){
+        return "hi";
     }
 }

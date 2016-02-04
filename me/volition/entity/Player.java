@@ -23,7 +23,7 @@ public class Player extends Entity{
     private Animator idle, walkRight, walkLeft, walkUp, walkDown;
 
     public Player(Location location) {
-        super("Mark", "", 100, 30, 5, location, 0, 0);
+        super(new ImageManager().loadImage("/me/volition/assets/image/entities/player.png"), "Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Alpha Delta Delta", 100, 30, 5, location, 0, 0);
     }
 
     @Override
@@ -95,7 +95,7 @@ public class Player extends Entity{
             level++;
             heal();
             Random r = new Random();
-            modBaseHealth(Math.max(1, r.nextInt(15)));
+            modBaseTolerance(Math.max(1, r.nextInt(15)));
             modBaseMana(Math.max(1, r.nextInt(10)));
         }
     }

@@ -7,10 +7,9 @@ import java.awt.*;
 /**
  * Created by Demerzel on 2/3/16.
  */
-public class Start extends Location {
-
-    public Start(String name, int x, int y) {
-        super(name);
+public class Room extends Location {
+    public Room() {
+        super("Room");
     }
 
     @Override

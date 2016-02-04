@@ -13,7 +13,7 @@ public class Potion extends Usable {
 
     @Override
     public void use(Entity entity) {
-        entity.modHealth(getMagnitude());
+        entity.modTolerance(getMagnitude());
         //Output to player
     }
 }

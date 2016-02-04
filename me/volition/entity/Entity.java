@@ -2,9 +2,11 @@ package me.volition.entity;
 
 import me.volition.location.Location;
 import me.volition.util.Animator;
+import me.volition.move.Move;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 /**
  * Created by Demerzel on 2/3/16.
@@ -12,24 +14,27 @@ import java.awt.image.BufferedImage;
 public abstract class Entity {
     private String name;
     private String bio;
-    private int baseHealth, health;
-    private int baseMana, mana;
+    private int baseTolerance, tolerance;
+    private int baseBrainpower, brainpower;
     private int baseSpeed;
     private Location location;
     private boolean goingRight, goingLeft, goingUp, goingDown;
     private double x, y;
+    private BufferedImage image;
     private Animator animator;
 
-    public Entity(String name, String bio, int baseHealth, int baseMana, int baseSpeed, Location location, double x, double y) {
+    private ArrayList<Move> moves;
 
-        loadImages();
-
+    public Entity(BufferedImage image, String name, String bio, int baseTolerance, int baseBrainpower, int baseSpeed, Location location, double x, double y) {
+        this.image = image;
         this.name = name;
         this.bio = bio;
-        this.baseHealth = baseHealth;
-        this.baseMana = baseMana;
+        this.baseTolerance = baseTolerance;
+        this.baseBrainpower = baseBrainpower;
         this.baseSpeed = baseSpeed;
         this.location = location;
+
+        this.moves = new ArrayList<>();
 
         this.x = x;
         this.y = y;
@@ -53,52 +58,52 @@ public abstract class Entity {
         this.bio = bio;
     }
 
-    public int getBaseHealth() {
-        return baseHealth;
+    public int getBaseTolerance() {
+        return baseTolerance;
     }
 
-    public void setBaseHealth(int baseHealth) {
-        this.baseHealth = baseHealth;
+    public void setBaseTolerance(int baseTolerance) {
+        this.baseTolerance = baseTolerance;
     }
 
-    public void modBaseHealth(int health){
-        this.baseHealth += health;
+    public void modBaseTolerance(int health){
+        this.baseTolerance += health;
     }
 
-    public int getHealth() {
-        return health;
+    public int getTolerance() {
+        return tolerance;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
+    public void setTolerance(int tolerance) {
+        this.tolerance = tolerance;
     }
 
-    public void modHealth(int health){
-        this.health += health;
+    public void modTolerance(int health){
+        this.tolerance += health;
     }
 
-    public int getBaseMana() {
-        return baseMana;
+    public int getBaseBrainpower() {
+        return baseBrainpower;
     }
 
-    public void setBaseMana(int baseMana) {
-        this.baseMana = baseMana;
+    public void setBaseBrainpower(int baseBrainpower) {
+        this.baseBrainpower = baseBrainpower;
     }
 
     public void modBaseMana(int mana){
-        this.baseMana += mana;
+        this.baseBrainpower += mana;
     }
 
-    public int getMana() {
-        return mana;
+    public int getBrainpower() {
+        return brainpower;
     }
 
-    public void setMana(int mana) {
-        this.mana = mana;
+    public void setBrainpower(int brainpower) {
+        this.brainpower = brainpower;
     }
 
-    public void modMana(int mana){
-        this.mana += mana;
+    public void modBrainpower(int mana){
+        this.brainpower += mana;
     }
 
     public int getBaseSpeed() {
@@ -166,12 +171,12 @@ public abstract class Entity {
     }
 
     public boolean isDead(){
-        return health <= 0;
+        return tolerance <= 0;
     }
 
     public void heal(){
-        setHealth(getBaseHealth());
-        setMana(getBaseMana());
+        setTolerance(getBaseTolerance());
+        setBrainpower(getBaseBrainpower());
     }
 
     public void setAnimator(Animator animator){
@@ -185,5 +190,13 @@ public abstract class Entity {
 
     public void render(Graphics g){
         g.drawImage(animator.getCurrentImage(), (int) x, (int) y, null);
+    }
+
+    public ArrayList<Move> getMoves() {
+        return moves;
+    }
+
+    public void addMove(Move move){
+        this.moves.add(move);
     }
 }

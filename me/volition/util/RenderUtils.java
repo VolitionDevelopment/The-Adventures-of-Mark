@@ -16,12 +16,15 @@ public class RenderUtils {
 
     public static void drawCenteredText(Graphics g, String line, int y, Font font){
         alias(g);
-        g.drawString(line, (me.volition.Window.WINDOW_WIDTH / 2) - (g.getFontMetrics().stringWidth(line) / 2), 20);
+        g.setFont(font);
+        g.drawString(line, (me.volition.Window.WINDOW_WIDTH / 2) - (g.getFontMetrics().stringWidth(line) / 2), y);
     }
 
-    public static void drawCenteredText(Graphics g, String line, int y){
+    public static void drawCenteredText(Graphics g, String line, int y, int size){
         alias(g);
-        g.drawString(line, (me.volition.Window.WINDOW_WIDTH / 2) - (g.getFontMetrics().stringWidth(line) / 2), 20);
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Determination Sans", Font.PLAIN, size));
+        g.drawString(line, (me.volition.Window.WINDOW_WIDTH / 2) - (g.getFontMetrics().stringWidth(line) / 2), y);
     }
 
     public static void drawLeftText(Graphics g, String line, int y){

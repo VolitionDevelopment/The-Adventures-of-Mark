@@ -26,7 +26,6 @@ public class AboutMenu extends BottomTextMenu {
         super.render(g);
 
         g.setColor(new Color(0, 0, 0));
-
         RenderUtils.drawCenteredText(g, "Welcome to The Adventures of Mark!", 20, getMenuFont());
     }
 }

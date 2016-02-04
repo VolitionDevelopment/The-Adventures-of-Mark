@@ -2,6 +2,7 @@ package me.volition.state.menu;
 
 import me.volition.state.StateManager;
 import me.volition.util.ImageManager;
+import me.volition.util.RenderUtils;
 
 import java.awt.*;
 
@@ -12,6 +13,14 @@ public class MainMenu extends CenterTextMenu {
 
     public MainMenu(){
         super(new ImageManager().loadImage("/me/volition/assets/image/menus/mainmenu.png"), new String[]{"Play", "Help", "About", "Quit"}, new Color(0, 0, 0), new Color(255, 0, 0));
+    }
+
+    @Override
+    public void render(Graphics g){
+        super.render(g);
+
+        RenderUtils.drawCenteredText(g, "Adventures of Mark", 80, 72);
+
     }
 
     @Override

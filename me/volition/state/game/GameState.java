@@ -29,7 +29,6 @@ public class GameState extends State {
 
     @Override
     public void update(double delta) {
-
         Location currentLocation = gameManager.getPlayer().getLocation();
         gameManager.getPlayer().update(delta);
 
@@ -39,7 +38,7 @@ public class GameState extends State {
 
     @Override
     public void render(Graphics g) {
-        gameManager.getPlayer().getLocation().render(g);
+        player.getLocation().render(g);
         player.render(g);
     }
 

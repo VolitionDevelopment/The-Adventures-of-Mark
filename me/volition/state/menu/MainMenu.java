@@ -11,6 +11,10 @@ import java.awt.*;
  */
 public class MainMenu extends CenterTextMenu {
 
+    private int tick;
+    private int fontSize = 70;
+    private boolean increasing = false;
+
     public MainMenu(){
         super(new ImageManager().loadImage("/me/volition/assets/image/menus/mainmenu.png"), new String[]{"Play", "Help", "About", "Quit"}, new Color(255, 255, 255), new Color(255, 0, 0));
     }
@@ -19,7 +23,22 @@ public class MainMenu extends CenterTextMenu {
     public void render(Graphics g){
         super.render(g);
 
-        RenderUtils.drawCenteredText(g, "Adventures of Mark", 80, 72);
+        tick++;
+        if (tick >= 30) {
+            if (increasing) {
+                fontSize++;
+                if (fontSize >= 72)
+                    increasing = false;
+            } else {
+                fontSize--;
+                if (fontSize <= 68)
+                    increasing = true;
+
+            }
+            tick = 0;
+        }
+
+        RenderUtils.drawCenteredText(g, "Adventures of Mark", 80, fontSize);
 
     }
 

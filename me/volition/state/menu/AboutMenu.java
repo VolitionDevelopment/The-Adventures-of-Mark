@@ -1,5 +1,7 @@
 package me.volition.state.menu;
 
+import me.volition.*;
+import me.volition.Window;
 import me.volition.state.StateManager;
 import me.volition.util.ImageManager;
 import me.volition.util.RenderUtils;
@@ -12,7 +14,7 @@ import java.awt.image.BufferedImage;
  */
 public class AboutMenu extends BottomTextMenu {
     public AboutMenu() {
-        super(new ImageManager().loadImage("/me/volition/assets/image/menus/helpmenu.png"), new String[] {"Go Back"}, new Color(0, 0, 0), new Color(255, 0, 0));
+        super(new ImageManager().loadImage("/me/volition/assets/image/menus/helpmenu.png"), new String[] {"Go Back"}, Color.WHITE, new Color(255, 0, 0));
     }
 
     @Override
@@ -23,6 +25,10 @@ public class AboutMenu extends BottomTextMenu {
 
     @Override
     public void render(Graphics g){
+
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, Window.WINDOW_WIDTH, Window.WINDOW_HEIGHT);
+
         super.render(g);
 
         String sean = " \n \n Ball Test \n Zebra in Pinkland /n The Green Ones n/ The Green Ones: Retribution n/ 3D Rock Paper Scissors n/ The Green Ones: Reloaded n/ Srubby the Mop n/ n/ ";
@@ -41,7 +47,7 @@ public class AboutMenu extends BottomTextMenu {
         };
 
 
-        g.setColor(new Color(255, 255, 255));
+        g.setColor(Color.WHITE);
         RenderUtils.drawCenteredText(g, "Welcome to The Adventures of Mark!", 40, 40);
 
         int y = 80;

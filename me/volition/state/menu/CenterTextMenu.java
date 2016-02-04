@@ -24,18 +24,20 @@ public abstract class CenterTextMenu extends MenuState {
     public void render(Graphics g) {
         super.render(g);
 
-        Font menuFont = getMenuFont();
         String[] menuOptions = getMenuOptions();
         int currentIndex = getCurrentIndex();
         Color textColor = getTextColor();
         Color textColor_select = getTextColor_select();
-        g.setFont(menuFont);
 
         for (int i = 0; i < menuOptions.length; i++){
-            if (i == currentIndex)
+            if (i == currentIndex) {
                 g.setColor(textColor_select);
-            else
+                g.setFont(getMenuFont_select());
+
+            } else {
                 g.setColor(textColor);
+                g.setFont(getMenuFont());
+            }
 
             g.drawString(menuOptions[i], (me.volition.Window.WINDOW_WIDTH / 2) - (g.getFontMetrics().stringWidth(menuOptions[i]) / 2), me.volition.Window.WINDOW_HEIGHT / 2 + 32 * i);
         }

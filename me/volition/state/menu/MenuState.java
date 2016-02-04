@@ -17,7 +17,7 @@ public abstract class MenuState extends State {
     private String[] menuOptions;
     private int currentIndex;
     private boolean hasSelected;
-    private Font menuFont;
+    private Font menuFont, menuFont_select;
     private BufferedImage backgroundImage;
 
 
@@ -28,6 +28,7 @@ public abstract class MenuState extends State {
         this.textColor = textColor;
         this.textColor_select = textColor_select;
         menuFont = new Font("Determination Sans", Font.PLAIN, 20);
+        menuFont_select = menuFont.deriveFont(menuFont.getSize() + 7f);
     }
 
     public MenuState(BufferedImage backgroundImage, String[]menuOptions, Font menuFont, Color textColor, Color textColor_select){
@@ -36,10 +37,15 @@ public abstract class MenuState extends State {
         this.textColor = textColor;
         this.textColor_select = textColor_select;
         this.menuFont = menuFont;
+        this.menuFont_select = menuFont.deriveFont(menuFont.getSize() + 7f);
     }
 
     public Font getMenuFont(){
         return menuFont;
+    }
+
+    public Font getMenuFont_select(){
+        return menuFont_select;
     }
 
     public int getCurrentIndex(){

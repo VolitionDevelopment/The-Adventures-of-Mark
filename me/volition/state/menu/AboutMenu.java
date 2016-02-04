@@ -25,7 +25,31 @@ public class AboutMenu extends BottomTextMenu {
     public void render(Graphics g){
         super.render(g);
 
-        g.setColor(new Color(0, 0, 0));
-        RenderUtils.drawCenteredText(g, "Welcome to The Adventures of Mark!", 20, getMenuFont());
+        String sean = " \n \n Ball Test \n Zebra in Pinkland /n The Green Ones n/ The Green Ones: Retribution n/ 3D Rock Paper Scissors n/ The Green Ones: Reloaded n/ Srubby the Mop n/ n/ ";
+        String[] lines = {
+                "This game was made by super close buddies Brendan 'Otaku' McCloskey and Jaskson 'Scrubby' Yeager.",
+                "They have been making games since they were twelve and have been improving ever since.",
+                "The duo's previous games include: ",
+                "    - Ball Test",
+                "    - Zebra in Pinkland",
+                "    - Learning to Count",
+                "    - Learning to Count: Retribution",
+                "    - 3D Rock Paper Scissors Lizard Spock",
+                "    - Learning to Count: Reloaded ",
+                "    - Scrubby the Mop ",
+                "This is their last game before going to college, so they will make this one their best yet!"
+        };
+
+
+        g.setColor(new Color(255, 255, 255));
+        RenderUtils.drawCenteredText(g, "Welcome to The Adventures of Mark!", 40, 40);
+
+        int y = 80;
+        for (String line : lines) {
+            RenderUtils.drawLeftText(g, line, y, 16);
+            y += 20;
+        }
+
+
     }
 }

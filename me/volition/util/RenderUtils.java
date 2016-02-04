@@ -27,8 +27,10 @@ public class RenderUtils {
         g.drawString(line, (me.volition.Window.WINDOW_WIDTH / 2) - (g.getFontMetrics().stringWidth(line) / 2), y);
     }
 
-    public static void drawLeftText(Graphics g, String line, int y){
+    public static void drawLeftText(Graphics g, String line, int y, int size){
         alias(g);
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Determination Sans", Font.PLAIN, size));
         g.drawString(line, 20, y);
     }
 }

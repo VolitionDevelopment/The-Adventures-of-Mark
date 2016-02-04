@@ -12,7 +12,7 @@ import java.awt.*;
 public class MainMenu extends CenterTextMenu {
 
     public MainMenu(){
-        super(new ImageManager().loadImage("/me/volition/assets/image/menus/mainmenu.png"), new String[]{"Play", "Help", "About", "Quit"}, new Color(0, 0, 0), new Color(255, 0, 0));
+        super(new ImageManager().loadImage("/me/volition/assets/image/menus/mainmenu.png"), new String[]{"Play", "Help", "About", "Quit"}, new Color(255, 255, 255), new Color(255, 0, 0));
     }
 
     @Override

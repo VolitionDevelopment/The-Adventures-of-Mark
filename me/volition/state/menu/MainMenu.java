@@ -20,7 +20,7 @@ public class MainMenu extends CenterTextMenu {
         if (index == 0)
             StateManager.setCurrentState(StateManager.GAME_INDEX);
 
-        //help menu
+        //help
         else if (index == 1)
             StateManager.setCurrentState(StateManager.HELP_MENU_INDEX);
 

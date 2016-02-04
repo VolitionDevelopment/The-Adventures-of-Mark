@@ -17,6 +17,7 @@ public class FontManager {
         } catch (Exception e){
             e.printStackTrace();
         }
+
     }
 
 }

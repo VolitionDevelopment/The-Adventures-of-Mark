@@ -15,7 +15,8 @@ public class BadPun extends Move {
             "I'll send you to the pun-itentiary!",
             "I once saw one man beat another man down in a rice field with a plastic trophy. It was a knick-nack paddy-whack!",
             "I used to think I was indecisive, but now I'm not so sure.",
-            "What do you call a fat vampire? Count Snackula!"
+            "What do you call a fat vampire? Count Snackula!",
+            "What do you call a sleepwalking nun? A roamin Catholic"
     };
 
     public BadPun(){
@@ -27,7 +28,7 @@ public class BadPun extends Move {
         double d = Math.random();
 
         if(d >= 0.5){
-
+            
             entity.modTolerance((int) (entity.getBaseTolerance() * 0.8));
         }else{
 

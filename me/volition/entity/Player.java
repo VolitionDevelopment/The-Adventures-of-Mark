@@ -58,15 +58,15 @@ public class Player extends Entity{
                 setY(delta * (getY() + getBaseSpeed()));
                 setAnimator(walkDown);
             } else if (isGoingUp()) {
-                setY(getY() - getBaseSpeed());
+                setY(delta * (getY() - getBaseSpeed()));
                 setAnimator(walkUp);
             }
 
             if (isGoingLeft()) {
-                setY(getX() - getBaseSpeed());
+                setY(delta * (getX() - getBaseSpeed()));
                 setAnimator(walkLeft);
             } else if (isGoingRight()) {
-                setY(getX() + getBaseSpeed());
+                setY(delta * (getX() + getBaseSpeed()));
                 setAnimator(walkRight);
             }
         }

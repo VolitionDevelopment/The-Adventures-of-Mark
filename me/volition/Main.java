@@ -44,11 +44,11 @@ public class Main extends JPanel{
 
     public void loop(){
         float deltaTime = System.currentTimeMillis() - oldTime;
+        oldTime = System.currentTimeMillis();
 
         if (deltaTime > 0.02f)
             deltaTime = 0.02f;
 
-        oldTime = System.currentTimeMillis();
         StateManager.getInstance().getCurrentState().update(deltaTime);
 
         repaint();

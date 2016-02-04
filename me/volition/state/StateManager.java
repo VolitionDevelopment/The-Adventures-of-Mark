@@ -17,9 +17,12 @@ public class StateManager {
     private StateManager(){
         stateHashMap = new HashMap<>();
 
+
         new HelpMenu().register(this);
         new MainMenu().register(this);
         new GameState().register(this);
+
+        currentState = stateHashMap.get(0);
     }
 
     public static StateManager getInstance(){

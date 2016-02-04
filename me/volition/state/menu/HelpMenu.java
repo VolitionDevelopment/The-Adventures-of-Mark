@@ -16,9 +16,7 @@ public class HelpMenu extends MenuState {
 
     @Override
     public void select(int index) {
-        StateManager manager = StateManager.getInstance();
-
         if (index == 0)
-            manager.setCurrentState(MainMenu.class);
+            StateManager.setCurrentState(StateManager.MAIN_MENU_INDEX);
     }
 }

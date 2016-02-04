@@ -30,13 +30,12 @@ public class GameState extends State {
 
     @Override
     public void update(double delta) {
-        StateManager manager = StateManager.getInstance();
 
         Location currentLocation = gameManager.getPlayer().getLocation();
         gameManager.getPlayer().update(delta);
 
         if (gameManager.getPlayer().isDead())
-            manager.setCurrentState(MainMenu.class);
+            StateManager.setCurrentState(StateManager.MAIN_MENU_INDEX);
     }
 
     @Override

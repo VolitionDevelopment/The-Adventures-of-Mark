@@ -28,12 +28,12 @@ public class Main extends JPanel{
 
             @Override
             public void keyPressed(KeyEvent e) {
-                StateManager.getInstance().getCurrentState().keyPressed(e.getKeyCode());
+                StateManager.getCurrentState().keyPressed(e.getKeyCode());
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                StateManager.getInstance().getCurrentState().keyReleased(e.getKeyCode());
+                StateManager.getCurrentState().keyReleased(e.getKeyCode());
             }
         });
 
@@ -49,14 +49,14 @@ public class Main extends JPanel{
         if (deltaTime > 0.02f)
             deltaTime = 0.02f;
 
-        StateManager.getInstance().getCurrentState().update(deltaTime);
+        StateManager.getCurrentState().update(deltaTime);
 
         repaint();
     }
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        StateManager.getInstance().getCurrentState().render(g);
+        StateManager.getCurrentState().render(g);
     }
 
 }

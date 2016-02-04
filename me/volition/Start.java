@@ -8,9 +8,7 @@ import me.volition.state.menu.MainMenu;
  */
 public class Start {
     public static void main(String[] args) {
-        StateManager manager = StateManager.getInstance();
-
-        manager.setCurrentState(MainMenu.class);
+        StateManager.setCurrentState(StateManager.MAIN_MENU_INDEX);
         new Main();
     }
 }

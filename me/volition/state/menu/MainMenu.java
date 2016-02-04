@@ -16,12 +16,16 @@ public class MainMenu extends MenuState {
 
     @Override
     public void select(int index) {
-        StateManager manager = StateManager.getInstance();
+        //start game
+        if (index == 0)
+            StateManager.setCurrentState(StateManager.GAME_INDEX);
 
-        try{
-            manager.setCurrentState(manager.getState(index).getClass());
-        }catch(NullPointerException e){
+        //help menu
+        else if (index == 1)
+            StateManager.setCurrentState(StateManager.HELP_MENU_INDEX);
+
+        //exit
+        else
             System.exit(0);
-        }
     }
 }

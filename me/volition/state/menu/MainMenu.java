@@ -21,8 +21,9 @@ public class MainMenu extends CenterTextMenu {
 
     @Override
     public void update(double delta){
-        float threshold = 2;
+        super.update(delta);
 
+        float threshold = 2;
         tick += delta * 1;
         if (tick >= threshold){
             if (increasing) {
@@ -49,6 +50,7 @@ public class MainMenu extends CenterTextMenu {
 
     @Override
     public void select(int index) {
+
         //start game
         if (index == 0)
             StateManager.setCurrentState(StateManager.GAME_INDEX);

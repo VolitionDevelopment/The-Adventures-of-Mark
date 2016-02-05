@@ -1,6 +1,8 @@
 package me.volition.location;
 
 import me.volition.entity.Entity;
+import me.volition.entity.Player;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -17,6 +19,21 @@ public abstract class Location {
         entities = new ArrayList<>();
         this.name = name;
         exits = new ArrayList<>();
+    }
+
+    public void update(Player player){
+        for (Exit exit: exits) {
+            if (exit.isActive() &&
+                    player.getX() == exit.getX() && player.getY() == exit.getY()){
+                player.setLocation(exit.getLeadsTo());
+            }
+        }
+
+        for (Entity e: entities){
+            if (player.getX() == e.getX() && player.getY() == e.getY()){
+                //start a battle xd
+            }
+        }
     }
 
     public void addEntity(Entity entity){

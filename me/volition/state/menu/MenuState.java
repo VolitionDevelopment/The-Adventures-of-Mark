@@ -1,11 +1,9 @@
 package me.volition.state.menu;
 
-import java.awt.event.KeyEvent;
 import me.volition.state.State;
-import me.volition.Window;
-import me.volition.state.StateManager;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 /**

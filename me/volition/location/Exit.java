@@ -48,10 +48,6 @@ public class Exit {
         return m_leadsTo;
     }
 
-    public boolean getActive() {
-        return active;
-    }
-
     public void setActive(boolean active) {
         this.active = active;
     }

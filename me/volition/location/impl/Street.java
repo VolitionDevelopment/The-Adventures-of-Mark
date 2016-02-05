@@ -5,12 +5,11 @@ import me.volition.location.Location;
 import java.awt.*;
 
 /**
- * Created by Demerzel on 2/3/16.
+ * Created by mccloskeybr on 2/4/2016.
  */
-public class Start extends Location {
-
-    public Start(String name, int x, int y) {
-        super(name);
+public class Street extends Location {
+    public Street() {
+        super("The Sidewalk");
     }
 
     @Override

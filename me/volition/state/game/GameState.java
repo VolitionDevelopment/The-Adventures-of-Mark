@@ -4,7 +4,6 @@ import me.volition.entity.Player;
 import me.volition.location.Location;
 import me.volition.state.State;
 import me.volition.state.StateManager;
-import me.volition.state.menu.MainMenu;
 import me.volition.util.GameManager;
 
 import java.awt.*;
@@ -30,7 +29,8 @@ public class GameState extends State {
     @Override
     public void update(double delta) {
         Location currentLocation = gameManager.getPlayer().getLocation();
-        gameManager.getPlayer().update(delta);
+        player.update(delta);
+        currentLocation.update(player);
 
         if (gameManager.getPlayer().isDead())
             StateManager.setCurrentState(StateManager.MAIN_MENU_INDEX);

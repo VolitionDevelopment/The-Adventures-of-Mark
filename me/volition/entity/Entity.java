@@ -1,11 +1,10 @@
 package me.volition.entity;
 
 import me.volition.location.Location;
-import me.volition.util.Animator;
 import me.volition.move.Move;
+import me.volition.util.Animator;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
@@ -20,16 +19,14 @@ public abstract class Entity {
     private Location location;
     private boolean goingRight, goingLeft, goingUp, goingDown;
     private double x, y;
-    private BufferedImage image;
     private Animator animator;
 
     private ArrayList<Move> moves;
 
-    public Entity(BufferedImage image, String name, String bio, int baseTolerance, int baseBrainpower, int baseSpeed, Location location, double x, double y) {
+    public Entity(String name, String bio, int baseTolerance, int baseBrainpower, int baseSpeed, Location location, double x, double y) {
 
         loadImages();
 
-        this.image = image;
         this.name = name;
         this.bio = bio;
         this.baseTolerance = baseTolerance;

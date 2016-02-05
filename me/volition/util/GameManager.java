@@ -20,7 +20,7 @@ public class GameManager {
         start.addExit(new Exit(20, 20, room, true));
         room.addExit(new Exit(20, 20, start, true));
 
-        player = new Player(new MarkApartment());
+        player = new Player(start);
     }
 
     public static GameManager getInstance(){

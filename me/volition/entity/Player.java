@@ -23,27 +23,32 @@ public class Player extends Entity{
     private Animator idle, walkRight, walkLeft, walkUp, walkDown;
 
     public Player(Location location) {
-        super(new ImageManager().loadImage("/me/volition/assets/image/entities/player.png"), "Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Alpha Delta Delta", 100, 30, 5, location, 0, 0);
+        super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Alpha Delta Delta", 100, 30, 5, location, 0, 0);
     }
 
     @Override
     public void loadImages(){
 
-        BufferedImage spriteSheet = new ImageManager().loadImage("/me/volition/assets/image/entity/player_spritesheet.png");
+        BufferedImage spriteSheet = new ImageManager().loadImage("/me/volition/assets/image/entities/player.png");
 
-        BufferedImage[] rightFrames = new BufferedImage[4];
+        BufferedImage[] rightFrames = new BufferedImage[1];
+        rightFrames[0] = spriteSheet;
         walkRight = new Animator(rightFrames);
 
-        BufferedImage[] leftFrames = new BufferedImage[4];
+        BufferedImage[] leftFrames = new BufferedImage[1];
+        leftFrames[0] = spriteSheet;
         walkLeft = new Animator(leftFrames);
 
-        BufferedImage[] upFrames = new BufferedImage[4];
+        BufferedImage[] upFrames = new BufferedImage[1];
+        upFrames[0] = spriteSheet;
         walkUp = new Animator(upFrames);
 
-        BufferedImage[] downFrames = new BufferedImage[4];
+        BufferedImage[] downFrames = new BufferedImage[1];
+        downFrames[0] = spriteSheet;
         walkDown = new Animator(downFrames);
 
-        BufferedImage[] idleFrames = new BufferedImage[2];
+        BufferedImage[] idleFrames = new BufferedImage[1];
+        idleFrames[0] = spriteSheet;
         idle = new Animator(idleFrames);
 
         setAnimator(idle);
@@ -55,18 +60,18 @@ public class Player extends Entity{
             setAnimator(idle);
         else {
             if (isGoingDown()) {
-                setY(delta * (getY() + getBaseSpeed()));
+                setY(getY() + (delta * getBaseSpeed()));
                 setAnimator(walkDown);
             } else if (isGoingUp()) {
-                setY(delta * (getY() - getBaseSpeed()));
+                setY(getY() - (delta * getBaseSpeed()));
                 setAnimator(walkUp);
             }
 
             if (isGoingLeft()) {
-                setY(delta * (getX() - getBaseSpeed()));
+                setX(getX() - (delta * getBaseSpeed()));
                 setAnimator(walkLeft);
             } else if (isGoingRight()) {
-                setY(delta * (getX() + getBaseSpeed()));
+                setX(getX() + (delta * getBaseSpeed()));
                 setAnimator(walkRight);
             }
         }

@@ -4,6 +4,7 @@ import me.volition.*;
 import me.volition.Window;
 import me.volition.entity.Entity;
 import me.volition.entity.Player;
+import me.volition.location.solidobject.SolidObject;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -18,7 +19,7 @@ public abstract class Location {
     private String name;
     private ArrayList<Entity> entities;
     private ArrayList<Exit> exits;
-    private ArrayList<Rectangle> solidObjects;
+    private ArrayList<SolidObject> solidObjects;
     private BufferedImage backgroundImage;
 
 
@@ -32,7 +33,8 @@ public abstract class Location {
 
     public void update(Player player){
         //makes sure player isnt colliding with an object
-        for (Rectangle rectangle : solidObjects) {
+        for (SolidObject s : solidObjects) {
+            Rectangle rectangle = s.getBounds();
             if (rectangle.intersects(player.getBounds()) || rectangle.contains(player.getBounds())) {
                 if (player.getX() <= rectangle.x + rectangle.width && player.getX() >= rectangle.getX())
                     player.setGoingLeft(false);
@@ -85,15 +87,15 @@ public abstract class Location {
         exits.add(exit);
     }
 
-    public void setSolidObjects(ArrayList<Rectangle> solidObjects){
+    public void setSolidObjects(ArrayList<SolidObject> solidObjects){
         this.solidObjects = solidObjects;
     }
 
-    public void addSolidObject(Rectangle solidObject){
+    public void addSolidObject(SolidObject solidObject){
         solidObjects.add(solidObject);
     }
 
-    public ArrayList<Rectangle> getSolidObjects(){
+    public ArrayList<SolidObject> getSolidObjects(){
         return solidObjects;
     }
 
@@ -114,11 +116,11 @@ public abstract class Location {
 
     public void render(Graphics g) {
         g.drawImage(backgroundImage, 0, 0, Window.WINDOW_WIDTH, Window.WINDOW_HEIGHT, null);
-        for (Exit e: exits) {
+
+        for (SolidObject s: solidObjects)
+            s.render(g);
+
+        for (Exit e: exits)
             g.drawRect(e.getBounds().x, e.getBounds().y, e.getBounds().width, e.getBounds().height);
-        }
-        for (Rectangle r: solidObjects){
-            g.drawRect(r.x, r.y, r.width, r.height);
-        }
     }
 }

@@ -2,6 +2,7 @@ package me.volition.state.menu;
 
 import me.volition.state.StateManager;
 import me.volition.util.ImageManager;
+import me.volition.util.RenderUtils;
 
 import java.awt.*;
 
@@ -18,5 +19,12 @@ public class HelpMenu extends BottomTextMenu {
     public void select(int index) {
         if (index == 0)
             StateManager.setCurrentState(StateManager.MAIN_MENU_INDEX);
+    }
+
+    @Override
+    public void render(Graphics g){
+        super.render(g);
+
+
     }
 }

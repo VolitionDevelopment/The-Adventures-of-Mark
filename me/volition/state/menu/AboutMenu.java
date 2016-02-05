@@ -55,7 +55,5 @@ public class AboutMenu extends BottomTextMenu {
             RenderUtils.drawLeftText(g, line, y, 16);
             y += 20;
         }
-
-
     }
 }

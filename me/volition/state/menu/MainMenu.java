@@ -45,7 +45,6 @@ public class MainMenu extends CenterTextMenu {
         super.render(g);
 
         RenderUtils.drawCenteredText(g, "Adventures of Mark", 80, fontSize);
-
     }
 
     @Override

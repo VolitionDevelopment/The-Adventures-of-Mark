@@ -11,7 +11,7 @@ import java.awt.*;
  */
 public class MainMenu extends CenterTextMenu {
 
-    private int tick;
+    private double tick;
     private int fontSize = 70;
     private boolean increasing = false;
 
@@ -20,11 +20,11 @@ public class MainMenu extends CenterTextMenu {
     }
 
     @Override
-    public void render(Graphics g){
-        super.render(g);
+    public void update(double delta){
+        float threshold = 2;
 
-        tick++;
-        if (tick >= 30) {
+        tick += delta * 1;
+        if (tick >= threshold){
             if (increasing) {
                 fontSize++;
                 if (fontSize >= 72)
@@ -37,6 +37,11 @@ public class MainMenu extends CenterTextMenu {
             }
             tick = 0;
         }
+    }
+
+    @Override
+    public void render(Graphics g){
+        super.render(g);
 
         RenderUtils.drawCenteredText(g, "Adventures of Mark", 80, fontSize);
 

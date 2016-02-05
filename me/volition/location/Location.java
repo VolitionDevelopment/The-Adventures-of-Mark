@@ -7,6 +7,7 @@ import me.volition.entity.Player;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -17,26 +18,35 @@ public abstract class Location {
     private String name;
     private ArrayList<Entity> entities;
     private ArrayList<Exit> exits;
+    private ArrayList<Rectangle> solidObjects;
     private BufferedImage backgroundImage;
 
 
     public Location(BufferedImage backgroundImage, String name) {
         this.backgroundImage = backgroundImage;
         entities = new ArrayList<>();
-        this.name = name;
         exits = new ArrayList<>();
+        solidObjects = new ArrayList<>();
+        this.name = name;
     }
 
     public void update(Player player){
-        //makes sure player is in bounds
-        if (player.getX() <= 0)
-            player.setGoingLeft(false);
-        else if (player.getX() + player.getWidth() >= Window.WINDOW_WIDTH)
-            player.setGoingRight(false);
-        if (player.getY() <= 0)
-            player.setGoingUp(false);
-        else if (player.getY() + player.getHeight() >= Window.WINDOW_HEIGHT)
-            player.setGoingDown(false);
+        //makes sure player isnt colliding with an object
+        for (Rectangle rectangle : solidObjects) {
+            if (rectangle.intersects(player.getBounds()) || rectangle.contains(player.getBounds())) {
+                if (player.getX() <= rectangle.x + rectangle.width && player.getX() >= rectangle.getX())
+                    player.setGoingLeft(false);
+
+                else if (player.getX() + player.getWidth() <= rectangle.x + rectangle.width && player.getX() + player.getWidth() >= rectangle.getX())
+                    player.setGoingRight(false);
+
+                if (player.getY() <= rectangle.y + rectangle.height && player.getY() >= rectangle.getY())
+                    player.setGoingUp(false);
+
+                else if (player.getY() + player.getHeight() <= rectangle.y + rectangle.height && player.getY() + player.getHeight() >= rectangle.getY())
+                    player.setGoingDown(false);
+            }
+        }
 
         for (Exit exit: exits) {
             if (exit.isActive() && exit.contains(player.getBounds())){
@@ -75,6 +85,18 @@ public abstract class Location {
         exits.add(exit);
     }
 
+    public void setSolidObjects(ArrayList<Rectangle> solidObjects){
+        this.solidObjects = solidObjects;
+    }
+
+    public void addSolidObject(Rectangle solidObject){
+        solidObjects.add(solidObject);
+    }
+
+    public ArrayList<Rectangle> getSolidObjects(){
+        return solidObjects;
+    }
+
     public String getName() {
         return name;
     }
@@ -94,6 +116,9 @@ public abstract class Location {
         g.drawImage(backgroundImage, 0, 0, Window.WINDOW_WIDTH, Window.WINDOW_HEIGHT, null);
         for (Exit e: exits) {
             g.drawRect(e.getBounds().x, e.getBounds().y, e.getBounds().width, e.getBounds().height);
+        }
+        for (Rectangle r: solidObjects){
+            g.drawRect(r.x, r.y, r.width, r.height);
         }
     }
 }

@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 /**
  * Created by mccloskeybr on 2/5/16.
  */
-public class SolidObject {
+public abstract class SolidObject {
 
     private BufferedImage image;
     private int x, y;

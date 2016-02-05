@@ -1,10 +1,8 @@
 package me.volition.state.menu;
 
-import me.volition.*;
 import me.volition.Window;
 import me.volition.state.StateManager;
 import me.volition.util.ImageManager;
-import me.volition.util.RenderUtils;
 
 import java.awt.*;
 
@@ -14,7 +12,7 @@ import java.awt.*;
 public class HelpMenu extends BottomTextMenu {
 
     public HelpMenu(){
-        super (new ImageManager().loadImage("/me/volition/assets/image/menus/helpmenu.png"), new String[]{"Go back"}, new Color(255, 0, 0), new Color(255, 0, 0));
+        super (new ImageManager().loadImage("/me/volition/assets/image/menus/helpmenu.png"), new String[]{"Go back"}, new Color(255, 255, 255), new Color(255, 0, 0));
     }
 
     @Override
@@ -25,11 +23,10 @@ public class HelpMenu extends BottomTextMenu {
 
     @Override
     public void render(Graphics g){
-        super.render(g);
-
-
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, Window.WINDOW_WIDTH, Window.WINDOW_HEIGHT);
+
+        super.render(g);
 
     }
 }

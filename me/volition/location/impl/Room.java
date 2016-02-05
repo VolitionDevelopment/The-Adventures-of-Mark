@@ -14,6 +14,6 @@ public class Room extends Location {
 
     @Override
     public void render(Graphics g) {
-
+        super.render(g);
     }
 }

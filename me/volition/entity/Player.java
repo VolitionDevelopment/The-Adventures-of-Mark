@@ -1,5 +1,6 @@
 package me.volition.entity;
 
+import me.volition.Window;
 import me.volition.item.Item;
 import me.volition.item.ItemSlot;
 import me.volition.location.Location;
@@ -74,6 +75,17 @@ public class Player extends Entity{
                 setX(getX() + (delta * getBaseSpeed()));
                 setAnimator(walkRight);
             }
+        }
+    }
+
+    public void setLocation(Location location){
+        if (getLocation() == null){
+            super.setLocation(location);
+        } else {
+            setX(Window.WINDOW_WIDTH - getX());
+            setY(Window.WINDOW_HEIGHT - getY());
+
+            super.setLocation(location);
         }
     }
 

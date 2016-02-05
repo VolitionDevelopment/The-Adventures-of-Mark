@@ -23,8 +23,7 @@ public abstract class Location {
 
     public void update(Player player){
         for (Exit exit: exits) {
-            if (exit.isActive() &&
-                    player.getX() == exit.getX() && player.getY() == exit.getY()){
+            if (exit.isActive() && exit.contains((int) player.getX(), (int) player.getY())){
                 player.setLocation(exit.getLeadsTo());
             }
         }
@@ -75,5 +74,9 @@ public abstract class Location {
                 '}';
     }
 
-    public abstract void render(Graphics g);
+    public void render(Graphics g) {
+        for (Exit e: exits) {
+            g.drawRect(e.getBounds().x, e.getBounds().y, e.getBounds().width, e.getBounds().height);
+        }
+    }
 }

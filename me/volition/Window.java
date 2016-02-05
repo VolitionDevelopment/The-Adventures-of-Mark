@@ -20,6 +20,7 @@ public class Window {
         frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setBackground(Color.BLACK);
 
         frame.add(jPanel);

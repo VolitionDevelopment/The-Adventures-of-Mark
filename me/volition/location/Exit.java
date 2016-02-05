@@ -1,19 +1,19 @@
 package me.volition.location;
 
 
+import java.awt.*;
+
 public class Exit {
     // Numerical codes
     private boolean active;
-    private int x;
-    private int y;
     private Location m_leadsTo = null;
     private String m_directionName;
     private String m_shortDirectionName;
+    private Rectangle bounds;
 
 
-    public Exit(int x, int y, Location leadsTo, boolean active) {
-        this.x = x;
-        this.y = y;
+    public Exit(Rectangle bounds, Location leadsTo, boolean active) {
+        this.bounds = bounds;
 
         m_leadsTo = leadsTo;
         this.active = active;
@@ -22,6 +22,10 @@ public class Exit {
     @Override
     public String toString() {
         return m_directionName;
+    }
+
+    public Rectangle getBounds(){
+        return bounds;
     }
 
     public void setDirectionName(String dirname) {
@@ -56,19 +60,11 @@ public class Exit {
         return active;
     }
 
-    public int getX() {
-        return x;
+    public boolean contains(int x, int y){
+        return bounds.contains(x, y);
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
+    public boolean contains(Rectangle rectangle){
+        return bounds.contains(rectangle) || bounds.intersects(rectangle);
     }
 }

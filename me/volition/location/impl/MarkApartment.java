@@ -15,7 +15,7 @@ public class MarkApartment extends Location {
 
     @Override
     public void render(Graphics g) {
-
+        super.render(g);
     }
 
     public String s(){

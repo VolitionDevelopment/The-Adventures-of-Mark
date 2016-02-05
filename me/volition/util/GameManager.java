@@ -1,10 +1,13 @@
 package me.volition.util;
 
+import me.volition.Window;
 import me.volition.entity.Player;
 import me.volition.location.Exit;
 import me.volition.location.Location;
 import me.volition.location.impl.Room;
 import me.volition.location.impl.MarkApartment;
+
+import java.awt.*;
 
 /**
  * Created by Demerzel on 2/3/16.
@@ -17,8 +20,8 @@ public class GameManager {
         Location start = new MarkApartment();
         Location room = new Room();
 
-        start.addExit(new Exit(20, 20, room, true));
-        room.addExit(new Exit(20, 20, start, true));
+        start.addExit(new Exit(new Rectangle(Window.WINDOW_WIDTH - 100, Window.WINDOW_HEIGHT / 2, 100, 100), room, true));
+        room.addExit(new Exit(new Rectangle(Window.WINDOW_WIDTH / 2, 0, 100, 100), start, true));
 
         player = new Player(start);
     }

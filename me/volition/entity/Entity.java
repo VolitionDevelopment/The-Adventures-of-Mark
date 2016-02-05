@@ -162,6 +162,28 @@ public abstract class Entity {
         this.y = y;
     }
 
+    public Rectangle getBounds(){
+        return new Rectangle((int) getX(), (int) getY(), animator.getCurrentImage().getWidth(), animator.getCurrentImage().getHeight());
+    }
+
+    public int getWidth(){
+        return animator.getCurrentImage().getWidth();
+    }
+
+    public int getHeight(){
+        return animator.getCurrentImage().getHeight();
+    }
+
+    public Animator getAnimator(){
+        return animator;
+    }
+
+    public void setAnimator(Animator animator){
+        if (this.animator != null)
+            this.animator.reset();
+        this.animator = animator;
+    }
+
     public Location getLocation() {
         return location;
     }
@@ -179,13 +201,9 @@ public abstract class Entity {
         setBrainpower(getBaseBrainpower());
     }
 
-    public void setAnimator(Animator animator){
-        if (this.animator != null)
-            this.animator.reset();
-        this.animator = animator;
+    public void update(double delta){
+        animator.update();
     }
-
-    abstract void update(double delta);
 
     abstract void loadImages();
 

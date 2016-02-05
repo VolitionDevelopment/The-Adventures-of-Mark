@@ -7,6 +7,7 @@ import me.volition.location.Location;
 import me.volition.util.Animator;
 import me.volition.util.ImageManager;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +25,7 @@ public class Player extends Entity{
     private Animator idle, walkRight, walkLeft, walkUp, walkDown;
 
     public Player(Location location) {
-        super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Alpha Delta Delta", 100, 30, 5, location, 0, 0);
+        super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", 100, 30, 20, location, Window.WINDOW_WIDTH / 2, Window.WINDOW_HEIGHT / 2);
     }
 
     @Override
@@ -57,6 +58,8 @@ public class Player extends Entity{
 
     @Override
     public void update(double delta){
+        super.update(delta);
+
         if (!isGoingRight() && !isGoingLeft() && !isGoingUp() && !isGoingDown())
             setAnimator(idle);
         else {

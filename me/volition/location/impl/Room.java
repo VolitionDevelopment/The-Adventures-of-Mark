@@ -9,7 +9,7 @@ import java.awt.*;
  */
 public class Room extends Location {
     public Room() {
-        super("Room");
+        super(null, "Room");
     }
 
     @Override

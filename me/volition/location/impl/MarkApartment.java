@@ -1,6 +1,7 @@
 package me.volition.location.impl;
 
 import me.volition.location.Location;
+import me.volition.util.ImageManager;
 
 import java.awt.*;
 
@@ -10,12 +11,7 @@ import java.awt.*;
 public class MarkApartment extends Location {
 
     public MarkApartment() {
-        super("Mark's Apartment");
-    }
-
-    @Override
-    public void render(Graphics g) {
-        super.render(g);
+        super(new ImageManager().loadImage("/me/volition/assets/image/rooms/marksapt.png"), "Mark's Apartment");
     }
 
     public String s(){

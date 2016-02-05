@@ -1,5 +1,6 @@
 package me.volition.state.menu;
 
+import me.volition.Window;
 import me.volition.state.State;
 
 import java.awt.*;
@@ -96,7 +97,7 @@ public abstract class MenuState extends State {
 
     @Override
     public void render(Graphics g){
-        g.drawImage(backgroundImage, 0, 0, null);
+        g.drawImage(backgroundImage, 0, 0, Window.WINDOW_WIDTH, Window.WINDOW_HEIGHT, null);
     }
 
     public abstract void select(int index);

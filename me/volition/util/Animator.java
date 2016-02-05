@@ -27,7 +27,7 @@ public class Animator {
         currentTick = 0;
     }
 
-    private void update(){
+    public void update(){
         currentTick ++;
         if (currentTick >= maxTick){
             currentTick = 0;
@@ -38,7 +38,6 @@ public class Animator {
     }
 
     public BufferedImage getCurrentImage(){
-        update();
         return images[currentImageIndex];
     }
 

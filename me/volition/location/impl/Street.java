@@ -9,7 +9,7 @@ import java.awt.*;
  */
 public class Street extends Location {
     public Street() {
-        super("The Sidewalk");
+        super(null, "The Sidewalk");
     }
 
     @Override

@@ -25,12 +25,12 @@ public class AboutMenu extends BottomTextMenu {
 
     @Override
     public void render(Graphics g){
-
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, Window.WINDOW_WIDTH, Window.WINDOW_HEIGHT);
 
         super.render(g);
-
+        
+        g.setColor(Color.WHITE);
         String sean = " \n \n Ball Test \n Zebra in Pinkland /n The Green Ones n/ The Green Ones: Retribution n/ 3D Rock Paper Scissors n/ The Green Ones: Reloaded n/ Srubby the Mop n/ n/ ";
         String[] lines = {
                 "This game was made by super close buddies Brendan 'Otaku' McCloskey and Jaskson 'Scrubby' Yeager.",

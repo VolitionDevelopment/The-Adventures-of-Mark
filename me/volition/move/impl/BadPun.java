@@ -29,7 +29,7 @@ public class BadPun extends Move {
 
         if(d >= 0.5){
             
-            entity.modTolerance((int) (entity.getBaseTolerance() * 0.8));
+            entity.setTolerance((int) (entity.getBaseTolerance() * 0.2));
         }else{
 
         }

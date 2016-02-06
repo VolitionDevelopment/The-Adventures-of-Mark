@@ -1,15 +1,12 @@
 package me.volition.location;
 
-import me.volition.*;
-import me.volition.Window;
 import me.volition.entity.Entity;
 import me.volition.entity.Player;
-import me.volition.location.solidobject.SolidObject;
+import me.volition.location.placeableObject.PlaceableObject;
 import me.volition.location.tile.Tile;
+import me.volition.util.RenderUtils;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -20,34 +17,35 @@ public abstract class Location {
     private String name;
     private ArrayList<Entity> entities;
     private ArrayList<Exit> exits;
-    private ArrayList<SolidObject> solidObjects;
+    private ArrayList<PlaceableObject> placeableObjects;
     private Tile[][] tilemap;
 
 
     public Location(String name) {
         entities = new ArrayList<>();
         exits = new ArrayList<>();
-        solidObjects = new ArrayList<>();
+        placeableObjects = new ArrayList<>();
         this.name = name;
 
         tilemap = loadMap();
     }
 
     public void update(Player player){
-        //makes sure player isnt colliding with an object
+        int distConst = 10;
 
-        if (tilemap[(int) player.getY() / Tile.TILE_SIZE][((int) player.getX() + player.getWidth()) / Tile.TILE_SIZE].isSolid() ||
-            tilemap[((int) player.getY() + player.getHeight()) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth()) / Tile.TILE_SIZE].isSolid())
+        //not colliding with any solid objects
+        if (tilemap[(int) (player.getY() + distConst) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth()) / Tile.TILE_SIZE].isSolid() ||
+                tilemap[(int) (player.getY() + player.getHeight() - distConst) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth()) / Tile.TILE_SIZE].isSolid())
             player.setGoingRight(false);
-        else if (tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].isSolid() ||
-                tilemap[((int) player.getY() + player.getHeight()) / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].isSolid())
+        else if (tilemap[(int) (player.getY() + distConst) / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].isSolid() ||
+                tilemap[((int) player.getY() + player.getHeight() - distConst) / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].isSolid())
             player.setGoingLeft(false);
 
-        if (tilemap[((int) player.getY() + player.getHeight()) / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].isSolid() ||
-                tilemap[((int) player.getY() + player.getHeight()) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth()) / Tile.TILE_SIZE].isSolid())
+        if (tilemap[((int) player.getY() + player.getHeight()) / Tile.TILE_SIZE][(int) (player.getX() + distConst) / Tile.TILE_SIZE].isSolid() ||
+                tilemap[((int) player.getY() + player.getHeight()) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth() - distConst) / Tile.TILE_SIZE].isSolid())
             player.setGoingDown(false);
-        else if (tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].isSolid() ||
-                tilemap[(int) player.getY() / Tile.TILE_SIZE][((int) player.getX() + player.getWidth()) / Tile.TILE_SIZE].isSolid())
+        else if (tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) (player.getX() + distConst) / Tile.TILE_SIZE].isSolid() ||
+                tilemap[(int) player.getY() / Tile.TILE_SIZE][((int) player.getX() + player.getWidth() - distConst) / Tile.TILE_SIZE].isSolid())
             player.setGoingUp(false);
 
         for (Exit exit: exits) {
@@ -87,16 +85,16 @@ public abstract class Location {
         exits.add(exit);
     }
 
-    public void setSolidObjects(ArrayList<SolidObject> solidObjects){
-        this.solidObjects = solidObjects;
+    public void setPlaceableObjects(ArrayList<PlaceableObject> placeableObjects){
+        this.placeableObjects = placeableObjects;
     }
 
-    public void addSolidObject(SolidObject solidObject){
-        solidObjects.add(solidObject);
+    public void addPlaceableObject(PlaceableObject placeableObject){
+        placeableObjects.add(placeableObject);
     }
 
-    public ArrayList<SolidObject> getSolidObjects(){
-        return solidObjects;
+    public ArrayList<PlaceableObject> getPlaceableObjects(){
+        return placeableObjects;
     }
 
     public String getName() {
@@ -122,7 +120,7 @@ public abstract class Location {
                 tile.render(g);
         }
 
-        for (SolidObject s: solidObjects)
+        for (PlaceableObject s: placeableObjects)
             s.render(g);
 
         for (Exit e: exits)

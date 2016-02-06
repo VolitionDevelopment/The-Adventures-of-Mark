@@ -1,7 +1,9 @@
 package me.volition.state.menu;
 
 import me.volition.Window;
+import me.volition.component.Textbox;
 import me.volition.state.StateManager;
+import me.volition.util.GameManager;
 import me.volition.util.ImageManager;
 
 import java.awt.*;
@@ -28,5 +30,7 @@ public class HelpMenu extends BottomTextMenu {
 
         super.render(g);
 
+        Textbox textbox = new Textbox("Hello World", GameManager.getInstance().getPlayer());
+        textbox.render(g);
     }
 }

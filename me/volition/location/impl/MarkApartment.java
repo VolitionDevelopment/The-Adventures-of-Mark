@@ -2,13 +2,13 @@ package me.volition.location.impl;
 
 import me.volition.Window;
 import me.volition.location.Location;
-import me.volition.location.solidobject.Bed;
-import me.volition.location.solidobject.PizzaBox;
+import me.volition.location.placeableObject.Bed;
+import me.volition.location.placeableObject.Desk;
+import me.volition.location.placeableObject.PizzaBox;
+import me.volition.location.placeableObject.TexasCarpet;
+import me.volition.location.tile.BrickWall;
 import me.volition.location.tile.Tile;
 import me.volition.location.tile.WoodTile;
-import me.volition.util.ImageManager;
-
-import java.awt.*;
 
 /**
  * Created by Demerzel on 2/3/16.
@@ -26,14 +26,20 @@ public class MarkApartment extends Location {
         //set background
         for (int i = 0; i < tileMap.length; i++){
             for (int j = 0; j < tileMap[i].length; j++){
-                tileMap[i][j] = new WoodTile(j, i);
+                if (i == 0 || j == 0 || i == tileMap.length - 1 || j == tileMap[i].length - 1)
+                    tileMap[i][j] = new BrickWall(j, i);
+                else
+                    tileMap[i][j] = new WoodTile(j, i);
             }
         }
 
         //add solid objects
-        addSolidObject(new Bed(tileMap, 10, 3));
-        addSolidObject(new PizzaBox(tileMap, 5, 7));
-        addSolidObject(new PizzaBox(tileMap, 2, 9));
+        addPlaceableObject(new Bed(tileMap, 8, 2));
+        addPlaceableObject(new Desk(tileMap, 2, 1));
+        addPlaceableObject(new PizzaBox(tileMap, 1, 2));
+        addPlaceableObject(new PizzaBox(tileMap,  2, 5));
+        addPlaceableObject(new PizzaBox(tileMap, 4, 4));
+        addPlaceableObject(new TexasCarpet(tileMap, 5, 3));
 
         return tileMap;
     }

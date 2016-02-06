@@ -8,9 +8,8 @@ import java.awt.event.KeyListener;
  * Created by mccloskeybr on 2/3/16.
  */
 public class Window {
-
-    public static final int WINDOW_WIDTH = 1000;
-    public static final int WINDOW_HEIGHT = 800;
+    public static final int WINDOW_WIDTH = 832;
+    public static final int WINDOW_HEIGHT = 640;
 
     private JFrame frame;
 

@@ -52,7 +52,7 @@ public class MainMenu extends CenterTextMenu {
 
         //start game
         if (index == 0)
-            StateManager.setCurrentState(StateManager.GAME_INDEX);
+            StateManager.setCurrentState(StateManager.OPENING_CUTSCENE_INDEX);
 
         //help
         else if (index == 1)

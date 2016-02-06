@@ -5,6 +5,7 @@ import me.volition.Window;
 import me.volition.entity.Entity;
 import me.volition.entity.Player;
 import me.volition.location.solidobject.SolidObject;
+import me.volition.location.tile.Tile;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -20,35 +21,34 @@ public abstract class Location {
     private ArrayList<Entity> entities;
     private ArrayList<Exit> exits;
     private ArrayList<SolidObject> solidObjects;
-    private BufferedImage backgroundImage;
+    private Tile[][] tilemap;
 
 
-    public Location(BufferedImage backgroundImage, String name) {
-        this.backgroundImage = backgroundImage;
+    public Location(String name) {
         entities = new ArrayList<>();
         exits = new ArrayList<>();
         solidObjects = new ArrayList<>();
         this.name = name;
+
+        tilemap = loadMap();
     }
 
     public void update(Player player){
         //makes sure player isnt colliding with an object
-        for (SolidObject s : solidObjects) {
-            Rectangle rectangle = s.getBounds();
-            if (rectangle.intersects(player.getBounds()) || rectangle.contains(player.getBounds())) {
-                if (player.getX() <= rectangle.x + rectangle.width && player.getX() >= rectangle.getX())
-                    player.setGoingLeft(false);
 
-                else if (player.getX() + player.getWidth() <= rectangle.x + rectangle.width && player.getX() + player.getWidth() >= rectangle.getX())
-                    player.setGoingRight(false);
+        if (tilemap[(int) player.getY() / Tile.TILE_SIZE][((int) player.getX() + player.getWidth()) / Tile.TILE_SIZE].isSolid() ||
+            tilemap[((int) player.getY() + player.getHeight()) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth()) / Tile.TILE_SIZE].isSolid())
+            player.setGoingRight(false);
+        else if (tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].isSolid() ||
+                tilemap[((int) player.getY() + player.getHeight()) / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].isSolid())
+            player.setGoingLeft(false);
 
-                if (player.getY() <= rectangle.y + rectangle.height && player.getY() >= rectangle.getY())
-                    player.setGoingUp(false);
-
-                else if (player.getY() + player.getHeight() <= rectangle.y + rectangle.height && player.getY() + player.getHeight() >= rectangle.getY())
-                    player.setGoingDown(false);
-            }
-        }
+        if (tilemap[((int) player.getY() + player.getHeight()) / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].isSolid() ||
+                tilemap[((int) player.getY() + player.getHeight()) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth()) / Tile.TILE_SIZE].isSolid())
+            player.setGoingDown(false);
+        else if (tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].isSolid() ||
+                tilemap[(int) player.getY() / Tile.TILE_SIZE][((int) player.getX() + player.getWidth()) / Tile.TILE_SIZE].isSolid())
+            player.setGoingUp(false);
 
         for (Exit exit: exits) {
             if (exit.isActive() && exit.contains(player.getBounds())){
@@ -107,6 +107,8 @@ public abstract class Location {
         this.name = name;
     }
 
+    public abstract Tile[][] loadMap();
+
     @Override
     public String toString() {
         return "Location{" +
@@ -115,7 +117,10 @@ public abstract class Location {
     }
 
     public void render(Graphics g) {
-        g.drawImage(backgroundImage, 0, 0, Window.WINDOW_WIDTH, Window.WINDOW_HEIGHT, null);
+        for (Tile[] array: tilemap){
+            for (Tile tile: array)
+                tile.render(g);
+        }
 
         for (SolidObject s: solidObjects)
             s.render(g);

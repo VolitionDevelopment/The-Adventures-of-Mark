@@ -1,6 +1,7 @@
 package me.volition.location.impl;
 
 import me.volition.location.Location;
+import me.volition.location.tile.Tile;
 
 import java.awt.*;
 
@@ -9,11 +10,12 @@ import java.awt.*;
  */
 public class Room extends Location {
     public Room() {
-        super(null, "Room");
+        super("Room");
     }
 
     @Override
-    public void render(Graphics g) {
-        super.render(g);
+    public Tile[][] loadMap() {
+        return new Tile[0][];
     }
+
 }

@@ -8,6 +8,6 @@ import me.volition.util.ImageManager;
  */
 public class PizzaBox extends PlaceableObject {
     public PizzaBox(Tile[][] tilemap, int x, int y) {
-        super(new ImageManager().loadImage("/me/volition/assets/image/objects/pizzabox.png"), tilemap, true, x, y);
+        super(new ImageManager().loadImage("/me/volition/assets/image/objects/pizzabox.png"), tilemap, false, x, y);
     }
 }

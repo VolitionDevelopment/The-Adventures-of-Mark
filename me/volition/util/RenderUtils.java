@@ -1,6 +1,5 @@
 package me.volition.util;
 
-import me.volition.*;
 import me.volition.Window;
 
 import java.awt.*;

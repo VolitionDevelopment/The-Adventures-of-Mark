@@ -42,6 +42,25 @@ public abstract class Entity {
         heal();
     }
 
+    //for enemies that exist only inside battles
+    public Entity(String name, String bio, int baseTolerance, int baseBrainpower, int baseSpeed) {
+
+        loadImages();
+
+        this.name = name;
+        this.bio = bio;
+        this.baseTolerance = baseTolerance;
+        this.baseBrainpower = baseBrainpower;
+        this.baseSpeed = baseSpeed;
+
+        this.moves = new ArrayList<>();
+
+        this.x = x;
+        this.y = y;
+
+        heal();
+    }
+
     public String getName() {
         return name;
     }
@@ -205,10 +224,14 @@ public abstract class Entity {
         animator.update();
     }
 
-    abstract void loadImages();
+    public abstract void loadImages();
 
     public void render(Graphics g){
         g.drawImage(animator.getCurrentImage(), (int) x, (int) y, null);
+    }
+
+    public void render(Graphics g, int x, int y){
+        g.drawImage(animator.getCurrentImage(), x, y, null);
     }
 
     public ArrayList<Move> getMoves() {

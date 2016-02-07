@@ -1,10 +1,10 @@
 package me.volition.state;
 
 import me.volition.state.cutscene.OpeningCutscene;
-import me.volition.state.game.GameState;
 import me.volition.state.menu.AboutMenu;
 import me.volition.state.menu.HelpMenu;
 import me.volition.state.menu.MainMenu;
+import me.volition.util.GameManager;
 
 
 /**
@@ -25,11 +25,15 @@ public class StateManager {
         else if(state == ABOUT_INDEX)
             currentState = new AboutMenu();
         else if (state == GAME_INDEX)
-            currentState = new GameState();
+            currentState = GameManager.newGame();
         else if (state == OPENING_CUTSCENE_INDEX)
             currentState = new OpeningCutscene();
 
         currentState.init();
+    }
+
+    public static void setCurrentState(State state){
+        currentState = state;
     }
 
     public static State getCurrentState(){

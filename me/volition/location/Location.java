@@ -1,10 +1,10 @@
 package me.volition.location;
 
-import me.volition.entity.Entity;
 import me.volition.entity.Player;
 import me.volition.location.placeableObject.PlaceableObject;
 import me.volition.location.tile.Tile;
-import me.volition.util.RenderUtils;
+import me.volition.util.BattleManager;
+import me.volition.util.GameManager;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -15,14 +15,12 @@ import java.util.ArrayList;
 
 public abstract class Location {
     private String name;
-    private ArrayList<Entity> entities;
     private ArrayList<Exit> exits;
     private ArrayList<PlaceableObject> placeableObjects;
     private Tile[][] tilemap;
 
 
     public Location(String name) {
-        entities = new ArrayList<>();
         exits = new ArrayList<>();
         placeableObjects = new ArrayList<>();
         this.name = name;
@@ -30,6 +28,9 @@ public abstract class Location {
         tilemap = loadMap();
     }
 
+    /**
+     * may be inefficient? idk check later xd
+     * */
     public void update(Player player){
         int distConst = 10;
 
@@ -37,6 +38,7 @@ public abstract class Location {
         if (tilemap[(int) (player.getY() + distConst) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth()) / Tile.TILE_SIZE].isSolid() ||
                 tilemap[(int) (player.getY() + player.getHeight() - distConst) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth()) / Tile.TILE_SIZE].isSolid())
             player.setGoingRight(false);
+
         else if (tilemap[(int) (player.getY() + distConst) / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].isSolid() ||
                 tilemap[((int) player.getY() + player.getHeight() - distConst) / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].isSolid())
             player.setGoingLeft(false);
@@ -44,33 +46,33 @@ public abstract class Location {
         if (tilemap[((int) player.getY() + player.getHeight()) / Tile.TILE_SIZE][(int) (player.getX() + distConst) / Tile.TILE_SIZE].isSolid() ||
                 tilemap[((int) player.getY() + player.getHeight()) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth() - distConst) / Tile.TILE_SIZE].isSolid())
             player.setGoingDown(false);
+
         else if (tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) (player.getX() + distConst) / Tile.TILE_SIZE].isSolid() ||
                 tilemap[(int) player.getY() / Tile.TILE_SIZE][((int) player.getX() + player.getWidth() - distConst) / Tile.TILE_SIZE].isSolid())
             player.setGoingUp(false);
 
-        for (Exit exit: exits) {
-            if (exit.isActive() && exit.contains(player.getBounds())){
+        //not colliding with any tiles that start battles
+        if (tilemap[(int) (player.getY() + distConst) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth()) / Tile.TILE_SIZE].startsBattle() ||
+                tilemap[(int) (player.getY() + player.getHeight() - distConst) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth()) / Tile.TILE_SIZE].startsBattle())
+            BattleManager.startBattle(GameManager.getGameState(), player, tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) (player.getX() + player.getWidth()) / Tile.TILE_SIZE].getEntities());
+
+        else if (tilemap[(int) (player.getY() + distConst) / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].startsBattle() ||
+                tilemap[((int) player.getY() + player.getHeight() - distConst) / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].startsBattle())
+            BattleManager.startBattle(GameManager.getGameState(), player, tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].getEntities());
+
+        if (tilemap[((int) player.getY() + player.getHeight()) / Tile.TILE_SIZE][(int) (player.getX() + distConst) / Tile.TILE_SIZE].startsBattle() ||
+                tilemap[((int) player.getY() + player.getHeight()) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth() - distConst) / Tile.TILE_SIZE].startsBattle())
+            BattleManager.startBattle(GameManager.getGameState(), player, tilemap[(int) (player.getY() + player.getHeight()) / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].getEntities());
+
+        else if (tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) (player.getX() + distConst) / Tile.TILE_SIZE].startsBattle() ||
+                tilemap[(int) player.getY() / Tile.TILE_SIZE][((int) player.getX() + player.getWidth() - distConst) / Tile.TILE_SIZE].startsBattle())
+            BattleManager.startBattle(GameManager.getGameState(), player, tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].getEntities());
+
+        for (Exit exit : exits) {
+            if (exit.isActive() && exit.contains(player.getBounds())) {
                 player.setLocation(exit.getLeadsTo());
             }
         }
-
-        for (Entity e: entities){
-            if (player.getX() == e.getX() && player.getY() == e.getY()){
-                //start a battle xd
-            }
-        }
-    }
-
-    public void addEntity(Entity entity){
-        entities.add(entity);
-    }
-
-    public ArrayList<Entity> getEntities(){
-        return entities;
-    }
-
-    public void setEntities(ArrayList<Entity> entities) {
-        this.entities = entities;
     }
 
     public ArrayList<Exit> getExits() {

@@ -16,7 +16,7 @@ public class Window {
     public Window(JPanel jPanel){
         frame = new JFrame();
         frame.setTitle("The Adventures of Mark");
-        frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        frame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT + 23);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

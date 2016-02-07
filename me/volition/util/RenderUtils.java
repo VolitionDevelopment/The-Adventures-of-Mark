@@ -37,16 +37,4 @@ public class RenderUtils {
         g2.drawString(line, 20, y);
     }
 
-    public static void drawTextBox(Graphics g, String text){
-        Graphics2D g2 = alias(g);
-
-        g2.setColor(Color.WHITE);
-        g2.fillRect(15, Window.WINDOW_HEIGHT - 145, Window.WINDOW_WIDTH - 30, 110);
-        g2.setColor(Color.BLACK);
-        g2.fillRect(20, Window.WINDOW_HEIGHT - 140, Window.WINDOW_WIDTH - 40, 100);
-
-        g.setColor(Color.WHITE);
-        g.setFont(new Font("Determination Mono", Font.PLAIN, 18));
-        g.drawString(text, 25, Window.WINDOW_HEIGHT - 120);
-    }
 }

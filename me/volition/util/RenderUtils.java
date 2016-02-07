@@ -9,7 +9,7 @@ import java.awt.*;
  * Created by Demerzel on 2/4/16.
  */
 public class RenderUtils {
-    public static void alias(Graphics g){
+    public static Graphics2D alias(Graphics g){
         Graphics2D g2 = (Graphics2D)g;
         RenderingHints rh = new RenderingHints(
                 RenderingHints.KEY_TEXT_ANTIALIASING,
@@ -36,13 +36,6 @@ public class RenderUtils {
         g2.setColor(Color.WHITE);
         g2.setFont(new Font("Determination Sans", Font.PLAIN, size));
         g2.drawString(line, 20, y);
-    }
-
-    public static void drawLeftText(Graphics g, String line, int y, int size){
-        alias(g);
-        g.setColor(Color.WHITE);
-        g.setFont(new Font("Determination Mono", Font.PLAIN, size));
-        g.drawString(line, 20, y);
     }
 
     public static void drawTextBox(Graphics g, String text){

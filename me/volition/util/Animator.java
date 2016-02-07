@@ -15,7 +15,7 @@ public class Animator {
         this.images = images;
         currentImageIndex = 0;
 
-        maxTick = 180;
+        maxTick = 1000000;
     }
 
     public void setCurrentImageIndex(int currentImageIndex){

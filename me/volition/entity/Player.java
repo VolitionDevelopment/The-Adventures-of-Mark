@@ -7,7 +7,6 @@ import me.volition.location.Location;
 import me.volition.util.Animator;
 import me.volition.util.ImageManager;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,32 +24,41 @@ public class Player extends Entity{
     private Animator idle, walkRight, walkLeft, walkUp, walkDown;
 
     public Player(Location location) {
-        super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", 100, 30, 20, location, Window.WINDOW_WIDTH / 2, Window.WINDOW_HEIGHT / 2);
+        super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", 100, 30, 5, location, Window.WINDOW_WIDTH / 2, Window.WINDOW_HEIGHT / 2);
     }
 
     @Override
     public void loadImages(){
 
-        BufferedImage spriteSheet = new ImageManager().loadImage("/me/volition/assets/image/entities/player.png");
+        BufferedImage spriteSheet = new ImageManager().loadImage("/me/volition/assets/image/entities/player_spritesheet.png");
 
-        BufferedImage[] rightFrames = new BufferedImage[1];
-        rightFrames[0] = spriteSheet;
+        BufferedImage[] rightFrames = new BufferedImage[4];
+        rightFrames[0] = spriteSheet.getSubimage(128, 64, 64, 64);
+        rightFrames[1] = spriteSheet.getSubimage(192, 64, 64, 64);
+        rightFrames[2] = spriteSheet.getSubimage(0, 128, 64, 64);
+        rightFrames[3] = spriteSheet.getSubimage(64, 128, 64, 64);
         walkRight = new Animator(rightFrames);
 
-        BufferedImage[] leftFrames = new BufferedImage[1];
-        leftFrames[0] = spriteSheet;
+        BufferedImage[] leftFrames = new BufferedImage[4];
+        leftFrames[0] = spriteSheet.getSubimage(128, 0, 64, 64);
+        leftFrames[1] = spriteSheet.getSubimage(192, 0, 64, 64);
+        leftFrames[2] = spriteSheet.getSubimage(0, 64, 64, 64);
+        leftFrames[3] = spriteSheet.getSubimage(64, 64, 64, 64);
         walkLeft = new Animator(leftFrames);
 
-        BufferedImage[] upFrames = new BufferedImage[1];
-        upFrames[0] = spriteSheet;
+        BufferedImage[] upFrames = new BufferedImage[2];
+        upFrames[0] = spriteSheet.getSubimage(0, 192, 64, 64);
+        upFrames[1] = spriteSheet.getSubimage(64, 192, 64, 64);
         walkUp = new Animator(upFrames);
 
-        BufferedImage[] downFrames = new BufferedImage[1];
-        downFrames[0] = spriteSheet;
+        BufferedImage[] downFrames = new BufferedImage[2];
+        downFrames[0] = spriteSheet.getSubimage(128, 128, 64, 64);
+        downFrames[1] = spriteSheet.getSubimage(192, 128, 64, 64);
         walkDown = new Animator(downFrames);
 
-        BufferedImage[] idleFrames = new BufferedImage[1];
-        idleFrames[0] = spriteSheet;
+        BufferedImage[] idleFrames = new BufferedImage[2];
+        idleFrames[0] = spriteSheet.getSubimage(0, 0, 64, 64);
+        idleFrames[1] = spriteSheet.getSubimage(64, 0, 64, 64);
         idle = new Animator(idleFrames);
 
         setAnimator(idle);
@@ -70,13 +78,15 @@ public class Player extends Entity{
                 setY(getY() - (delta * getBaseSpeed()));
                 setAnimator(walkUp);
             }
-
+            //up/down animations have priority over left/right
             if (isGoingLeft()) {
                 setX(getX() - (delta * getBaseSpeed()));
-                setAnimator(walkLeft);
+                if (!isGoingUp() && !isGoingDown())
+                    setAnimator(walkLeft);
             } else if (isGoingRight()) {
                 setX(getX() + (delta * getBaseSpeed()));
-                setAnimator(walkRight);
+                if (!isGoingUp() && !isGoingDown())
+                    setAnimator(walkRight);
             }
         }
     }

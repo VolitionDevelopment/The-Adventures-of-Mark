@@ -52,6 +52,9 @@ public abstract class Location {
             player.setGoingUp(false);
 
         //not colliding with any tiles that start battles
+        /**
+         * error, doesnt check diagonals (too lazy rn xd)
+         */
         if (tilemap[(int) (player.getY() + distConst) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth()) / Tile.TILE_SIZE].startsBattle() ||
                 tilemap[(int) (player.getY() + player.getHeight() - distConst) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth()) / Tile.TILE_SIZE].startsBattle())
             BattleManager.startBattle(GameManager.getGameState(), player, tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) (player.getX() + player.getWidth()) / Tile.TILE_SIZE].getEntities());

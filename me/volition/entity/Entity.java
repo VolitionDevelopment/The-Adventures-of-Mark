@@ -55,9 +55,6 @@ public abstract class Entity {
 
         this.moves = new ArrayList<>();
 
-        this.x = x;
-        this.y = y;
-
         heal();
     }
 
@@ -198,9 +195,11 @@ public abstract class Entity {
     }
 
     public void setAnimator(Animator animator){
-        if (this.animator != null)
-            this.animator.reset();
-        this.animator = animator;
+        if (this.animator != animator) {
+            if (this.animator != null)
+                this.animator.reset();
+            this.animator = animator;
+        }
     }
 
     public Location getLocation() {

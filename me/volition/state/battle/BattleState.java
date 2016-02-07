@@ -18,7 +18,7 @@ public class BattleState extends State {
 
     private ArrayList<Entity> enemies;
     private Player player;
-    
+
     private int currentEnemy;
 
     private boolean playerTurn;

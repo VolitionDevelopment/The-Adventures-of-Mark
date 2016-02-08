@@ -14,12 +14,12 @@ public abstract class Tile {
     public static final int TILE_SIZE = 64;
 
     private BufferedImage image;
-    private int x, y;
+    private double x, y;
     private boolean isSolid;
     private boolean startsBattle;
     private ArrayList<Entity> entities;
 
-    public Tile(BufferedImage image, boolean isSolid, int x, int y){
+    public Tile(BufferedImage image, boolean isSolid, double x, double y){
         this.image = image;
         this.x = x;
         this.y = y;
@@ -54,16 +54,25 @@ public abstract class Tile {
         return entities;
     }
 
-    public int getX(){
+    public void setX(double x){
+        this.x = x;
+    }
+
+    public void setY(double y){
+        this.y = y;
+    }
+
+    public double getX(){
         return x;
     }
 
-    public int getY(){
+    public double getY(){
         return y;
     }
 
     public void render(Graphics g){
+
         if (image != null)
-            g.drawImage(image, x, y, TILE_SIZE, TILE_SIZE, null);
+            g.drawImage(image, (int) x, (int) y, TILE_SIZE, TILE_SIZE, null);
     }
 }

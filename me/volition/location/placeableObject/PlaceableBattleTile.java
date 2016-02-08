@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class PlaceableBattleTile extends PlaceableObject {
 
-    public PlaceableBattleTile(Tile[][] tileMap, ArrayList<Entity> entities, int x, int y) {
+    public PlaceableBattleTile(Tile[][] tileMap, ArrayList<Entity> entities, double x, double y) {
         super(null, tileMap, entities, x, y);
     }
 }

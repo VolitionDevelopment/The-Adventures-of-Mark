@@ -68,25 +68,27 @@ public class Player extends Entity{
     public void update(double delta){
         super.update(delta);
 
-        if (!isGoingRight() && !isGoingLeft() && !isGoingUp() && !isGoingDown())
-            setAnimator(idle);
-        else {
-            if (isGoingDown()) {
-                setY(getY() + (delta * getBaseSpeed()));
-                setAnimator(walkDown);
-            } else if (isGoingUp()) {
-                setY(getY() - (delta * getBaseSpeed()));
-                setAnimator(walkUp);
-            }
-            //up/down animations have priority over left/right
-            if (isGoingLeft()) {
-                setX(getX() - (delta * getBaseSpeed()));
-                if (!isGoingUp() && !isGoingDown())
-                    setAnimator(walkLeft);
-            } else if (isGoingRight()) {
-                setX(getX() + (delta * getBaseSpeed()));
-                if (!isGoingUp() && !isGoingDown())
-                    setAnimator(walkRight);
+        if (!getLocation().hasFreeCamera()) {
+            if (!isGoingRight() && !isGoingLeft() && !isGoingUp() && !isGoingDown())
+                setAnimator(idle);
+            else {
+                if (isGoingDown()) {
+                    setY(getY() + (delta * getBaseSpeed()));
+                    setAnimator(walkDown);
+                } else if (isGoingUp()) {
+                    setY(getY() - (delta * getBaseSpeed()));
+                    setAnimator(walkUp);
+                }
+                //up/down animations have priority over left/right
+                if (isGoingLeft()) {
+                    setX(getX() - (delta * getBaseSpeed()));
+                    if (!isGoingUp() && !isGoingDown())
+                        setAnimator(walkLeft);
+                } else if (isGoingRight()) {
+                    setX(getX() + (delta * getBaseSpeed()));
+                    if (!isGoingUp() && !isGoingDown())
+                        setAnimator(walkRight);
+                }
             }
         }
     }

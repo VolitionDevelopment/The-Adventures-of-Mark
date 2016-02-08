@@ -22,8 +22,8 @@ public class GameManager {
         Location start = new MarkApartment();
         Location room = new Room();
 
-        start.addExit(new Exit(new Rectangle(Window.WINDOW_WIDTH - 100, Window.WINDOW_HEIGHT / 2 - 50, 100, 150), room, true));
-        room.addExit(new Exit(new Rectangle(Window.WINDOW_WIDTH / 2, 0, 100, 100), start, true));
+        start.addExit(new Exit(Window.WINDOW_WIDTH - 100, Window.WINDOW_HEIGHT / 2 - 50, 100, 150, room, true));
+        room.addExit(new Exit(Window.WINDOW_WIDTH / 2, 0, 100, 100, start, true));
 
         player = new Player(start);
     }

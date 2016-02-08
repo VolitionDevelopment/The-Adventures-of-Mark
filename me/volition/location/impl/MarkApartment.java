@@ -16,7 +16,7 @@ import me.volition.location.tile.WoodTile;
 public class MarkApartment extends Location {
 
     public MarkApartment() {
-        super("Mark's Apartment");
+        super("Mark's Apartment", true);
     }
 
     @Override

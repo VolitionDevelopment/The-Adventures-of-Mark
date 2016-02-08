@@ -18,20 +18,71 @@ public abstract class Location {
     private ArrayList<Exit> exits;
     private ArrayList<PlaceableObject> placeableObjects;
     private Tile[][] tilemap;
+    private boolean freeCamera;
 
 
-    public Location(String name) {
+    public Location(String name, boolean freeCamera) {
         exits = new ArrayList<>();
         placeableObjects = new ArrayList<>();
         this.name = name;
-
+        this.freeCamera = freeCamera;
         tilemap = loadMap();
     }
 
     /**
      * may be inefficient? idk check later xd
      * */
-    public void update(Player player){
+    public void update(double delta, Player player){
+
+        if (freeCamera){
+            //move objects if the player is moving
+            if (player.isGoingDown()) {
+                for (Tile[] aTilemap : tilemap)
+                    for (Tile anATilemap : aTilemap)
+                        anATilemap.setY(anATilemap.getY() - (delta * player.getBaseSpeed()));
+
+                for (PlaceableObject placeableObject: placeableObjects)
+                    placeableObject.setY(placeableObject.getY() - (delta * player.getBaseSpeed()));
+
+                for (Exit exit: exits)
+                    exit.setY(exit.getY() - (delta * player.getBaseSpeed()));
+
+            } else if (player.isGoingUp()) {
+                for (Tile[] aTilemap : tilemap)
+                    for (Tile anATilemap : aTilemap)
+                        anATilemap.setY(anATilemap.getY() + (delta * player.getBaseSpeed()));
+
+                for (PlaceableObject placeableObject: placeableObjects)
+                    placeableObject.setY(placeableObject.getY() + (delta * player.getBaseSpeed()));
+
+                for (Exit exit: exits)
+                    exit.setY(exit.getY() + (delta * player.getBaseSpeed()));
+            }
+
+            if (player.isGoingRight()){
+                for (Tile[] aTilemap : tilemap)
+                    for (Tile anATilemap : aTilemap)
+                        anATilemap.setX(anATilemap.getX() - (delta * player.getBaseSpeed()));
+
+                for (PlaceableObject placeableObject: placeableObjects)
+                    placeableObject.setX(placeableObject.getX() - (delta * player.getBaseSpeed()));
+
+                for (Exit exit: exits)
+                    exit.setX(exit.getX() - (delta * player.getBaseSpeed()));
+
+            } else if (player.isGoingLeft()){
+                for (Tile[] aTilemap : tilemap)
+                    for (Tile anATilemap : aTilemap)
+                        anATilemap.setX(anATilemap.getX() + (delta * player.getBaseSpeed()));
+
+                for (PlaceableObject placeableObject: placeableObjects)
+                    placeableObject.setX(placeableObject.getX() + (delta * player.getBaseSpeed()));
+
+                for (Exit exit: exits)
+                    exit.setX(exit.getX() + (delta * player.getBaseSpeed()));
+            }
+        }
+
         int distConst = 10;
 
         //not colliding with any solid objects
@@ -76,6 +127,10 @@ public abstract class Location {
                 player.setLocation(exit.getLeadsTo());
             }
         }
+    }
+
+    public boolean hasFreeCamera(){
+        return freeCamera;
     }
 
     public ArrayList<Exit> getExits() {

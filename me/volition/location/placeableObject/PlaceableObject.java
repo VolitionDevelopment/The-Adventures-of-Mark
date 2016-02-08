@@ -17,10 +17,10 @@ import java.util.Random;
 public abstract class PlaceableObject {
 
     private BufferedImage image;
-    private int x, y;
+    private double x, y;
 
     //solid objects
-    public PlaceableObject(BufferedImage image, Tile[][] tileMap, boolean isSolid, int x, int y) { //location, size in terms of TILES, not pixels
+    public PlaceableObject(BufferedImage image, Tile[][] tileMap, boolean isSolid, double x, double y) { //location, size in terms of TILES, not pixels
         this.image = image;
         this.x = x;
         this.y = y;
@@ -35,7 +35,7 @@ public abstract class PlaceableObject {
             for (int i = 0; i < height; i++) {
                 for (int j = 0; j < width; j++) {
                     if (y + i < tileMap.length && x + j < tileMap[i].length)
-                        tileMap[y + i][x + j].setSolid(true);
+                        tileMap[(int) y + i][(int) x + j].setSolid(true);
                 }
             }
         }
@@ -43,7 +43,7 @@ public abstract class PlaceableObject {
 
     //battle tiles
     //can leave entities null to have a random pool of entities
-    public PlaceableObject(BufferedImage image, Tile[][] tileMap, ArrayList<Entity> entities, int x, int y) { //location, size in terms of TILES, not pixels
+    public PlaceableObject(BufferedImage image, Tile[][] tileMap, ArrayList<Entity> entities, double x, double y) { //location, size in terms of TILES, not pixels
         this.image = image;
         this.x = x;
         this.y = y;
@@ -64,15 +64,31 @@ public abstract class PlaceableObject {
 
         }
 
-        tileMap[y][x].setStartsBattle(true);
-        tileMap[y][x].setEntities(entities);
+        tileMap[(int) y][(int) x].setStartsBattle(true);
+        tileMap[(int) y][(int) x].setEntities(entities);
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
     }
 
     public Rectangle getBounds(){
-        return new Rectangle(x, y, image.getWidth(), image.getHeight());
+        return new Rectangle((int) x, (int) y, image.getWidth(), image.getHeight());
     }
 
     public void render(Graphics g){
-        g.drawImage(image, x, y, null);
+        g.drawImage(image, (int) x, (int) y, null);
     }
 }

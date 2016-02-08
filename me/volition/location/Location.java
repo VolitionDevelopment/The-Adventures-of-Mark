@@ -136,6 +136,7 @@ public abstract class Location {
     }
 
     public void enterRoom(Player player){
+        loadExits(tilemap);
         if (freeCamera) {
             for (Tile[] aTilemap : tilemap) {
                 for (Tile tile : aTilemap) {
@@ -194,6 +195,8 @@ public abstract class Location {
 
     public abstract Tile[][] loadMap();
 
+    public abstract void loadExits(Tile[][] tilemap);
+
     @Override
     public String toString() {
         return "Location{" +
@@ -212,8 +215,9 @@ public abstract class Location {
             if (s.getX() + s.getWidth() > 0 && s.getX() < Window.WINDOW_WIDTH && s.getY() + s.getHeight() > 0 && s.getY() < Window.WINDOW_HEIGHT)
                 s.render(g);
 
+        g.setColor(Color.WHITE);
         for (Exit e: exits)
             if (e.getX() + e.getWidth() > 0 && e.getX() < Window.WINDOW_WIDTH && e.getY() + e.getHeight() > 0 && e.getY() < Window.WINDOW_HEIGHT)
-                g.drawRect(e.getBounds().x, e.getBounds().y, e.getBounds().width, e.getBounds().height);
+                g.fillRect(e.getBounds().x, e.getBounds().y, e.getBounds().width, e.getBounds().height);
     }
 }

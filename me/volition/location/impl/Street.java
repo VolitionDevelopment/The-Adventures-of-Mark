@@ -1,5 +1,6 @@
 package me.volition.location.impl;
 
+import me.volition.location.Exit;
 import me.volition.location.Location;
 import me.volition.location.tile.Tile;
 
@@ -16,5 +17,9 @@ public class Street extends Location {
     @Override
     public Tile[][] loadMap() {
         return new Tile[0][];
+    }
+
+    @Override
+    public void loadExits(Tile[][] tileMap){
     }
 }

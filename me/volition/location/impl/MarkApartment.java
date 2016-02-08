@@ -44,9 +44,11 @@ public class MarkApartment extends Location {
         addPlaceableObject(new PizzaBox(tileMap, 4 * Tile.TILE_SIZE, 4 * Tile.TILE_SIZE));
         addPlaceableObject(new TexasCarpet(tileMap, 5 * Tile.TILE_SIZE, 3 * Tile.TILE_SIZE));
 
-        //add doors
-        addExit(new Exit(tileMap[0].length * Tile.TILE_SIZE - Tile.TILE_SIZE * 2, tileMap.length / 2 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, new Room(), Tile.TILE_SIZE, 2 * Tile.TILE_SIZE, true));
-
         return tileMap;
+    }
+
+    @Override
+    public void loadExits(Tile[][] tileMap){
+        addExit(new Exit(tileMap[0].length * Tile.TILE_SIZE - Tile.TILE_SIZE * 2, tileMap.length / 2 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, new Room(), Tile.TILE_SIZE * 2, 2 * Tile.TILE_SIZE, true));
     }
 }

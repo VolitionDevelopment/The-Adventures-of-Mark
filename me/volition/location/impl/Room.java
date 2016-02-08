@@ -32,4 +32,9 @@ public class Room extends Location {
         return tileMap;
     }
 
+    @Override
+    public void loadExits(Tile[][] tileMap){
+        addExit(new Exit(Tile.TILE_SIZE, 2 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, new MarkApartment(), 10 * Tile.TILE_SIZE, 5 * Tile.TILE_SIZE, true));
+    }
+
 }

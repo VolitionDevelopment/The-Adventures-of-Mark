@@ -30,7 +30,7 @@ public class GameState extends State {
     public void update(double delta) {
         Location currentLocation = gameManager.getPlayer().getLocation();
         player.update(delta);
-        currentLocation.update(delta, player);
+        currentLocation.update(player);
 
         if (gameManager.getPlayer().isDead())
             StateManager.setCurrentState(StateManager.MAIN_MENU_INDEX);

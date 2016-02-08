@@ -72,6 +72,9 @@ public class Player extends Entity{
 
         //free camera only updates animations, not position
         if (getLocation().hasFreeCamera()) {
+
+            getLocation().adjustCamera(delta, this);
+
             if (!isGoingRight() && !isGoingLeft() && !isGoingUp() && !isGoingDown())
                 setAnimator(idle);
             else {
@@ -85,9 +88,12 @@ public class Player extends Entity{
                 else if (isGoingRight() && !isGoingUp() && !isGoingDown())
                     setAnimator(walkRight);
             }
+
         } else {
+
             if (!isGoingRight() && !isGoingLeft() && !isGoingUp() && !isGoingDown())
                 setAnimator(idle);
+
             else {
                 if (isGoingDown()) {
                     setY(getY() + (delta * getBaseSpeed()));
@@ -107,6 +113,7 @@ public class Player extends Entity{
                         setAnimator(walkRight);
                 }
             }
+
         }
     }
 

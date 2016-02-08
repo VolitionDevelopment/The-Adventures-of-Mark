@@ -34,60 +34,7 @@ public abstract class Location {
     /**
      * may be inefficient? idk check later xd
      * */
-    public void update(double delta, Player player){
-
-        if (freeCamera){
-            //move objects if the player is moving
-            if (player.isGoingDown()) {
-                player.setY(player.getY() + (delta * player.getBaseSpeed()));
-                for (Tile[] aTilemap : tilemap)
-                    for (Tile anATilemap : aTilemap)
-                        anATilemap.setY(anATilemap.getY() - (delta * player.getBaseSpeed()));
-
-                for (PlaceableObject placeableObject: placeableObjects)
-                    placeableObject.setY(placeableObject.getY() - (delta * player.getBaseSpeed()));
-
-                for (Exit exit: exits)
-                    exit.setY(exit.getY() - (delta * player.getBaseSpeed()));
-
-            } else if (player.isGoingUp()) {
-                player.setY(player.getY() - (delta * player.getBaseSpeed()));
-                for (Tile[] aTilemap : tilemap)
-                    for (Tile anATilemap : aTilemap)
-                        anATilemap.setY(anATilemap.getY() + (delta * player.getBaseSpeed()));
-
-                for (PlaceableObject placeableObject: placeableObjects)
-                    placeableObject.setY(placeableObject.getY() + (delta * player.getBaseSpeed()));
-
-                for (Exit exit: exits)
-                    exit.setY(exit.getY() + (delta * player.getBaseSpeed()));
-            }
-
-            if (player.isGoingRight()){
-                player.setX(player.getX() + (delta * player.getBaseSpeed()));
-                for (Tile[] aTilemap : tilemap)
-                    for (Tile anATilemap : aTilemap)
-                        anATilemap.setX(anATilemap.getX() - (delta * player.getBaseSpeed()));
-
-                for (PlaceableObject placeableObject: placeableObjects)
-                    placeableObject.setX(placeableObject.getX() - (delta * player.getBaseSpeed()));
-
-                for (Exit exit: exits)
-                    exit.setX(exit.getX() - (delta * player.getBaseSpeed()));
-
-            } else if (player.isGoingLeft()){
-                player.setX(player.getX() - (delta * player.getBaseSpeed()));
-                for (Tile[] aTilemap : tilemap)
-                    for (Tile anATilemap : aTilemap)
-                        anATilemap.setX(anATilemap.getX() + (delta * player.getBaseSpeed()));
-
-                for (PlaceableObject placeableObject: placeableObjects)
-                    placeableObject.setX(placeableObject.getX() + (delta * player.getBaseSpeed()));
-
-                for (Exit exit: exits)
-                    exit.setX(exit.getX() + (delta * player.getBaseSpeed()));
-            }
-        }
+    public void update(Player player){
 
         int distConst = 10;
 
@@ -132,6 +79,59 @@ public abstract class Location {
             if (exit.isActive() && exit.contains(player.getBounds())) {
                 player.setLocation(exit.getLeadsTo());
             }
+        }
+    }
+
+    public void adjustCamera(double delta, Player player){
+        //move objects if the player is moving
+        if (player.isGoingDown()) {
+            player.setY(player.getY() + (delta * player.getBaseSpeed()));
+            for (Tile[] aTilemap : tilemap)
+                for (Tile anATilemap : aTilemap)
+                    anATilemap.setY(anATilemap.getY() - (delta * player.getBaseSpeed()));
+
+            for (PlaceableObject placeableObject: placeableObjects)
+                placeableObject.setY(placeableObject.getY() - (delta * player.getBaseSpeed()));
+
+            for (Exit exit: exits)
+                exit.setY(exit.getY() - (delta * player.getBaseSpeed()));
+
+        } else if (player.isGoingUp()) {
+            player.setY(player.getY() - (delta * player.getBaseSpeed()));
+            for (Tile[] aTilemap : tilemap)
+                for (Tile anATilemap : aTilemap)
+                    anATilemap.setY(anATilemap.getY() + (delta * player.getBaseSpeed()));
+
+            for (PlaceableObject placeableObject: placeableObjects)
+                placeableObject.setY(placeableObject.getY() + (delta * player.getBaseSpeed()));
+
+            for (Exit exit: exits)
+                exit.setY(exit.getY() + (delta * player.getBaseSpeed()));
+        }
+
+        if (player.isGoingRight()){
+            player.setX(player.getX() + (delta * player.getBaseSpeed()));
+            for (Tile[] aTilemap : tilemap)
+                for (Tile anATilemap : aTilemap)
+                    anATilemap.setX(anATilemap.getX() - (delta * player.getBaseSpeed()));
+
+            for (PlaceableObject placeableObject: placeableObjects)
+                placeableObject.setX(placeableObject.getX() - (delta * player.getBaseSpeed()));
+
+            for (Exit exit: exits)
+                exit.setX(exit.getX() - (delta * player.getBaseSpeed()));
+
+        } else if (player.isGoingLeft()){
+            player.setX(player.getX() - (delta * player.getBaseSpeed()));
+            for (Tile[] aTilemap : tilemap)
+                for (Tile anATilemap : aTilemap)
+                    anATilemap.setX(anATilemap.getX() + (delta * player.getBaseSpeed()));
+
+            for (PlaceableObject placeableObject: placeableObjects)
+                placeableObject.setX(placeableObject.getX() + (delta * player.getBaseSpeed()));
+
+            for (Exit exit: exits)
+                exit.setX(exit.getX() + (delta * player.getBaseSpeed()));
         }
     }
 

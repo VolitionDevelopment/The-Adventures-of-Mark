@@ -9,13 +9,13 @@ public class Animator {
 
     private BufferedImage[] images;
     private int currentImageIndex;
-    private int currentTick, maxTick;
+    private float currentTick, maxTick;
 
     public Animator(BufferedImage[] images){
         this.images = images;
         currentImageIndex = 0;
 
-        maxTick = 1000000;
+        maxTick = 5;
     }
 
     public void setCurrentImageIndex(int currentImageIndex){
@@ -27,8 +27,8 @@ public class Animator {
         currentTick = 0;
     }
 
-    public void update(){
-        currentTick ++;
+    public void update(double delta){
+        currentTick += delta;
         if (currentTick >= maxTick){
             currentTick = 0;
             currentImageIndex++;

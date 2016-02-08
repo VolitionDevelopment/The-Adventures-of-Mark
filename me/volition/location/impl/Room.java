@@ -6,8 +6,6 @@ import me.volition.location.tile.BrickWall;
 import me.volition.location.tile.Tile;
 import me.volition.location.tile.WoodTile;
 
-import java.awt.*;
-
 /**
  * Created by Demerzel on 2/3/16.
  */

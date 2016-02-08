@@ -220,7 +220,7 @@ public abstract class Entity {
     }
 
     public void update(double delta){
-        animator.update();
+        animator.update(delta);
     }
 
     public abstract void loadImages();

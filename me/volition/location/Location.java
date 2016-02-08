@@ -37,6 +37,7 @@ public abstract class Location {
         if (freeCamera){
             //move objects if the player is moving
             if (player.isGoingDown()) {
+                player.setY(player.getY() + (delta * player.getBaseSpeed()));
                 for (Tile[] aTilemap : tilemap)
                     for (Tile anATilemap : aTilemap)
                         anATilemap.setY(anATilemap.getY() - (delta * player.getBaseSpeed()));
@@ -48,6 +49,7 @@ public abstract class Location {
                     exit.setY(exit.getY() - (delta * player.getBaseSpeed()));
 
             } else if (player.isGoingUp()) {
+                player.setY(player.getY() - (delta * player.getBaseSpeed()));
                 for (Tile[] aTilemap : tilemap)
                     for (Tile anATilemap : aTilemap)
                         anATilemap.setY(anATilemap.getY() + (delta * player.getBaseSpeed()));
@@ -60,6 +62,7 @@ public abstract class Location {
             }
 
             if (player.isGoingRight()){
+                player.setX(player.getX() + (delta * player.getBaseSpeed()));
                 for (Tile[] aTilemap : tilemap)
                     for (Tile anATilemap : aTilemap)
                         anATilemap.setX(anATilemap.getX() - (delta * player.getBaseSpeed()));
@@ -71,6 +74,7 @@ public abstract class Location {
                     exit.setX(exit.getX() - (delta * player.getBaseSpeed()));
 
             } else if (player.isGoingLeft()){
+                player.setX(player.getX() - (delta * player.getBaseSpeed()));
                 for (Tile[] aTilemap : tilemap)
                     for (Tile anATilemap : aTilemap)
                         anATilemap.setX(anATilemap.getX() + (delta * player.getBaseSpeed()));

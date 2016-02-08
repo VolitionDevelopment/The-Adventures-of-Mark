@@ -3,10 +3,7 @@ package me.volition.location.impl;
 import me.volition.Window;
 import me.volition.location.Exit;
 import me.volition.location.Location;
-import me.volition.location.placeableObject.Bed;
-import me.volition.location.placeableObject.Desk;
-import me.volition.location.placeableObject.PizzaBox;
-import me.volition.location.placeableObject.TexasCarpet;
+import me.volition.location.placeableObject.*;
 import me.volition.location.tile.BrickWall;
 import me.volition.location.tile.Tile;
 import me.volition.location.tile.WoodTile;
@@ -37,12 +34,14 @@ public class MarkApartment extends Location {
         }
 
         //add solid objects
+        addPlaceableObject(new TexasCarpet(tileMap, 5 * Tile.TILE_SIZE, 3 * Tile.TILE_SIZE));
+        addPlaceableObject(new PizzaBox(tileMap, Tile.TILE_SIZE, 2 * Tile.TILE_SIZE));
+        addPlaceableObject(new PizzaBox(tileMap,  2 * Tile.TILE_SIZE, 6 * Tile.TILE_SIZE));
+        addPlaceableObject(new PizzaBox(tileMap, 5 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE));
         addPlaceableObject(new Bed(tileMap, 8 * Tile.TILE_SIZE, 2 * Tile.TILE_SIZE));
         addPlaceableObject(new Desk(tileMap, 2 * Tile.TILE_SIZE, Tile.TILE_SIZE));
-        addPlaceableObject(new PizzaBox(tileMap, Tile.TILE_SIZE, 2 * Tile.TILE_SIZE));
-        addPlaceableObject(new PizzaBox(tileMap,  2 * Tile.TILE_SIZE, 5 * Tile.TILE_SIZE));
-        addPlaceableObject(new PizzaBox(tileMap, 4 * Tile.TILE_SIZE, 4 * Tile.TILE_SIZE));
-        addPlaceableObject(new TexasCarpet(tileMap, 5 * Tile.TILE_SIZE, 3 * Tile.TILE_SIZE));
+        addPlaceableObject(new Couch(tileMap, 3 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE));
+
 
         return tileMap;
     }

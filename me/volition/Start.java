@@ -1,7 +1,6 @@
 package me.volition;
 
 import me.volition.state.StateManager;
-import me.volition.state.menu.MainMenu;
 import me.volition.util.FontManager;
 
 /**

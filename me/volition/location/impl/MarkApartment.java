@@ -1,12 +1,12 @@
 package me.volition.location.impl;
 
-import me.volition.Window;
 import me.volition.location.Exit;
 import me.volition.location.Location;
 import me.volition.location.placeableObject.*;
 import me.volition.location.tile.BrickWall;
 import me.volition.location.tile.Tile;
 import me.volition.location.tile.WoodTile;
+import me.volition.util.ImageManager;
 
 import java.util.ArrayList;
 
@@ -21,17 +21,12 @@ public class MarkApartment extends Location {
 
     @Override
     public Tile[][] loadMap() {
-        Tile[][] tileMap = new Tile[Window.WINDOW_HEIGHT / Tile.TILE_SIZE][Window.WINDOW_WIDTH / Tile.TILE_SIZE];
 
-        //set background
-        for (int i = 0; i < tileMap.length; i++){
-            for (int j = 0; j < tileMap[i].length; j++){
-                if (i == 0 || j == 0 || i == tileMap.length - 1 || j == tileMap[i].length - 1)
-                    tileMap[i][j] = new BrickWall(j * Tile.TILE_SIZE, i * Tile.TILE_SIZE);
-                else
-                    tileMap[i][j] = new WoodTile(j * Tile.TILE_SIZE, i * Tile.TILE_SIZE);
-            }
-        }
+        ArrayList<Class<? extends Tile>> tiles = new ArrayList<>();
+        tiles.add(WoodTile.class);
+        tiles.add(BrickWall.class);
+
+        Tile[][] tileMap = ImageManager.loadMapFromImage(new ImageManager().loadImage("/me/volition/assets/image/rooms/marksroom.png"), tiles);
 
         //add solid objects
         addPlaceableObject(new TexasCarpet(tileMap, 5 * Tile.TILE_SIZE, 3 * Tile.TILE_SIZE));

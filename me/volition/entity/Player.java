@@ -4,6 +4,7 @@ import me.volition.Window;
 import me.volition.item.Item;
 import me.volition.item.ItemSlot;
 import me.volition.location.Location;
+import me.volition.location.tile.Tile;
 import me.volition.util.Animator;
 import me.volition.util.ImageManager;
 
@@ -25,7 +26,7 @@ public class Player extends Entity{
     private Animator idle, walkRight, walkLeft, walkUp, walkDown;
 
     public Player(Location location) {
-        super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", 100, 30, 5, location, Window.WINDOW_WIDTH / 2 - 32, Window.WINDOW_HEIGHT / 2 - 32);
+        super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", 100, 30, 5, location, Window.WINDOW_WIDTH / 2 - Tile.TILE_SIZE / 2, Window.WINDOW_HEIGHT / 2 - Tile.TILE_SIZE / 2);
     }
 
     @Override

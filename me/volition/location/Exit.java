@@ -40,6 +40,14 @@ public class Exit {
         bounds = new Rectangle((int) x, (int) y, width, height);
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     public double getX() {
         return x;
     }

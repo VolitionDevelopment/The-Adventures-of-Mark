@@ -18,10 +18,13 @@ public abstract class PlaceableObject {
 
     private BufferedImage image;
     private double x, y;
+    private int width, height;
 
     //solid objects
     public PlaceableObject(BufferedImage image, Tile[][] tileMap, boolean isSolid, double x, double y) { //location, size in terms of TILES, not pixels
         this.image = image;
+        this.width = image.getWidth();
+        this.height = image.getHeight();
         this.x = x;
         this.y = y;
 
@@ -45,6 +48,8 @@ public abstract class PlaceableObject {
     //can leave entities null to have a random pool of entities
     public PlaceableObject(BufferedImage image, Tile[][] tileMap, ArrayList<Entity> entities, double x, double y) { //location, size in terms of TILES, not pixels
         this.image = image;
+        this.width = image.getWidth();
+        this.height = image.getHeight();
         this.x = x;
         this.y = y;
 
@@ -70,6 +75,14 @@ public abstract class PlaceableObject {
 
     public void setX(double x) {
         this.x = x;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     public void setY(double y) {

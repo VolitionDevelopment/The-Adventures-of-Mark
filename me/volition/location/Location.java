@@ -1,5 +1,7 @@
 package me.volition.location;
 
+import me.volition.*;
+import me.volition.Window;
 import me.volition.entity.Player;
 import me.volition.location.placeableObject.PlaceableObject;
 import me.volition.location.tile.Tile;
@@ -181,13 +183,16 @@ public abstract class Location {
     public void render(Graphics g) {
         for (Tile[] array: tilemap){
             for (Tile tile: array)
-                tile.render(g);
+                if (tile.getX() + Tile.TILE_SIZE > 0 && tile.getX() < Window.WINDOW_WIDTH && tile.getY() + Tile.TILE_SIZE > 0 && tile.getY() < Window.WINDOW_HEIGHT)
+                    tile.render(g);
         }
 
         for (PlaceableObject s: placeableObjects)
-            s.render(g);
+            if (s.getX() + s.getWidth() > 0 && s.getX() < Window.WINDOW_WIDTH && s.getY() + s.getHeight() > 0 && s.getY() < Window.WINDOW_HEIGHT)
+                s.render(g);
 
         for (Exit e: exits)
-            g.drawRect(e.getBounds().x, e.getBounds().y, e.getBounds().width, e.getBounds().height);
+            if (e.getX() + e.getWidth() > 0 && e.getX() < Window.WINDOW_WIDTH && e.getY() + e.getHeight() > 0 && e.getY() < Window.WINDOW_HEIGHT)
+                g.drawRect(e.getBounds().x, e.getBounds().y, e.getBounds().width, e.getBounds().height);
     }
 }

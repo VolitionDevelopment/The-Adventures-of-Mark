@@ -1,6 +1,9 @@
 package me.volition.location;
 
 
+import me.volition.entity.Player;
+import me.volition.location.tile.Tile;
+
 import java.awt.*;
 
 public class Exit {
@@ -10,19 +13,29 @@ public class Exit {
     private String m_directionName;
     private String m_shortDirectionName;
     private Rectangle bounds;
-    private double x, y;
+    private double x, y, newx, newy;
     private int width, height;
 
-    public Exit(double x, double y, int width, int height, Location leadsTo, boolean active) {
+    public Exit(double x, double y, int width, int height, Location leadsTo, int newx, int newy, boolean active) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.newx = newx;
+        this.newy = newy;
 
         bounds = new Rectangle((int) x, (int) y, width, height);
 
         m_leadsTo = leadsTo;
         this.active = active;
+    }
+
+    public void enter(Player player){
+        player.setLocation(m_leadsTo);
+        player.setX(newx);
+        player.setY(newy);
+
+        player.getLocation().enterRoom(player);
     }
 
     @Override
@@ -54,6 +67,14 @@ public class Exit {
 
     public double getY() {
         return y;
+    }
+
+    public double getNewx() {
+        return newx;
+    }
+
+    public double getNewy() {
+        return newy;
     }
 
     public Rectangle getBounds(){

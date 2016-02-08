@@ -76,10 +76,10 @@ public abstract class Location {
             BattleManager.startBattle(GameManager.getGameState(), player, tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].getEntities());
 
         for (Exit exit : exits) {
-            if (exit.isActive() && exit.contains(player.getBounds())) {
-                player.setLocation(exit.getLeadsTo());
-            }
+            if (exit.isActive() && exit.contains(player.getBounds()))
+                exit.enter(player);
         }
+
     }
 
     public void adjustCamera(double delta, Player player){
@@ -132,6 +132,27 @@ public abstract class Location {
 
             for (Exit exit: exits)
                 exit.setX(exit.getX() + (delta * player.getBaseSpeed()));
+        }
+    }
+
+    public void enterRoom(Player player){
+        if (freeCamera) {
+            for (Tile[] aTilemap : tilemap) {
+                for (Tile tile : aTilemap) {
+                    tile.setX(tile.getX() + Window.WINDOW_WIDTH / 2 - (player.getX() + player.getWidth() / 2));
+                    tile.setY(tile.getY() + Window.WINDOW_HEIGHT / 2 - (player.getY() + player.getHeight() / 2));
+                }
+            }
+
+            for (PlaceableObject placeableObject : placeableObjects) {
+                placeableObject.setX(placeableObject.getX() + Window.WINDOW_WIDTH / 2 - (player.getX() + player.getWidth() / 2));
+                placeableObject.setY(placeableObject.getY() + Window.WINDOW_HEIGHT / 2 - (player.getY() + player.getHeight() / 2));
+            }
+
+            for (Exit exit : exits) {
+                exit.setX(exit.getX() + Window.WINDOW_WIDTH / 2 - (player.getX() + player.getWidth() / 2));
+                exit.setY(exit.getY() + Window.WINDOW_HEIGHT / 2 - (player.getY() + player.getHeight() / 2));
+            }
         }
     }
 

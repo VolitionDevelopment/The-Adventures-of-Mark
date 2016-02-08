@@ -19,6 +19,7 @@ public class Main extends JPanel{
 
     public Main(){
 
+        setBackground(Color.BLACK);
         window = new Window(this);
         window.addKeyListener(new KeyListener() {
             @Override

@@ -96,38 +96,30 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Tile.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/me/volition/location/tile/Tile.java">
+      <file leaf-file-name="Window.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/me/volition/Window.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="56" column="27" selection-start-line="56" selection-start-column="27" selection-end-line="56" selection-end-column="27" />
-              <folding>
-                <element signature="e#1199#1200#0" expanded="true" />
-                <element signature="e#1225#1226#0" expanded="true" />
-                <element signature="e#1258#1259#0" expanded="true" />
-                <element signature="e#1284#1285#0" expanded="true" />
-              </folding>
+              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlaceableObject.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/me/volition/location/placeableObject/PlaceableObject.java">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/me/volition/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="70" column="27" selection-start-line="70" selection-start-column="27" selection-end-line="70" selection-end-column="27" />
-              <folding>
-                <element signature="e#2223#2224#0" expanded="true" />
-                <element signature="e#2249#2250#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="-0.3692946">
+              <caret line="21" column="33" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Player.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/me/volition/entity/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.37759337">
+            <state vertical-scroll-proportion="0.0">
               <caret line="206" column="127" selection-start-line="206" selection-start-column="127" selection-end-line="206" selection-end-column="127" />
               <folding>
                 <element signature="e#4659#4660#0" expanded="true" />
@@ -212,7 +204,6 @@
         <option value="$PROJECT_DIR$/me/volition/util/menu/MenuState.java" />
         <option value="$PROJECT_DIR$/me/volition/util/ImageManager.java" />
         <option value="$PROJECT_DIR$/me/volition/location/impl/Start.java" />
-        <option value="$PROJECT_DIR$/me/volition/Main.java" />
         <option value="$PROJECT_DIR$/me/volition/state/State.java" />
         <option value="$PROJECT_DIR$/me/volition/state/menu/BottomTextMenu.java" />
         <option value="$PROJECT_DIR$/me/volition/Start.java" />
@@ -229,7 +220,6 @@
         <option value="$PROJECT_DIR$/me/volition/util/RenderUtils.java" />
         <option value="$PROJECT_DIR$/me/volition/location/tile/TileMap.java" />
         <option value="$PROJECT_DIR$/me/volition/location/tile/WoodTile.java" />
-        <option value="$PROJECT_DIR$/me/volition/Window.java" />
         <option value="$PROJECT_DIR$/me/volition/location/solidobject/SolidObject.java" />
         <option value="$PROJECT_DIR$/me/volition/location/tile/BrickWall.java" />
         <option value="$PROJECT_DIR$/me/volition/location/solidobject/PlaceableObject.java" />
@@ -254,6 +244,8 @@
         <option value="$PROJECT_DIR$/me/volition/location/impl/MarkApartment.java" />
         <option value="$PROJECT_DIR$/me/volition/location/Location.java" />
         <option value="$PROJECT_DIR$/me/volition/entity/Player.java" />
+        <option value="$PROJECT_DIR$/me/volition/Window.java" />
+        <option value="$PROJECT_DIR$/me/volition/Main.java" />
       </list>
     </option>
   </component>
@@ -1135,13 +1127,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/me/volition/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/me/volition/state/menu/BottomTextMenu.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1210,14 +1195,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/me/volition/Window.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="46" selection-start-line="10" selection-start-column="46" selection-end-line="10" selection-end-column="46" />
           <folding />
         </state>
       </provider>
@@ -1407,7 +1384,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/me/volition/entity/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37759337">
+        <state vertical-scroll-proportion="0.0">
           <caret line="206" column="127" selection-start-line="206" selection-start-column="127" selection-end-line="206" selection-end-column="127" />
           <folding>
             <element signature="e#4659#4660#0" expanded="true" />
@@ -1435,6 +1412,22 @@
             <element signature="e#5938#5939#0" expanded="true" />
             <element signature="e#5988#5989#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/me/volition/Window.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/me/volition/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.3692946">
+          <caret line="21" column="33" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
+          <folding />
         </state>
       </provider>
     </entry>

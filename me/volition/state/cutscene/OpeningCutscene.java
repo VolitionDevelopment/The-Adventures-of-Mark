@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 public class OpeningCutscene extends CutsceneState {
 
     public OpeningCutscene() {
-        super(new String[]{"Mark was quite the Ian!", "Frame!", "Cunt!", "Muffin!"});
+        super(new String[]{"Ayy", "Lamo!"});
     }
 
     @Override
@@ -22,13 +22,10 @@ public class OpeningCutscene extends CutsceneState {
     @Override
     public BufferedImage[] loadDialogue_images() {
         ImageManager im = new ImageManager();
-        BufferedImage[] images = new BufferedImage[4];
+        BufferedImage[] images = new BufferedImage[2];
 
         images[0] = im.loadImage("/me/volition/assets/image/cutscene/opening1.png");
         images[1] = im.loadImage("/me/volition/assets/image/cutscene/opening2.png");
-        images[2] = im.loadImage("/me/volition/assets/image/cutscene/opening1.png");
-        images[3] = im.loadImage("/me/volition/assets/image/cutscene/opening2.png");
-
         return images;
     }
 }

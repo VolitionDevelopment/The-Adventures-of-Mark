@@ -27,19 +27,19 @@ public class MarkApartment extends Location {
         for (int i = 0; i < tileMap.length; i++){
             for (int j = 0; j < tileMap[i].length; j++){
                 if (i == 0 || j == 0 || i == tileMap.length - 1 || j == tileMap[i].length - 1)
-                    tileMap[i][j] = new BrickWall(j, i);
+                    tileMap[i][j] = new BrickWall(j * Tile.TILE_SIZE, i * Tile.TILE_SIZE);
                 else
-                    tileMap[i][j] = new WoodTile(j, i);
+                    tileMap[i][j] = new WoodTile(j * Tile.TILE_SIZE, i * Tile.TILE_SIZE);
             }
         }
 
         //add solid objects
-        addPlaceableObject(new Bed(tileMap, 8, 2));
-        addPlaceableObject(new Desk(tileMap, 2, 1));
-        addPlaceableObject(new PizzaBox(tileMap, 1, 2));
-        addPlaceableObject(new PizzaBox(tileMap,  2, 5));
-        addPlaceableObject(new PizzaBox(tileMap, 4, 4));
-        addPlaceableObject(new TexasCarpet(tileMap, 5, 3));
+        addPlaceableObject(new Bed(tileMap, 8 * Tile.TILE_SIZE, 2 * Tile.TILE_SIZE));
+        addPlaceableObject(new Desk(tileMap, 2 * Tile.TILE_SIZE, Tile.TILE_SIZE));
+        addPlaceableObject(new PizzaBox(tileMap, Tile.TILE_SIZE, 2 * Tile.TILE_SIZE));
+        addPlaceableObject(new PizzaBox(tileMap,  2 * Tile.TILE_SIZE, 5 * Tile.TILE_SIZE));
+        addPlaceableObject(new PizzaBox(tileMap, 4 * Tile.TILE_SIZE, 4 * Tile.TILE_SIZE));
+        addPlaceableObject(new TexasCarpet(tileMap, 5 * Tile.TILE_SIZE, 3 * Tile.TILE_SIZE));
 
         return tileMap;
     }

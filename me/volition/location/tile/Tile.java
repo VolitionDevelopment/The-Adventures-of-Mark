@@ -64,6 +64,6 @@ public abstract class Tile {
 
     public void render(Graphics g){
         if (image != null)
-            g.drawImage(image, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+            g.drawImage(image, x, y, TILE_SIZE, TILE_SIZE, null);
     }
 }

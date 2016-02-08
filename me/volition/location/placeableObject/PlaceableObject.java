@@ -25,6 +25,9 @@ public abstract class PlaceableObject {
         this.x = x;
         this.y = y;
 
+        x /= Tile.TILE_SIZE;
+        y /= Tile.TILE_SIZE;
+
         if (isSolid){
             int width = image.getWidth() / Tile.TILE_SIZE;
             int height = image.getHeight() / Tile.TILE_SIZE;
@@ -70,6 +73,6 @@ public abstract class PlaceableObject {
     }
 
     public void render(Graphics g){
-        g.drawImage(image, x * Tile.TILE_SIZE, y * Tile.TILE_SIZE, null);
+        g.drawImage(image, x, y, null);
     }
 }

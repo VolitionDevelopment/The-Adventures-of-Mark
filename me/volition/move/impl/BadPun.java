@@ -28,9 +28,7 @@ public class BadPun extends Move {
         double d = Math.random();
 
         if(d >= 0.5){
-            
             entity.setTolerance(entity.getTolerance() - getDamage());
-            System.out.println(entity.getTolerance());
         }else{
 
         }

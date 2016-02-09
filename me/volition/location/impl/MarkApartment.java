@@ -39,7 +39,6 @@ public class MarkApartment extends Location {
 
         addPlaceableObject(new PlaceableBattleTile(tileMap, null, 3 * Tile.TILE_SIZE, 3 * Tile.TILE_SIZE));
 
-
         return tileMap;
     }
 

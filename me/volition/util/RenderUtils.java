@@ -1,7 +1,5 @@
 package me.volition.util;
 
-import me.volition.Window;
-
 import java.awt.*;
 
 /**
@@ -29,6 +27,13 @@ public class RenderUtils {
         g2.setColor(Color.WHITE);
         g2.setFont(new Font("Determination Sans", Font.PLAIN, size));
         g2.drawString(line, 20, y);
+    }
+
+    public static void drawOutlinedBox(Graphics g, int x, int y, int width, int height){
+        g.setColor(Color.WHITE);
+        g.fillRect(x, y, width, height);
+        g.setColor(Color.BLACK);
+        g.fillRect(x + 5, y + 5, width - 10, height - 10);
     }
 
 }

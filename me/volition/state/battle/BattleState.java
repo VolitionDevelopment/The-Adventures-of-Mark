@@ -10,6 +10,7 @@ import me.volition.state.StateManager;
 import me.volition.state.menu.ingamemenu.BattleMenu;
 import me.volition.state.menu.ingamemenu.InGameMenu;
 import me.volition.util.GameManager;
+import me.volition.util.RenderUtils;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -137,15 +138,22 @@ public class BattleState extends State {
         }
 
         //render menus
+        RenderUtils.drawOutlinedBox(g, 0, 3 * Window.WINDOW_HEIGHT / 4 - 30, Window.WINDOW_WIDTH / 2, Window.WINDOW_HEIGHT / 4 + 20);
+        RenderUtils.drawOutlinedBox(g, Window.WINDOW_WIDTH / 2 - 5, 3 * Window.WINDOW_HEIGHT / 4 - 30, Window.WINDOW_WIDTH / 2, Window.WINDOW_HEIGHT / 4 + 20);
         battleMenu.render(g);
 
-        g.setColor(Color.RED);
-
+        g.setColor(Color.WHITE);
         g.drawString("" + player.getName() + " : " + player.getTolerance() + "/" + player.getBaseTolerance()
-            , Window.WINDOW_WIDTH / 2, 3 * Window.WINDOW_HEIGHT / 4);
-        for (int i = 0; i < enemies.size(); i++)
+            , Window.WINDOW_WIDTH / 2 + 15, 3 * Window.WINDOW_HEIGHT / 4);
+        g.drawRect(Window.WINDOW_WIDTH / 2 + 150, 3 * Window.WINDOW_HEIGHT / 4 - 10, 100, 10);
+        g.fillRect(Window.WINDOW_WIDTH / 2 + 150, 3 * Window.WINDOW_HEIGHT / 4 - 10, (int) ((player.getTolerance() * 1.0 / player.getBaseTolerance()) * 100), 10);
+        for (int i = 0; i < enemies.size(); i++) {
             g.drawString("" + enemies.get(i).getName() + " : " + enemies.get(i).getTolerance() + "/" + enemies.get(i).getBaseTolerance()
-            , Window.WINDOW_WIDTH / 2, 3 * Window.WINDOW_HEIGHT / 4 + 30 * (i + 1));
+                    , Window.WINDOW_WIDTH / 2 + 15, 3 * Window.WINDOW_HEIGHT / 4 + 30 * (i + 1));
+            g.drawRect(Window.WINDOW_WIDTH / 2 + 150, 3 * Window.WINDOW_HEIGHT / 4 + 30 * (i + 1) - 10, 100, 10);
+            g.fillRect(Window.WINDOW_WIDTH / 2 + 150, 3 * Window.WINDOW_HEIGHT / 4 + 30 * (i + 1) - 10,
+                    (int) ((enemies.get(i).getTolerance() * 1.0 / enemies.get(i).getBaseTolerance()) * 100), 10);
+        }
     }
 
     @Override

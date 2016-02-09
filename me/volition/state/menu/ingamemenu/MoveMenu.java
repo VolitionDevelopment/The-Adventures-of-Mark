@@ -1,6 +1,5 @@
 package me.volition.state.menu.ingamemenu;
 
-import me.volition.state.battle.BattleState;
 import org.apache.commons.lang3.ArrayUtils;
 
 /**
@@ -16,5 +15,14 @@ public class MoveMenu extends InGameMenu {
     public void select(int currentIndex) {
         if (currentIndex == 0)
             getPrevMenu().setSubMenu(null);
+        else {
+            if (getSelectedEntity() == null)
+                setSubMenu(new EntityMenu(this));
+            else {
+                getBattleState().getPlayer().useMove(currentIndex - 1, getSelectedEntity());
+                getBattleState().setPlayerTurn(false);
+            }
+        }
+
     }
 }

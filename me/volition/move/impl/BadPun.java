@@ -20,7 +20,7 @@ public class BadPun extends Move {
     };
 
     public BadPun(){
-        super("Bad Pun", 0, 10);
+        super("Bad Pun", 300, 10);
     }
 
     @Override
@@ -29,7 +29,8 @@ public class BadPun extends Move {
 
         if(d >= 0.5){
             
-            entity.setTolerance((int) (entity.getBaseTolerance() * 0.2));
+            entity.setTolerance(entity.getTolerance() - getDamage());
+            System.out.println(entity.getTolerance());
         }else{
 
         }

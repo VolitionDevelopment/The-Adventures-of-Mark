@@ -1,6 +1,7 @@
 package me.volition.state.menu.ingamemenu;
 
 import me.volition.*;
+import me.volition.entity.Entity;
 import me.volition.state.battle.BattleState;
 import me.volition.util.RenderUtils;
 
@@ -19,6 +20,7 @@ public abstract class InGameMenu {
     private String[] options;
     private InGameMenu prevMenu, subMenu;
     private int x;
+    private Entity selectedEntity; //only for movemenu/entitymenu
 
     private BattleState state;
 
@@ -32,6 +34,18 @@ public abstract class InGameMenu {
         this.options = options;
         this.prevMenu = prevMenu;
         x = prevMenu.getX() + 70;
+    }
+
+    public int getCurrentIndex(){
+        return currentIndex;
+    }
+
+    public void setSelectedEntity(Entity entity){
+        this.selectedEntity = entity;
+    }
+
+    public Entity getSelectedEntity(){
+        return selectedEntity;
     }
 
     public int getX(){
@@ -57,7 +71,7 @@ public abstract class InGameMenu {
     public BattleState getBattleState(){
         if (state == null && prevMenu != null)
             return prevMenu.getBattleState();
-        
+
         return state;
     }
 

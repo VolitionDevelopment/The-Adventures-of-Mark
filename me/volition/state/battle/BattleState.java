@@ -30,6 +30,10 @@ public class BattleState extends State {
         init();
     }
 
+    public void setPlayerTurn(boolean playerTurn){
+        this.playerTurn = playerTurn;
+    }
+
     public void setEnemies(ArrayList<Entity> enemies){
         this.enemies = enemies;
         playerTurn = true;
@@ -37,6 +41,17 @@ public class BattleState extends State {
 
     public ArrayList<Entity> getEnemies(){
         return enemies;
+    }
+
+    public String[] getEnemies_strarr(){
+        String[] arr = new String[enemies.size()];
+        for (int i = 0; i < arr.length; i++)
+            arr[i] = enemies.get(i).getName();
+        return arr;
+    }
+
+    public Entity getEnemy(int index){
+        return enemies.get(index);
     }
 
     public void setPlayer(Player player){
@@ -56,15 +71,22 @@ public class BattleState extends State {
 
     @Override
     public void update(double delta) {
-        battleMenu.update();
+        if (playerTurn)
+            battleMenu.update();
+        else {
+            playerTurn = true;
+            battleMenu = new BattleMenu(this);
+        }
+
         if (player.getTolerance() <= 0)
             System.exit(0);
-        else {
+        else if (enemies.size() == 0) {
+            player.setX(player.getX() + Tile.TILE_SIZE);
+            StateManager.setCurrentState(GameManager.getGameState());
+        } else {
             for (int i = 0; i < enemies.size(); i++) {
                 if (enemies.get(i).getTolerance() <= 0) {
                     enemies.remove(i);
-                    if (enemies.size() == 0)
-                        StateManager.setCurrentState(GameManager.getGameState()); //resume game after battle concludes
                     i--;
                 }
             }

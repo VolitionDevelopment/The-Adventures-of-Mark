@@ -58,6 +58,11 @@ public abstract class Entity {
         heal();
     }
 
+    public void useMove(int index, Entity target){
+        if (index < moves.size())
+            moves.get(index).onCast(target);
+    }
+
     public String getName() {
         return name;
     }

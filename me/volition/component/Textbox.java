@@ -50,4 +50,5 @@ public class Textbox extends JPanel {
         }
         g.drawString("* " + text, 140, me.volition.Window.WINDOW_HEIGHT - 120);
     }
+
 }

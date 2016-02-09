@@ -1,5 +1,6 @@
 package me.volition.state.battle;
 
+import me.volition.Window;
 import me.volition.entity.Entity;
 import me.volition.entity.Player;
 import me.volition.location.tile.Tile;
@@ -12,6 +13,7 @@ import me.volition.util.GameManager;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by mccloskeybr on 2/6/2016.
@@ -91,6 +93,10 @@ public class BattleState extends State {
         if (playerTurn)
             battleMenu.update();
         else {
+            Random random = new Random();
+            for (Entity e : enemies)
+                e.useMove(random.nextInt(e.getMoves().size()), player);
+
             playerTurn = true;
             battleMenu = new BattleMenu(this);
         }
@@ -109,15 +115,18 @@ public class BattleState extends State {
                 }
             }
         }
+
     }
 
     @Override
     public void render(Graphics g) {
 
+        //render BG
         for (int i = 0; i < tilemap.length; i++)
             for (int j = 0; j < tilemap[i].length; j++)
                 tilemap[i][j].render(g);
 
+        //render entities
         player.render(g, 4 * Tile.TILE_SIZE, 3 * Tile.TILE_SIZE);
 
         int x = 5;
@@ -127,7 +136,16 @@ public class BattleState extends State {
             enemies.get(i).render(g, x * Tile.TILE_SIZE, (i * 2 * Tile.TILE_SIZE), 128, 128);
         }
 
+        //render menus
         battleMenu.render(g);
+
+        g.setColor(Color.RED);
+
+        g.drawString("" + player.getName() + " : " + player.getTolerance() + "/" + player.getBaseTolerance()
+            , Window.WINDOW_WIDTH / 2, 3 * Window.WINDOW_HEIGHT / 4);
+        for (int i = 0; i < enemies.size(); i++)
+            g.drawString("" + enemies.get(i).getName() + " : " + enemies.get(i).getTolerance() + "/" + enemies.get(i).getBaseTolerance()
+            , Window.WINDOW_WIDTH / 2, 3 * Window.WINDOW_HEIGHT / 4 + 30 * (i + 1));
     }
 
     @Override

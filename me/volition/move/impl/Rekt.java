@@ -26,6 +26,6 @@ public class Rekt extends Move implements LingerEffect{
 
     @Override
     public void onCast(Entity entity) {
-
+        entity.
     }
 }

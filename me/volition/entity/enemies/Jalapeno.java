@@ -1,6 +1,7 @@
 package me.volition.entity.enemies;
 
 import me.volition.entity.Entity;
+import me.volition.move.impl.RedHotChiliShits;
 import me.volition.util.Animator;
 import me.volition.util.ImageManager;
 
@@ -15,6 +16,7 @@ public class Jalapeno extends Entity {
 
     public Jalapeno() {
         super("Jalapeno", "Haunts your dreams and your bowels.", 5, 10, 15);
+        addMove(new RedHotChiliShits());
     }
 
     @Override

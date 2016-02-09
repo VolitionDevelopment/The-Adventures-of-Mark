@@ -1,6 +1,7 @@
 package me.volition.entity.enemies;
 
 import me.volition.entity.Entity;
+import me.volition.move.impl.Rekt;
 import me.volition.util.Animator;
 import me.volition.util.ImageManager;
 
@@ -15,6 +16,7 @@ public class Fratkid extends Entity {
 
     public Fratkid() {
         super("Frat boy", "Tries too hard to be cool.", 20, 1, 10);
+        addMove(new Rekt());
     }
 
 

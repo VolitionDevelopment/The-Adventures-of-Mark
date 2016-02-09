@@ -20,6 +20,7 @@ public class BattleMenu extends InGameMenu{
         else if (currentIndex == 1)
             setSubMenu(new ItemMenu(this));
         else {
+            getBattleState().getPlayer().setInBattle(false);
             getBattleState().getPlayer().setX(getBattleState().getPlayer().getX() + Tile.TILE_SIZE);
             StateManager.setCurrentState(GameManager.getGameState());
         }

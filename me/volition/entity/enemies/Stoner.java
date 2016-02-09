@@ -1,6 +1,7 @@
 package me.volition.entity.enemies;
 
 import me.volition.entity.Entity;
+import me.volition.move.impl.MellowOut;
 import me.volition.util.Animator;
 import me.volition.util.ImageManager;
 
@@ -15,6 +16,7 @@ public class Stoner extends Entity {
 
     public Stoner() {
         super("Stoner", "Just wants to have a mellow time.", 15, 5, 5);
+        addMove(new MellowOut());
     }
 
     @Override

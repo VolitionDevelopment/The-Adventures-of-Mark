@@ -8,13 +8,13 @@ import org.apache.commons.lang3.ArrayUtils;
  */
 public class MoveMenu extends InGameMenu {
 
-    public MoveMenu(BattleState battleState) {
-        super(ArrayUtils.addAll(new String[]{"Go back"}, battleState.getPlayer().getMoves_strarr()), battleState);
+    public MoveMenu(InGameMenu prevMenu) {
+        super(ArrayUtils.addAll(new String[]{"Go back"}, prevMenu.getBattleState().getPlayer().getMoves_strarr()), prevMenu);
     }
 
     @Override
     public void select(int currentIndex) {
         if (currentIndex == 0)
-            getBattleState().setCurrentMenu(new BattleMenu(getBattleState()));
+            getPrevMenu().setSubMenu(null);
     }
 }

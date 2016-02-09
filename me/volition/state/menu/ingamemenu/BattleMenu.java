@@ -13,9 +13,9 @@ public class BattleMenu extends InGameMenu{
     @Override
     public void select(int currentIndex) {
         if (currentIndex == 0)
-            getBattleState().setCurrentMenu(new MoveMenu(getBattleState()));
+            setSubMenu(new MoveMenu(this));
         else if (currentIndex == 1)
-            getBattleState().setCurrentMenu(new ItemMenu(getBattleState()));
+            setSubMenu(new ItemMenu(this));
         else;
             //run away
     }

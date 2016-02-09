@@ -19,14 +19,14 @@ public class BattleState extends State {
 
     private ArrayList<Entity> enemies;
     private Player player;
-    private InGameMenu currentMenu;
+    private InGameMenu battleMenu;
 
     private boolean playerTurn;
 
     public BattleState(){
         enemies = new ArrayList<>();
         playerTurn = true;
-        currentMenu = new BattleMenu(this);
+        battleMenu = new BattleMenu(this);
         init();
     }
 
@@ -48,7 +48,7 @@ public class BattleState extends State {
     }
 
     public void setCurrentMenu(InGameMenu menu){
-        currentMenu = menu;
+        battleMenu = menu;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class BattleState extends State {
 
     @Override
     public void update(double delta) {
-        currentMenu.update();
+        battleMenu.update();
         if (player.getTolerance() <= 0)
             System.exit(0);
         else {
@@ -82,13 +82,13 @@ public class BattleState extends State {
             //enemies.get(i).render(g, x * Tile.TILE_SIZE, (2 + i) * Tile.TILE_SIZE);
         }
 
-        currentMenu.render(g);
+        battleMenu.render(g);
     }
 
     @Override
     public void keyPressed(int k) {
         if (playerTurn)
-            currentMenu.keyPressed(k);
+            battleMenu.keyPressed(k);
     }
 
     @Override

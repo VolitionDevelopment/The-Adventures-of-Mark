@@ -24,7 +24,7 @@ public class Player extends Entity{
     private int money;
     private ArrayList<Item> inventory;
     private HashMap<ItemSlot, Item> equippedItems;
-    private Animator idle, walkRight, walkLeft, walkUp, walkDown;
+    private Animator idle, walkRight, walkLeft, walkUp, walkDown, battle;
 
     public Player(Location location) {
         super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", 100, 30, 5, location, Window.WINDOW_WIDTH / 2 - Tile.TILE_SIZE / 2, Window.WINDOW_HEIGHT / 2 - Tile.TILE_SIZE / 2);
@@ -65,6 +65,9 @@ public class Player extends Entity{
         idleFrames[0] = spriteSheet.getSubimage(0, 0, 64, 64);
         idleFrames[1] = spriteSheet.getSubimage(64, 0, 64, 64);
         idle = new Animator(idleFrames);
+
+        BufferedImage[] battleFrames = new BufferedImage[2];
+        battle = new Animator(battleFrames);
 
         setAnimator(idle);
     }
@@ -224,6 +227,11 @@ public class Player extends Entity{
     public int nextLevel(){
         double LEVEL_CONSTANT = 20;
         return (int) (LEVEL_CONSTANT * (level) * (level + 5) - getExp());
+    }
+
+    @Override
+    public Animator getBattleAnimator(){
+        return battle;
     }
 
     @Override

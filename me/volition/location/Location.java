@@ -56,8 +56,11 @@ public abstract class Location {
             player.setGoingUp(false);
 
         //start battle if necessary
-        if (tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].startsBattle())
+        if (tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].startsBattle()) {
+            player.stopMoving();
+            player.setAnimator(player.getBattleAnimator());
             BattleManager.startBattle(GameManager.getGameState(), player, tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].getEntities());
+        }
 
         //check if at exit
         for (Exit exit : exits) {

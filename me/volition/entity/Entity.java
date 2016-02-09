@@ -135,6 +135,13 @@ public abstract class Entity {
         this.baseSpeed = baseSpeed;
     }
 
+    public void stopMoving(){
+        goingDown = false;
+        goingUp = false;
+        goingLeft = false;
+        goingRight = false;
+    }
+
     public boolean isGoingRight(){
         return goingRight;
     }
@@ -229,6 +236,8 @@ public abstract class Entity {
     }
 
     public abstract void loadImages();
+
+    public abstract Animator getBattleAnimator();
 
     public void render(Graphics g){
         g.drawImage(animator.getCurrentImage(), (int) x, (int) y, null);

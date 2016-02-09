@@ -1,6 +1,8 @@
 package me.volition.state.menu.ingamemenu;
 
+import me.volition.*;
 import me.volition.state.battle.BattleState;
+import me.volition.util.RenderUtils;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -34,7 +36,7 @@ public abstract class InGameMenu {
     public void update(){
         if (currentIndex < 0)
             currentIndex = options.length - 1;
-        else if (currentIndex == options.length)
+        else if (currentIndex >= options.length)
             currentIndex = 0;
 
         if (hasSelected)
@@ -51,7 +53,16 @@ public abstract class InGameMenu {
     }
 
     public void render(Graphics g){
+        Graphics2D g2 = RenderUtils.alias(g);
+        g2.setFont(new Font("Determination Sans", Font.PLAIN, 14));
+        for (int i = 0; i < options.length; i++) {
+            if (i == currentIndex)
+                g2.setColor(Color.RED);
+            else
+                g2.setColor(Color.WHITE);
 
+            g2.drawString(options[i], 20, 3 * me.volition.Window.WINDOW_HEIGHT / 4 + 30 * i);
+        }
     }
 
     public abstract void select(int currentIndex);

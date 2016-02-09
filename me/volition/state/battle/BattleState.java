@@ -21,15 +21,12 @@ public class BattleState extends State {
     private Player player;
     private InGameMenu currentMenu;
 
-    private int currentEnemy;
-
     private boolean playerTurn;
-
-    //need a battle menu, not a state rather an overlay menu that has sub menus
 
     public BattleState(){
         enemies = new ArrayList<>();
         playerTurn = true;
+        currentMenu = new BattleMenu(this);
         init();
     }
 
@@ -38,8 +35,16 @@ public class BattleState extends State {
         playerTurn = true;
     }
 
+    public ArrayList<Entity> getEnemies(){
+        return enemies;
+    }
+
     public void setPlayer(Player player){
         this.player = player;
+    }
+
+    public Player getPlayer(){
+        return player;
     }
 
     public void setCurrentMenu(InGameMenu menu){
@@ -47,13 +52,11 @@ public class BattleState extends State {
     }
 
     @Override
-    public void init() {
-        currentEnemy = 0;
-        currentMenu = new BattleMenu(this);
-    }
+    public void init() {}
 
     @Override
     public void update(double delta) {
+        currentMenu.update();
         if (player.getTolerance() <= 0)
             System.exit(0);
         else {

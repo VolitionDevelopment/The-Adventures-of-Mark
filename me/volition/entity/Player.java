@@ -5,6 +5,7 @@ import me.volition.item.Item;
 import me.volition.item.ItemSlot;
 import me.volition.location.Location;
 import me.volition.location.tile.Tile;
+import me.volition.move.impl.BadPun;
 import me.volition.util.Animator;
 import me.volition.util.ImageManager;
 
@@ -27,6 +28,8 @@ public class Player extends Entity{
 
     public Player(Location location) {
         super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", 100, 30, 5, location, Window.WINDOW_WIDTH / 2 - Tile.TILE_SIZE / 2, Window.WINDOW_HEIGHT / 2 - Tile.TILE_SIZE / 2);
+        inventory = new ArrayList<>();
+        addMove(new BadPun());
     }
 
     @Override
@@ -128,6 +131,13 @@ public class Player extends Entity{
         }
     }
 
+    public String[] getMoves_strarr(){
+        String[] moves = new String[getMoves().size()];
+        for (int i = 0; i < moves.length; i++)
+            moves[i] = getMoves().get(i).getName();
+        return moves;
+    }
+
     public int getLevel() {
         return level;
     }
@@ -170,6 +180,13 @@ public class Player extends Entity{
 
     public ArrayList<Item> getInventory() {
         return inventory;
+    }
+
+    public String[] getInventory_strarr(){
+        String[] inv = new String[inventory.size()];
+        for (int i = 0; i < inv.length; i++)
+            inv[i] = inventory.get(i).getName();
+        return inv;
     }
 
     public void setInventory(ArrayList<Item> inventory) {

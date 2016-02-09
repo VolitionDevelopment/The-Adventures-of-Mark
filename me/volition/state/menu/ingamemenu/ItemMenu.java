@@ -1,6 +1,7 @@
 package me.volition.state.menu.ingamemenu;
 
 import me.volition.state.battle.BattleState;
+import org.apache.commons.lang3.*;
 
 
 /**
@@ -8,7 +9,7 @@ import me.volition.state.battle.BattleState;
  */
 public class ItemMenu extends InGameMenu {
     public ItemMenu(BattleState battleState) {
-        super(new String[]{"Go back"}, battleState);
+        super(ArrayUtils.addAll(new String[]{"Go back"}, battleState.getPlayer().getInventory_strarr()), battleState);
     }
 
     @Override

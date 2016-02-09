@@ -5,10 +5,11 @@ import me.volition.entity.Player;
 import me.volition.location.tile.Tile;
 import me.volition.state.State;
 import me.volition.state.StateManager;
+import me.volition.state.menu.ingamemenu.BattleMenu;
+import me.volition.state.menu.ingamemenu.InGameMenu;
 import me.volition.util.GameManager;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 /**
@@ -18,6 +19,7 @@ public class BattleState extends State {
 
     private ArrayList<Entity> enemies;
     private Player player;
+    private InGameMenu currentMenu;
 
     private int currentEnemy;
 
@@ -28,6 +30,7 @@ public class BattleState extends State {
     public BattleState(){
         enemies = new ArrayList<>();
         playerTurn = true;
+        init();
     }
 
     public void setEnemies(ArrayList<Entity> enemies){
@@ -39,9 +42,14 @@ public class BattleState extends State {
         this.player = player;
     }
 
+    public void setCurrentMenu(InGameMenu menu){
+        currentMenu = menu;
+    }
+
     @Override
     public void init() {
         currentEnemy = 0;
+        currentMenu = new BattleMenu(this);
     }
 
     @Override
@@ -68,26 +76,16 @@ public class BattleState extends State {
         for (int i = 0; i < enemies.size(); i++){
             if (i % 3 == 0)
                 x++;
-            enemies.get(i).render(g, x * Tile.TILE_SIZE, (2 + i) * Tile.TILE_SIZE);
+            //enemies.get(i).render(g, x * Tile.TILE_SIZE, (2 + i) * Tile.TILE_SIZE);
         }
 
+        currentMenu.render(g);
     }
 
     @Override
     public void keyPressed(int k) {
-        if (playerTurn) {
-            if (k == KeyEvent.VK_S)
-                currentEnemy++;
-            else if (k == KeyEvent.VK_W)
-                currentEnemy--;
-
-            //in bounds
-            if (currentEnemy < 0)
-                currentEnemy = enemies.size() - 1;
-            else if (currentEnemy >= enemies.size())
-                currentEnemy = 0;
-
-        }
+        if (playerTurn)
+            currentMenu.keyPressed(k);
     }
 
     @Override

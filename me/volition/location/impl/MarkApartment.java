@@ -37,6 +37,8 @@ public class MarkApartment extends Location {
         addPlaceableObject(new Desk(tileMap, 2 * Tile.TILE_SIZE, Tile.TILE_SIZE));
         addPlaceableObject(new Couch(tileMap, 3 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE));
 
+        addPlaceableObject(new PlaceableBattleTile(tileMap, null, 3 * Tile.TILE_SIZE, 3 * Tile.TILE_SIZE));
+
 
         return tileMap;
     }

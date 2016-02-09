@@ -5,6 +5,7 @@ import me.volition.entity.Player;
 import me.volition.state.StateManager;
 import me.volition.state.battle.BattleState;
 import me.volition.state.game.GameState;
+import me.volition.state.menu.ingamemenu.InGameMenu;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 
 //Best class ever
 public class BattleManager {
+
+    public static InGameMenu currentMenu;
 
     public static void startBattle(GameState gameState, Player player, ArrayList<Entity> entities){
 

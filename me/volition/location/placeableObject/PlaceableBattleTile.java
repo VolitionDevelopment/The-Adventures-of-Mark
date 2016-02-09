@@ -2,6 +2,7 @@ package me.volition.location.placeableObject;
 
 import me.volition.entity.Entity;
 import me.volition.location.tile.Tile;
+import me.volition.util.ImageManager;
 
 import java.util.ArrayList;
 
@@ -11,6 +12,6 @@ import java.util.ArrayList;
 public class PlaceableBattleTile extends PlaceableObject {
 
     public PlaceableBattleTile(Tile[][] tileMap, ArrayList<Entity> entities, double x, double y) {
-        super(null, tileMap, entities, x, y);
+        super(new ImageManager().loadImage("/me/volition/assets/image/tiles/brickwall.png"), tileMap, entities, x, y);
     }
 }

@@ -3,6 +3,7 @@ package me.volition.state.battle;
 import me.volition.entity.Entity;
 import me.volition.entity.Player;
 import me.volition.location.tile.Tile;
+import me.volition.location.tile.WoodTile;
 import me.volition.state.State;
 import me.volition.state.StateManager;
 import me.volition.state.menu.ingamemenu.BattleMenu;
@@ -23,10 +24,18 @@ public class BattleState extends State {
 
     private boolean playerTurn;
 
+    private Tile[][] tilemap;
+
     public BattleState(){
         enemies = new ArrayList<>();
         playerTurn = true;
         battleMenu = new BattleMenu(this);
+
+        tilemap = new Tile[7][13];
+        for (int i = 0; i < tilemap.length; i++)
+            for (int j = 0; j < tilemap[i].length; j++)
+                tilemap[i][j] = new WoodTile(j * Tile.TILE_SIZE, i * Tile.TILE_SIZE);
+
         init();
     }
 
@@ -36,7 +45,8 @@ public class BattleState extends State {
 
     public void setEnemies(ArrayList<Entity> enemies){
         this.enemies = enemies;
-        playerTurn = true;
+        for (Entity e: enemies)
+            e.setAnimator(e.getBattleAnimator());
     }
 
     public ArrayList<Entity> getEnemies(){
@@ -56,6 +66,8 @@ public class BattleState extends State {
 
     public void setPlayer(Player player){
         this.player = player;
+        player.setInBattle(true);
+        player.setAnimator(player.getBattleAnimator());
     }
 
     public Player getPlayer(){
@@ -71,6 +83,11 @@ public class BattleState extends State {
 
     @Override
     public void update(double delta) {
+        for (Entity e: enemies)
+            e.update(delta);
+
+        player.update(delta);
+
         if (playerTurn)
             battleMenu.update();
         else {
@@ -81,6 +98,7 @@ public class BattleState extends State {
         if (player.getTolerance() <= 0)
             System.exit(0);
         else if (enemies.size() == 0) {
+            player.setInBattle(false);
             player.setX(player.getX() + Tile.TILE_SIZE);
             StateManager.setCurrentState(GameManager.getGameState());
         } else {
@@ -95,13 +113,18 @@ public class BattleState extends State {
 
     @Override
     public void render(Graphics g) {
-        player.render(g, 3 * Tile.TILE_SIZE, 4 * Tile.TILE_SIZE);
 
-        int x = 4;
+        for (int i = 0; i < tilemap.length; i++)
+            for (int j = 0; j < tilemap[i].length; j++)
+                tilemap[i][j].render(g);
+
+        player.render(g, 4 * Tile.TILE_SIZE, 3 * Tile.TILE_SIZE);
+
+        int x = 5;
         for (int i = 0; i < enemies.size(); i++){
             if (i % 3 == 0)
-                x++;
-            //enemies.get(i).render(g, x * Tile.TILE_SIZE, (2 + i) * Tile.TILE_SIZE);
+                x += 2;
+            enemies.get(i).render(g, x * Tile.TILE_SIZE, (i * 2 * Tile.TILE_SIZE), 128, 128);
         }
 
         battleMenu.render(g);

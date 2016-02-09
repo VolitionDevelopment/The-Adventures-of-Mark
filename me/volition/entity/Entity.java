@@ -247,6 +247,10 @@ public abstract class Entity {
         g.drawImage(animator.getCurrentImage(), x, y, null);
     }
 
+    public void render(Graphics g, int x, int y, int width, int height){
+        g.drawImage(animator.getCurrentImage(), x, y, width, height, null);
+    }
+
     public ArrayList<Move> getMoves() {
         return moves;
     }

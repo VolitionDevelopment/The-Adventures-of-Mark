@@ -25,6 +25,7 @@ public class Player extends Entity{
     private ArrayList<Item> inventory;
     private HashMap<ItemSlot, Item> equippedItems;
     private Animator idle, walkRight, walkLeft, walkUp, walkDown, battle;
+    private boolean isInBattle;
 
     public Player(Location location) {
         super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", 100, 30, 5, location, Window.WINDOW_WIDTH / 2 - Tile.TILE_SIZE / 2, Window.WINDOW_HEIGHT / 2 - Tile.TILE_SIZE / 2);
@@ -76,51 +77,56 @@ public class Player extends Entity{
     public void update(double delta){
         super.update(delta);
 
-        //free camera only updates animations, not position
-        if (getLocation().hasFreeCamera()) {
+        if (!isInBattle) {
+            //free camera only updates animations, not position
+            if (getLocation().hasFreeCamera()) {
 
-            getLocation().adjustCamera(delta, this);
+                getLocation().adjustCamera(delta, this);
 
-            if (!isGoingRight() && !isGoingLeft() && !isGoingUp() && !isGoingDown())
-                setAnimator(idle);
-            else {
-                if (isGoingDown())
-                    setAnimator(walkDown);
-                else if (isGoingUp())
-                    setAnimator(walkUp);
-                //up/down animations have priority over left/right
-                if (isGoingLeft() && !isGoingUp() && !isGoingDown())
-                    setAnimator(walkLeft);
-                else if (isGoingRight() && !isGoingUp() && !isGoingDown())
-                    setAnimator(walkRight);
-            }
-
-        } else {
-
-            if (!isGoingRight() && !isGoingLeft() && !isGoingUp() && !isGoingDown())
-                setAnimator(idle);
-
-            else {
-                if (isGoingDown()) {
-                    setY(getY() + (delta * getBaseSpeed()));
-                    setAnimator(walkDown);
-                } else if (isGoingUp()) {
-                    setY(getY() - (delta * getBaseSpeed()));
-                    setAnimator(walkUp);
-                }
-                //up/down animations have priority over left/right
-                if (isGoingLeft()) {
-                    setX(getX() - (delta * getBaseSpeed()));
-                    if (!isGoingUp() && !isGoingDown())
+                if (!isGoingRight() && !isGoingLeft() && !isGoingUp() && !isGoingDown())
+                    setAnimator(idle);
+                else {
+                    if (isGoingDown())
+                        setAnimator(walkDown);
+                    else if (isGoingUp())
+                        setAnimator(walkUp);
+                    //up/down animations have priority over left/right
+                    if (isGoingLeft() && !isGoingUp() && !isGoingDown())
                         setAnimator(walkLeft);
-                } else if (isGoingRight()) {
-                    setX(getX() + (delta * getBaseSpeed()));
-                    if (!isGoingUp() && !isGoingDown())
+                    else if (isGoingRight() && !isGoingUp() && !isGoingDown())
                         setAnimator(walkRight);
                 }
-            }
 
+            } else {
+
+                if (!isGoingRight() && !isGoingLeft() && !isGoingUp() && !isGoingDown())
+                    setAnimator(idle);
+
+                else {
+                    if (isGoingDown()) {
+                        setY(getY() + (delta * getBaseSpeed()));
+                        setAnimator(walkDown);
+                    } else if (isGoingUp()) {
+                        setY(getY() - (delta * getBaseSpeed()));
+                        setAnimator(walkUp);
+                    }
+                    //up/down animations have priority over left/right
+                    if (isGoingLeft()) {
+                        setX(getX() - (delta * getBaseSpeed()));
+                        if (!isGoingUp() && !isGoingDown())
+                            setAnimator(walkLeft);
+                    } else if (isGoingRight()) {
+                        setX(getX() + (delta * getBaseSpeed()));
+                        if (!isGoingUp() && !isGoingDown())
+                            setAnimator(walkRight);
+                    }
+                }
+            }
         }
+    }
+
+    public void setInBattle(boolean isInBattle){
+        this.isInBattle = isInBattle;
     }
 
     public void setLocation(Location location){
@@ -231,7 +237,7 @@ public class Player extends Entity{
 
     @Override
     public Animator getBattleAnimator(){
-        return battle;
+        return walkRight;
     }
 
     @Override

@@ -151,6 +151,10 @@ public abstract class Entity {
         goingRight = false;
     }
 
+    public boolean isMoving(){
+        return goingUp || goingDown || goingLeft || goingRight;
+    }
+
     public boolean isGoingRight(){
         return goingRight;
     }

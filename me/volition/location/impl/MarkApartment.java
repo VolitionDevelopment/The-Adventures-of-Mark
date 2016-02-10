@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class MarkApartment extends Location {
 
     public MarkApartment() {
-        super("Mark's Apartment", false);
+        super("Mark's Apartment", true, false);
     }
 
     @Override

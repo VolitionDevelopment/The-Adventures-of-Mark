@@ -36,7 +36,7 @@ public class GameState extends State {
         if (pauseMenu == null) {
             Location currentLocation = gameManager.getPlayer().getLocation();
             player.update(delta);
-            currentLocation.update(player);
+            currentLocation.update(player, delta);
 
             if (gameManager.getPlayer().isDead())
                 StateManager.setCurrentState(StateManager.MAIN_MENU_INDEX);

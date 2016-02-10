@@ -5,7 +5,6 @@ import me.volition.entity.Player;
 import me.volition.location.placeableObject.PlaceableObject;
 import me.volition.location.tile.Tile;
 import me.volition.util.BattleManager;
-import me.volition.util.GameManager;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -19,21 +18,22 @@ public abstract class Location {
     private ArrayList<Exit> exits;
     private ArrayList<PlaceableObject> placeableObjects;
     private Tile[][] tilemap;
-    private boolean freeCamera;
+    private boolean freeCamera, safeRoom;
 
 
-    public Location(String name, boolean freeCamera) {
+    public Location(String name, boolean safeRoom, boolean freeCamera) {
         exits = new ArrayList<>();
         placeableObjects = new ArrayList<>();
         this.name = name;
         this.freeCamera = freeCamera;
+        this.safeRoom = safeRoom; //if false, random tiles can cause battles
         tilemap = loadMap();
     }
 
     /**
      * may be inefficient? idk check later xd
      * */
-    public void update(Player player){
+    public void update(Player player, double delta){
 
         int distConst = 10;
 
@@ -54,7 +54,15 @@ public abstract class Location {
                 tilemap[(int) player.getY() / Tile.TILE_SIZE][((int) player.getX() + player.getWidth() - distConst) / Tile.TILE_SIZE].isSolid())
             player.setGoingUp(false);
 
-        //start battle if necessary
+        //start a random battle
+        if (!safeRoom && player.isMoving()){
+            if (Math.random() < 0.001 * delta) {
+                player.stopMoving();
+                BattleManager.startBattle(player, tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].getImage());
+            }
+        }
+
+        //start battle if walks over a battle tile
         if (tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].startsBattle()) {
             player.stopMoving();
             player.setAnimator(player.getBattleAnimator());

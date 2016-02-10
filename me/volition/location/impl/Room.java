@@ -11,7 +11,7 @@ import me.volition.location.tile.WoodTile;
  */
 public class Room extends Location {
     public Room() {
-        super("Room", true);
+        super("Room", false, true);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class Room extends Location {
 
     @Override
     public void loadExits(Tile[][] tileMap){
-        addExit(new Exit(Tile.TILE_SIZE, 2 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, new MarkApartment(), 10 * Tile.TILE_SIZE, 5 * Tile.TILE_SIZE, true));
+        addExit(new Exit(Tile.TILE_SIZE, 2 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, new MarkApartment(), 10 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, true));
     }
 
 }

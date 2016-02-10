@@ -7,8 +7,8 @@ import me.volition.location.tile.Tile;
 import me.volition.location.tile.WoodTile;
 import me.volition.state.State;
 import me.volition.state.StateManager;
-import me.volition.state.menu.ingamemenu.BattleMenu;
-import me.volition.state.menu.ingamemenu.InGameMenu;
+import me.volition.state.menu.ingamemenu.battle.BattleMainMenu;
+import me.volition.state.menu.ingamemenu.battle.BattleMenu;
 import me.volition.util.GameManager;
 import me.volition.util.RenderUtils;
 
@@ -23,7 +23,7 @@ public class BattleState extends State {
 
     private ArrayList<Entity> enemies;
     private Player player;
-    private InGameMenu battleMenu;
+    private BattleMenu battleMenu;
 
     private boolean playerTurn;
 
@@ -32,7 +32,7 @@ public class BattleState extends State {
     public BattleState(){
         enemies = new ArrayList<>();
         playerTurn = true;
-        battleMenu = new BattleMenu(this);
+        battleMenu = new BattleMainMenu(this);
 
         tilemap = new Tile[7][13];
         for (int i = 0; i < tilemap.length; i++)
@@ -77,7 +77,7 @@ public class BattleState extends State {
         return player;
     }
 
-    public void setCurrentMenu(InGameMenu menu){
+    public void setCurrentMenu(BattleMenu menu){
         battleMenu = menu;
     }
 
@@ -99,7 +99,7 @@ public class BattleState extends State {
                 e.useMove(random.nextInt(e.getMoves().size()), player);
 
             playerTurn = true;
-            battleMenu = new BattleMenu(this);
+            battleMenu = new BattleMainMenu(this);
         }
 
         if (player.getTolerance() <= 0)

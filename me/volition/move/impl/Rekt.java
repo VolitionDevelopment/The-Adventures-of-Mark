@@ -4,6 +4,8 @@ import me.volition.entity.Entity;
 import me.volition.move.LingerEffect;
 import me.volition.move.Move;
 
+import java.util.Random;
+
 /**
  * Created by Demerzel on 2/4/16.
  */
@@ -25,7 +27,8 @@ public class Rekt extends Move implements LingerEffect{
     }
 
     @Override
-    public void onCast(Entity entity) {
-        entity.setTolerance(entity.getTolerance() - getDamage());
+    public void onCast(Entity caster, Entity target) {
+        caster.setSpeech(insults[new Random().nextInt(insults.length)]);
+        target.setSpeech("I'm so sad.");
     }
 }

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public abstract class Entity {
     private String name;
     private String bio;
+    private String speech;
     private int baseTolerance, tolerance;
     private int baseBrainpower, brainpower;
     private int baseSpeed;
@@ -60,7 +61,7 @@ public abstract class Entity {
 
     public void useMove(int index, Entity target){
         if (index < moves.size())
-            moves.get(index).onCast(target);
+            moves.get(index).onCast(this, target);
     }
 
     public String getName() {
@@ -125,6 +126,14 @@ public abstract class Entity {
 
     public void modBrainpower(int mana){
         this.brainpower += mana;
+    }
+
+    public void setSpeech(String speech){
+        this.speech = speech;
+    }
+
+    public String getSpeech(){
+        return speech;
     }
 
     public int getBaseSpeed() {

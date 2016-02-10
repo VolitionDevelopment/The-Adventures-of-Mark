@@ -3,6 +3,8 @@ package me.volition.move.impl;
 import me.volition.entity.Entity;
 import me.volition.move.Move;
 
+import java.util.Random;
+
 /**
  * Created by Demerzel on 2/3/16.
  */
@@ -11,9 +13,7 @@ public class BadPun extends Move {
             "I'll calcu-later!",
             "A dyslexic man walks into a bra",
             "What do you call a fish with no eyes? A fsh!",
-            "Your mom!",
             "I'll send you to the pun-itentiary!",
-            "I once saw one man beat another man down in a rice field with a plastic trophy. It was a knick-nack paddy-whack!",
             "I used to think I was indecisive, but now I'm not so sure.",
             "What do you call a fat vampire? Count Snackula!",
             "What do you call a sleepwalking nun? A roamin Catholic"
@@ -24,13 +24,16 @@ public class BadPun extends Move {
     }
 
     @Override
-    public void onCast(Entity entity) {
+    public void onCast(Entity caster, Entity target) {
         double d = Math.random();
 
-        if(d >= 0.5){
-            entity.setTolerance(entity.getTolerance() - getDamage());
-        }else{
+        caster.setSpeech(badPuns[new Random().nextInt(badPuns.length)]);
 
+        if(d >= 0.5){
+            target.setTolerance(5);
+            target.setSpeech("Ahh! It's so bad!");
+        }else{
+            target.setSpeech("I've heard that one before...");
         }
     }
 }

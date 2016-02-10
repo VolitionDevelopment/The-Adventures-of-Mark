@@ -1,6 +1,7 @@
 package me.volition.move;
 
 import me.volition.entity.Entity;
+import me.volition.entity.Player;
 
 /**
  * Created by Demerzel on 2/3/16.
@@ -40,5 +41,5 @@ public abstract class Move {
         this.manaCost = manaCost;
     }
 
-    public abstract void onCast(Entity entity);
+    public abstract void onCast(Entity caster, Entity target);
 }

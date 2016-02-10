@@ -17,10 +17,11 @@ public class MoveMenu extends BattleMenu {
             getPrevMenu().setSubMenu(null);
         else {
             if (getSelectedEntity() == null)
-                setSubMenu(new EntityMenu(this));
+                setSubMenu(new EntityMenu(this, getBattleState().getLiveEnemies()));
             else {
                 getBattleState().getPlayer().useMove(currentIndex - 1, getSelectedEntity());
-                getBattleState().setPlayerTurn(false);
+                getBattleState().startConversation();
+                getBattleState().switchTurns();
             }
         }
 

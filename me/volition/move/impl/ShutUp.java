@@ -12,8 +12,7 @@ public class ShutUp extends Move {
     }
 
     @Override
-    public void onCast(Entity entity){
+    public void onCast(Entity caster, Entity target) {
 
-        entity.modTolerance(-getDamage());
     }
 }

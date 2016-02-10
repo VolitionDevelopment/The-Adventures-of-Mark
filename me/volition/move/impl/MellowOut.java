@@ -12,7 +12,8 @@ public class MellowOut extends Move {
     }
 
     @Override
-    public void onCast(Entity entity) {
-
+    public void onCast(Entity caster, Entity target) {
+        caster.setSpeech("Chill, bro!");
+        target.setSpeech("Maybe I'll try it out...");
     }
 }

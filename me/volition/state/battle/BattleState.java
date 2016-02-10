@@ -13,6 +13,7 @@ import me.volition.util.GameManager;
 import me.volition.util.RenderUtils;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -25,42 +26,57 @@ public class BattleState extends State {
     private Player player;
     private BattleMenu battleMenu;
 
+    private float currentConvTime, maxConvTime;
+    private boolean conversation;
+
     private boolean playerTurn;
 
-    private Tile[][] tilemap;
+    private BufferedImage bgTile;
 
-    public BattleState(){
+    public BattleState(BufferedImage bgTile){
         enemies = new ArrayList<>();
         playerTurn = true;
         battleMenu = new BattleMainMenu(this);
-
-        tilemap = new Tile[7][13];
-        for (int i = 0; i < tilemap.length; i++)
-            for (int j = 0; j < tilemap[i].length; j++)
-                tilemap[i][j] = new WoodTile(j * Tile.TILE_SIZE, i * Tile.TILE_SIZE);
+        this.bgTile = bgTile;
+        maxConvTime = 50f;
 
         init();
     }
 
-    public void setPlayerTurn(boolean playerTurn){
-        this.playerTurn = playerTurn;
+    public void startConversation(){
+        conversation = true;
     }
 
     public void setEnemies(ArrayList<Entity> enemies){
         this.enemies = enemies;
         for (Entity e: enemies)
-            e.setAnimator(e.getBattleAnimator());
+            if (e != null)
+                e.setAnimator(e.getBattleAnimator());
     }
 
     public ArrayList<Entity> getEnemies(){
         return enemies;
     }
 
-    public String[] getEnemies_strarr(){
-        String[] arr = new String[enemies.size()];
-        for (int i = 0; i < arr.length; i++)
-            arr[i] = enemies.get(i).getName();
-        return arr;
+    public ArrayList<Entity> getLiveEnemies(){
+        ArrayList<Entity> liveEnemies = new ArrayList<>(enemies);
+        for (int i = 0; i < liveEnemies.size(); i++) {
+            if (liveEnemies.get(i) == null) {
+                liveEnemies.remove(i);
+                i--;
+            }
+        }
+        return liveEnemies;
+    }
+
+    public String[] getEnemies_strarr() {
+        ArrayList<Entity> liveEnemies = getLiveEnemies();
+
+        String[] strarr = new String[liveEnemies.size()];
+        for (int i = 0; i < strarr.length; i++)
+            strarr[i] = liveEnemies.get(i).getName();
+
+        return strarr;
     }
 
     public Entity getEnemy(int index){
@@ -86,55 +102,109 @@ public class BattleState extends State {
 
     @Override
     public void update(double delta) {
-        for (Entity e: enemies)
-            e.update(delta);
+
+        for (Entity e : enemies)
+            if (e != null)
+                e.update(delta);
 
         player.update(delta);
 
-        if (playerTurn)
-            battleMenu.update();
-        else {
-            Random random = new Random();
-            for (Entity e : enemies)
-                e.useMove(random.nextInt(e.getMoves().size()), player);
+        if (conversation){
+            currentConvTime += delta;
 
-            playerTurn = true;
-            battleMenu = new BattleMainMenu(this);
-        }
+            if (currentConvTime >= maxConvTime) {
+                currentConvTime = 0;
+                conversation = false;
 
-        if (player.getTolerance() <= 0)
-            System.exit(0);
-        else if (enemies.size() == 0) {
-            player.setInBattle(false);
-            player.setX(player.getX() + Tile.TILE_SIZE);
-            StateManager.setCurrentState(GameManager.getGameState());
+                player.setSpeech(null);
+                for (Entity e: enemies)
+                    if (e != null)
+                        e.setSpeech(null);
+            }
+
         } else {
-            for (int i = 0; i < enemies.size(); i++) {
-                if (enemies.get(i).getTolerance() <= 0) {
-                    enemies.remove(i);
-                    i--;
+
+            if (playerTurn)
+                battleMenu.update();
+            else {
+                Random random = new Random();
+                for (Entity e : enemies) {
+                    if (e != null) {
+                        e.useMove(random.nextInt(e.getMoves().size()), player);
+                        conversation = true;
+                    }
                 }
+                switchTurns();
+
+                battleMenu = new BattleMainMenu(this);
             }
         }
 
     }
 
+    public void switchTurns(){
+        //checks to see if any entities are dead
+        if (player.getTolerance() <= 0)
+            System.exit(0);
+        else {
+            boolean isDone = true;
+            for (Entity e : enemies)
+                if (e != null)
+                    isDone = false;
+            if (isDone) {
+                player.setInBattle(false);
+                player.setX(player.getX() + Tile.TILE_SIZE);
+                StateManager.setCurrentState(GameManager.getGameState());
+            }
+            for (int i = 0; i < enemies.size(); i++) {
+                if (enemies.get(i) != null && enemies.get(i).getTolerance() <= 0)
+                    enemies.set(i, null);
+            }
+        }
+
+        playerTurn = !playerTurn;
+    }
+
     @Override
     public void render(Graphics g) {
 
+        g.setFont(new Font("Determination Sans", Font.PLAIN, 14));
+
         //render BG
-        for (int i = 0; i < tilemap.length; i++)
-            for (int j = 0; j < tilemap[i].length; j++)
-                tilemap[i][j].render(g);
+        for (int i = 0; i < 7; i++)
+            for (int j = 0; j < 13; j++)
+                g.drawImage(bgTile, j * Tile.TILE_SIZE, i * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, null);
 
         //render entities
         player.render(g, 4 * Tile.TILE_SIZE, 3 * Tile.TILE_SIZE);
+        if (player.getSpeech() != null) {
+            RenderUtils.drawOutlinedBox(g, 4 * Tile.TILE_SIZE - g.getFontMetrics().stringWidth(player.getSpeech()) - 10, 2 * Tile.TILE_SIZE, g.getFontMetrics().stringWidth(player.getSpeech()) + 20, 30);
+            g.setColor(Color.WHITE);
+            g.drawString(player.getSpeech(), 4 * Tile.TILE_SIZE - g.getFontMetrics().stringWidth(player.getSpeech()), 2 * Tile.TILE_SIZE + 20);
+        }
 
-        int x = 5;
+
+        //assuming a max number of enemies = 3
         for (int i = 0; i < enemies.size(); i++){
-            if (i % 3 == 0)
-                x += 2;
-            enemies.get(i).render(g, x * Tile.TILE_SIZE, (i * 2 * Tile.TILE_SIZE), 128, 128);
+            if (enemies.get(i) !=  null) {
+                int x = 7 * Tile.TILE_SIZE;
+                int y = 0;
+                if (enemies.size() == 3)
+                    y = i * 2 * Tile.TILE_SIZE;
+                else if (enemies.size() == 2)
+                    y = Tile.TILE_SIZE + i * 3 * Tile.TILE_SIZE;
+                else
+                    y = 2 * Tile.TILE_SIZE;
+
+                enemies.get(i).render(g, x, y, 128, 128);
+
+                if (enemies.get(i).getSpeech() != null) {
+                    RenderUtils.drawOutlinedBox(g, x + 128 - 10, y, g.getFontMetrics().stringWidth(enemies.get(i).getSpeech()) + 20, 30);
+                    g.setColor(Color.WHITE);
+                    g.drawString(enemies.get(i).getSpeech(), x + 128, y + 20);
+                }
+
+            }
         }
 
         //render menus
@@ -148,17 +218,19 @@ public class BattleState extends State {
         g.drawRect(Window.WINDOW_WIDTH / 2 + 150, 3 * Window.WINDOW_HEIGHT / 4 - 10, 100, 10);
         g.fillRect(Window.WINDOW_WIDTH / 2 + 150, 3 * Window.WINDOW_HEIGHT / 4 - 10, (int) ((player.getTolerance() * 1.0 / player.getBaseTolerance()) * 100), 10);
         for (int i = 0; i < enemies.size(); i++) {
-            g.drawString("" + enemies.get(i).getName() + " : " + enemies.get(i).getTolerance() + "/" + enemies.get(i).getBaseTolerance()
-                    , Window.WINDOW_WIDTH / 2 + 15, 3 * Window.WINDOW_HEIGHT / 4 + 30 * (i + 1));
-            g.drawRect(Window.WINDOW_WIDTH / 2 + 150, 3 * Window.WINDOW_HEIGHT / 4 + 30 * (i + 1) - 10, 100, 10);
-            g.fillRect(Window.WINDOW_WIDTH / 2 + 150, 3 * Window.WINDOW_HEIGHT / 4 + 30 * (i + 1) - 10,
-                    (int) ((enemies.get(i).getTolerance() * 1.0 / enemies.get(i).getBaseTolerance()) * 100), 10);
+            if (enemies.get(i) != null) {
+                g.drawString("" + enemies.get(i).getName() + " : " + enemies.get(i).getTolerance() + "/" + enemies.get(i).getBaseTolerance()
+                        , Window.WINDOW_WIDTH / 2 + 15, 3 * Window.WINDOW_HEIGHT / 4 + 30 * (i + 1));
+                g.drawRect(Window.WINDOW_WIDTH / 2 + 150, 3 * Window.WINDOW_HEIGHT / 4 + 30 * (i + 1) - 10, 100, 10);
+                g.fillRect(Window.WINDOW_WIDTH / 2 + 150, 3 * Window.WINDOW_HEIGHT / 4 + 30 * (i + 1) - 10,
+                        (int) ((enemies.get(i).getTolerance() * 1.0 / enemies.get(i).getBaseTolerance()) * 100), 10);
+            }
         }
     }
 
     @Override
     public void keyPressed(int k) {
-        if (playerTurn)
+        if (playerTurn && !conversation)
             battleMenu.keyPressed(k);
     }
 

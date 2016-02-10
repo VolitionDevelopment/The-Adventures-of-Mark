@@ -54,6 +54,10 @@ public abstract class Tile {
         return entities;
     }
 
+    public BufferedImage getImage(){
+        return image;
+    }
+
     public void setX(double x){
         this.x = x;
     }

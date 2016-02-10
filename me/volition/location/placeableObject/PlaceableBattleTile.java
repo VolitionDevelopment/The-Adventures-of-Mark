@@ -12,6 +12,6 @@ import java.util.ArrayList;
 public class PlaceableBattleTile extends PlaceableObject {
 
     public PlaceableBattleTile(Tile[][] tileMap, ArrayList<Entity> entities, double x, double y) {
-        super(new ImageManager().loadImage("/me/volition/assets/image/tiles/brickwall.png"), tileMap, entities, x, y);
+        super(tileMap, entities, x, y);
     }
 }

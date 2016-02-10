@@ -1,8 +1,8 @@
 package me.volition.location.placeableObject;
 
 import me.volition.entity.Entity;
+import me.volition.entity.enemies.Chili;
 import me.volition.entity.enemies.Fratkid;
-import me.volition.entity.enemies.Jalapeno;
 import me.volition.entity.enemies.Stoner;
 import me.volition.location.tile.Tile;
 
@@ -46,13 +46,7 @@ public abstract class PlaceableObject {
 
     //battle tiles
     //can leave entities null to have a random pool of entities
-    public PlaceableObject(BufferedImage image, Tile[][] tileMap, ArrayList<Entity> entities, double x, double y) { //location, size in terms of TILES, not pixels
-        this.image = image;
-        this.width = image.getWidth();
-        this.height = image.getHeight();
-        this.x = x;
-        this.y = y;
-
+    public PlaceableObject(Tile[][] tileMap, ArrayList<Entity> entities, double x, double y) { //location, size in terms of TILES, not pixels
         if (entities == null) {
             Random random = new Random();
             entities = new ArrayList<>();
@@ -62,7 +56,7 @@ public abstract class PlaceableObject {
                 if (mob == 0)
                     entities.add(new Fratkid());
                 else if (mob == 1)
-                    entities.add(new Jalapeno());
+                    entities.add(new Chili());
                 else
                     entities.add(new Stoner());
             }
@@ -102,6 +96,7 @@ public abstract class PlaceableObject {
     }
 
     public void render(Graphics g){
-        g.drawImage(image, (int) x, (int) y, null);
+        if (image != null)
+            g.drawImage(image, (int) x, (int) y, null);
     }
 }

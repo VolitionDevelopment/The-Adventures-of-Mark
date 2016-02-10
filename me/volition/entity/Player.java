@@ -28,7 +28,7 @@ public class Player extends Entity{
     private boolean isInBattle;
 
     public Player(Location location) {
-        super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", 100, 30, 5, location, Window.WINDOW_WIDTH / 2 - Tile.TILE_SIZE / 2, Window.WINDOW_HEIGHT / 2 - Tile.TILE_SIZE / 2);
+        super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", 100, 30, 5, location, 4 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE);
         inventory = new ArrayList<>();
         addMove(new BadPun());
     }

@@ -10,18 +10,19 @@ import java.awt.image.BufferedImage;
 /**
  * Created by mccloskeybr on 2/7/2016.
  */
-public class Jalapeno extends Entity {
+public class Chili extends Entity {
 
     private Animator battle;
 
-    public Jalapeno() {
-        super("Jalapeno", "Haunts your dreams and your bowels.", 5, 10, 15);
+    public Chili() {
+        super("Chili", "Haunts your dreams and your bowels.", 5, 10, 15);
+
         addMove(new RedHotChiliShits());
     }
 
     @Override
     public void loadImages() {
-        BufferedImage spritesheet = new ImageManager().loadImage("/me/volition/assets/image/entities/jalapeno_spritesheet.png");
+        BufferedImage spritesheet = new ImageManager().loadImage("/me/volition/assets/image/entities/chili_spritesheet.png");
 
         BufferedImage[] battleFrames = new BufferedImage[2];
         battleFrames[0] = spritesheet.getSubimage(0, 0, 64, 64);

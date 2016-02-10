@@ -11,7 +11,15 @@ import java.util.Random;
  */
 public class Rekt extends Move implements LingerEffect{
     private String[] insults = {
-            "Your mom!"
+            "Your mom!",
+            "Do you even lift brah?",
+            "Leg day? What's that?",
+    };
+
+    private String[] responses = {
+            "I'm so sad.",
+            "Just leave me alone!",
+            "Leg day? What's that?",
     };
 
     public Rekt() {
@@ -28,7 +36,14 @@ public class Rekt extends Move implements LingerEffect{
 
     @Override
     public void onCast(Entity caster, Entity target) {
-        caster.setSpeech(insults[new Random().nextInt(insults.length)]);
-        target.setSpeech("I'm so sad.");
+        Random random = new Random();
+
+        caster.setSpeech(insults[random.nextInt(insults.length)]);
+
+        if (Math.random() < 0.5) {
+            target.setSpeech(responses[random.nextInt(responses.length)]);
+        } else {
+            target.setSpeech("Whatever dude.");
+        }
     }
 }

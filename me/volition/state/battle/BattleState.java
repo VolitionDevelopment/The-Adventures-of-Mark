@@ -4,7 +4,6 @@ import me.volition.Window;
 import me.volition.entity.Entity;
 import me.volition.entity.Player;
 import me.volition.location.tile.Tile;
-import me.volition.location.tile.WoodTile;
 import me.volition.state.State;
 import me.volition.state.StateManager;
 import me.volition.state.menu.ingamemenu.battle.BattleMainMenu;
@@ -176,11 +175,11 @@ public class BattleState extends State {
                 g.drawImage(bgTile, j * Tile.TILE_SIZE, i * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, null);
 
         //render entities
-        player.render(g, 4 * Tile.TILE_SIZE, 3 * Tile.TILE_SIZE);
+        player.render(g, 4 * Tile.TILE_SIZE, 4 * Tile.TILE_SIZE - Tile.TILE_SIZE / 2);
         if (player.getSpeech() != null) {
-            RenderUtils.drawOutlinedBox(g, 4 * Tile.TILE_SIZE - g.getFontMetrics().stringWidth(player.getSpeech()) - 10, 2 * Tile.TILE_SIZE, g.getFontMetrics().stringWidth(player.getSpeech()) + 20, 30);
+            RenderUtils.drawOutlinedBox(g, 4 * Tile.TILE_SIZE - g.getFontMetrics().stringWidth(player.getSpeech()) - 10, 3 * Tile.TILE_SIZE, g.getFontMetrics().stringWidth(player.getSpeech()) + 20, 30);
             g.setColor(Color.WHITE);
-            g.drawString(player.getSpeech(), 4 * Tile.TILE_SIZE - g.getFontMetrics().stringWidth(player.getSpeech()), 2 * Tile.TILE_SIZE + 20);
+            g.drawString(player.getSpeech(), 4 * Tile.TILE_SIZE - g.getFontMetrics().stringWidth(player.getSpeech()), 3 * Tile.TILE_SIZE + 20);
         }
 
 
@@ -188,13 +187,13 @@ public class BattleState extends State {
         for (int i = 0; i < enemies.size(); i++){
             if (enemies.get(i) !=  null) {
                 int x = 7 * Tile.TILE_SIZE;
-                int y = 0;
+                int y;
                 if (enemies.size() == 3)
-                    y = i * 2 * Tile.TILE_SIZE;
+                    y = Tile.TILE_SIZE / 2 + i * 2 * Tile.TILE_SIZE;
                 else if (enemies.size() == 2)
-                    y = Tile.TILE_SIZE + i * 3 * Tile.TILE_SIZE;
+                    y = Tile.TILE_SIZE / 2 + Tile.TILE_SIZE + i * 3 * Tile.TILE_SIZE;
                 else
-                    y = 2 * Tile.TILE_SIZE;
+                    y = Tile.TILE_SIZE / 2 + 2 * Tile.TILE_SIZE;
 
                 enemies.get(i).render(g, x, y, 128, 128);
 

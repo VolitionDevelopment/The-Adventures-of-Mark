@@ -4,6 +4,7 @@ import me.volition.Window;
 import me.volition.item.Item;
 import me.volition.item.ItemSlot;
 import me.volition.item.impl.usable.MtnDew;
+import me.volition.item.impl.weapon.Fists;
 import me.volition.location.Location;
 import me.volition.location.tile.Tile;
 import me.volition.move.impl.BadPun;
@@ -31,6 +32,12 @@ public class Player extends Entity{
     public Player(Location location) {
         super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", 100, 30, 10, location, 4 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE);
         inventory = new ArrayList<>();
+        equippedItems = new HashMap<>();
+
+        System.out.println(getWepDamage());
+        equip(new Fists());
+        System.out.println(getWepDamage());
+
         addMove(new BadPun());
         addItem(new MtnDew());
     }
@@ -225,12 +232,30 @@ public class Player extends Entity{
 
     public void equip(Item item){
         if(equippedItems.get(item.getSlot()) != null){
+            //replacing an already equipped item
+            //replaces values
+            if (item.getSlot() == ItemSlot.HAND)
+                setWepDamage(item.getValue());
+            else {
+                //unequips, then equips
+                setArmor(getArmor() - equippedItems.get(item.getSlot()).getValue());
+                setArmor(getArmor() + item.getValue());
+            }
+
             inventory.add(equippedItems.get(item.getSlot()));
             equippedItems.replace(item.getSlot(), item);
-        }
 
-        equippedItems.put(item.getSlot(), item);
-        inventory.remove(item);
+        } else {
+            //nothing equipped
+            if (item.getSlot() == ItemSlot.HAND)
+                setWepDamage(item.getValue());
+            else
+                setArmor(getArmor() + item.getValue());
+
+
+                equippedItems.put(item.getSlot(), item);
+            inventory.remove(item);
+        }
     }
 
     public int nextLevel(){

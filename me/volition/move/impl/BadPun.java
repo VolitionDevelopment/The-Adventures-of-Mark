@@ -30,7 +30,7 @@ public class BadPun extends Move {
         caster.setSpeech(badPuns[new Random().nextInt(badPuns.length)]);
 
         if(d >= 0.5){
-            target.setTolerance(5);
+            target.takeDamage((int)(caster.getWepDamage() * 1.1));
             target.setSpeech("Ahh! It's so bad!");
         }else{
             target.setSpeech("I've heard that one before...");

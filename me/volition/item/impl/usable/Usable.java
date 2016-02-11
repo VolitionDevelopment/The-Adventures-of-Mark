@@ -14,7 +14,7 @@ public abstract class Usable extends Item {
     private int magnitude;
 
     public Usable(String name, String desc, int price, ItemSlot slot, int magnitude, BufferedImage image) {
-        super(name, desc, price, slot, image);
+        super(name, desc, 0, price, slot, image);
         this.magnitude = magnitude;
     }
 

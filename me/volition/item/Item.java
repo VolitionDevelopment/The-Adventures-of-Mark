@@ -11,12 +11,14 @@ public abstract class Item {
     private String name;
     private String desc;
     private int price;
+    private int value;
     private ItemSlot slot;
     private BufferedImage image;
 
-    public Item(String name, String desc, int price, ItemSlot slot, BufferedImage image) {
+    public Item(String name, String desc, int value, int price, ItemSlot slot, BufferedImage image) {
         this.name = name;
         this.desc = desc;
+        this.value = value;
         this.price = price;
         this.slot = slot;
         this.image = image;
@@ -32,6 +34,10 @@ public abstract class Item {
 
     public String getDesc() {
         return desc;
+    }
+
+    public int getValue(){
+        return value;
     }
 
     public void setDesc(String desc) {

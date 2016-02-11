@@ -12,8 +12,8 @@ import java.awt.image.BufferedImage;
 public abstract class Armor extends Item{
     private int armor;
 
-    public Armor(String name, String desc, int price, ItemSlot slot, int armor, BufferedImage image) {
-        super(name, desc, price, slot, image);
+    public Armor(String name, String desc, int value, int price, ItemSlot slot, int armor, BufferedImage image) {
+        super(name, desc, value, price, slot, image);
         this.armor = armor;
     }
 

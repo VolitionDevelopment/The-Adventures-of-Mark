@@ -17,6 +17,7 @@ public abstract class Entity {
     private int baseTolerance, tolerance;
     private int baseBrainpower, brainpower;
     private int baseSpeed;
+    private int armor, wepDamage;
     private Location location;
     private boolean goingRight, goingLeft, goingUp, goingDown;
     private double x, y;
@@ -100,6 +101,14 @@ public abstract class Entity {
         this.tolerance = tolerance;
     }
 
+    public void takeDamage(int damage){
+        damage -= armor;
+        if (damage < 0)
+            damage = 0;
+
+        this.tolerance -= damage;
+    }
+
     public void modTolerance(int health){
         this.tolerance += health;
     }
@@ -126,6 +135,22 @@ public abstract class Entity {
 
     public void modBrainpower(int mana){
         this.brainpower += mana;
+    }
+
+    public int getArmor(){
+        return armor;
+    }
+
+    public void setArmor(int armor){
+        this.armor = armor;
+    }
+
+    public int getWepDamage(){
+        return wepDamage;
+    }
+
+    public void setWepDamage(int wepDamage){
+        this.wepDamage = wepDamage;
     }
 
     public void setSpeech(String speech){

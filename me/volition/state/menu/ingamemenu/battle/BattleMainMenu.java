@@ -21,7 +21,6 @@ public class BattleMainMenu extends BattleMenu {
             setSubMenu(new ItemMenu(this));
         else {
             getBattleState().getPlayer().setInBattle(false);
-            getBattleState().getPlayer().setX(getBattleState().getPlayer().getX() + Tile.TILE_SIZE);
             StateManager.setCurrentState(GameManager.getGameState());
         }
     }

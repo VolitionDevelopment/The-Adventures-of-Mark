@@ -12,7 +12,8 @@ public class RedHotChiliShits extends Move {
 
     private String[] responses = {
             "My butt hurts already!",
-            "I'm allergic"
+            "My mouth is on fire!",
+            "Where's my milk?!"
     };
 
     private String[] attacks = {
@@ -32,7 +33,8 @@ public class RedHotChiliShits extends Move {
 
         caster.setSpeech(attacks[random.nextInt(attacks.length)]);
 
-        if (Math.random() < 0.5) {
+        if (Math.random() < 0.8) {
+            target.takeDamage(random.nextInt(5) + 5);
             target.setSpeech(responses[random.nextInt(responses.length)]);
         } else {
             target.setSpeech("Not even that spicy...");

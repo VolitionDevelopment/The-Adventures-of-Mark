@@ -26,6 +26,28 @@ public abstract class CutsceneState extends State{
         this.textbox = new Textbox(dialogue_text[0]);
     }
 
+    public String getCurrentString(){
+        if (index < dialogue_text.length)
+            return dialogue_text[index];
+        return "";
+    }
+
+    public int getIndex(){
+        return index;
+    }
+
+    public void setIndex(int i){
+        index = i;
+    }
+
+    public Textbox getTextbox(){
+        return textbox;
+    }
+
+    public BufferedImage[] getDialogue_images(){
+        return dialogue_images;
+    }
+
     @Override
     public void init() {
         index = 0;
@@ -39,12 +61,9 @@ public abstract class CutsceneState extends State{
 
     @Override
     public void render(Graphics g) {
-        if (index < dialogue_images.length) {
-            if (dialogue_images[index] != null)
+        if (index < dialogue_images.length && dialogue_images[index] != null)
                 g.drawImage(dialogue_images[index], 0, 0, Window.WINDOW_WIDTH, Window.WINDOW_HEIGHT, null);
-
-            textbox.render(g);
-        }
+        textbox.render(g);
     }
 
     @Override

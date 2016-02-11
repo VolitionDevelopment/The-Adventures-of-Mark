@@ -12,11 +12,15 @@ public class BadPun extends Move {
     private String[] badPuns = {
             "I'll calcu-later!",
             "A dyslexic man walks into a bra",
-            "What do you call a fish with no eyes? A fsh!",
+            "What's a fish with no eyes? A fsh!",
             "I'll send you to the pun-itentiary!",
-            "I used to think I was indecisive, but now I'm not so sure.",
-            "What do you call a fat vampire? Count Snackula!",
-            "What do you call a sleepwalking nun? A roamin Catholic"
+            "I thought I was indecisive, now I'm not so sure.",
+    };
+
+    private String[] responses = {
+            "Ahh! It's so bad!",
+            "Hehe...",
+            "LOL! XD"
     };
 
     public BadPun(){
@@ -25,15 +29,15 @@ public class BadPun extends Move {
 
     @Override
     public void onCast(Entity caster, Entity target) {
-        double d = Math.random();
+        Random random = new Random();
 
-        caster.setSpeech(badPuns[new Random().nextInt(badPuns.length)]);
+        caster.setSpeech(badPuns[random.nextInt(badPuns.length)]);
 
-        if(d >= 0.5){
-            target.takeDamage((int)(caster.getWepDamage() * 1.1));
-            target.setSpeech("Ahh! It's so bad!");
+        if(Math.random() < 0.85){
+            target.takeDamage((int)((3 + caster.getWepDamage()) * 1.1));
+            target.setSpeech(responses[random.nextInt(responses.length)]);
         }else{
-            target.setSpeech("I've heard that one before...");
+            target.setSpeech("Go back to joke school.");
         }
     }
 }

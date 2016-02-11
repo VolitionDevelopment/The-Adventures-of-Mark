@@ -41,6 +41,7 @@ public class Rekt extends Move implements LingerEffect{
         caster.setSpeech(insults[random.nextInt(insults.length)]);
 
         if (Math.random() < 0.5) {
+            target.takeDamage(random.nextInt(7) + 4);
             target.setSpeech(responses[random.nextInt(responses.length)]);
         } else {
             target.setSpeech("Whatever dude.");

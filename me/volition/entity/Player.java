@@ -34,9 +34,7 @@ public class Player extends Entity{
         inventory = new ArrayList<>();
         equippedItems = new HashMap<>();
 
-        System.out.println(getWepDamage());
         equip(new Fists());
-        System.out.println(getWepDamage());
 
         addMove(new BadPun());
         addItem(new MtnDew());

@@ -26,7 +26,8 @@ public class MellowOut extends Move {
 
         caster.setSpeech("Chill, bro!");
 
-        if (Math.random() < 0.5) {
+        if (Math.random() < 0.25) {
+            target.takeDamage(random.nextInt(10) + 5);
             target.setSpeech(responses[random.nextInt(responses.length)]);
         } else {
             target.setSpeech("It's not for me.");

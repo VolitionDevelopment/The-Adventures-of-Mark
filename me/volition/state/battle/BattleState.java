@@ -152,7 +152,6 @@ public class BattleState extends State {
                     isDone = false;
             if (isDone) {
                 player.setInBattle(false);
-                player.setX(player.getX() + Tile.TILE_SIZE);
                 StateManager.setCurrentState(GameManager.getGameState());
             }
             for (int i = 0; i < enemies.size(); i++) {

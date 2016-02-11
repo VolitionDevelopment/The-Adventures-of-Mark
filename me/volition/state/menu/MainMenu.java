@@ -16,7 +16,7 @@ public class MainMenu extends CenterTextMenu {
     private boolean increasing = false;
 
     public MainMenu(){
-        super(new ImageManager().loadImage("/me/volition/assets/image/menus/mainmenu.png"), new String[]{"Play", "Help", "About", "Quit"}, new Color(255, 255, 255), new Color(255, 0, 0));
+        super(new ImageManager().loadImage("/me/volition/assets/image/menus/mainmenu.png"), new String[]{"New Game", "Continue", "Help", "About", "Quit"}, new Color(255, 255, 255), new Color(255, 0, 0));
     }
 
     @Override
@@ -50,16 +50,20 @@ public class MainMenu extends CenterTextMenu {
     @Override
     public void select(int index) {
 
-        //start game
+        //new game
         if (index == 0)
             StateManager.setCurrentState(StateManager.OPENING_CUTSCENE_INDEX);
 
-        //help
+        //continue
         else if (index == 1)
+            StateManager.setCurrentState(StateManager.GAME_INDEX);
+
+        //help
+        else if (index == 2)
             StateManager.setCurrentState(StateManager.HELP_MENU_INDEX);
 
         //about
-        else if (index == 2)
+        else if (index == 3)
             StateManager.setCurrentState(StateManager.ABOUT_INDEX);
 
         //exit

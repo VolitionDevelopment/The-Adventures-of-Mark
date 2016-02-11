@@ -1,6 +1,7 @@
 package me.volition.item.impl.usable;
 
 import me.volition.entity.Entity;
+import me.volition.entity.Player;
 import me.volition.item.Item;
 import me.volition.item.ItemSlot;
 
@@ -17,7 +18,7 @@ public abstract class Usable extends Item {
         this.magnitude = magnitude;
     }
 
-    public abstract void use(Entity entity);
+    public abstract void use(Player player);
 
     public int getMagnitude() {
         return magnitude;

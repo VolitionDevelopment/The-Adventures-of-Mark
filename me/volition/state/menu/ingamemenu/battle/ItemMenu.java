@@ -15,5 +15,9 @@ public class ItemMenu extends BattleMenu {
     public void select(int currentIndex) {
         if (currentIndex == 0)
             getPrevMenu().setSubMenu(null);
+        else {
+            getBattleState().getPlayer().useItem(currentIndex - 1);
+            getBattleState().switchTurns();
+        }
     }
 }

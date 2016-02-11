@@ -1,5 +1,6 @@
 package me.volition.item.impl.armor;
 
+import me.volition.entity.Player;
 import me.volition.item.Item;
 import me.volition.item.ItemSlot;
 
@@ -22,5 +23,9 @@ public abstract class Armor extends Item{
 
     public void setArmor(int armor) {
         this.armor = armor;
+    }
+
+    public void use(Player player) {
+        player.equip(this);
     }
 }

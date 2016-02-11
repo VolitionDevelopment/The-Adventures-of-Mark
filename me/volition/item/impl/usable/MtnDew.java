@@ -1,6 +1,7 @@
 package me.volition.item.impl.usable;
 
 import me.volition.entity.Entity;
+import me.volition.entity.Player;
 import me.volition.item.ItemSlot;
 
 /**
@@ -12,8 +13,8 @@ public class MtnDew extends Usable {
     }
 
     @Override
-    public void use(Entity entity) {
-        entity.modBrainpower(Math.min(entity.getBaseBrainpower() - entity.getBrainpower(), getMagnitude()));
+    public void use(Player player) {
+        player.modBrainpower(Math.min(player.getBaseBrainpower() - player.getBrainpower(), getMagnitude()));
         //Output to player
     }
 }

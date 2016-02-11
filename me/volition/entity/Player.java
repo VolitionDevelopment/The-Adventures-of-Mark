@@ -3,6 +3,7 @@ package me.volition.entity;
 import me.volition.Window;
 import me.volition.item.Item;
 import me.volition.item.ItemSlot;
+import me.volition.item.impl.usable.MtnDew;
 import me.volition.location.Location;
 import me.volition.location.tile.Tile;
 import me.volition.move.impl.BadPun;
@@ -28,9 +29,10 @@ public class Player extends Entity{
     private boolean isInBattle;
 
     public Player(Location location) {
-        super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", 100, 30, 5, location, 4 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE);
+        super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", 100, 30, 10, location, 4 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE);
         inventory = new ArrayList<>();
         addMove(new BadPun());
+        addItem(new MtnDew());
     }
 
     @Override
@@ -131,17 +133,6 @@ public class Player extends Entity{
         this.isInBattle = isInBattle;
     }
 
-    public void setLocation(Location location){
-        if (getLocation() == null){
-            super.setLocation(location);
-        } else {
-            setX(Window.WINDOW_WIDTH - getX());
-            setY(Window.WINDOW_HEIGHT - getY());
-
-            super.setLocation(location);
-        }
-    }
-
     public String[] getMoves_strarr(){
         String[] moves = new String[getMoves().size()];
         for (int i = 0; i < moves.length; i++)
@@ -211,6 +202,16 @@ public class Player extends Entity{
     public void removeItem(Item item){
         if(inventory.contains(item)){
             inventory.remove(item);
+        }
+    }
+
+    public void useItem(int index){
+        if (index < inventory.size() && index >= 0) {
+            inventory.get(index).use(this);
+            if (inventory.get(index).getSlot().equals(ItemSlot.NONE)) {
+                inventory.remove(index);
+            }
+            //armor and weapon pieces handle themselves when they go through equip method
         }
     }
 

@@ -1,6 +1,7 @@
 package me.volition.item.impl.usable;
 
 import me.volition.entity.Entity;
+import me.volition.entity.Player;
 import me.volition.item.ItemSlot;
 
 import java.awt.image.BufferedImage;
@@ -14,7 +15,7 @@ public class PizzaSlice extends Usable {
     }
 
     @Override
-    public void use(Entity entity) {
-        entity.modTolerance(Math.min(entity.getBaseTolerance() - entity.getTolerance(), getMagnitude()));
+    public void use(Player player) {
+        player.modTolerance(Math.min(player.getBaseTolerance() - player.getTolerance(), getMagnitude()));
     }
 }

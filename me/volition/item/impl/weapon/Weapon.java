@@ -1,5 +1,6 @@
 package me.volition.item.impl.weapon;
 
+import me.volition.entity.Player;
 import me.volition.item.Item;
 import me.volition.item.ItemSlot;
 
@@ -22,5 +23,9 @@ public abstract class Weapon extends Item{
 
     public void setDamage(int damage) {
         this.damage = damage;
+    }
+
+    public void use(Player player){
+        player.equip(this);
     }
 }

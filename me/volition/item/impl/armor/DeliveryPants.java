@@ -1,5 +1,6 @@
 package me.volition.item.impl.armor;
 
+import me.volition.entity.Player;
 import me.volition.item.ItemSlot;
 
 import java.awt.image.BufferedImage;

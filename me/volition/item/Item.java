@@ -1,5 +1,7 @@
 package me.volition.item;
 
+import me.volition.entity.Player;
+
 import java.awt.image.BufferedImage;
 
 /**
@@ -51,4 +53,6 @@ public abstract class Item {
     public void setSlot(ItemSlot slot) {
         this.slot = slot;
     }
+
+    public abstract void use(Player player);
 }

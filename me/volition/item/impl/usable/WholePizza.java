@@ -1,6 +1,7 @@
 package me.volition.item.impl.usable;
 
 import me.volition.entity.Entity;
+import me.volition.entity.Player;
 import me.volition.item.ItemSlot;
 
 import java.awt.image.BufferedImage;
@@ -14,7 +15,7 @@ public class WholePizza extends Usable {
     }
 
     @Override
-    public void use(Entity entity) {
-        entity.setTolerance(entity.getBaseTolerance());
+    public void use(Player player) {
+        player.setTolerance(player.getBaseTolerance());
     }
 }

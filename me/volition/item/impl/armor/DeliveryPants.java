@@ -10,6 +10,6 @@ import java.awt.image.BufferedImage;
  */
 public class DeliveryPants extends Armor {
     public DeliveryPants() {
-        super("Delivery Pants", "A pair of pants bestowed upon you by Pizza Hut.", 5, 0, ItemSlot.LEG, 3, null);
+        super("Delivery Pants", "A pair of pants bestowed upon you by Pizza Hut.", 3, 0, ItemSlot.LEG, null);
     }
 }

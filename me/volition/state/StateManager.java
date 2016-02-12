@@ -1,9 +1,9 @@
 package me.volition.state;
 
 import me.volition.state.cutscene.OpeningCutscene;
-import me.volition.state.menu.AboutMenu;
-import me.volition.state.menu.HelpMenu;
-import me.volition.state.menu.MainMenu;
+import me.volition.state.menu.impl.AboutMenu;
+import me.volition.state.menu.impl.HelpMenu;
+import me.volition.state.menu.impl.MainMenu;
 import me.volition.util.GameManager;
 
 

@@ -1,6 +1,7 @@
-package me.volition.state.menu;
+package me.volition.state.menu.impl;
 
 import me.volition.state.StateManager;
+import me.volition.state.menu.CenterTextMenu;
 import me.volition.util.ImageManager;
 import me.volition.util.RenderUtils;
 

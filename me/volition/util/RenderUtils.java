@@ -1,6 +1,7 @@
 package me.volition.util;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by Demerzel on 2/4/16.
@@ -34,6 +35,30 @@ public class RenderUtils {
         g.fillRect(x, y, width, height);
         g.setColor(Color.BLACK);
         g.fillRect(x + 5, y + 5, width - 10, height - 10);
+    }
+
+    public static void drawWrappedText(Graphics g, String str, int x, int y, int width){
+        ArrayList<String> strings = new ArrayList<>();
+
+        int loclastBreak = 0;
+        int locLastSpace = 0;
+        int index = 0;
+
+        while (index < str.length()) {
+            if (str.charAt(index) == ' ')
+                locLastSpace = index;
+            else if (g.getFontMetrics().stringWidth(str.substring(loclastBreak, index)) > width) {
+                strings.add(str.substring(loclastBreak, locLastSpace));
+                loclastBreak = locLastSpace + 1;
+            }
+            index++;
+            if (index == str.length())
+                strings.add(str.substring(loclastBreak, str.length()));
+        }
+
+        for (int i = 0; i < strings.size(); i++)
+            g.drawString(strings.get(i), x, y + 30 * i);
+
     }
 
 }

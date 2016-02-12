@@ -1,6 +1,9 @@
 package me.volition.state.menu.ingamemenu.game;
 
 import me.volition.Window;
+import me.volition.entity.Player;
+import me.volition.state.StateManager;
+import me.volition.state.menu.impl.InventoryMenu;
 import me.volition.state.menu.ingamemenu.InGameMenu;
 import me.volition.util.GameManager;
 import me.volition.util.RenderUtils;
@@ -22,7 +25,10 @@ public class PauseMenu implements InGameMenu {
     private int currentIndex;
     private boolean hasSelected;
 
-    public PauseMenu() {
+    private Player player;
+
+    public PauseMenu(Player player) {
+        this.player = player;
     }
 
     @Override
@@ -42,9 +48,9 @@ public class PauseMenu implements InGameMenu {
     public void select(int currentIndex) {
         if (currentIndex == 0)
             GameManager.getGameState().setPauseMenu(null);
-        else if (currentIndex == 1) {
-
-        } else if (currentIndex == 2) {
+        else if (currentIndex == 1)
+            StateManager.setCurrentState(new InventoryMenu(player));
+        else if (currentIndex == 2) {
 
         } else
             System.exit(0);

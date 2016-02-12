@@ -34,6 +34,7 @@ public class MarkApartment extends Location {
         addPlaceableObject(new PizzaBox(tileMap, 5 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE));
         addPlaceableObject(new Television(tileMap, 4 * Tile.TILE_SIZE, 8 * Tile.TILE_SIZE));
         addPlaceableObject(new Wardrobe(tileMap, 10 * Tile.TILE_SIZE, Tile.TILE_SIZE));
+        addPlaceableObject(new LavaLamp(tileMap, 9 * Tile.TILE_SIZE, Tile.TILE_SIZE));
         addPlaceableObject(new Bed(tileMap, 8 * Tile.TILE_SIZE, 2 * Tile.TILE_SIZE));
         addPlaceableObject(new Toilet(tileMap, Tile.TILE_SIZE, 2 * Tile.TILE_SIZE));
         addPlaceableObject(new Desk(tileMap, Tile.TILE_SIZE, 5 * Tile.TILE_SIZE));

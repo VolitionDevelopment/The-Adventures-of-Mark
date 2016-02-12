@@ -3,6 +3,7 @@ package me.volition.entity;
 import me.volition.Window;
 import me.volition.item.Item;
 import me.volition.item.ItemSlot;
+import me.volition.item.impl.armor.Jammies;
 import me.volition.item.impl.usable.MtnDew;
 import me.volition.item.impl.weapon.Fists;
 import me.volition.location.Location;
@@ -35,6 +36,7 @@ public class Player extends Entity{
         equippedItems = new HashMap<>();
 
         equip(new Fists());
+        equip(new Jammies());
 
         addMove(new BadPun());
         addItem(new MtnDew());
@@ -232,7 +234,7 @@ public class Player extends Entity{
         if(equippedItems.get(item.getSlot()) != null){
             //replacing an already equipped item
             //replaces values
-            if (item.getSlot() == ItemSlot.HAND)
+            if (item.getSlot() == ItemSlot.WEAPON)
                 setWepDamage(item.getValue());
             else {
                 //unequips, then equips
@@ -245,7 +247,7 @@ public class Player extends Entity{
 
         } else {
             //nothing equipped
-            if (item.getSlot() == ItemSlot.HAND)
+            if (item.getSlot() == ItemSlot.WEAPON)
                 setWepDamage(item.getValue());
             else
                 setArmor(getArmor() + item.getValue());

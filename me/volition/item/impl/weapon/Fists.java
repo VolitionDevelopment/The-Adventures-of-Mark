@@ -8,6 +8,6 @@ import me.volition.item.ItemSlot;
  */
 public class Fists extends Weapon {
     public Fists() {
-        super("Fisticuffs", "The poor man's knife.", 1, 0, ItemSlot.HAND, null);
+        super("Fisticuffs", "The poor man's knife.", 1, 0, ItemSlot.WEAPON, null);
     }
 }

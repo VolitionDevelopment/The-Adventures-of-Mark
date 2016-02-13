@@ -3,6 +3,7 @@ package me.volition.state.menu.impl;
 import me.volition.*;
 import me.volition.Window;
 import me.volition.entity.Player;
+import me.volition.item.ItemSlot;
 import me.volition.state.StateManager;
 import me.volition.state.menu.LeftTextMenu;
 import me.volition.util.GameManager;
@@ -46,13 +47,18 @@ public class InventoryMenu extends LeftTextMenu {
             if (player.getInventory().get(getCurrentIndex() - 1).getImage() != null)
                 g.drawImage(player.getInventory().get(getCurrentIndex() - 1).getImage(), 220, 100, null);
 
+            int y = Window.WINDOW_HEIGHT / 2;
+
+            if (player.getInventory().get(getCurrentIndex() - 1).getSlot() == ItemSlot.CHEST)
+                y += 100;
+
             g.setColor(Color.RED);
-            g.drawString(player.getInventory().get(getCurrentIndex() - 1).getName(), 220, Window.WINDOW_HEIGHT / 2);
+            g.drawString(player.getInventory().get(getCurrentIndex() - 1).getName(), 220, y);
 
             g.setColor(Color.WHITE);
             g.drawString(" - " + player.getInventory().get(getCurrentIndex() - 1).getEffect(),
-                    220 + g.getFontMetrics().stringWidth(player.getInventory().get(getCurrentIndex() - 1).getName()), Window.WINDOW_HEIGHT / 2);
+                    220 + g.getFontMetrics().stringWidth(player.getInventory().get(getCurrentIndex() - 1).getName()), y);
 
-            RenderUtils.drawWrappedText(g, player.getInventory().get(getCurrentIndex() - 1).getDesc(), 220, Window.WINDOW_HEIGHT / 2 + 30, Window.WINDOW_WIDTH - 300);        }
+            RenderUtils.drawWrappedText(g, player.getInventory().get(getCurrentIndex() - 1).getDesc(), 220, y + 30, Window.WINDOW_WIDTH - 300);        }
     }
 }

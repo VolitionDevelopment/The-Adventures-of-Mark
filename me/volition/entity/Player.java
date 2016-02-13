@@ -7,7 +7,10 @@ import me.volition.item.impl.armor.DeliveryUniform;
 import me.volition.item.impl.armor.Fedora;
 import me.volition.item.impl.armor.Jammies;
 import me.volition.item.impl.usable.MtnDank;
+import me.volition.item.impl.usable.PizzaSlice;
+import me.volition.item.impl.usable.WholePizza;
 import me.volition.item.impl.weapon.Fists;
+import me.volition.item.impl.weapon.Spoon;
 import me.volition.location.Location;
 import me.volition.location.tile.Tile;
 import me.volition.move.impl.BadPun;
@@ -44,7 +47,11 @@ public class Player extends Entity{
         equip(new Jammies());
 
         addItem(new MtnDank());
+        addItem(new PizzaSlice());
+        addItem(new WholePizza());
         addItem(new DeliveryUniform());
+        addItem(new Fedora());
+        addItem(new Spoon());
 
         addMove(new BadPun());
 
@@ -229,9 +236,10 @@ public class Player extends Entity{
 
     public void useItem(int index){
         if (index < inventory.size() && index >= 0) {
-            inventory.get(index).use(this);
-            if (inventory.get(index).getSlot().equals(ItemSlot.NONE)) {
-                inventory.remove(index);
+            Item item = inventory.get(index);
+            item.use(this);
+            if (item.getSlot().equals(ItemSlot.NONE)) {
+                inventory.remove(item);
             }
             //armor and weapon pieces handle themselves when they go through equip method
         }
@@ -268,8 +276,7 @@ public class Player extends Entity{
             else
                 setArmor(getArmor() + item.getValue());
 
-
-                equippedItems.put(item.getSlot(), item);
+            equippedItems.put(item.getSlot(), item);
             inventory.remove(item);
         }
     }

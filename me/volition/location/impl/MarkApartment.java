@@ -26,7 +26,7 @@ public class MarkApartment extends Location {
         tiles.add(WoodTile.class);
         tiles.add(BrickWall.class);
 
-        Tile[][] tileMap = ImageManager.loadMapFromImage(new ImageManager().loadImage("/me/volition/assets/image/rooms/marksroom.png"), tiles);
+        Tile[][] tileMap = ImageManager.loadMapFromImage(new ImageManager().loadImage("/me/volition/assets/image/rooms/marksroom.png"), tiles, null);
 
         //add solid objects
         addPlaceableObject(new TexasCarpet(tileMap, 3 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE));

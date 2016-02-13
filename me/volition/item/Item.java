@@ -72,7 +72,7 @@ public abstract class Item {
 
         g.setColor(Color.RED);
         g.drawString(name, 220, Window.WINDOW_HEIGHT / 2);
-        
+
         g.setColor(Color.WHITE);
         RenderUtils.drawWrappedText(g, desc, 220, Window.WINDOW_HEIGHT / 2 + 30, Window.WINDOW_WIDTH - 300);
     }

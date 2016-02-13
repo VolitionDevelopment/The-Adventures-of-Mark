@@ -4,7 +4,7 @@ import me.volition.Window;
 import me.volition.item.Item;
 import me.volition.item.ItemSlot;
 import me.volition.item.impl.armor.Jammies;
-import me.volition.item.impl.usable.MtnDew;
+import me.volition.item.impl.usable.MtnDank;
 import me.volition.item.impl.weapon.Fists;
 import me.volition.location.Location;
 import me.volition.location.tile.Tile;
@@ -39,7 +39,7 @@ public class Player extends Entity{
         equip(new Jammies());
 
         addMove(new BadPun());
-        addItem(new MtnDew());
+        addItem(new MtnDank());
     }
 
     @Override

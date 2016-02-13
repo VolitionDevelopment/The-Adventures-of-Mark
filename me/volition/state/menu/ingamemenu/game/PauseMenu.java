@@ -17,10 +17,10 @@ import java.awt.event.KeyEvent;
 public class PauseMenu implements InGameMenu {
 
     private String[] options = {
-            "Continue",
-            "Inventory",
-            "Status",
-            "Quit"
+            "CONT.",
+            "INV.",
+            "STAT.",
+            "QUIT."
     };
     private int currentIndex;
     private boolean hasSelected;
@@ -71,7 +71,7 @@ public class PauseMenu implements InGameMenu {
     @Override
     public void render(Graphics g) {
         RenderUtils.drawOutlinedBox(g, 0,  4 * Window.WINDOW_HEIGHT / 5, Window.WINDOW_WIDTH - 5, Window.WINDOW_HEIGHT / 5 - 5);
-        g.setFont(new Font("Determination Sans", Font.PLAIN, 14));
+        g.setFont(new Font("Determination Sans", Font.PLAIN, 30));
 
         for (int i = 0; i < options.length; i++) {
             if (i == currentIndex)
@@ -79,7 +79,7 @@ public class PauseMenu implements InGameMenu {
             else
                 g.setColor(Color.WHITE);
 
-            g.drawString(options[i], 100 + 100 * i, me.volition.Window.WINDOW_HEIGHT - 75);
+            g.drawString(options[i], 100 + 150 * i, me.volition.Window.WINDOW_HEIGHT - 75);
         }
     }
 }

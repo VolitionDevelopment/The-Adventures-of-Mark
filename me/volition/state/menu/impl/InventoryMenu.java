@@ -40,7 +40,17 @@ public class InventoryMenu extends LeftTextMenu {
         super.render(g);
 
         RenderUtils.drawOutlinedBox(g, 200, 30, Window.WINDOW_WIDTH - 250, Window.WINDOW_HEIGHT - 60);
-        if (getCurrentIndex() != 0)
-            player.getInventory().get(getCurrentIndex() - 1).renderDescription(g);
+        if (getCurrentIndex() != 0) {
+            if (player.getInventory().get(getCurrentIndex() - 1).getImage() != null)
+                g.drawImage(player.getInventory().get(getCurrentIndex() - 1).getImage(), 220, 100, null);
+
+            g.setColor(Color.RED);
+            g.drawString(player.getInventory().get(getCurrentIndex() - 1).getName(), 220, Window.WINDOW_HEIGHT / 2);
+
+            g.setColor(Color.WHITE);
+            g.drawString(" - " + player.getInventory().get(getCurrentIndex() - 1).getEffect(),
+                    220 + g.getFontMetrics().stringWidth(player.getInventory().get(getCurrentIndex() - 1).getName()), Window.WINDOW_HEIGHT / 2);
+
+            RenderUtils.drawWrappedText(g, player.getInventory().get(getCurrentIndex() - 1).getDesc(), 220, Window.WINDOW_HEIGHT / 2 + 30, Window.WINDOW_WIDTH - 300);        }
     }
 }

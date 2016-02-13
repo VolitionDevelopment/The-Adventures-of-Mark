@@ -7,6 +7,6 @@ import me.volition.item.ItemSlot;
  */
 public class Jammies extends Armor {
     public Jammies() {
-        super("Pajamas", "My Tammy Jammies", 1, 400, ItemSlot.CHEST, null);
+        super("Pajamas", "My Tammy Jammies", "1 Defense.", 1, 400, ItemSlot.CHEST, null);
     }
 }

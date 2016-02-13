@@ -12,8 +12,8 @@ import java.awt.image.BufferedImage;
 public abstract class Weapon extends Item{
 
     //value is how much damage the weapon does
-    public Weapon(String name, String desc, int value, int price, ItemSlot slot, BufferedImage image) {
-        super(name, desc, value, price, slot, image);
+    public Weapon(String name, String desc, String effect, int value, int price, ItemSlot slot, BufferedImage image) {
+        super(name, desc, effect, value, price, slot, image);
     }
 
     public void use(Player player){

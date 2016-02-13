@@ -14,14 +14,16 @@ import java.awt.image.BufferedImage;
 public abstract class Item {
     private String name;
     private String desc;
+    private String effect;
     private int price;
     private int value;
     private ItemSlot slot;
     private BufferedImage image;
 
-    public Item(String name, String desc, int value, int price, ItemSlot slot, BufferedImage image) {
+    public Item(String name, String desc, String effect, int value, int price, ItemSlot slot, BufferedImage image) {
         this.name = name;
         this.desc = desc;
+        this.effect = effect;
         this.value = value;
         this.price = price;
         this.slot = slot;
@@ -38,6 +40,10 @@ public abstract class Item {
 
     public String getDesc() {
         return desc;
+    }
+
+    public String getEffect(){
+        return effect;
     }
 
     public int getValue(){
@@ -64,16 +70,10 @@ public abstract class Item {
         this.slot = slot;
     }
 
+    public BufferedImage getImage(){
+        return image;
+    }
+
     public abstract void use(Player player);
 
-    public void renderDescription(Graphics g){
-        if (image != null)
-            g.drawImage(image, 220, 100, null);
-
-        g.setColor(Color.RED);
-        g.drawString(name, 220, Window.WINDOW_HEIGHT / 2);
-
-        g.setColor(Color.WHITE);
-        RenderUtils.drawWrappedText(g, desc, 220, Window.WINDOW_HEIGHT / 2 + 30, Window.WINDOW_WIDTH - 300);
-    }
 }

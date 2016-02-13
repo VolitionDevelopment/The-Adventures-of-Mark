@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
  */
 public class PizzaSlice extends Usable {
     public PizzaSlice() {
-        super("Slice of Pizza", "A delicious single slice of pizza. Heals 25 Tolerance.", 15, ItemSlot.NONE, 25, null);
+        super("Slice of Pizza", "A delicious single slice of pizza.",  "Heals 25 Tolerance.", 15, ItemSlot.NONE, 25, null);
     }
 
     @Override

@@ -9,6 +9,6 @@ import java.awt.image.BufferedImage;
  */
 public class Fedora extends Armor {
     public Fedora() {
-        super("Fedora", "The hat that a REAL gentleman wears. ", 1, 120, ItemSlot.HEAD, null);
+        super("Fedora", "The hat that a REAL gentleman wears.", "1 Defense.", 1, 120, ItemSlot.HEAD, null);
     }
 }

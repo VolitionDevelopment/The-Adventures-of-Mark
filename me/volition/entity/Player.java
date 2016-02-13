@@ -3,6 +3,8 @@ package me.volition.entity;
 import me.volition.Window;
 import me.volition.item.Item;
 import me.volition.item.ItemSlot;
+import me.volition.item.impl.armor.DeliveryUniform;
+import me.volition.item.impl.armor.Fedora;
 import me.volition.item.impl.armor.Jammies;
 import me.volition.item.impl.usable.MtnDank;
 import me.volition.item.impl.weapon.Fists;
@@ -22,6 +24,9 @@ import java.util.Random;
  * Created by mccloskeybr on 2/3/16.
  */
 public class Player extends Entity{
+
+    public static final int MAX_INV = 10;
+
     private int level;
     private int exp;
     private int money;
@@ -38,8 +43,13 @@ public class Player extends Entity{
         equip(new Fists());
         equip(new Jammies());
 
-        addMove(new BadPun());
         addItem(new MtnDank());
+        addItem(new DeliveryUniform());
+
+        addMove(new BadPun());
+
+        //levels up
+        modExp(0);
     }
 
     @Override
@@ -202,8 +212,13 @@ public class Player extends Entity{
         this.inventory = inventory;
     }
 
-    public void addItem(Item item){
-        this.inventory.add(item);
+    //returns true if picked up
+    public boolean addItem(Item item){
+        if (inventory.size() < MAX_INV) {
+            this.inventory.add(item);
+            return true;
+        }
+        return false;
     }
 
     public void removeItem(Item item){
@@ -244,6 +259,7 @@ public class Player extends Entity{
 
             inventory.add(equippedItems.get(item.getSlot()));
             equippedItems.replace(item.getSlot(), item);
+            inventory.remove(item);
 
         } else {
             //nothing equipped

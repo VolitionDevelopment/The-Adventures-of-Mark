@@ -39,6 +39,8 @@ public class InventoryMenu extends LeftTextMenu {
     public void render(Graphics g){
         super.render(g);
 
+        g.setFont(new Font("Determination Sans", Font.PLAIN, 24));
+
         RenderUtils.drawOutlinedBox(g, 200, 30, Window.WINDOW_WIDTH - 250, Window.WINDOW_HEIGHT - 60);
         if (getCurrentIndex() != 0) {
             if (player.getInventory().get(getCurrentIndex() - 1).getImage() != null)

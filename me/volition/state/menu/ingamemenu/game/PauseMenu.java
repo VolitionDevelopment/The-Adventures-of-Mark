@@ -4,6 +4,7 @@ import me.volition.Window;
 import me.volition.entity.Player;
 import me.volition.state.StateManager;
 import me.volition.state.menu.impl.InventoryMenu;
+import me.volition.state.menu.impl.StatusMenu;
 import me.volition.state.menu.ingamemenu.InGameMenu;
 import me.volition.util.GameManager;
 import me.volition.util.RenderUtils;
@@ -51,7 +52,7 @@ public class PauseMenu implements InGameMenu {
         else if (currentIndex == 1)
             StateManager.setCurrentState(new InventoryMenu(player));
         else if (currentIndex == 2) {
-
+            StateManager.setCurrentState(new StatusMenu(player));
         } else
             System.exit(0);
     }

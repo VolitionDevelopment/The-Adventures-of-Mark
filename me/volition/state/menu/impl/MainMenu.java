@@ -1,7 +1,9 @@
 package me.volition.state.menu.impl;
 
 import me.volition.state.StateManager;
+import me.volition.state.cutscene.OpeningCutscene;
 import me.volition.state.menu.CenterTextMenu;
+import me.volition.util.GameManager;
 import me.volition.util.ImageManager;
 import me.volition.util.RenderUtils;
 
@@ -53,19 +55,19 @@ public class MainMenu extends CenterTextMenu {
 
         //new game
         if (index == 0)
-            StateManager.setCurrentState(StateManager.OPENING_CUTSCENE_INDEX);
+            StateManager.setCurrentState(new OpeningCutscene());
 
         //continue
         else if (index == 1)
-            StateManager.setCurrentState(StateManager.GAME_INDEX);
+            StateManager.setCurrentState(GameManager.getInstance().getGameState());
 
         //help
         else if (index == 2)
-            StateManager.setCurrentState(StateManager.HELP_MENU_INDEX);
+            StateManager.setCurrentState(new HelpMenu());
 
         //about
         else if (index == 3)
-            StateManager.setCurrentState(StateManager.ABOUT_INDEX);
+            StateManager.setCurrentState(new AboutMenu());
 
         //exit
         else

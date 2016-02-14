@@ -20,7 +20,7 @@ import java.util.Random;
 /**
  * Created by mccloskeybr on 2/6/2016.
  */
-public class BattleState extends State {
+public class BattleState implements State {
 
     private ArrayList<Entity> enemies;
     private Player player;
@@ -163,7 +163,7 @@ public class BattleState extends State {
         }
 
         player.setInBattle(false);
-        StateManager.setCurrentState(GameManager.getGameState());
+        StateManager.setCurrentState(GameManager.getInstance().getGameState());
     }
 
     @Override

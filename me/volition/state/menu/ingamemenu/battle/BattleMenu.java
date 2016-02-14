@@ -39,10 +39,6 @@ public abstract class BattleMenu implements InGameMenu {
         return currentIndex;
     }
 
-    public void setSelectedEntity(Entity entity){
-        this.selectedEntity = entity;
-    }
-
     public Entity getSelectedEntity(){
         return selectedEntity;
     }
@@ -51,20 +47,8 @@ public abstract class BattleMenu implements InGameMenu {
         return x;
     }
 
-    public void setPrevMenu(BattleMenu prevMenu){
-        this.prevMenu = prevMenu;
-    }
-
-    public void setSubMenu(BattleMenu subMenu){
-        this.subMenu = subMenu;
-    }
-
     public BattleMenu getPrevMenu(){
         return prevMenu;
-    }
-
-    public BattleMenu getSubMenu(){
-        return subMenu;
     }
 
     public BattleState getBattleState(){
@@ -74,8 +58,12 @@ public abstract class BattleMenu implements InGameMenu {
         return state;
     }
 
-    public void setBattleState(BattleState state){
-        this.state = state;
+    public void setSelectedEntity(Entity entity){
+        this.selectedEntity = entity;
+    }
+
+    public void setSubMenu(BattleMenu subMenu){
+        this.subMenu = subMenu;
     }
 
     @Override

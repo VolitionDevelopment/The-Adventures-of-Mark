@@ -1,7 +1,6 @@
 package me.volition.move;
 
 import me.volition.entity.Entity;
-import me.volition.entity.Player;
 
 /**
  * Created by Demerzel on 2/3/16.
@@ -21,20 +20,20 @@ public abstract class Move {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getDamage() {
         return damage;
     }
 
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
-
     public int getManaCost() {
         return manaCost;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 
     public void setManaCost(int manaCost) {

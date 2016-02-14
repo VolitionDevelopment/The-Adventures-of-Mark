@@ -1,6 +1,5 @@
 package me.volition.item.impl.armor;
 
-import me.volition.item.ItemSlot;
 import me.volition.util.ImageManager;
 
 /**
@@ -8,6 +7,6 @@ import me.volition.util.ImageManager;
  */
 public class Fedora extends Armor {
     public Fedora() {
-        super("Fedora", "The hat that REAL gentlemen wear.", "1 Defense.", 1, 120, ItemSlot.HELMET, new ImageManager().loadImage("/me/volition/assets/image/items/fedora.png"));
+        super("Fedora", "The hat that REAL gentlemen wear.", "1 Defense.", 1, 120, ImageManager.getInstance().loadImage("/me/volition/assets/image/items/fedora.png"));
     }
 }

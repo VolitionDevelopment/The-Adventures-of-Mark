@@ -2,7 +2,6 @@ package me.volition.location;
 
 
 import me.volition.entity.Player;
-import me.volition.location.tile.Tile;
 
 import java.awt.*;
 
@@ -10,8 +9,6 @@ public class Exit {
     // Numerical codes
     private boolean active;
     private Location m_leadsTo = null;
-    private String m_directionName;
-    private String m_shortDirectionName;
     private Rectangle bounds;
     private double x, y, newx, newy;
     private int width, height;
@@ -36,11 +33,6 @@ public class Exit {
         player.setY(newy);
 
         player.getLocation().enterRoom(player);
-    }
-
-    @Override
-    public String toString() {
-        return m_directionName;
     }
 
     public void setX(double x) {
@@ -77,40 +69,24 @@ public class Exit {
         return newy;
     }
 
+    public Location getLeadsTo() {
+        return m_leadsTo;
+    }
+
     public Rectangle getBounds(){
         return bounds;
     }
 
-    public void setDirectionName(String dirname) {
-        m_directionName = dirname;
-    }
-
-    public String getDirectionName() {
-        return m_directionName;
-    }
-
-    public void setShortDirectionName(String shortName) {
-        m_shortDirectionName = shortName;
-    }
-
-    public String getShortDirectionName() {
-        return m_shortDirectionName;
+    public boolean isActive() {
+        return active;
     }
 
     public void setLeadsTo(Location leadsTo) {
         m_leadsTo = leadsTo;
     }
 
-    public Location getLeadsTo() {
-        return m_leadsTo;
-    }
-
     public void setActive(boolean active) {
         this.active = active;
-    }
-
-    public boolean isActive() {
-        return active;
     }
 
     public boolean contains(int x, int y){

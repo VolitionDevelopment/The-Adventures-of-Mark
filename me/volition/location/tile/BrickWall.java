@@ -7,6 +7,6 @@ import me.volition.util.ImageManager;
  */
 public class BrickWall extends Tile {
     public BrickWall(int x, int y) {
-        super(new ImageManager().loadImage("/me/volition/assets/image/tiles/brickwall.png"), true, x, y);
+        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/tiles/brickwall.png"), true, x, y);
     }
 }

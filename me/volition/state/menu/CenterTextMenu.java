@@ -1,9 +1,6 @@
 package me.volition.state.menu;
 
-import me.volition.*;
-
 import java.awt.*;
-import java.awt.Window;
 import java.awt.image.BufferedImage;
 
 /**
@@ -13,10 +10,6 @@ public abstract class CenterTextMenu extends MenuState {
 
     public CenterTextMenu(BufferedImage backgroundImage, String[] menuOptions, Color textColor, Color textColor_select) {
         super(backgroundImage, menuOptions, textColor, textColor_select);
-    }
-
-    public CenterTextMenu(BufferedImage backgroundImage, String[] menuOptions, Font font, Color textColor, Color textColor_select) {
-        super(backgroundImage, menuOptions, font, textColor, textColor_select);
     }
 
     public abstract void select(int index);

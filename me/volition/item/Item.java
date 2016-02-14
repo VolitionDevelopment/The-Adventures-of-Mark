@@ -1,11 +1,7 @@
 package me.volition.item;
 
-import me.volition.*;
-import me.volition.Window;
 import me.volition.entity.Player;
-import me.volition.util.RenderUtils;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
@@ -34,10 +30,6 @@ public abstract class Item {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDesc() {
         return desc;
     }
@@ -50,29 +42,37 @@ public abstract class Item {
         return value;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public int getPrice() {
+        return price;
     }
 
     public ItemSlot getSlot() {
         return slot;
     }
 
-    public int getPrice() {
-        return price;
+
+
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public void setSlot(ItemSlot slot) {
         this.slot = slot;
     }
 
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
     public BufferedImage getImage(){
         return image;
     }
+
+
 
     public abstract void use(Player player);
 

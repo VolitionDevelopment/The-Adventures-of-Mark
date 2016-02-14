@@ -1,6 +1,5 @@
 package me.volition.state.menu.ingamemenu.battle;
 
-import me.volition.location.tile.Tile;
 import me.volition.state.StateManager;
 import me.volition.state.battle.BattleState;
 import me.volition.util.GameManager;
@@ -21,7 +20,7 @@ public class BattleMainMenu extends BattleMenu {
             setSubMenu(new ItemMenu(this));
         else {
             getBattleState().getPlayer().setInBattle(false);
-            StateManager.setCurrentState(GameManager.getGameState());
+            StateManager.setCurrentState(GameManager.getInstance().getGameState());
         }
     }
 }

@@ -2,7 +2,6 @@ package me.volition.location.placeableObject;
 
 import me.volition.entity.Entity;
 import me.volition.location.tile.Tile;
-import me.volition.util.ImageManager;
 
 import java.util.ArrayList;
 

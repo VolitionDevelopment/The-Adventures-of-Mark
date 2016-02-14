@@ -1,11 +1,10 @@
 package me.volition.state.cutscene;
 
-import me.volition.*;
 import me.volition.state.StateManager;
+import me.volition.util.GameManager;
 import me.volition.util.ImageManager;
 
 import java.awt.*;
-import java.awt.Window;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
@@ -82,7 +81,7 @@ public class OpeningCutscene extends CutsceneState {
 
     @Override
     public void finish() {
-        StateManager.setCurrentState(StateManager.GAME_INDEX);
+        StateManager.setCurrentState(GameManager.getInstance().getGameState());
     }
 
     @Override

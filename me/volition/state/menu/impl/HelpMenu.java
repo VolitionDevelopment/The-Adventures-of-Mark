@@ -15,13 +15,13 @@ import java.awt.*;
 public class HelpMenu extends BottomTextMenu {
 
     public HelpMenu(){
-        super (new ImageManager().loadImage("/me/volition/assets/image/menus/helpmenu.png"), new String[]{"Go back"}, Color.WHITE, Color.RED);
+        super (null, new String[]{"Go back"}, Color.WHITE, Color.RED);
     }
 
     @Override
     public void select(int index) {
         if (index == 0)
-            StateManager.setCurrentState(StateManager.MAIN_MENU_INDEX);
+            StateManager.setCurrentState(new MainMenu());
     }
 
     @Override

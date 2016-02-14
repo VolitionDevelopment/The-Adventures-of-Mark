@@ -48,7 +48,7 @@ public class PauseMenu implements InGameMenu {
     @Override
     public void select(int currentIndex) {
         if (currentIndex == 0)
-            GameManager.getGameState().setPauseMenu(null);
+            GameManager.getInstance().getGameState().setPauseMenu(null);
         else if (currentIndex == 1)
             StateManager.setCurrentState(new InventoryMenu(player));
         else if (currentIndex == 2) {

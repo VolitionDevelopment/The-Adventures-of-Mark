@@ -1,11 +1,5 @@
 package me.volition.state;
 
-import me.volition.state.cutscene.OpeningCutscene;
-import me.volition.state.menu.impl.AboutMenu;
-import me.volition.state.menu.impl.HelpMenu;
-import me.volition.state.menu.impl.MainMenu;
-import me.volition.util.GameManager;
-
 
 /**
  * Created by mccloskeybr on 2/3/16.
@@ -17,23 +11,9 @@ public class StateManager {
 
     private static State currentState;
 
-    public static void setCurrentState(int state){
-        if (state == MAIN_MENU_INDEX)
-            currentState = new MainMenu();
-        else if (state == HELP_MENU_INDEX)
-            currentState = new HelpMenu();
-        else if(state == ABOUT_INDEX)
-            currentState = new AboutMenu();
-        else if (state == GAME_INDEX)
-            currentState = GameManager.newGame();
-        else if (state == OPENING_CUTSCENE_INDEX)
-            currentState = new OpeningCutscene();
-
-        currentState.init();
-    }
-
     public static void setCurrentState(State state){
         currentState = state;
+        currentState.init();
     }
 
     public static State getCurrentState(){

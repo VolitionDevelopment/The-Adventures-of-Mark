@@ -70,92 +70,32 @@ public abstract class Entity {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getBio() {
         return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
     }
 
     public int getBaseTolerance() {
         return baseTolerance;
     }
 
-    public void setBaseTolerance(int baseTolerance) {
-        this.baseTolerance = baseTolerance;
-    }
-
-    public void modBaseTolerance(int health){
-        this.baseTolerance += health;
-    }
-
     public int getTolerance() {
         return tolerance;
-    }
-
-    public void setTolerance(int tolerance) {
-        this.tolerance = tolerance;
-    }
-
-    public void takeDamage(int damage){
-        damage -= armor;
-        if (damage < 0)
-            damage = 0;
-
-        this.tolerance -= damage;
-    }
-
-    public void modTolerance(int health){
-        this.tolerance += health;
     }
 
     public int getBaseBrainpower() {
         return baseBrainpower;
     }
 
-    public void setBaseBrainpower(int baseBrainpower) {
-        this.baseBrainpower = baseBrainpower;
-    }
-
-    public void modBaseBrainpower(int mana){
-        this.baseBrainpower += mana;
-    }
-
     public int getBrainpower() {
         return brainpower;
-    }
-
-    public void setBrainpower(int brainpower) {
-        this.brainpower = brainpower;
-    }
-
-    public void modBrainpower(int mana){
-        this.brainpower += mana;
     }
 
     public int getArmor(){
         return armor;
     }
 
-    public void setArmor(int armor){
-        this.armor = armor;
-    }
-
     public int getWepDamage(){
         return wepDamage;
-    }
-
-    public void setWepDamage(int wepDamage){
-        this.wepDamage = wepDamage;
-    }
-
-    public void setSpeech(String speech){
-        this.speech = speech;
     }
 
     public String getSpeech(){
@@ -164,17 +104,6 @@ public abstract class Entity {
 
     public int getBaseSpeed() {
         return baseSpeed;
-    }
-
-    public void setBaseSpeed(int baseSpeed) {
-        this.baseSpeed = baseSpeed;
-    }
-
-    public void stopMoving(){
-        goingDown = false;
-        goingUp = false;
-        goingLeft = false;
-        goingRight = false;
     }
 
     public boolean isMoving(){
@@ -213,36 +142,12 @@ public abstract class Entity {
         return dir == 3;
     }
 
-    public void setGoingRight(boolean goingRight) {
-        this.goingRight = goingRight;
-    }
-
-    public void setGoingLeft(boolean goingLeft) {
-        this.goingLeft = goingLeft;
-    }
-
-    public void setGoingUp(boolean goingUp) {
-        this.goingUp = goingUp;
-    }
-
-    public void setGoingDown(boolean goingDown) {
-        this.goingDown = goingDown;
-    }
-
     public double getX(){
         return x;
     }
 
     public double getY(){
         return y;
-    }
-
-    public void setX(double x){
-        this.x = x;
-    }
-
-    public void setY(double y){
-        this.y = y;
     }
 
     public Rectangle getBounds(){
@@ -261,6 +166,100 @@ public abstract class Entity {
         return animator;
     }
 
+    public Location getLocation() {
+        return location;
+    }
+
+    public ArrayList<Move> getMoves() {
+        return moves;
+    }
+
+    public boolean isDead(){
+        return tolerance <= 0;
+    }
+
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public void setBaseTolerance(int baseTolerance) {
+        this.baseTolerance = baseTolerance;
+    }
+
+    public void modBaseTolerance(int health){
+        this.baseTolerance += health;
+    }
+
+    public void setTolerance(int tolerance) {
+        this.tolerance = tolerance;
+    }
+
+    public void modTolerance(int health){
+        this.tolerance += health;
+    }
+
+    public void setBaseBrainpower(int baseBrainpower) {
+        this.baseBrainpower = baseBrainpower;
+    }
+
+    public void modBaseBrainpower(int mana){
+        this.baseBrainpower += mana;
+    }
+
+    public void setBrainpower(int brainpower) {
+        this.brainpower = brainpower;
+    }
+
+    public void modBrainpower(int mana){
+        this.brainpower += mana;
+    }
+
+    public void setArmor(int armor){
+        this.armor = armor;
+    }
+
+    public void setWepDamage(int wepDamage){
+        this.wepDamage = wepDamage;
+    }
+
+    public void setSpeech(String speech){
+        this.speech = speech;
+    }
+
+    public void setBaseSpeed(int baseSpeed) {
+        this.baseSpeed = baseSpeed;
+    }
+
+    public void setGoingRight(boolean goingRight) {
+        this.goingRight = goingRight;
+    }
+
+    public void setGoingLeft(boolean goingLeft) {
+        this.goingLeft = goingLeft;
+    }
+
+    public void setGoingUp(boolean goingUp) {
+        this.goingUp = goingUp;
+    }
+
+    public void setGoingDown(boolean goingDown) {
+        this.goingDown = goingDown;
+    }
+
+    public void setX(double x){
+        this.x = x;
+    }
+
+    public void setY(double y){
+        this.y = y;
+    }
+
     public void setAnimator(Animator animator){
         if (this.animator != animator) {
             if (this.animator != null)
@@ -269,16 +268,27 @@ public abstract class Entity {
         }
     }
 
-    public Location getLocation() {
-        return location;
-    }
-
     public void setLocation(Location location) {
         this.location = location;
     }
 
-    public boolean isDead(){
-        return tolerance <= 0;
+    public void addMove(Move move){
+        this.moves.add(move);
+    }
+
+    public void stopMoving(){
+        goingDown = false;
+        goingUp = false;
+        goingLeft = false;
+        goingRight = false;
+    }
+
+    public void takeDamage(int damage){
+        damage -= armor;
+        if (damage < 0)
+            damage = 0;
+
+        this.tolerance -= damage;
     }
 
     public void heal(){
@@ -313,13 +323,5 @@ public abstract class Entity {
 
     public void render(Graphics g, int x, int y, int width, int height){
         g.drawImage(animator.getCurrentImage(), x, y, width, height, null);
-    }
-
-    public ArrayList<Move> getMoves() {
-        return moves;
-    }
-
-    public void addMove(Move move){
-        this.moves.add(move);
     }
 }

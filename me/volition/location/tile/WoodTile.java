@@ -8,6 +8,6 @@ import me.volition.util.ImageManager;
  */
 public class WoodTile extends Tile {
     public WoodTile(int x, int y) {
-        super(new ImageManager().loadImage("/me/volition/assets/image/tiles/woodtile.png"), false, x, y);
+        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/tiles/woodtile.png"), false, x, y);
     }
 }

@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 /**
  * Created by mccloskeybr on 2/6/16.
  */
-public abstract class CutsceneState extends State{
+public abstract class CutsceneState implements State{
 
     private String[] dialogue_text;
     private BufferedImage[] dialogue_images;

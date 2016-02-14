@@ -1,7 +1,6 @@
 package me.volition.item.impl.usable;
 
 import me.volition.entity.Player;
-import me.volition.item.ItemSlot;
 import me.volition.util.ImageManager;
 
 /**
@@ -9,11 +8,11 @@ import me.volition.util.ImageManager;
  */
 public class MtnDank extends Usable {
     public MtnDank() {
-        super("Mountain Dank", "A strange concoction of bleach, cat pee, and sugar.", "Restores 20 Brainpower.", 30, ItemSlot.NONE, 20, new ImageManager().loadImage("/me/volition/assets/image/items/mtndank.png"));
+        super("Mountain Dank", "A strange concoction of bleach, cat pee, and sugar.", "Restores 20 Brainpower.", 30, 20, ImageManager.getInstance().loadImage("/me/volition/assets/image/items/mtndank.png"));
     }
 
     @Override
     public void use(Player player) {
-        player.modBrainpower(Math.min(player.getBaseBrainpower() - player.getBrainpower(), getMagnitude()));
+        player.modBrainpower(getValue());
     }
 }

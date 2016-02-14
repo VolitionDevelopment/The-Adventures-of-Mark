@@ -1,6 +1,7 @@
 package me.volition;
 
 import me.volition.state.StateManager;
+import me.volition.state.menu.impl.MainMenu;
 import me.volition.util.FontManager;
 
 /**
@@ -11,7 +12,7 @@ public class Start {
 
         new FontManager().registerFont("/me/volition/assets/font/DTM-Sans.otf");
         new FontManager().registerFont("/me/volition/assets/font/DTM-Mono.otf");
-        StateManager.setCurrentState(StateManager.MAIN_MENU_INDEX);
+        StateManager.setCurrentState(new MainMenu());
         new Main();
 
     }

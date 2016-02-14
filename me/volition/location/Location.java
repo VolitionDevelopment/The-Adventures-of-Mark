@@ -188,6 +188,18 @@ public abstract class Location {
         return exits;
     }
 
+    public ArrayList<PlaceableObject> getPlaceableObjects(){
+        return placeableObjects;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public void setExits(ArrayList<Exit> exits) {
         this.exits = exits;
     }
@@ -202,18 +214,6 @@ public abstract class Location {
 
     public void addPlaceableObject(PlaceableObject placeableObject){
         placeableObjects.add(placeableObject);
-    }
-
-    public ArrayList<PlaceableObject> getPlaceableObjects(){
-        return placeableObjects;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public abstract Tile[][] loadMap();

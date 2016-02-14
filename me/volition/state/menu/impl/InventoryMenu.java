@@ -27,7 +27,7 @@ public class InventoryMenu extends LeftTextMenu {
     @Override
     public void select(int index) {
         if (index == 0)
-            StateManager.setCurrentState(GameManager.getGameState());
+            StateManager.setCurrentState(GameManager.getInstance().getGameState());
         else {
             player.useItem(index - 1);
             StateManager.setCurrentState(new InventoryMenu(player));

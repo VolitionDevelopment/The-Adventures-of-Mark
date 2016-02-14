@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 /**
  * Created by mccloskeybr on 2/3/16.
  */
-public abstract class MenuState extends State {
+public abstract class MenuState implements State {
 
     private Color textColor, textColor_select;
     private String[] menuOptions;
@@ -20,23 +20,14 @@ public abstract class MenuState extends State {
     private BufferedImage backgroundImage;
 
 
-
     public MenuState(BufferedImage backgroundImage, String[]menuOptions, Color textColor, Color textColor_select){
         this.backgroundImage = backgroundImage;
         this.menuOptions = menuOptions;
         this.textColor = textColor;
         this.textColor_select = textColor_select;
+
         menuFont = new Font("Determination Sans", Font.PLAIN, 20);
         menuFont_select = menuFont.deriveFont(menuFont.getSize() + 7f);
-    }
-
-    public MenuState(BufferedImage backgroundImage, String[]menuOptions, Font menuFont, Color textColor, Color textColor_select){
-        this.backgroundImage = backgroundImage;
-        this.menuOptions = menuOptions;
-        this.textColor = textColor;
-        this.textColor_select = textColor_select;
-        this.menuFont = menuFont;
-        this.menuFont_select = menuFont.deriveFont(menuFont.getSize() + 7f);
     }
 
     public Font getMenuFont(){

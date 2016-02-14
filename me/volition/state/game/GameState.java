@@ -4,6 +4,7 @@ import me.volition.entity.Player;
 import me.volition.location.Location;
 import me.volition.state.State;
 import me.volition.state.StateManager;
+import me.volition.state.menu.impl.MainMenu;
 import me.volition.state.menu.ingamemenu.InGameMenu;
 import me.volition.state.menu.ingamemenu.game.PauseMenu;
 import me.volition.util.GameManager;
@@ -14,7 +15,7 @@ import java.awt.event.KeyEvent;
 /**
  * Created by Demerzel on 2/3/16.
  */
-public class GameState extends State {
+public class GameState implements State {
     GameManager gameManager = GameManager.getInstance();
 
     private Player player;
@@ -39,7 +40,7 @@ public class GameState extends State {
             currentLocation.update(player, delta);
 
             if (gameManager.getPlayer().isDead())
-                StateManager.setCurrentState(StateManager.MAIN_MENU_INDEX);
+                StateManager.setCurrentState(new MainMenu());
         } else
             pauseMenu.update();
     }

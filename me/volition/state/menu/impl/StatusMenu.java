@@ -26,7 +26,7 @@ public class StatusMenu extends BottomTextMenu {
     @Override
     public void select(int index) {
         if (index == 0)
-            StateManager.setCurrentState(GameManager.getGameState());
+            StateManager.setCurrentState(GameManager.getInstance().getGameState());
     }
 
     public void render(Graphics g){

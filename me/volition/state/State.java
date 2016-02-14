@@ -5,17 +5,16 @@ import java.awt.*;
 /**
  * Created by mccloskeybr on 2/3/16.
  */
-public abstract class State {
-    private int state;
+public interface State {
 
-    public abstract void init();
+    void init();
 
-    public abstract void update(double delta);
+    void update(double delta);
 
-    public abstract void render(Graphics g);
+    void render(Graphics g);
 
-    public abstract void keyPressed(int k);
+    void keyPressed(int k);
 
-    public abstract void keyReleased(int k);
+    void keyReleased(int k);
 
 }

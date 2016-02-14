@@ -1,11 +1,8 @@
 package me.volition.util;
 
-import me.volition.Window;
 import me.volition.entity.Player;
-import me.volition.location.Exit;
 import me.volition.location.Location;
 import me.volition.location.impl.MarkApartment;
-import me.volition.location.impl.Room;
 import me.volition.state.game.GameState;
 
 import java.awt.*;
@@ -32,12 +29,10 @@ public class GameManager {
         return gameManager;
     }
 
-    public static GameState newGame(){
-        gameState = new GameState();
-        return gameState;
-    }
+    public GameState getGameState(){
+        if (gameState == null)
+            gameState = new GameState();
 
-    public static GameState getGameState(){
         return gameState;
     }
 

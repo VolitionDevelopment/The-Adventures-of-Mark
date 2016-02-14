@@ -179,9 +179,12 @@ public class BattleState extends State {
         //render entities
         player.render(g, 4 * Tile.TILE_SIZE, 4 * Tile.TILE_SIZE - Tile.TILE_SIZE / 2);
         if (player.getSpeech() != null) {
-            RenderUtils.drawOutlinedBox(g, 4 * Tile.TILE_SIZE - g.getFontMetrics().stringWidth(player.getSpeech()) - 10, 3 * Tile.TILE_SIZE, g.getFontMetrics().stringWidth(player.getSpeech()) + 20, 30);
+            int x = 4 * Tile.TILE_SIZE - g.getFontMetrics().stringWidth(player.getSpeech());
+            if (x < 0)
+                x = 10;
+
             g.setColor(Color.WHITE);
-            g.drawString(player.getSpeech(), 4 * Tile.TILE_SIZE - g.getFontMetrics().stringWidth(player.getSpeech()), 3 * Tile.TILE_SIZE + 20);
+            RenderUtils.drawBoxedWrappedText(g, player.getSpeech(), x, 3 * Tile.TILE_SIZE + 20, 4 * Tile.TILE_SIZE - x + 20);
         }
 
 
@@ -200,11 +203,13 @@ public class BattleState extends State {
                 enemies.get(i).render(g, x, y, 128, 128);
 
                 if (enemies.get(i).getSpeech() != null) {
-                    RenderUtils.drawOutlinedBox(g, x + 128 - 10, y, g.getFontMetrics().stringWidth(enemies.get(i).getSpeech()) + 20, 30);
-                    g.setColor(Color.WHITE);
-                    g.drawString(enemies.get(i).getSpeech(), x + 128, y + 20);
-                }
+                    int width = Window.WINDOW_WIDTH - (x + 128) - 20;
+                    if (g.getFontMetrics().stringWidth(enemies.get(i).getSpeech()) < width)
+                        width = g.getFontMetrics().stringWidth(enemies.get(i).getSpeech());
 
+                    g.setColor(Color.WHITE);
+                    RenderUtils.drawBoxedWrappedText(g, enemies.get(i).getSpeech(), x + 128, y + 20, width + 20);
+                }
             }
         }
 

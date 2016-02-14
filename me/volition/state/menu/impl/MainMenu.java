@@ -17,7 +17,7 @@ public class MainMenu extends CenterTextMenu {
     private boolean increasing = false;
 
     public MainMenu(){
-        super(new ImageManager().loadImage("/me/volition/assets/image/menus/mainmenu.png"), new String[]{"New Game", "Continue", "Help", "About", "Quit"}, new Color(255, 255, 255), new Color(255, 0, 0));
+        super(new ImageManager().loadImage("/me/volition/assets/image/menus/mainmenu.png"), new String[]{"New Game", "Continue", "Help", "About", "Quit"}, Color.WHITE, Color.RED);
     }
 
     @Override

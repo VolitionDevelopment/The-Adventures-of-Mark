@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
  */
 public class WholePizza extends Usable {
     public WholePizza() {
-        super("Whole Pizza", "An entire pizza. The smell makes your eyes water and your stomach grumble.", "Restores all of your Tolerance", 60, ItemSlot.NONE, 0, new ImageManager().loadImage("/me/volition/assets/image/items/fullpizza.png"));
+        super("Whole Pizza", "An entire pizza. The smell makes your eyes water and your stomach grumble.", "Restores all of your Tolerance.", 60, ItemSlot.NONE, 0, new ImageManager().loadImage("/me/volition/assets/image/items/fullpizza.png"));
     }
 
     @Override

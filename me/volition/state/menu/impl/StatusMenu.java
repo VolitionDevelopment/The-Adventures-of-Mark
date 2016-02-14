@@ -9,6 +9,7 @@ import me.volition.util.GameManager;
 import me.volition.util.RenderUtils;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 /**
  * Created by mccloskeybr on 2/13/16.
@@ -81,5 +82,13 @@ public class StatusMenu extends BottomTextMenu {
                     x + g.getFontMetrics().stringWidth("WEAPON - "), y);
         else
             g.drawString("NOTHING EQUIPPED.",
-                    x + g.getFontMetrics().stringWidth("WEAPON - "), y);    }
+                    x + g.getFontMetrics().stringWidth("WEAPON - "), y);
+    }
+
+    @Override
+    public void keyPressed(int k){
+        super.keyPressed(k);
+        if (k == KeyEvent.VK_ESCAPE)
+            select(0);
+    }
 }

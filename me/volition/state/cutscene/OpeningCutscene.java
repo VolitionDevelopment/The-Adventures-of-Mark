@@ -48,6 +48,16 @@ public class OpeningCutscene extends CutsceneState {
         super.update(delta);
         stringIndex += delta / 3;
 
+        if (stringIndex < 10)
+            alpha -= delta * delta;
+        else if (stringIndex > 30)
+            alpha += delta * delta;
+
+        if (alpha > 1)
+            alpha = 1;
+        else if (alpha < 0)
+            alpha = 0;
+
         if ((int)stringIndex == getCurrentString().length()) {
             stringIndex = 0;
             setIndex(getIndex() + 1);
@@ -56,16 +66,6 @@ public class OpeningCutscene extends CutsceneState {
         if (!str.equals(getCurrentString().substring(0, (int) stringIndex))) {
             str = getCurrentString().substring(0, (int) stringIndex);
             getTextbox().setText(str);
-
-            if (stringIndex < 10)
-                alpha -= 0.1f;
-            else if (stringIndex > 30)
-                alpha += 0.1f;
-
-            if (alpha > 1)
-                alpha = 1;
-            else if (alpha < 0)
-                alpha = 0;
         }
 
     }

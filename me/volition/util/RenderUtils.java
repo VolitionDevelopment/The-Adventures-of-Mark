@@ -58,7 +58,32 @@ public class RenderUtils {
 
         for (int i = 0; i < strings.size(); i++)
             g.drawString(strings.get(i), x, y + 30 * i);
+    }
 
+    public static void drawBoxedWrappedText(Graphics g, String str, int x, int y, int width){
+        ArrayList<String> strings = new ArrayList<>();
+
+        int loclastBreak = 0;
+        int locLastSpace = 0;
+        int index = 0;
+
+        while (index < str.length()) {
+            if (str.charAt(index) == ' ')
+                locLastSpace = index;
+            else if (g.getFontMetrics().stringWidth(str.substring(loclastBreak, index)) > width) {
+                strings.add(str.substring(loclastBreak, locLastSpace));
+                loclastBreak = locLastSpace + 1;
+            }
+            index++;
+            if (index == str.length())
+                strings.add(str.substring(loclastBreak, str.length()));
+        }
+
+        drawOutlinedBox(g, x - 10, y - 20, width, strings.size() * 30);
+
+        g.setColor(Color.WHITE);
+        for (int i = 0; i < strings.size(); i++)
+            g.drawString(strings.get(i), x, y + 20 * i);
     }
 
 }

@@ -10,6 +10,7 @@ import me.volition.util.RenderUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 
 /**
@@ -58,5 +59,12 @@ public class InventoryMenu extends LeftTextMenu {
                     220 + g.getFontMetrics().stringWidth(player.getInventory().get(getCurrentIndex() - 1).getName()), y);
 
             RenderUtils.drawWrappedText(g, player.getInventory().get(getCurrentIndex() - 1).getDesc(), 220, y + 30, Window.WINDOW_WIDTH - 300);        }
+    }
+
+    @Override
+    public void keyPressed(int k){
+        super.keyPressed(k);
+        if (k == KeyEvent.VK_ESCAPE)
+            select(0);
     }
 }

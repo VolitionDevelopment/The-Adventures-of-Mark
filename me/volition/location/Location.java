@@ -57,7 +57,7 @@ public abstract class Location {
 
         //start a random battle
         if (!safeRoom && player.isMoving()){
-            if (Math.random() < 0.001 * delta) {
+            if (Math.random() < Math.pow(delta, 2.25)) {
                 player.stopMoving();
                 BattleManager.startBattle(player, tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].getImage());
             }

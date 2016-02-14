@@ -155,8 +155,8 @@ public abstract class Location {
     }
 
     public void inspect(Player player){
-        int playerx = (int) player.getX() / Tile.TILE_SIZE;
-        int playery = (int) player.getY() / Tile.TILE_SIZE;
+        int playerx = (int) (player.getX() + player.getWidth() / 2) / Tile.TILE_SIZE;
+        int playery = (int) (player.getY() + player.getHeight() / 2) / Tile.TILE_SIZE;
 
         Tile inspectTile;
 

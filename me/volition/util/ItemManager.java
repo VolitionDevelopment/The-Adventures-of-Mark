@@ -43,7 +43,7 @@ public class ItemManager {
 
     public static void onObjectEvent(Player player, ObjectEvent event){
 
-        System.out.println("EEE");
+        System.out.println("Object event present");
 
         switch (event){
             case RANDOMITEM:

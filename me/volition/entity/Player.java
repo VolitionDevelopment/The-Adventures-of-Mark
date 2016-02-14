@@ -4,7 +4,7 @@ import me.volition.Window;
 import me.volition.item.Item;
 import me.volition.item.ItemSlot;
 import me.volition.item.impl.armor.DeliveryUniform;
-import me.volition.item.impl.armor.Fedora;
+import me.volition.item.impl.helmet.Fedora;
 import me.volition.item.impl.armor.Jammies;
 import me.volition.item.impl.usable.MtnDank;
 import me.volition.item.impl.usable.PizzaSlice;
@@ -34,7 +34,8 @@ public class Player extends Entity{
     private int money;
     private ArrayList<Item> inventory;
     private HashMap<ItemSlot, Item> equippedItems;
-    private Animator idle, walkRight, walkLeft, walkUp, walkDown, battle;
+    private Animator walkRight, walkLeft, walkUp, walkDown;
+    private Animator idleRight, idleLeft, idleUp, idleDown;
     private boolean isInBattle;
 
     public Player(Location location) {
@@ -63,41 +64,55 @@ public class Player extends Entity{
 
         BufferedImage spriteSheet = ImageManager.getInstance().loadImage("/me/volition/assets/image/entities/player_spritesheet.png");
 
-        BufferedImage[] idleFrames = new BufferedImage[2];
-        idleFrames[0] = spriteSheet.getSubimage(0, 0, 64, 64);
-        idleFrames[1] = spriteSheet.getSubimage(64, 0, 64, 64);
-        idle = new Animator(idleFrames);
+        //idle
 
-        BufferedImage[] battleFrames = new BufferedImage[2];
-        battleFrames[0] = spriteSheet.getSubimage(128, 0, 64, 64);
-        battleFrames[1] = spriteSheet.getSubimage(192, 0, 64, 64);
-        battle = new Animator(battleFrames);
+        BufferedImage[] idleLeftFrames = new BufferedImage[2];
+        idleLeftFrames[0] = spriteSheet.getSubimage(0, 0, 64, 64);
+        idleLeftFrames[1] = spriteSheet.getSubimage(64, 0, 64, 64);
+        idleLeft = new Animator(idleLeftFrames);
+
+        BufferedImage[] idleRightFrames = new BufferedImage[2];
+        idleRightFrames[0] = spriteSheet.getSubimage(128, 0, 64, 64);
+        idleRightFrames[1] = spriteSheet.getSubimage(192, 0, 64, 64);
+        idleRight = new Animator(idleRightFrames);
+
+        BufferedImage[] idleUpFrames = new BufferedImage[2];
+        idleUpFrames[0] = spriteSheet.getSubimage(0, 64, 64, 64);
+        idleUpFrames[1] = spriteSheet.getSubimage(64, 64, 64, 64);
+        idleUp = new Animator(idleUpFrames);
+
+        BufferedImage[] idleDownFrames = new BufferedImage[2];
+        idleDownFrames[0] = spriteSheet.getSubimage(128, 64, 64, 64);
+        idleDownFrames[1] = spriteSheet.getSubimage(192, 64, 64, 64);
+        idleDown = new Animator(idleDownFrames);
+
+        //action
 
         BufferedImage[] leftFrames = new BufferedImage[4];
-        leftFrames[0] = spriteSheet.getSubimage(0, 64, 64, 64);
-        leftFrames[1] = spriteSheet.getSubimage(64, 64, 64, 64);
-        leftFrames[2] = spriteSheet.getSubimage(128, 64, 64, 64);
-        leftFrames[3] = spriteSheet.getSubimage(192, 64, 64, 64);
+        leftFrames[0] = spriteSheet.getSubimage(0, 128, 64, 64);
+        leftFrames[1] = spriteSheet.getSubimage(64, 128, 64, 64);
+        leftFrames[2] = spriteSheet.getSubimage(128, 128, 64, 64);
+        leftFrames[3] = spriteSheet.getSubimage(192, 128, 64, 64);
         walkLeft = new Animator(leftFrames);
 
         BufferedImage[] rightFrames = new BufferedImage[4];
-        rightFrames[0] = spriteSheet.getSubimage(0, 128, 64, 64);
-        rightFrames[1] = spriteSheet.getSubimage(64, 128, 64, 64);
-        rightFrames[2] = spriteSheet.getSubimage(128, 128, 64, 64);
-        rightFrames[3] = spriteSheet.getSubimage(192, 128, 64, 64);
+        rightFrames[0] = spriteSheet.getSubimage(0, 192, 64, 64);
+        rightFrames[1] = spriteSheet.getSubimage(64, 192, 64, 64);
+        rightFrames[2] = spriteSheet.getSubimage(128, 192, 64, 64);
+        rightFrames[3] = spriteSheet.getSubimage(192, 192, 64, 64);
         walkRight = new Animator(rightFrames);
 
         BufferedImage[] downFrames = new BufferedImage[2];
-        downFrames[0] = spriteSheet.getSubimage(0, 192, 64, 64);
-        downFrames[1] = spriteSheet.getSubimage(64, 192, 64, 64);
+        downFrames[0] = spriteSheet.getSubimage(0, 256, 64, 64);
+        downFrames[1] = spriteSheet.getSubimage(64, 256, 64, 64);
         walkDown = new Animator(downFrames);
 
         BufferedImage[] upFrames = new BufferedImage[2];
-        upFrames[0] = spriteSheet.getSubimage(128, 192, 64, 64);
-        upFrames[1] = spriteSheet.getSubimage(192, 192, 64, 64);
+        upFrames[0] = spriteSheet.getSubimage(128, 256, 64, 64);
+        upFrames[1] = spriteSheet.getSubimage(192, 256, 64, 64);
         walkUp = new Animator(upFrames);
 
-        setAnimator(idle);
+        setAnimator(idleLeft);
     }
 
     @Override
@@ -110,7 +125,14 @@ public class Player extends Entity{
             getLocation().adjustCamera(delta, this);
 
             if (!isMoving()) {
-                setAnimator(idle);
+                if (isFacingLeft())
+                    setAnimator(idleLeft);
+                else if (isFacingRight())
+                    setAnimator(idleRight);
+                else if (isFacingUp())
+                    setAnimator(idleUp);
+                else
+                    setAnimator(idleDown);
 
             }else {
                 if (isGoingDown()) {
@@ -234,10 +256,6 @@ public class Player extends Entity{
         return equippedItems;
     }
 
-    public void setEquippedItems(HashMap<ItemSlot, Item> equippedItems) {
-        this.equippedItems = equippedItems;
-    }
-
     public void equip(Item item){
         if(equippedItems.get(item.getSlot()) != null){
             //replacing an already equipped item
@@ -273,7 +291,7 @@ public class Player extends Entity{
 
     @Override
     public Animator getBattleAnimator(){
-        return battle;
+        return idleRight;
     }
 
     @Override

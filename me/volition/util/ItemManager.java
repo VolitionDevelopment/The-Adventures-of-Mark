@@ -3,7 +3,7 @@ package me.volition.util;
 import me.volition.entity.Player;
 import me.volition.item.Item;
 import me.volition.item.impl.armor.DeliveryUniform;
-import me.volition.item.impl.armor.Fedora;
+import me.volition.item.impl.helmet.Fedora;
 import me.volition.item.impl.usable.MtnDank;
 import me.volition.item.impl.usable.PizzaSlice;
 import me.volition.item.impl.usable.WholePizza;

@@ -185,10 +185,9 @@ public class Player extends Entity{
 
         while(nextLevel() <= 0){
             level++;
+            modBaseTolerance(10);
+            modBaseBrainpower(10);
             heal();
-            Random r = new Random();
-            modBaseTolerance(Math.max(1, r.nextInt(15)));
-            modBaseBrainpower(Math.max(1, r.nextInt(10)));
         }
     }
 

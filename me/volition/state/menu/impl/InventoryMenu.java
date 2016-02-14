@@ -1,6 +1,5 @@
 package me.volition.state.menu.impl;
 
-import me.volition.*;
 import me.volition.Window;
 import me.volition.entity.Player;
 import me.volition.item.ItemSlot;
@@ -11,7 +10,6 @@ import me.volition.util.RenderUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 
 /**
@@ -49,7 +47,7 @@ public class InventoryMenu extends LeftTextMenu {
 
             int y = Window.WINDOW_HEIGHT / 2;
 
-            if (player.getInventory().get(getCurrentIndex() - 1).getSlot() == ItemSlot.CHEST)
+            if (player.getInventory().get(getCurrentIndex() - 1).getSlot() == ItemSlot.ARMOR)
                 y += 100;
 
             g.setColor(Color.RED);

@@ -57,22 +57,22 @@ public class StatusMenu extends BottomTextMenu {
         g.setColor(Color.WHITE);
 
         y += 60;
-        g.drawString("HEAD - ", x, y);
-        if (player.getEquippedItems().containsKey(ItemSlot.HEAD))
-            g.drawString(player.getEquippedItems().get(ItemSlot.HEAD).getName() + " - " + player.getEquippedItems().get(ItemSlot.HEAD).getEffect(),
-                    x + g.getFontMetrics().stringWidth("HEAD - "), y);
+        g.drawString("HELMET - ", x, y);
+        if (player.getEquippedItems().containsKey(ItemSlot.HELMET))
+            g.drawString(player.getEquippedItems().get(ItemSlot.HELMET).getName() + " - " + player.getEquippedItems().get(ItemSlot.HELMET).getEffect(),
+                    x + g.getFontMetrics().stringWidth("HELMET - "), y);
         else
             g.drawString("NOTHING EQUIPPED.",
-                    x + g.getFontMetrics().stringWidth("HEAD - "), y);
+                    x + g.getFontMetrics().stringWidth("HELMET - "), y);
 
         y += 30;
-        g.drawString("CHEST - ", x, y);
-        if (player.getEquippedItems().containsKey(ItemSlot.CHEST))
-            g.drawString(player.getEquippedItems().get(ItemSlot.CHEST).getName() + " - " + player.getEquippedItems().get(ItemSlot.CHEST).getEffect(),
-                    x + g.getFontMetrics().stringWidth("CHEST - "), y);
+        g.drawString("ARMOR - ", x, y);
+        if (player.getEquippedItems().containsKey(ItemSlot.ARMOR))
+            g.drawString(player.getEquippedItems().get(ItemSlot.ARMOR).getName() + " - " + player.getEquippedItems().get(ItemSlot.ARMOR).getEffect(),
+                    x + g.getFontMetrics().stringWidth("ARMOR - "), y);
         else
             g.drawString("NOTHING EQUIPPED.",
-                    x + g.getFontMetrics().stringWidth("CHEST - "), y);
+                    x + g.getFontMetrics().stringWidth("ARMOR - "), y);
 
         y += 30;
         g.drawString("WEAPON - ", x, y);

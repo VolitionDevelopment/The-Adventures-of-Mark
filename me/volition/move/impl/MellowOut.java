@@ -10,6 +10,12 @@ import java.util.Random;
  */
 public class MellowOut extends Move {
 
+    private String[] attacks = {
+            "Chill, bro!",
+            "Weed is so dank man!",
+            "Yoooo... Dude....."
+    };
+
     private String[] responses = {
             "Maybe I'll try it out...",
             "Maybe I should relax a bit",
@@ -24,7 +30,7 @@ public class MellowOut extends Move {
     public void onCast(Entity caster, Entity target) {
         Random random = new Random();
 
-        caster.setSpeech("Chill, bro!");
+        caster.setSpeech(attacks[random.nextInt(responses.length)]);
 
         if (Math.random() < 0.25) {
             target.takeDamage(random.nextInt(10) + 5);

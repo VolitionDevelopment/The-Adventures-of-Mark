@@ -18,8 +18,7 @@ public class Rekt extends Move implements LingerEffect{
 
     private String[] responses = {
             "I'm so sad.",
-            "Just leave me alone!",
-            "Leg day? What's that?",
+            "Just leave me alone!"
     };
 
     public Rekt() {

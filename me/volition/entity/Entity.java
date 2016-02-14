@@ -42,7 +42,7 @@ public abstract class Entity {
         this.x = x;
         this.y = y;
 
-        heal();
+        levelUp();
     }
 
     //for enemies that exist only inside battles
@@ -58,7 +58,7 @@ public abstract class Entity {
 
         this.moves = new ArrayList<>();
 
-        heal();
+        levelUp();
     }
 
     public void useMove(int index, Entity target){
@@ -150,10 +150,6 @@ public abstract class Entity {
         return y;
     }
 
-    public Rectangle getBounds(){
-        return new Rectangle((int) getX(), (int) getY(), animator.getCurrentImage().getWidth(), animator.getCurrentImage().getHeight());
-    }
-
     public int getWidth(){
         return animator.getCurrentImage().getWidth();
     }
@@ -202,6 +198,8 @@ public abstract class Entity {
 
     public void modTolerance(int health){
         this.tolerance += health;
+        if (tolerance > baseTolerance)
+            tolerance = baseTolerance;
     }
 
     public void setBaseBrainpower(int baseBrainpower) {
@@ -218,6 +216,8 @@ public abstract class Entity {
 
     public void modBrainpower(int mana){
         this.brainpower += mana;
+        if (brainpower > baseBrainpower)
+            brainpower = baseBrainpower;
     }
 
     public void setArmor(int armor){
@@ -291,7 +291,7 @@ public abstract class Entity {
         this.tolerance -= damage;
     }
 
-    public void heal(){
+    public void levelUp(){
         setTolerance(getBaseTolerance());
         setBrainpower(getBaseBrainpower());
     }

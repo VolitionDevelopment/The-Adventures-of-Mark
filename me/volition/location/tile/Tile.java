@@ -1,6 +1,7 @@
 package me.volition.location.tile;
 
 import me.volition.entity.Entity;
+import me.volition.location.Exit;
 import me.volition.location.placeableObject.PlaceableObject;
 
 import java.awt.*;
@@ -17,9 +18,9 @@ public abstract class Tile {
     private BufferedImage image;
     private double x, y;
     private boolean isSolid;
-    private boolean startsBattle;
     private ArrayList<Entity> entities;
     private PlaceableObject object;
+    private Exit exit;
 
     public Tile(BufferedImage image, boolean isSolid, double x, double y){
         this.image = image;
@@ -28,7 +29,6 @@ public abstract class Tile {
 
         this.isSolid = isSolid;
 
-        startsBattle = false;
         entities = null;
     }
 
@@ -40,40 +40,16 @@ public abstract class Tile {
         return object;
     }
 
-    public void setSolid(boolean isSolid){
-        this.isSolid = isSolid;
-    }
-
     public boolean isSolid(){
         return isSolid;
-    }
-
-    public void setStartsBattle(boolean startsBattle){
-        this.startsBattle = startsBattle;
-    }
-
-    public boolean startsBattle(){
-        return startsBattle;
-    }
-
-    public void setEntities(ArrayList<Entity> entities){
-        this.entities = entities;
     }
 
     public ArrayList<Entity> getEntities(){
         return entities;
     }
 
-    public BufferedImage getImage(){
-        return image;
-    }
-
-    public void setX(double x){
-        this.x = x;
-    }
-
-    public void setY(double y){
-        this.y = y;
+    public Exit getExit(){
+        return exit;
     }
 
     public double getX(){
@@ -84,8 +60,31 @@ public abstract class Tile {
         return y;
     }
 
-    public void render(Graphics g){
+    public BufferedImage getImage(){
+        return image;
+    }
 
+    public void setSolid(boolean isSolid){
+        this.isSolid = isSolid;
+    }
+
+    public void setEntities(ArrayList<Entity> entities){
+        this.entities = entities;
+    }
+
+    public void setExit(Exit exit){
+        this.exit = exit;
+    }
+
+    public void setX(double x){
+        this.x = x;
+    }
+
+    public void setY(double y){
+        this.y = y;
+    }
+
+    public void render(Graphics g){
         if (image != null)
             g.drawImage(image, (int) x, (int) y, TILE_SIZE, TILE_SIZE, null);
     }

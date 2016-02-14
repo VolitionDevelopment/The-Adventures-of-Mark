@@ -71,7 +71,6 @@ public abstract class PlaceableObject {
 
         }
 
-        tileMap[(int) y / Tile.TILE_SIZE][(int) x / Tile.TILE_SIZE].setStartsBattle(true);
         tileMap[(int) y / Tile.TILE_SIZE][(int) x / Tile.TILE_SIZE].setEntities(entities);
     }
 

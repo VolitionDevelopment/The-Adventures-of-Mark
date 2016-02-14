@@ -31,14 +31,11 @@ public abstract class Location {
         tilemap = loadMap();
     }
 
-    /**
-     * may be inefficient? idk check later xd
-     * */
     public void update(Player player, double delta){
 
+        //collision detection
         int distConst = 10;
 
-        //not colliding with any solid objects
         if (tilemap[(int) (player.getY() + distConst) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth()) / Tile.TILE_SIZE].isSolid() ||
                 tilemap[(int) (player.getY() + player.getHeight() - distConst) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth()) / Tile.TILE_SIZE].isSolid())
             player.setGoingRight(false);
@@ -55,85 +52,98 @@ public abstract class Location {
                 tilemap[(int) player.getY() / Tile.TILE_SIZE][((int) player.getX() + player.getWidth() - distConst) / Tile.TILE_SIZE].isSolid())
             player.setGoingUp(false);
 
-        //start a random battle
+        Tile playerTile = tilemap[((int) player.getY() + player.getHeight() / 2) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth() / 2) / Tile.TILE_SIZE];
+
+        //random battles
         if (!safeRoom && player.isMoving()){
-            if (Math.random() < Math.pow(delta, 2.25)) {
+            if (Math.random() < Math.pow(delta, 2.5)) {
+
                 player.stopMoving();
-                BattleManager.startBattle(player, tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].getImage());
+
+                player.setAnimator(player.getBattleAnimator());
+                BattleManager.startBattle(player, playerTile.getImage());
+
             }
         }
 
-        //start battle if walks over a battle tile
-        if (tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].startsBattle()) {
+        //battle tiles
+        if (playerTile.getEntities() != null) {
+
             player.stopMoving();
+
             player.setAnimator(player.getBattleAnimator());
-            tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].setStartsBattle(false);
-            BattleManager.startBattle(player, tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].getEntities(), tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].getImage());
+            BattleManager.startBattle(player, playerTile.getEntities(), playerTile.getImage());
+
+            playerTile.setEntities(null);
+
         }
 
         //check if at exit
-        for (Exit exit : exits) {
-            if (exit.isActive() && exit.contains(player.getBounds()))
-                exit.enter(player);
-        }
+        Exit exit = playerTile.getExit();
+        if (exit != null && exit.isActive())
+            exit.enter(player);
 
     }
 
     public void adjustCamera(double delta, Player player){
-        //move objects if the player is moving
-        if (player.isGoingDown()) {
-            player.setY(player.getY() + (delta * player.getBaseSpeed()));
-            for (Tile[] aTilemap : tilemap)
-                for (Tile anATilemap : aTilemap)
-                    anATilemap.setY(anATilemap.getY() - (delta * player.getBaseSpeed()));
+        if (freeCamera) {
+            //move objects if the player is moving
+            if (player.isGoingDown()) {
 
-            for (PlaceableObject placeableObject: placeableObjects)
-                placeableObject.setY(placeableObject.getY() - (delta * player.getBaseSpeed()));
+                for (Tile[] aTilemap : tilemap)
+                    for (Tile anATilemap : aTilemap)
+                        anATilemap.setY(anATilemap.getY() - (delta * player.getBaseSpeed()));
 
-            for (Exit exit: exits)
-                exit.setY(exit.getY() - (delta * player.getBaseSpeed()));
+                for (PlaceableObject placeableObject : placeableObjects)
+                    placeableObject.setY(placeableObject.getY() - (delta * player.getBaseSpeed()));
 
-        } else if (player.isGoingUp()) {
-            player.setY(player.getY() - (delta * player.getBaseSpeed()));
-            for (Tile[] aTilemap : tilemap)
-                for (Tile anATilemap : aTilemap)
-                    anATilemap.setY(anATilemap.getY() + (delta * player.getBaseSpeed()));
+                for (Exit exit : exits)
+                    exit.setY(exit.getY() - (delta * player.getBaseSpeed()));
 
-            for (PlaceableObject placeableObject: placeableObjects)
-                placeableObject.setY(placeableObject.getY() + (delta * player.getBaseSpeed()));
+            } else if (player.isGoingUp()) {
 
-            for (Exit exit: exits)
-                exit.setY(exit.getY() + (delta * player.getBaseSpeed()));
-        }
+                for (Tile[] aTilemap : tilemap)
+                    for (Tile anATilemap : aTilemap)
+                        anATilemap.setY(anATilemap.getY() + (delta * player.getBaseSpeed()));
 
-        if (player.isGoingRight()){
-            player.setX(player.getX() + (delta * player.getBaseSpeed()));
-            for (Tile[] aTilemap : tilemap)
-                for (Tile anATilemap : aTilemap)
-                    anATilemap.setX(anATilemap.getX() - (delta * player.getBaseSpeed()));
+                for (PlaceableObject placeableObject : placeableObjects)
+                    placeableObject.setY(placeableObject.getY() + (delta * player.getBaseSpeed()));
 
-            for (PlaceableObject placeableObject: placeableObjects)
-                placeableObject.setX(placeableObject.getX() - (delta * player.getBaseSpeed()));
+                for (Exit exit : exits)
+                    exit.setY(exit.getY() + (delta * player.getBaseSpeed()));
+            }
 
-            for (Exit exit: exits)
-                exit.setX(exit.getX() - (delta * player.getBaseSpeed()));
+            if (player.isGoingLeft()) {
 
-        } else if (player.isGoingLeft()){
-            player.setX(player.getX() - (delta * player.getBaseSpeed()));
-            for (Tile[] aTilemap : tilemap)
-                for (Tile anATilemap : aTilemap)
-                    anATilemap.setX(anATilemap.getX() + (delta * player.getBaseSpeed()));
+                for (Tile[] aTilemap : tilemap)
+                    for (Tile anATilemap : aTilemap)
+                        anATilemap.setX(anATilemap.getX() + (delta * player.getBaseSpeed()));
 
-            for (PlaceableObject placeableObject: placeableObjects)
-                placeableObject.setX(placeableObject.getX() + (delta * player.getBaseSpeed()));
+                for (PlaceableObject placeableObject : placeableObjects)
+                    placeableObject.setX(placeableObject.getX() + (delta * player.getBaseSpeed()));
 
-            for (Exit exit: exits)
-                exit.setX(exit.getX() + (delta * player.getBaseSpeed()));
+                for (Exit exit : exits)
+                    exit.setX(exit.getX() + (delta * player.getBaseSpeed()));
+
+            } else if (player.isGoingRight()) {
+
+                for (Tile[] aTilemap : tilemap)
+                    for (Tile anATilemap : aTilemap)
+                        anATilemap.setX(anATilemap.getX() - (delta * player.getBaseSpeed()));
+
+                for (PlaceableObject placeableObject : placeableObjects)
+                    placeableObject.setX(placeableObject.getX() - (delta * player.getBaseSpeed()));
+
+                for (Exit exit : exits)
+                    exit.setX(exit.getX() - (delta * player.getBaseSpeed()));
+
+            }
         }
     }
 
     public void enterRoom(Player player){
         loadExits(tilemap);
+
         if (freeCamera) {
             for (Tile[] aTilemap : tilemap) {
                 for (Tile tile : aTilemap) {
@@ -152,6 +162,7 @@ public abstract class Location {
                 exit.setY(exit.getY() + Window.WINDOW_HEIGHT / 2 - (player.getY() + player.getHeight() / 2));
             }
         }
+
     }
 
     public void inspect(Player player){
@@ -184,32 +195,8 @@ public abstract class Location {
         return freeCamera;
     }
 
-    public ArrayList<Exit> getExits() {
-        return exits;
-    }
-
-    public ArrayList<PlaceableObject> getPlaceableObjects(){
-        return placeableObjects;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setExits(ArrayList<Exit> exits) {
-        this.exits = exits;
-    }
-
     public void addExit(Exit exit){
         exits.add(exit);
-    }
-
-    public void setPlaceableObjects(ArrayList<PlaceableObject> placeableObjects){
-        this.placeableObjects = placeableObjects;
     }
 
     public void addPlaceableObject(PlaceableObject placeableObject){
@@ -241,6 +228,6 @@ public abstract class Location {
         g.setColor(Color.WHITE);
         for (Exit e: exits)
             if (e.getX() + e.getWidth() > 0 && e.getX() < Window.WINDOW_WIDTH && e.getY() + e.getHeight() > 0 && e.getY() < Window.WINDOW_HEIGHT)
-                g.fillRect(e.getBounds().x, e.getBounds().y, e.getBounds().width, e.getBounds().height);
+                g.fillRect((int) e.getX(), (int) e.getY(), e.getWidth(), e.getHeight());
     }
 }

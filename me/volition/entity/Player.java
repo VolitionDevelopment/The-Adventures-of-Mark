@@ -21,7 +21,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 
 /**
  * Created by mccloskeybr on 2/3/16.
@@ -39,7 +38,7 @@ public class Player extends Entity{
     private boolean isInBattle;
 
     public Player(Location location) {
-        super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", 100, 30, 10, location, 4 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE);
+        super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", 20, 5, 10, location, 4 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE);
         inventory = new ArrayList<>();
         equippedItems = new HashMap<>();
 
@@ -106,48 +105,30 @@ public class Player extends Entity{
         super.update(delta);
 
         if (!isInBattle) {
-            //free camera only updates animations, not position
-            if (getLocation().hasFreeCamera()) {
 
-                getLocation().adjustCamera(delta, this);
+            //in case free camera room
+            getLocation().adjustCamera(delta, this);
 
-                if (!isGoingRight() && !isGoingLeft() && !isGoingUp() && !isGoingDown())
-                    setAnimator(idle);
-                else {
-                    if (isGoingDown())
-                        setAnimator(walkDown);
-                    else if (isGoingUp())
-                        setAnimator(walkUp);
-                    //up/down animations have priority over left/right
-                    if (isGoingLeft() && !isGoingUp() && !isGoingDown())
-                        setAnimator(walkLeft);
-                    else if (isGoingRight() && !isGoingUp() && !isGoingDown())
-                        setAnimator(walkRight);
+            if (!isMoving()) {
+                setAnimator(idle);
+
+            }else {
+                if (isGoingDown()) {
+                    setY(getY() + (delta * getBaseSpeed()));
+                    setAnimator(walkDown);
+                } else if (isGoingUp()) {
+                    setY(getY() - (delta * getBaseSpeed()));
+                    setAnimator(walkUp);
                 }
-
-            } else {
-
-                if (!isGoingRight() && !isGoingLeft() && !isGoingUp() && !isGoingDown())
-                    setAnimator(idle);
-
-                else {
-                    if (isGoingDown()) {
-                        setY(getY() + (delta * getBaseSpeed()));
-                        setAnimator(walkDown);
-                    } else if (isGoingUp()) {
-                        setY(getY() - (delta * getBaseSpeed()));
-                        setAnimator(walkUp);
-                    }
-                    //up/down animations have priority over left/right
-                    if (isGoingLeft()) {
-                        setX(getX() - (delta * getBaseSpeed()));
-                        if (!isGoingUp() && !isGoingDown())
-                            setAnimator(walkLeft);
-                    } else if (isGoingRight()) {
-                        setX(getX() + (delta * getBaseSpeed()));
-                        if (!isGoingUp() && !isGoingDown())
-                            setAnimator(walkRight);
-                    }
+                //up/down animations have priority over left/right
+                if (isGoingLeft()) {
+                    setX(getX() - (delta * getBaseSpeed()));
+                    if (!isGoingUp() && !isGoingDown())
+                        setAnimator(walkLeft);
+                } else if (isGoingRight()) {
+                    setX(getX() + (delta * getBaseSpeed()));
+                    if (!isGoingUp() && !isGoingDown())
+                        setAnimator(walkRight);
                 }
             }
         }
@@ -191,7 +172,8 @@ public class Player extends Entity{
             level++;
             modBaseTolerance(10);
             modBaseBrainpower(10);
-            heal();
+
+            levelUp();
         }
     }
 
@@ -292,14 +274,6 @@ public class Player extends Entity{
     @Override
     public Animator getBattleAnimator(){
         return battle;
-    }
-
-    @Override
-    public Rectangle getBounds(){
-        if (getLocation().hasFreeCamera())
-            return new Rectangle(Window.WINDOW_WIDTH / 2 - getWidth() / 2, Window.WINDOW_HEIGHT / 2 - getHeight() / 2, 64, 64);
-        else
-            return super.getBounds();
     }
 
     @Override

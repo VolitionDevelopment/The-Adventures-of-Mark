@@ -18,10 +18,6 @@ public class Animator {
         maxTick = 5;
     }
 
-    public void setCurrentImageIndex(int currentImageIndex){
-        this.currentImageIndex = currentImageIndex;
-    }
-
     public void reset(){
         currentImageIndex = 0;
         currentTick = 0;

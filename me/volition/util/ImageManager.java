@@ -12,6 +12,15 @@ import java.util.ArrayList;
  */
 public class ImageManager {
 
+    private static ImageManager im;
+
+    public static ImageManager getInstance(){
+        if (im == null)
+            im = new ImageManager();
+
+        return im;
+    }
+
     public BufferedImage loadImage(String path){
         try{
             return ImageIO.read(getClass().getResource(path));

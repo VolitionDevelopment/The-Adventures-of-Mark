@@ -7,7 +7,7 @@ import me.volition.item.impl.armor.Fedora;
 import me.volition.item.impl.usable.MtnDank;
 import me.volition.item.impl.usable.PizzaSlice;
 import me.volition.item.impl.usable.WholePizza;
-import me.volition.location.placeableObject.ItemEvent;
+import me.volition.location.placeableObject.ObjectEvent;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -19,7 +19,7 @@ public class ItemManager {
 
     private static ArrayList<Class<? extends Item>> allItems;
 
-    private static void makeAL(){
+    private static void registerAllItems(){
         allItems = new ArrayList<>();
 
         allItems.add(MtnDank.class);
@@ -28,11 +28,11 @@ public class ItemManager {
 
     }
 
-    public static Item getRandomItem() {
+    public static Item getRandomItem(int rng_multiplier) {
         if (allItems == null)
-            makeAL();
+            registerAllItems();
 
-        int r = new Random().nextInt(allItems.size() * 3);
+        int r = new Random().nextInt(allItems.size() * rng_multiplier);
         if (r < allItems.size()) {
             try {
                 return allItems.get(r).newInstance();
@@ -41,10 +41,13 @@ public class ItemManager {
         return null;
     }
 
-    public static void onItemEvent(Player player, ItemEvent event){
+    public static void onObjectEvent(Player player, ObjectEvent event){
+
+        System.out.println("EEE");
+
         switch (event){
             case RANDOMITEM:
-                player.addItem(getRandomItem());
+                player.addItem(getRandomItem(1));
                 break;
             case PICKUP_FEDORA:
                 player.addItem(new Fedora());

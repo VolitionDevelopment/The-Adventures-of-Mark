@@ -40,6 +40,7 @@ public class MarkApartment extends Location {
         addPlaceableObject(new Toilet(tileMap, Tile.TILE_SIZE, 2 * Tile.TILE_SIZE));
         addPlaceableObject(new Desk(tileMap, Tile.TILE_SIZE, 5 * Tile.TILE_SIZE));
         addPlaceableObject(new Couch(tileMap, 4 * Tile.TILE_SIZE, 6 * Tile.TILE_SIZE));
+        addPlaceableObject(new Chest(tileMap, 7 * Tile.TILE_SIZE, 6 * Tile.TILE_SIZE));
 
         addPlaceableObject(new PlaceableBattleTile(tileMap, null, 3 * Tile.TILE_SIZE, 3 * Tile.TILE_SIZE));
 

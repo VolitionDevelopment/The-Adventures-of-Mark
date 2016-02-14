@@ -21,10 +21,10 @@ public abstract class PlaceableObject {
     private BufferedImage image;
     private double x, y;
     private int width, height;
-    private ItemEvent event;
+    private ObjectEvent event;
 
     //solid objects
-    public PlaceableObject(BufferedImage image, Tile[][] tileMap, ItemEvent event, boolean isSolid, double x, double y) { //location, size in terms of TILES, not pixels
+    public PlaceableObject(BufferedImage image, Tile[][] tileMap, ObjectEvent event, boolean isSolid, double x, double y) { //location, size in terms of TILES, not pixels
         this.image = image;
         this.event = event;
         this.width = image.getWidth();
@@ -53,7 +53,7 @@ public abstract class PlaceableObject {
     //battle tiles
     //can leave entities null to have a random pool of entities
     public PlaceableObject(Tile[][] tileMap, ArrayList<Entity> entities, double x, double y) { //location, size in terms of TILES, not pixels
-        event = ItemEvent.NONE;
+        event = ObjectEvent.NONE;
 
         if (entities == null) {
             Random random = new Random();
@@ -76,10 +76,10 @@ public abstract class PlaceableObject {
     }
 
     public void onInspect(Player player){
-        ItemManager.onItemEvent(player, event);
+        ItemManager.onObjectEvent(player, event);
     }
 
-    public void setEvent(ItemEvent event){
+    public void setEvent(ObjectEvent event){
         this.event = event;
     }
 

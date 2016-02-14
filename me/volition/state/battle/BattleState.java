@@ -9,6 +9,7 @@ import me.volition.state.StateManager;
 import me.volition.state.menu.ingamemenu.battle.BattleMainMenu;
 import me.volition.state.menu.ingamemenu.battle.BattleMenu;
 import me.volition.util.GameManager;
+import me.volition.util.ItemManager;
 import me.volition.util.RenderUtils;
 
 import java.awt.*;
@@ -141,11 +142,8 @@ public class BattleState extends State {
             for (Entity e : enemies)
                 if (e != null)
                     isDone = false;
-            if (isDone) {
-
-                player.setInBattle(false);
-                StateManager.setCurrentState(GameManager.getGameState());
-            }
+            if (isDone)
+                finish();
             for (int i = 0; i < enemies.size(); i++) {
                 if (enemies.get(i) != null && enemies.get(i).getTolerance() <= 0)
                     enemies.set(i, null);
@@ -153,6 +151,19 @@ public class BattleState extends State {
         }
 
         playerTurn = !playerTurn;
+    }
+
+    public void finish(){
+        Random random = new Random();
+
+        for (int i = 0; i < enemies.size(); i++) {
+            player.addItem(ItemManager.getRandomItem(10));
+            player.modExp(random.nextInt(50) + 20);
+            player.modMoney(random.nextInt(30) + 20);
+        }
+
+        player.setInBattle(false);
+        StateManager.setCurrentState(GameManager.getGameState());
     }
 
     @Override

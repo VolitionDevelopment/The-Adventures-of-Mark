@@ -62,7 +62,7 @@ public class Player extends Entity{
     @Override
     public void loadImages(){
 
-        BufferedImage spriteSheet = new ImageManager().loadImage("/me/volition/assets/image/entities/player_spritesheet.png");
+        BufferedImage spriteSheet = ImageManager.getInstance().loadImage("/me/volition/assets/image/entities/player_spritesheet.png");
 
         BufferedImage[] idleFrames = new BufferedImage[2];
         idleFrames[0] = spriteSheet.getSubimage(0, 0, 64, 64);

@@ -1,6 +1,6 @@
 package me.volition.location.placeableObject.impl;
 
-import me.volition.location.placeableObject.ItemEvent;
+import me.volition.location.placeableObject.ObjectEvent;
 import me.volition.location.placeableObject.PlaceableObject;
 import me.volition.location.tile.Tile;
 import me.volition.util.ImageManager;
@@ -10,10 +10,10 @@ import me.volition.util.ImageManager;
  */
 public class Bed extends PlaceableObject {
     public Bed(Tile[][] tilemap, int x, int y) {
-        super(new ImageManager().loadImage("/me/volition/assets/image/objects/bed.png"), tilemap, ItemEvent.NONE, true, x, y);
+        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/bed.png"), tilemap, ObjectEvent.NONE, true, x, y);
     }
 
-    public Bed(Tile[][] tilemap, ItemEvent event, int x, int y) {
-        super(new ImageManager().loadImage("/me/volition/assets/image/objects/bed.png"), tilemap, event, true, x, y);
+    public Bed(Tile[][] tilemap, ObjectEvent event, int x, int y) {
+        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/bed.png"), tilemap, event, true, x, y);
     }
 }

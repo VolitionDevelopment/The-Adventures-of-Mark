@@ -21,7 +21,7 @@ public class Stoner extends Entity {
 
     @Override
     public void loadImages() {
-        BufferedImage spritesheet = new ImageManager().loadImage("/me/volition/assets/image/entities/stoner_spritesheet.png");
+        BufferedImage spritesheet = ImageManager.getInstance().loadImage("/me/volition/assets/image/entities/stoner_spritesheet.png");
 
         BufferedImage[] battleFrames = new BufferedImage[2];
         battleFrames[0] = spritesheet.getSubimage(0, 0, 64, 64);

@@ -2,7 +2,7 @@ package me.volition.location;
 
 import me.volition.Window;
 import me.volition.entity.Player;
-import me.volition.location.placeableObject.ItemEvent;
+import me.volition.location.placeableObject.ObjectEvent;
 import me.volition.location.placeableObject.PlaceableObject;
 import me.volition.location.tile.Tile;
 import me.volition.util.BattleManager;
@@ -172,9 +172,11 @@ public abstract class Location {
         else
             inspectTile = tilemap[playery][playerx - 1];
 
+        System.out.println("Inspect");
+
         if (inspectTile.getObject() != null) {
             inspectTile.getObject().onInspect(player);
-            inspectTile.getObject().setEvent(ItemEvent.NONE);
+            inspectTile.getObject().setEvent(ObjectEvent.NONE);
         }
     }
 

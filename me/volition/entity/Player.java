@@ -153,6 +153,10 @@ public class Player extends Entity{
         }
     }
 
+    public void inspect(){
+        getLocation().inspect(this);
+    }
+
     public void setInBattle(boolean isInBattle){
         this.isInBattle = isInBattle;
     }

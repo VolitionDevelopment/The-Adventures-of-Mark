@@ -20,6 +20,7 @@ public abstract class Entity {
     private int armor, wepDamage;
     private Location location;
     private boolean goingRight, goingLeft, goingUp, goingDown;
+    private int dir; //0 up, 1 down, 2 right, 3 left
     private double x, y;
     private Animator animator;
 
@@ -196,6 +197,22 @@ public abstract class Entity {
         return goingDown;
     }
 
+    public boolean isFacingUp(){
+        return dir == 0;
+    }
+
+    public boolean isFacingDown(){
+        return dir == 1;
+    }
+
+    public boolean isFacingRight(){
+        return dir == 2;
+    }
+
+    public boolean isFacingLeft(){
+        return dir == 3;
+    }
+
     public void setGoingRight(boolean goingRight) {
         this.goingRight = goingRight;
     }
@@ -271,6 +288,15 @@ public abstract class Entity {
 
     public void update(double delta){
         animator.update(delta);
+
+        if (goingUp)
+            dir = 0;
+        else if (goingDown)
+            dir = 1;
+        else if (goingRight)
+            dir = 2;
+        else if (goingLeft)
+            dir = 3;
     }
 
     public abstract void loadImages();

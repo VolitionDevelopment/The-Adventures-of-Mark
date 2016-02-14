@@ -64,6 +64,8 @@ public class GameState extends State {
                 gameManager.getPlayer().setGoingLeft(true);
             else if (k == KeyEvent.VK_D)
                 gameManager.getPlayer().setGoingRight(true);
+            else if (k == KeyEvent.VK_E)
+                player.inspect();
             else if (k == KeyEvent.VK_ESCAPE)
                 pauseMenu = new PauseMenu(player);
         } else

@@ -1,6 +1,7 @@
 package me.volition.location.tile;
 
 import me.volition.entity.Entity;
+import me.volition.location.placeableObject.PlaceableObject;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -18,6 +19,7 @@ public abstract class Tile {
     private boolean isSolid;
     private boolean startsBattle;
     private ArrayList<Entity> entities;
+    private PlaceableObject object;
 
     public Tile(BufferedImage image, boolean isSolid, double x, double y){
         this.image = image;
@@ -28,6 +30,14 @@ public abstract class Tile {
 
         startsBattle = false;
         entities = null;
+    }
+
+    public void setObject(PlaceableObject object){
+        this.object = object;
+    }
+
+    public PlaceableObject getObject(){
+        return object;
     }
 
     public void setSolid(boolean isSolid){

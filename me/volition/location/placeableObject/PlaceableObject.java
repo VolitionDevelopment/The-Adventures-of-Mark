@@ -1,10 +1,12 @@
 package me.volition.location.placeableObject;
 
 import me.volition.entity.Entity;
+import me.volition.entity.Player;
 import me.volition.entity.enemies.Chili;
 import me.volition.entity.enemies.Fratkid;
 import me.volition.entity.enemies.Stoner;
 import me.volition.location.tile.Tile;
+import me.volition.util.ItemManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -19,10 +21,12 @@ public abstract class PlaceableObject {
     private BufferedImage image;
     private double x, y;
     private int width, height;
+    private ItemEvent event;
 
     //solid objects
-    public PlaceableObject(BufferedImage image, Tile[][] tileMap, boolean isSolid, double x, double y) { //location, size in terms of TILES, not pixels
+    public PlaceableObject(BufferedImage image, Tile[][] tileMap, ItemEvent event, boolean isSolid, double x, double y) { //location, size in terms of TILES, not pixels
         this.image = image;
+        this.event = event;
         this.width = image.getWidth();
         this.height = image.getHeight();
         this.x = x;
@@ -37,8 +41,10 @@ public abstract class PlaceableObject {
 
             for (int i = 0; i < height; i++) {
                 for (int j = 0; j < width; j++) {
-                    if (y + i < tileMap.length && x + j < tileMap[i].length)
+                    if (y + i < tileMap.length && x + j < tileMap[i].length) {
                         tileMap[(int) y + i][(int) x + j].setSolid(true);
+                        tileMap[(int) y + i][(int) x + j].setObject(this);
+                    }
                 }
             }
         }
@@ -47,6 +53,8 @@ public abstract class PlaceableObject {
     //battle tiles
     //can leave entities null to have a random pool of entities
     public PlaceableObject(Tile[][] tileMap, ArrayList<Entity> entities, double x, double y) { //location, size in terms of TILES, not pixels
+        event = ItemEvent.NONE;
+
         if (entities == null) {
             Random random = new Random();
             entities = new ArrayList<>();
@@ -65,6 +73,14 @@ public abstract class PlaceableObject {
 
         tileMap[(int) y / Tile.TILE_SIZE][(int) x / Tile.TILE_SIZE].setStartsBattle(true);
         tileMap[(int) y / Tile.TILE_SIZE][(int) x / Tile.TILE_SIZE].setEntities(entities);
+    }
+
+    public void onInspect(Player player){
+        ItemManager.onItemEvent(player, event);
+    }
+
+    public void setEvent(ItemEvent event){
+        this.event = event;
     }
 
     public void setX(double x) {

@@ -2,9 +2,12 @@ package me.volition.util;
 
 import me.volition.entity.Player;
 import me.volition.item.Item;
+import me.volition.item.impl.armor.DeliveryUniform;
+import me.volition.item.impl.armor.Fedora;
 import me.volition.item.impl.usable.MtnDank;
 import me.volition.item.impl.usable.PizzaSlice;
 import me.volition.item.impl.usable.WholePizza;
+import me.volition.location.placeableObject.ItemEvent;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -36,5 +39,21 @@ public class ItemManager {
             } catch (Exception e) { e.printStackTrace(); }
         }
         return null;
+    }
+
+    public static void onItemEvent(Player player, ItemEvent event){
+        switch (event){
+            case RANDOMITEM:
+                player.addItem(getRandomItem());
+                break;
+            case PICKUP_FEDORA:
+                player.addItem(new Fedora());
+                break;
+            case PICKUP_UNIFORM:
+                player.addItem(new DeliveryUniform());
+                break;
+            case NONE:
+                break;
+        }
     }
 }

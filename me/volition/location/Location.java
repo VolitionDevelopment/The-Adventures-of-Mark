@@ -2,6 +2,7 @@ package me.volition.location;
 
 import me.volition.Window;
 import me.volition.entity.Player;
+import me.volition.location.placeableObject.ItemEvent;
 import me.volition.location.placeableObject.PlaceableObject;
 import me.volition.location.tile.Tile;
 import me.volition.util.BattleManager;
@@ -150,6 +151,30 @@ public abstract class Location {
                 exit.setX(exit.getX() + Window.WINDOW_WIDTH / 2 - (player.getX() + player.getWidth() / 2));
                 exit.setY(exit.getY() + Window.WINDOW_HEIGHT / 2 - (player.getY() + player.getHeight() / 2));
             }
+        }
+    }
+
+    public void inspect(Player player){
+        int playerx = (int) player.getX() / Tile.TILE_SIZE;
+        int playery = (int) player.getY() / Tile.TILE_SIZE;
+
+        Tile inspectTile;
+
+        if (player.isFacingUp())
+            inspectTile = tilemap[playery - 1][playerx];
+
+        else if (player.isFacingDown())
+            inspectTile = tilemap[playery + 1][playerx];
+
+        else if (player.isFacingRight())
+            inspectTile = tilemap[playery][playerx + 1];
+
+        else
+            inspectTile = tilemap[playery][playerx - 1];
+
+        if (inspectTile.getObject() != null) {
+            inspectTile.getObject().onInspect(player);
+            inspectTile.getObject().setEvent(ItemEvent.NONE);
         }
     }
 

@@ -203,17 +203,28 @@ public class BattleState extends State {
         battleMenu.render(g);
 
         g.setColor(Color.WHITE);
-        g.drawString("" + player.getName() + " : " + player.getTolerance() + "/" + player.getBaseTolerance()
+        g.drawString(player.getName() + " : " + player.getTolerance() + "/" + player.getBaseTolerance()
             , Window.WINDOW_WIDTH / 2 + 15, 3 * Window.WINDOW_HEIGHT / 4);
-        g.drawRect(Window.WINDOW_WIDTH / 2 + 150, 3 * Window.WINDOW_HEIGHT / 4 - 10, 100, 10);
-        g.fillRect(Window.WINDOW_WIDTH / 2 + 150, 3 * Window.WINDOW_HEIGHT / 4 - 10, (int) ((player.getTolerance() * 1.0 / player.getBaseTolerance()) * 100), 10);
+        g.setColor(Color.RED);
+        g.fillRect(Window.WINDOW_WIDTH / 2 + 150, 3 * Window.WINDOW_HEIGHT / 4 - 10, (int) ((player.getTolerance() * 1.0 / player.getBaseTolerance()) * 100), 5);
+        g.setColor(Color.BLUE);
+        g.fillRect(Window.WINDOW_WIDTH / 2 + 150, 3 * Window.WINDOW_HEIGHT / 4 - 10 + 5, (int) ((player.getBrainpower() * 1.0 / player.getBaseBrainpower()) * 100), 5);
+        g.setColor(Color.WHITE);
+        g.drawRect(Window.WINDOW_WIDTH / 2 + 150, 3 * Window.WINDOW_HEIGHT / 4 - 10, 100, 5);
+        g.drawRect(Window.WINDOW_WIDTH / 2 + 150, 3 * Window.WINDOW_HEIGHT / 4 - 10 + 5, 100, 5);
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i) != null) {
                 g.drawString("" + enemies.get(i).getName() + " : " + enemies.get(i).getTolerance() + "/" + enemies.get(i).getBaseTolerance()
                         , Window.WINDOW_WIDTH / 2 + 15, 3 * Window.WINDOW_HEIGHT / 4 + 30 * (i + 1));
-                g.drawRect(Window.WINDOW_WIDTH / 2 + 150, 3 * Window.WINDOW_HEIGHT / 4 + 30 * (i + 1) - 10, 100, 10);
+                g.setColor(Color.RED);
                 g.fillRect(Window.WINDOW_WIDTH / 2 + 150, 3 * Window.WINDOW_HEIGHT / 4 + 30 * (i + 1) - 10,
-                        (int) ((enemies.get(i).getTolerance() * 1.0 / enemies.get(i).getBaseTolerance()) * 100), 10);
+                        (int) ((enemies.get(i).getTolerance() * 1.0 / enemies.get(i).getBaseTolerance()) * 100), 5);
+                g.setColor(Color.BLUE);
+                g.fillRect(Window.WINDOW_WIDTH / 2 + 150, 3 * Window.WINDOW_HEIGHT / 4 + 30 * (i + 1) - 10 + 5,
+                        (int) ((enemies.get(i).getBrainpower() * 1.0 / enemies.get(i).getBaseBrainpower()) * 100), 5);
+                g.setColor(Color.WHITE);
+                g.drawRect(Window.WINDOW_WIDTH / 2 + 150, 3 * Window.WINDOW_HEIGHT / 4 + 30 * (i + 1) - 10, 100, 5);
+                g.drawRect(Window.WINDOW_WIDTH / 2 + 150, 3 * Window.WINDOW_HEIGHT / 4 + 30 * (i + 1) - 10 + 5, 100, 5);
             }
         }
     }

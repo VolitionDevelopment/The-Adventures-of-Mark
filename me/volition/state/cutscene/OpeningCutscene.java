@@ -6,6 +6,7 @@ import me.volition.util.ImageManager;
 
 import java.awt.*;
 import java.awt.Window;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 /**
@@ -85,5 +86,8 @@ public class OpeningCutscene extends CutsceneState {
     }
 
     @Override
-    public void keyPressed(int k){}
+    public void keyPressed(int k){
+        if (k == KeyEvent.VK_SPACE)
+            finish();
+    }
 }

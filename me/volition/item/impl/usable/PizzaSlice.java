@@ -3,6 +3,7 @@ package me.volition.item.impl.usable;
 import me.volition.entity.Entity;
 import me.volition.entity.Player;
 import me.volition.item.ItemSlot;
+import me.volition.util.ImageManager;
 
 import java.awt.image.BufferedImage;
 
@@ -11,7 +12,7 @@ import java.awt.image.BufferedImage;
  */
 public class PizzaSlice extends Usable {
     public PizzaSlice() {
-        super("Slice of Pizza", "A delicious single slice of pizza. Heals 25 Tolerance.", 15, ItemSlot.NONE, 25, null);
+        super("Slice of Pizza", "A delicious single slice of pizza.",  "Heals 25 Tolerance.", 15, ItemSlot.NONE, 25, new ImageManager().loadImage("/me/volition/assets/image/items/slicepizza.png"));
     }
 
     @Override

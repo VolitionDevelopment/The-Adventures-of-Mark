@@ -3,8 +3,14 @@ package me.volition.entity;
 import me.volition.Window;
 import me.volition.item.Item;
 import me.volition.item.ItemSlot;
-import me.volition.item.impl.usable.MtnDew;
+import me.volition.item.impl.armor.DeliveryUniform;
+import me.volition.item.impl.armor.Fedora;
+import me.volition.item.impl.armor.Jammies;
+import me.volition.item.impl.usable.MtnDank;
+import me.volition.item.impl.usable.PizzaSlice;
+import me.volition.item.impl.usable.WholePizza;
 import me.volition.item.impl.weapon.Fists;
+import me.volition.item.impl.weapon.Spoon;
 import me.volition.location.Location;
 import me.volition.location.tile.Tile;
 import me.volition.move.impl.BadPun;
@@ -21,6 +27,9 @@ import java.util.Random;
  * Created by mccloskeybr on 2/3/16.
  */
 public class Player extends Entity{
+
+    public static final int MAX_INV = 10;
+
     private int level;
     private int exp;
     private int money;
@@ -35,9 +44,19 @@ public class Player extends Entity{
         equippedItems = new HashMap<>();
 
         equip(new Fists());
+        equip(new Jammies());
+
+        addItem(new MtnDank());
+        addItem(new PizzaSlice());
+        addItem(new WholePizza());
+        addItem(new DeliveryUniform());
+        addItem(new Fedora());
+        addItem(new Spoon());
 
         addMove(new BadPun());
-        addItem(new MtnDew());
+
+        //levels up
+        modExp(0);
     }
 
     @Override
@@ -166,10 +185,9 @@ public class Player extends Entity{
 
         while(nextLevel() <= 0){
             level++;
+            modBaseTolerance(10);
+            modBaseBrainpower(10);
             heal();
-            Random r = new Random();
-            modBaseTolerance(Math.max(1, r.nextInt(15)));
-            modBaseBrainpower(Math.max(1, r.nextInt(10)));
         }
     }
 
@@ -200,8 +218,13 @@ public class Player extends Entity{
         this.inventory = inventory;
     }
 
-    public void addItem(Item item){
-        this.inventory.add(item);
+    //returns true if picked up
+    public boolean addItem(Item item){
+        if (inventory.size() < MAX_INV) {
+            this.inventory.add(item);
+            return true;
+        }
+        return false;
     }
 
     public void removeItem(Item item){
@@ -212,9 +235,10 @@ public class Player extends Entity{
 
     public void useItem(int index){
         if (index < inventory.size() && index >= 0) {
-            inventory.get(index).use(this);
-            if (inventory.get(index).getSlot().equals(ItemSlot.NONE)) {
-                inventory.remove(index);
+            Item item = inventory.get(index);
+            item.use(this);
+            if (item.getSlot().equals(ItemSlot.NONE)) {
+                inventory.remove(item);
             }
             //armor and weapon pieces handle themselves when they go through equip method
         }
@@ -232,7 +256,7 @@ public class Player extends Entity{
         if(equippedItems.get(item.getSlot()) != null){
             //replacing an already equipped item
             //replaces values
-            if (item.getSlot() == ItemSlot.HAND)
+            if (item.getSlot() == ItemSlot.WEAPON)
                 setWepDamage(item.getValue());
             else {
                 //unequips, then equips
@@ -242,16 +266,16 @@ public class Player extends Entity{
 
             inventory.add(equippedItems.get(item.getSlot()));
             equippedItems.replace(item.getSlot(), item);
+            inventory.remove(item);
 
         } else {
             //nothing equipped
-            if (item.getSlot() == ItemSlot.HAND)
+            if (item.getSlot() == ItemSlot.WEAPON)
                 setWepDamage(item.getValue());
             else
                 setArmor(getArmor() + item.getValue());
 
-
-                equippedItems.put(item.getSlot(), item);
+            equippedItems.put(item.getSlot(), item);
             inventory.remove(item);
         }
     }

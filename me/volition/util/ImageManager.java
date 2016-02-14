@@ -1,5 +1,6 @@
 package me.volition.util;
 
+import me.volition.location.placeableObject.PlaceableObject;
 import me.volition.location.tile.Tile;
 
 import javax.imageio.ImageIO;
@@ -18,7 +19,7 @@ public class ImageManager {
         return null;
     }
 
-    public static Tile[][] loadMapFromImage(BufferedImage map, ArrayList<Class<? extends Tile>> tiles){
+    public static Tile[][] loadMapFromImage(BufferedImage map, ArrayList<Class<? extends Tile>> tiles, ArrayList<Class<? extends PlaceableObject>> objects){
         Tile[][] tileMap = new Tile[map.getHeight()][map.getWidth()];
 
         try {

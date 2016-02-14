@@ -1,6 +1,10 @@
 package me.volition.state.menu.ingamemenu.game;
 
 import me.volition.Window;
+import me.volition.entity.Player;
+import me.volition.state.StateManager;
+import me.volition.state.menu.impl.InventoryMenu;
+import me.volition.state.menu.impl.StatusMenu;
 import me.volition.state.menu.ingamemenu.InGameMenu;
 import me.volition.util.GameManager;
 import me.volition.util.RenderUtils;
@@ -14,15 +18,18 @@ import java.awt.event.KeyEvent;
 public class PauseMenu implements InGameMenu {
 
     private String[] options = {
-            "Continue",
-            "Inventory",
-            "Status",
-            "Quit"
+            "CONT.",
+            "INV.",
+            "STAT.",
+            "QUIT."
     };
     private int currentIndex;
     private boolean hasSelected;
 
-    public PauseMenu() {
+    private Player player;
+
+    public PauseMenu(Player player) {
+        this.player = player;
     }
 
     @Override
@@ -42,10 +49,10 @@ public class PauseMenu implements InGameMenu {
     public void select(int currentIndex) {
         if (currentIndex == 0)
             GameManager.getGameState().setPauseMenu(null);
-        else if (currentIndex == 1) {
-
-        } else if (currentIndex == 2) {
-
+        else if (currentIndex == 1)
+            StateManager.setCurrentState(new InventoryMenu(player));
+        else if (currentIndex == 2) {
+            StateManager.setCurrentState(new StatusMenu(player));
         } else
             System.exit(0);
     }
@@ -65,7 +72,7 @@ public class PauseMenu implements InGameMenu {
     @Override
     public void render(Graphics g) {
         RenderUtils.drawOutlinedBox(g, 0,  4 * Window.WINDOW_HEIGHT / 5, Window.WINDOW_WIDTH - 5, Window.WINDOW_HEIGHT / 5 - 5);
-        g.setFont(new Font("Determination Sans", Font.PLAIN, 14));
+        g.setFont(new Font("Determination Sans", Font.PLAIN, 30));
 
         for (int i = 0; i < options.length; i++) {
             if (i == currentIndex)
@@ -73,7 +80,7 @@ public class PauseMenu implements InGameMenu {
             else
                 g.setColor(Color.WHITE);
 
-            g.drawString(options[i], 100 + 100 * i, me.volition.Window.WINDOW_HEIGHT - 75);
+            g.drawString(options[i], 100 + 150 * i, me.volition.Window.WINDOW_HEIGHT - 75);
         }
     }
 }

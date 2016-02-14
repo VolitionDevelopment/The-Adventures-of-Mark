@@ -24,7 +24,7 @@ public class BadPun extends Move {
     };
 
     public BadPun(){
-        super("Bad Pun", 300, 10);
+        super("Bad Pun", 5, 10);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class BadPun extends Move {
         caster.setSpeech(badPuns[random.nextInt(badPuns.length)]);
 
         if(Math.random() < 0.85){
-            target.takeDamage((int)((3 + caster.getWepDamage()) * 1.1));
+            target.takeDamage((int)((getDamage() + caster.getWepDamage()) * 1.1));
             target.setSpeech(responses[random.nextInt(responses.length)]);
         }else{
             target.setSpeech("Go back to joke school.");

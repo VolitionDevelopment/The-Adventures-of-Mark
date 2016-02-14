@@ -48,9 +48,7 @@ public class BattleState extends State {
 
     public void setEnemies(ArrayList<Entity> enemies){
         this.enemies = enemies;
-        for (Entity e: enemies)
-            if (e != null)
-                e.setAnimator(e.getBattleAnimator());
+        enemies.stream().filter(e -> e != null).forEach(e -> e.setAnimator(e.getBattleAnimator()));
     }
 
     public ArrayList<Entity> getEnemies(){
@@ -70,7 +68,6 @@ public class BattleState extends State {
 
     public String[] getEnemies_strarr() {
         ArrayList<Entity> liveEnemies = getLiveEnemies();
-
         String[] strarr = new String[liveEnemies.size()];
         for (int i = 0; i < strarr.length; i++)
             strarr[i] = liveEnemies.get(i).getName();
@@ -102,9 +99,7 @@ public class BattleState extends State {
     @Override
     public void update(double delta) {
 
-        for (Entity e : enemies)
-            if (e != null)
-                e.update(delta);
+        enemies.stream().filter(e -> e != null).forEach(e -> e.update(delta));
 
         player.update(delta);
 
@@ -116,9 +111,7 @@ public class BattleState extends State {
                 conversation = false;
 
                 player.setSpeech(null);
-                for (Entity e: enemies)
-                    if (e != null)
-                        e.setSpeech(null);
+                enemies.stream().filter(e -> e != null).forEach(e -> e.setSpeech(null));
             }
 
         } else {
@@ -127,12 +120,10 @@ public class BattleState extends State {
                 battleMenu.update();
             else {
                 Random random = new Random();
-                for (Entity e : enemies) {
-                    if (e != null) {
-                        e.useMove(random.nextInt(e.getMoves().size()), player);
-                        conversation = true;
-                    }
-                }
+                enemies.stream().filter(e -> e != null).forEach(e -> {
+                    e.useMove(random.nextInt(e.getMoves().size()), player);
+                    conversation = true;
+                });
                 switchTurns();
 
                 battleMenu = new BattleMainMenu(this);
@@ -151,6 +142,7 @@ public class BattleState extends State {
                 if (e != null)
                     isDone = false;
             if (isDone) {
+
                 player.setInBattle(false);
                 StateManager.setCurrentState(GameManager.getGameState());
             }

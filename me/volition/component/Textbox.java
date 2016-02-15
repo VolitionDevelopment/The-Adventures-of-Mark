@@ -1,6 +1,8 @@
 package me.volition.component;
 
+import me.volition.Window;
 import me.volition.entity.Entity;
+import me.volition.util.RenderUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,10 +23,6 @@ public class Textbox extends JPanel {
         this.entity = entity;
     }
 
-    public String getText() {
-        return text;
-    }
-
     public void setText(String text) {
         this.text = text;
     }
@@ -41,7 +39,7 @@ public class Textbox extends JPanel {
         if(entity != null){
             g.drawString(entity.getName() + ": ", 25, me.volition.Window.WINDOW_HEIGHT - 120);
         }
-        g.drawString("* " + text, 140, me.volition.Window.WINDOW_HEIGHT - 120);
+        RenderUtils.drawWrappedText(g, "* " + text, 140, me.volition.Window.WINDOW_HEIGHT - 120, Window.WINDOW_WIDTH - 140);
     }
 
 }

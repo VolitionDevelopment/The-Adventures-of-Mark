@@ -11,6 +11,6 @@ import me.volition.util.ImageManager;
  */
 public class Television extends PlaceableObject {
     public Television(Tile[][] tileMap, double x, double y) {
-        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/tv.png"), tileMap, ObjectEvent.NONE, "A good ol' Television", "", true, x, y);
+        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/tv.png"), tileMap, ObjectEvent.NONE, "A good ol' Television", "Your least favorite show is on.", true, x, y);
     }
 }

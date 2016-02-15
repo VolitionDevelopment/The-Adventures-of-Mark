@@ -38,16 +38,14 @@ public abstract class PlaceableObject {
         x /= Tile.TILE_SIZE;
         y /= Tile.TILE_SIZE;
 
-        if (isSolid){
-            int width = image.getWidth() / Tile.TILE_SIZE;
-            int height = image.getHeight() / Tile.TILE_SIZE;
+        int width = image.getWidth() / Tile.TILE_SIZE;
+        int height = image.getHeight() / Tile.TILE_SIZE;
 
-            for (int i = 0; i < height; i++) {
-                for (int j = 0; j < width; j++) {
-                    if (y + i < tileMap.length && x + j < tileMap[i].length) {
-                        tileMap[(int) y + i][(int) x + j].setSolid(true);
-                        tileMap[(int) y + i][(int) x + j].setObject(this);
-                    }
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if (y + i < tileMap.length && x + j < tileMap[i].length) {
+                    tileMap[(int) y + i][(int) x + j].setSolid(isSolid);
+                    tileMap[(int) y + i][(int) x + j].setObject(this);
                 }
             }
         }

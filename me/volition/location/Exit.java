@@ -7,11 +7,11 @@ import me.volition.location.tile.Tile;
 public class Exit {
     // Numerical codes
     private boolean active;
-    private Location m_leadsTo = null;
+    private Class<? extends Location> m_leadsTo = null;
     private double x, y, newx, newy;
     private int width, height;
 
-    public Exit(Tile[][] tilemap, double x, double y, int width, int height, Location leadsTo, int newx, int newy, boolean active) {
+    public Exit(Tile[][] tilemap, double x, double y, int width, int height, Class<? extends Location> leadsTo, int newx, int newy, boolean active) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -26,7 +26,10 @@ public class Exit {
     }
 
     public void enter(Player player){
-        player.setLocation(m_leadsTo);
+        try {
+            player.setLocation(m_leadsTo.newInstance());
+        } catch (Exception e) { e.printStackTrace(); }
+
         player.setX(newx);
         player.setY(newy);
 
@@ -60,7 +63,7 @@ public class Exit {
     public boolean isActive() {
         return active;
     }
-    
+
     public void setActive(boolean active) {
         this.active = active;
     }

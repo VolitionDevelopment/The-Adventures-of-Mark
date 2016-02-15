@@ -12,8 +12,8 @@ import java.awt.image.BufferedImage;
 public abstract class Armor extends Item{
 
     //value is how much damage the armor piece blocks
-    public Armor(String name, String desc, String effect, int value, int price, BufferedImage image) {
-        super(name, desc, effect, value, price, ItemSlot.ARMOR, image);
+    public Armor(String name, String desc, int value, int price, BufferedImage image) {
+        super(name, desc, value + " Defense.", value, price, ItemSlot.ARMOR, image);
     }
 
     public void use(Player player) {

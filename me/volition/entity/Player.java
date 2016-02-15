@@ -112,7 +112,7 @@ public class Player extends Entity{
         upFrames[1] = spriteSheet.getSubimage(192, 256, 64, 64);
         walkUp = new Animator(upFrames);
 
-        setAnimator(idleLeft);
+        setAnimator(idleDown);
     }
 
     @Override

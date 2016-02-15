@@ -2,7 +2,7 @@ package me.volition.location.impl;
 
 import me.volition.location.Exit;
 import me.volition.location.Location;
-import me.volition.location.tile.BrickWall;
+import me.volition.location.tile.BrickWall_Top;
 import me.volition.location.tile.Tile;
 import me.volition.location.tile.WoodTile;
 
@@ -21,7 +21,7 @@ public class Room extends Location {
         for (int i = 0; i < tileMap.length; i++){
             for (int j = 0; j < tileMap[i].length; j++){
                 if (i == 0 || j == 0 || i == tileMap.length - 1 || j == tileMap[i].length - 1)
-                    tileMap[i][j] = new BrickWall(j * Tile.TILE_SIZE, i * Tile.TILE_SIZE);
+                    tileMap[i][j] = new BrickWall_Top(j * Tile.TILE_SIZE, i * Tile.TILE_SIZE);
                 else
                     tileMap[i][j] = new WoodTile(j * Tile.TILE_SIZE, i * Tile.TILE_SIZE);
             }

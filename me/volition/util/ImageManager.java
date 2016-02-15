@@ -7,7 +7,6 @@ import me.volition.location.tile.Tile;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 /**
  * Created by mccloskeybr on 2/3/16.
@@ -22,18 +21,16 @@ public class ImageManager {
 
         return im;
     }
-
     public BufferedImage loadImage(String path){
         try{
             return ImageIO.read(getClass().getResource(path));
         } catch (Exception ignored){}
         return null;
     }
-
     /**
      * has to have 2 separate 2d for loops because need to set up background first
      */
-    //tiles should be wall, floor
+    //tiles should be wall_top, wall_side, floor
     public static Tile[][] loadMapFromImage(Location location, BufferedImage map, ArrayList<Class<? extends Tile>> tiles, ArrayList<Class<? extends PlaceableObject>> objects){
         Tile[][] tileMap = new Tile[map.getHeight()][map.getWidth()];
 
@@ -46,12 +43,18 @@ public class ImageManager {
                     //BLACK
                     if (rgb == -16777216)
                         tileMap[i][j] = (Tile) tiles.get(0).getConstructors()[0].newInstance(j * Tile.TILE_SIZE, i * Tile.TILE_SIZE);
-                    else
+                    // >> side walls
+                    else if (i > 0 && tileMap[i - 1][j].getClass() == tiles.get(0))
                         tileMap[i][j] = (Tile) tiles.get(1).getConstructors()[0].newInstance(j * Tile.TILE_SIZE, i * Tile.TILE_SIZE);
+                    //GRAY
+                    else if (rgb == -11514033)
+                        tileMap[i][j] = (Tile) tiles.get(2).getConstructors()[0].newInstance(j * Tile.TILE_SIZE, i * Tile.TILE_SIZE);
+                    //WHITE
+                    else
+                        tileMap[i][j] = (Tile) tiles.get(3).getConstructors()[0].newInstance(j * Tile.TILE_SIZE, i * Tile.TILE_SIZE);
 
                 }
             }
-
             //placeable objects
             for (int i = 0; i < tileMap.length; i++){
                 for (int j = 0; j < tileMap[i].length; j++){
@@ -114,3 +117,13 @@ public class ImageManager {
                 System.out.println(image.getRGB(j, i));
     }
 }
+
+
+
+
+
+
+
+
+
+

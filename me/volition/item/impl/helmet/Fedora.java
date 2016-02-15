@@ -7,6 +7,6 @@ import me.volition.util.ImageManager;
  */
 public class Fedora extends Helmet {
     public Fedora() {
-        super("Fedora", "The hat that REAL gentlemen wear.", "1 Defense.", 1, 120, ImageManager.getInstance().loadImage("/me/volition/assets/image/items/fedora.png"));
+        super("Fedora", "The hat that REAL gentlemen wear.", 1, 120, ImageManager.getInstance().loadImage("/me/volition/assets/image/items/fedora.png"));
     }
 }

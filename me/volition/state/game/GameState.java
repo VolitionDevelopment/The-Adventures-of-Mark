@@ -26,6 +26,9 @@ public class GameState implements State {
     }
 
     public void setInGameMenu(InGameMenu inGameMenu){
+        if (inGameMenu != null)
+            player.stopMoving();
+
         this.inGameMenu = inGameMenu;
     }
 

@@ -6,6 +6,6 @@ package me.volition.item.impl.weapon;
  */
 public class Fists extends Weapon {
     public Fists() {
-        super("Fisticuffs", "The poor man's knife.", "1 Damage.", 1, 0, null);
+        super("Fisticuffs", "The poor man's knife.", 1, 0, null);
     }
 }

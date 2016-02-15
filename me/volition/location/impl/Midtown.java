@@ -2,6 +2,8 @@ package me.volition.location.impl;
 
 import me.volition.location.Exit;
 import me.volition.location.Location;
+import me.volition.location.placeableObject.PlaceableObject;
+import me.volition.location.placeableObject.impl.Building1;
 import me.volition.location.tile.BrickWall_Side;
 import me.volition.location.tile.BrickWall_Top;
 import me.volition.location.tile.Grass;
@@ -16,7 +18,7 @@ import java.util.ArrayList;
  */
 public class Midtown extends Location {
     public Midtown() {
-        super("Midtown", false, true);
+        super("Midtown", true, true);
     }
 
     @Override
@@ -28,13 +30,16 @@ public class Midtown extends Location {
         tiles.add(Street.class);
         tiles.add(Grass.class);
 
-        Tile[][] tilemap = ImageManager.loadMapFromImage(this, ImageManager.getInstance().loadImage("/me/volition/assets/image/rooms/midtown.png"), tiles, null);
+        ArrayList<Class<? extends PlaceableObject>> objects = new ArrayList<>();
+        objects.add(Building1.class);
+
+        Tile[][] tilemap = ImageManager.loadMapFromImage(this, ImageManager.getInstance().loadImage("/me/volition/assets/image/rooms/midtown.png"), tiles, objects);
 
         return tilemap;
     }
 
     @Override
     public void loadExits(Tile[][] tilemap) {
-        addExit(new Exit(tilemap, Tile.TILE_SIZE, 2 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, MarkApartment.class, 10 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, true));
+        addExit(new Exit(tilemap, 8 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, MarkApartment.class, 10 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, true));
     }
 }

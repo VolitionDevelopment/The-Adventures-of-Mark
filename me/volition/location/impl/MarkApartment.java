@@ -51,6 +51,6 @@ public class MarkApartment extends Location {
 
     @Override
     public void loadExits(Tile[][] tileMap){
-        addExit(new Exit(tileMap, tileMap[0].length * Tile.TILE_SIZE - Tile.TILE_SIZE * 2, tileMap.length / 2 * Tile.TILE_SIZE + 2 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, Midtown.class, Tile.TILE_SIZE * 2, 2 * Tile.TILE_SIZE, true));
+        addExit(new Exit(tileMap, tileMap[0].length * Tile.TILE_SIZE - Tile.TILE_SIZE * 2, tileMap.length / 2 * Tile.TILE_SIZE + 2 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, Midtown.class, 9 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, true));
     }
 }

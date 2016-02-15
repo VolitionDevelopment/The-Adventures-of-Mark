@@ -19,14 +19,14 @@ public class GameState implements State {
     GameManager gameManager = GameManager.getInstance();
 
     private Player player;
-    private InGameMenu pauseMenu;
+    private InGameMenu inGameMenu;
 
     public GameState() {
         player = gameManager.getPlayer();
     }
 
-    public void setPauseMenu(InGameMenu pauseMenu){
-        this.pauseMenu = pauseMenu;
+    public void setInGameMenu(InGameMenu inGameMenu){
+        this.inGameMenu = inGameMenu;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class GameState implements State {
 
     @Override
     public void update(double delta) {
-        if (pauseMenu == null) {
+        if (inGameMenu == null) {
             Location currentLocation = gameManager.getPlayer().getLocation();
             player.update(delta);
             currentLocation.update(player, delta);
@@ -42,7 +42,7 @@ public class GameState implements State {
             if (gameManager.getPlayer().isDead())
                 StateManager.setCurrentState(new MainMenu());
         } else
-            pauseMenu.update();
+            inGameMenu.update();
     }
 
     @Override
@@ -50,13 +50,13 @@ public class GameState implements State {
         player.getLocation().render(g);
         player.render(g);
 
-        if (pauseMenu != null)
-            pauseMenu.render(g);
+        if (inGameMenu != null)
+            inGameMenu.render(g);
     }
 
     @Override
     public void keyPressed(int k) {
-        if (pauseMenu == null) {
+        if (inGameMenu == null) {
             if (k == KeyEvent.VK_W)
                 gameManager.getPlayer().setGoingUp(true);
             else if (k == KeyEvent.VK_S)
@@ -68,14 +68,14 @@ public class GameState implements State {
             else if (k == KeyEvent.VK_E)
                 player.inspect();
             else if (k == KeyEvent.VK_ESCAPE)
-                pauseMenu = new PauseMenu(player);
+                inGameMenu = new PauseMenu(player);
         } else
-            pauseMenu.keyPressed(k);
+            inGameMenu.keyPressed(k);
     }
 
     @Override
     public void keyReleased(int k) {
-        if (pauseMenu == null) {
+        if (inGameMenu == null) {
             if (k == KeyEvent.VK_W)
                 gameManager.getPlayer().setGoingUp(false);
             else if (k == KeyEvent.VK_S)

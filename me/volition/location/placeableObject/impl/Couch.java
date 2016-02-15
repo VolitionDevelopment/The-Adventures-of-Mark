@@ -10,10 +10,6 @@ import me.volition.util.ImageManager;
  */
 public class Couch extends PlaceableObject {
     public Couch(Tile[][] tileMap, double x, double y) {
-        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/couch.png"), tileMap, ObjectEvent.NONE, true, x, y);
-    }
-
-    public Couch(Tile[][] tileMap, ObjectEvent event, double x, double y) {
-        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/couch.png"), tileMap, event, true, x, y);
+        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/couch.png"), tileMap, ObjectEvent.NONE, "Couch", "I once gave birth on this beauty.", true, x, y);
     }
 }

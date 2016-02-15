@@ -11,10 +11,6 @@ import me.volition.util.ImageManager;
  */
 public class LavaLamp extends PlaceableObject {
     public LavaLamp(Tile[][] tileMap, double x, double y) {
-        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/lavalamp.png"), tileMap, ObjectEvent.NONE, true, x, y);
-    }
-
-    public LavaLamp(Tile[][] tileMap, ObjectEvent event, double x, double y) {
-        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/lavalamp.png"), tileMap, event, true, x, y);
+        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/lavalamp.png"), tileMap, ObjectEvent.NONE, "A Lava-Lamp", "What is this, the 70s?", true, x, y);
     }
 }

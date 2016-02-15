@@ -5,7 +5,9 @@ import me.volition.entity.Player;
 import me.volition.location.placeableObject.ObjectEvent;
 import me.volition.location.placeableObject.PlaceableObject;
 import me.volition.location.tile.Tile;
+import me.volition.state.menu.ingamemenu.game.DialogueMenu;
 import me.volition.util.BattleManager;
+import me.volition.util.GameManager;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -183,9 +185,10 @@ public abstract class Location {
         else
             inspectTile = tilemap[playery][playerx - 1];
 
-        System.out.println("Inspect");
+        PlaceableObject object = inspectTile.getObject();
+        if (object != null) {
+            GameManager.getInstance().getGameState().setInGameMenu(new DialogueMenu(player, object.getName() + " - " + object.getDesc()));
 
-        if (inspectTile.getObject() != null) {
             inspectTile.getObject().onInspect(player);
             inspectTile.getObject().setEvent(ObjectEvent.NONE);
         }

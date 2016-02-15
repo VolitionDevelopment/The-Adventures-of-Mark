@@ -6,17 +6,13 @@ import me.volition.state.menu.ingamemenu.InGameMenu;
 import me.volition.util.RenderUtils;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 /**
  * Created by mccloskeybr on 2/8/2016.
  */
 //similar to menustate, except is overlayed on top of the game / battle state
-public abstract class BattleMenu implements InGameMenu {
+public abstract class BattleMenu extends InGameMenu {
 
-    private int currentIndex;
-    private boolean hasSelected;
-    private String[] options;
     private BattleMenu prevMenu, subMenu;
     private int x;
     private Entity selectedEntity; //only for movemenu/entitymenu
@@ -24,19 +20,15 @@ public abstract class BattleMenu implements InGameMenu {
     private BattleState state;
 
     public BattleMenu(String[] options, BattleState state) {
-        this.options = options;
+        super(options);
         this.state = state;
         x = 20;
     }
 
     public BattleMenu(String[] options, BattleMenu prevMenu) {
-        this.options = options;
+        super(options);
         this.prevMenu = prevMenu;
         x = prevMenu.getX() + 70;
-    }
-
-    public int getCurrentIndex(){
-        return currentIndex;
     }
 
     public Entity getSelectedEntity(){
@@ -69,15 +61,7 @@ public abstract class BattleMenu implements InGameMenu {
     @Override
     public void update(){
         if (subMenu == null) {
-            if (currentIndex < 0)
-                currentIndex = options.length - 1;
-            else if (currentIndex >= options.length)
-                currentIndex = 0;
-
-            if (hasSelected) {
-                select(currentIndex);
-                hasSelected = false;
-            }
+            super.update();
         } else
             subMenu.update();
     }
@@ -85,12 +69,7 @@ public abstract class BattleMenu implements InGameMenu {
     @Override
     public void keyPressed(int k){
         if (subMenu == null) {
-            if (k == KeyEvent.VK_S)
-                currentIndex++;
-            else if (k == KeyEvent.VK_W)
-                currentIndex--;
-            else if (k == KeyEvent.VK_ENTER)
-                hasSelected = true;
+            super.keyPressed(k);
         } else {
             subMenu.keyPressed(k);
         }
@@ -100,13 +79,13 @@ public abstract class BattleMenu implements InGameMenu {
     public void render(Graphics g){
         Graphics2D g2 = RenderUtils.alias(g);
         g2.setFont(new Font("Determination Sans", Font.PLAIN, 14));
-        for (int i = 0; i < options.length; i++) {
-            if (i == currentIndex)
+        for (int i = 0; i < getOptions().length; i++) {
+            if (i == getCurrentIndex())
                 g2.setColor(Color.RED);
             else
                 g2.setColor(Color.WHITE);
 
-            g2.drawString(options[i], x, 3 * me.volition.Window.WINDOW_HEIGHT / 4 + 30 * i);
+            g2.drawString(getOptions()[i], x, 3 * me.volition.Window.WINDOW_HEIGHT / 4 + 30 * i);
         }
 
         if (subMenu != null)

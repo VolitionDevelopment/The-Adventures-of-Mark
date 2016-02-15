@@ -10,10 +10,6 @@ import me.volition.util.ImageManager;
  */
 public class Toilet extends PlaceableObject {
     public Toilet(Tile[][] tileMap, double x, double y) {
-        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/toilet.png"), tileMap, ObjectEvent.NONE, true, x, y);
-    }
-
-    public Toilet(Tile[][] tileMap, ObjectEvent event, double x, double y) {
-        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/toilet.png"), tileMap, event, true, x, y);
+        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/toilet.png"), tileMap, ObjectEvent.NONE, "The Porcelain Throne", "I heard Niall received a blumpkin on this very toilet.", true, x, y);
     }
 }

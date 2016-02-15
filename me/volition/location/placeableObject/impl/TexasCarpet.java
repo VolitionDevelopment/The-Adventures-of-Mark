@@ -10,10 +10,6 @@ import me.volition.util.ImageManager;
  */
 public class TexasCarpet extends PlaceableObject {
     public TexasCarpet(Tile[][] tileMap, int x, int y) {
-        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/texascarpet.png"), tileMap, ObjectEvent.NONE, false, x, y);
-    }
-
-    public TexasCarpet(Tile[][] tileMap, ObjectEvent event, int x, int y) {
-        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/texascarpet.png"), tileMap, event, false, x, y);
+        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/texascarpet.png"), tileMap, ObjectEvent.NONE, "Carpet of Texas", "Yee-haw!", false, x, y);
     }
 }

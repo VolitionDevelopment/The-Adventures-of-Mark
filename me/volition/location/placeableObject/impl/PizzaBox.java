@@ -10,10 +10,6 @@ import me.volition.util.ImageManager;
  */
 public class PizzaBox extends PlaceableObject {
     public PizzaBox(Tile[][] tilemap, int x, int y) {
-        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/pizzabox.png"), tilemap, ObjectEvent.NONE, false, x, y);
-    }
-
-    public PizzaBox(Tile[][] tilemap, ObjectEvent event, int x, int y) {
-        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/pizzabox.png"), tilemap, event, false, x, y);
+        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/pizzabox.png"), tilemap, ObjectEvent.NONE, "Pizza box", "Freshman 50 here I come!", false, x, y);
     }
 }

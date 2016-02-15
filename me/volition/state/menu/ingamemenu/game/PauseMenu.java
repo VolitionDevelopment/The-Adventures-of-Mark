@@ -10,45 +10,28 @@ import me.volition.util.GameManager;
 import me.volition.util.RenderUtils;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 /**
  * Created by mccloskeybr on 2/9/2016.
  */
-public class PauseMenu implements InGameMenu {
-
-    private String[] options = {
-            "CONT.",
-            "INV.",
-            "STAT.",
-            "QUIT."
-    };
-    private int currentIndex;
-    private boolean hasSelected;
+public class PauseMenu extends InGameMenu {
 
     private Player player;
 
     public PauseMenu(Player player) {
+        super(new String[]{
+                "CONT.",
+                "INV.",
+                "STAT.",
+                "QUIT."
+        });
         this.player = player;
-    }
-
-    @Override
-    public void update() {
-        if (currentIndex < 0)
-            currentIndex = options.length - 1;
-        else if (currentIndex >= options.length)
-            currentIndex = 0;
-
-        if (hasSelected) {
-            hasSelected = false;
-            select(currentIndex);
-        }
     }
 
     @Override
     public void select(int currentIndex) {
         if (currentIndex == 0)
-            GameManager.getInstance().getGameState().setPauseMenu(null);
+            GameManager.getInstance().getGameState().setInGameMenu(null);
         else if (currentIndex == 1)
             StateManager.setCurrentState(new InventoryMenu(player));
         else if (currentIndex == 2) {
@@ -58,29 +41,17 @@ public class PauseMenu implements InGameMenu {
     }
 
     @Override
-    public void keyPressed(int k) {
-        if (k == KeyEvent.VK_D)
-            currentIndex++;
-        else if (k == KeyEvent.VK_A)
-            currentIndex--;
-        else if (k == KeyEvent.VK_ENTER)
-            hasSelected = true;
-        else if (k == KeyEvent.VK_ESCAPE)
-            select(0);
-    }
-
-    @Override
     public void render(Graphics g) {
         RenderUtils.drawOutlinedBox(g, 0,  4 * Window.WINDOW_HEIGHT / 5, Window.WINDOW_WIDTH - 5, Window.WINDOW_HEIGHT / 5 - 5);
         g.setFont(new Font("Determination Sans", Font.PLAIN, 30));
 
-        for (int i = 0; i < options.length; i++) {
-            if (i == currentIndex)
+        for (int i = 0; i < getOptions().length; i++) {
+            if (i == getCurrentIndex())
                 g.setColor(Color.RED);
             else
                 g.setColor(Color.WHITE);
 
-            g.drawString(options[i], 100 + 150 * i, me.volition.Window.WINDOW_HEIGHT - 75);
+            g.drawString(getOptions()[i], 100 + 150 * i, me.volition.Window.WINDOW_HEIGHT - 75);
         }
     }
 }

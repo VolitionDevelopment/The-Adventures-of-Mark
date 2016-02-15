@@ -10,10 +10,6 @@ import me.volition.util.ImageManager;
  */
 public class Wardrobe extends PlaceableObject {
     public Wardrobe(Tile[][] tileMap, double x, double y) {
-        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/wardrobe.png"), tileMap, ObjectEvent.NONE, true, x, y);
-    }
-
-    public Wardrobe(Tile[][] tileMap, ObjectEvent event, double x, double y) {
-        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/wardrobe.png"), tileMap, event, true, x, y);
+        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/wardrobe.png"), tileMap, ObjectEvent.NONE, "Wardrobe", "I store my underwear here.", true, x, y);
     }
 }

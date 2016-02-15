@@ -20,17 +20,20 @@ public abstract class PlaceableObject {
 
     private BufferedImage image;
     private double x, y;
+    private String name, desc;
     private int width, height;
     private ObjectEvent event;
 
     //solid objects
-    public PlaceableObject(BufferedImage image, Tile[][] tileMap, ObjectEvent event, boolean isSolid, double x, double y) { //location, size in terms of TILES, not pixels
+    public PlaceableObject(BufferedImage image, Tile[][] tileMap, ObjectEvent event, String name, String desc, boolean isSolid, double x, double y) { //location, size in terms of TILES, not pixels
         this.image = image;
         this.event = event;
         this.width = image.getWidth();
         this.height = image.getHeight();
         this.x = x;
         this.y = y;
+        this.name = name;
+        this.desc = desc;
 
         x /= Tile.TILE_SIZE;
         y /= Tile.TILE_SIZE;
@@ -74,16 +77,12 @@ public abstract class PlaceableObject {
         tileMap[(int) y / Tile.TILE_SIZE][(int) x / Tile.TILE_SIZE].setEntities(entities);
     }
 
-    public void onInspect(Player player){
-        ItemManager.onObjectEvent(player, event);
+    public String getName(){
+        return name;
     }
 
-    public void setEvent(ObjectEvent event){
-        this.event = event;
-    }
-
-    public void setX(double x) {
-        this.x = x;
+    public String getDesc(){
+        return desc;
     }
 
     public int getWidth() {
@@ -94,10 +93,6 @@ public abstract class PlaceableObject {
         return height;
     }
 
-    public void setY(double y) {
-        this.y = y;
-    }
-
     public double getX() {
         return x;
     }
@@ -106,8 +101,20 @@ public abstract class PlaceableObject {
         return y;
     }
 
-    public Rectangle getBounds(){
-        return new Rectangle((int) x, (int) y, image.getWidth(), image.getHeight());
+    public void setEvent(ObjectEvent event){
+        this.event = event;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public void onInspect(Player player){
+        ItemManager.onObjectEvent(player, event);
     }
 
     public void render(Graphics g){

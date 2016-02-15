@@ -10,10 +10,6 @@ import me.volition.util.ImageManager;
  */
 public class Desk extends PlaceableObject {
     public Desk(Tile[][] tileMap, int x, int y) {
-        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/desk.png"), tileMap, ObjectEvent.NONE, true, x, y);
-    }
-
-    public Desk(Tile[][] tileMap, ObjectEvent event, int x, int y) {
-        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/desk.png"), tileMap, event, true, x, y);
+        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/desk.png"), tileMap, ObjectEvent.NONE, "A Desk", "9001 nights spent bullshitting essays.", true, x, y);
     }
 }

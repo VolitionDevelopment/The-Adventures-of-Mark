@@ -4,8 +4,7 @@ import me.volition.location.Exit;
 import me.volition.location.Location;
 import me.volition.location.placeableObject.PlaceableObject;
 import me.volition.location.placeableObject.impl.Building1;
-import me.volition.location.tile.BrickWall_Side;
-import me.volition.location.tile.BrickWall_Top;
+import me.volition.location.tile.BrickWall;
 import me.volition.location.tile.Grass;
 import me.volition.location.tile.Street;
 import me.volition.location.tile.Tile;
@@ -25,8 +24,7 @@ public class Midtown extends Location {
     public Tile[][] loadMap() {
 
         ArrayList<Class<? extends Tile>> tiles = new ArrayList<>();
-        tiles.add(BrickWall_Top.class);
-        tiles.add(BrickWall_Side.class);
+        tiles.add(BrickWall.class);
         tiles.add(Street.class);
         tiles.add(Grass.class);
 

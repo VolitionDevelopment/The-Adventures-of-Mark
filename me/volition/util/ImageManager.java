@@ -43,15 +43,12 @@ public class ImageManager {
                     //BLACK
                     if (rgb == -16777216)
                         tileMap[i][j] = (Tile) tiles.get(0).getConstructors()[0].newInstance(j * Tile.TILE_SIZE, i * Tile.TILE_SIZE);
-                    // >> side walls
-                    else if (i > 0 && tileMap[i - 1][j].getClass() == tiles.get(0))
-                        tileMap[i][j] = (Tile) tiles.get(1).getConstructors()[0].newInstance(j * Tile.TILE_SIZE, i * Tile.TILE_SIZE);
                     //GRAY
                     else if (rgb == -11514033)
-                        tileMap[i][j] = (Tile) tiles.get(2).getConstructors()[0].newInstance(j * Tile.TILE_SIZE, i * Tile.TILE_SIZE);
+                        tileMap[i][j] = (Tile) tiles.get(1).getConstructors()[0].newInstance(j * Tile.TILE_SIZE, i * Tile.TILE_SIZE);
                     //WHITE
                     else
-                        tileMap[i][j] = (Tile) tiles.get(3).getConstructors()[0].newInstance(j * Tile.TILE_SIZE, i * Tile.TILE_SIZE);
+                        tileMap[i][j] = (Tile) tiles.get(2).getConstructors()[0].newInstance(j * Tile.TILE_SIZE, i * Tile.TILE_SIZE);
 
                 }
             }

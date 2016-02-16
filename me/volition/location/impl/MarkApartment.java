@@ -4,8 +4,7 @@ import me.volition.location.Exit;
 import me.volition.location.Location;
 import me.volition.location.placeableObject.*;
 import me.volition.location.placeableObject.impl.*;
-import me.volition.location.tile.BrickWall_Side;
-import me.volition.location.tile.BrickWall_Top;
+import me.volition.location.tile.BrickWall;
 import me.volition.location.tile.Tile;
 import me.volition.location.tile.WoodTile;
 import me.volition.util.ImageManager;
@@ -25,8 +24,7 @@ public class MarkApartment extends Location {
     public Tile[][] loadMap() {
 
         ArrayList<Class<? extends Tile>> tiles = new ArrayList<>();
-        tiles.add(BrickWall_Top.class);
-        tiles.add(BrickWall_Side.class);
+        tiles.add(BrickWall.class);
         tiles.add(WoodTile.class);
         tiles.add(WoodTile.class);
 

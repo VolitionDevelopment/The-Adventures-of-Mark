@@ -3,6 +3,7 @@ package me.volition.location.impl;
 import me.volition.location.Exit;
 import me.volition.location.Location;
 import me.volition.location.placeableObject.*;
+<<<<<<< Updated upstream
 import me.volition.location.placeableObject.impl.*;
 import me.volition.location.tile.BrickWall;
 import me.volition.location.tile.Tile;
@@ -49,6 +50,6 @@ public class MarkApartment extends Location {
 
     @Override
     public void loadExits(Tile[][] tileMap){
-        addExit(new Exit(tileMap, tileMap[0].length * Tile.TILE_SIZE - Tile.TILE_SIZE * 2, tileMap.length / 2 * Tile.TILE_SIZE + 2 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, Midtown.class, 9 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, true));
+        addExit(new Exit(tileMap, tileMap[0].length * Tile.TILE_SIZE - Tile.TILE_SIZE * 2, tileMap.length / 2 * Tile.TILE_SIZE + 2 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, Midtown.class, 6 * Tile.TILE_SIZE, 9 * Tile.TILE_SIZE, true));
     }
 }

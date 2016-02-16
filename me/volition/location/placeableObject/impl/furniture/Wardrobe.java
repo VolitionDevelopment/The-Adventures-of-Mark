@@ -1,4 +1,4 @@
-package me.volition.location.placeableObject.impl;
+package me.volition.location.placeableObject.impl.furniture;
 
 import me.volition.location.placeableObject.ObjectEvent;
 import me.volition.location.placeableObject.PlaceableObject;
@@ -10,6 +10,6 @@ import me.volition.util.ImageManager;
  */
 public class Wardrobe extends PlaceableObject {
     public Wardrobe(Tile[][] tileMap, double x, double y) {
-        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/wardrobe.png"), tileMap, ObjectEvent.NONE, "Wardrobe", "I store my underwear here.", true, x, y);
+        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/furniture/wardrobe.png"), tileMap, ObjectEvent.NONE, "Wardrobe", "I store my underwear here.", true, x, y);
     }
 }

@@ -43,7 +43,10 @@ public abstract class PlaceableObject {
 
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                if (y + i < tileMap.length && x + j < tileMap[i].length) {
+                if (y + i < tileMap.length &&
+                        x + j < tileMap[i].length &&
+                        image.getRGB(j * Tile.TILE_SIZE + Tile.TILE_SIZE / 2, i * Tile.TILE_SIZE + Tile.TILE_SIZE / 2) != 16777215) { //makes sure transp. tiles arent solid
+
                     tileMap[(int) y + i][(int) x + j].setSolid(isSolid);
                     tileMap[(int) y + i][(int) x + j].setObject(this);
                 }
@@ -60,14 +63,18 @@ public abstract class PlaceableObject {
             Random random = new Random();
             entities = new ArrayList<>();
             int size = random.nextInt(3) + 1;
+
             for (int i = 0; i < size; i++) {
+
                 int mob = random.nextInt(3);
+
                 if (mob == 0)
                     entities.add(new Fratkid());
                 else if (mob == 1)
                     entities.add(new Chili());
                 else
                     entities.add(new Stoner());
+
             }
 
         }

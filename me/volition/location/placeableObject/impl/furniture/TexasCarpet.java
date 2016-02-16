@@ -1,4 +1,4 @@
-package me.volition.location.placeableObject.impl;
+package me.volition.location.placeableObject.impl.furniture;
 
 import me.volition.location.placeableObject.ObjectEvent;
 import me.volition.location.placeableObject.PlaceableObject;
@@ -10,6 +10,6 @@ import me.volition.util.ImageManager;
  */
 public class TexasCarpet extends PlaceableObject {
     public TexasCarpet(Tile[][] tileMap, int x, int y) {
-        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/texascarpet.png"), tileMap, ObjectEvent.NONE, "Carpet of Texas", "Yee-haw!", false, x, y);
+        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/furniture/texascarpet.png"), tileMap, ObjectEvent.NONE, "Carpet of Texas", "Yee-haw!", false, x, y);
     }
 }

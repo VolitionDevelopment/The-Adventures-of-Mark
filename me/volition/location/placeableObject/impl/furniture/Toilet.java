@@ -1,4 +1,4 @@
-package me.volition.location.placeableObject.impl;
+package me.volition.location.placeableObject.impl.furniture;
 
 import me.volition.location.placeableObject.ObjectEvent;
 import me.volition.location.placeableObject.PlaceableObject;

@@ -113,6 +113,10 @@ public class ImageManager {
             for (int j = 0; j < image.getWidth(); j++)
                 System.out.println(image.getRGB(j, i));
     }
+
+    public static void printRGB(BufferedImage image, int x, int y){
+        System.out.println(image.getRGB(x, y));
+    }
 }
 
 

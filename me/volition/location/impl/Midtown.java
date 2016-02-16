@@ -3,8 +3,7 @@ package me.volition.location.impl;
 import me.volition.location.Exit;
 import me.volition.location.Location;
 import me.volition.location.placeableObject.PlaceableObject;
-<<<<<<< Updated upstream
-import me.volition.location.placeableObject.impl.Building1;
+import me.volition.location.placeableObject.impl.building.*;
 import me.volition.location.tile.BrickWall;
 import me.volition.location.tile.Grass;
 import me.volition.location.tile.Street;

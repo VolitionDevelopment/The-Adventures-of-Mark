@@ -1,10 +1,8 @@
 package me.volition;
 
 import me.volition.state.StateManager;
-import me.volition.state.menu.impl.MainMenu;
 import me.volition.util.FontManager;
 import me.volition.util.GameManager;
-import me.volition.util.ImageManager;
 
 /**
  * Created by Demerzel on 2/3/16.

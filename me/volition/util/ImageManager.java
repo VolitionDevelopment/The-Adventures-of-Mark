@@ -5,6 +5,7 @@ import me.volition.location.placeableObject.PlaceableObject;
 import me.volition.location.tile.Tile;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 

@@ -10,6 +10,7 @@ import me.volition.util.BattleManager;
 import me.volition.util.GameManager;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
@@ -17,20 +18,26 @@ import java.util.ArrayList;
  */
 
 public abstract class Location {
+
     private String name;
     private ArrayList<Exit> exits;
     private ArrayList<PlaceableObject> placeableObjects;
     private Tile[][] tilemap;
+    private BufferedImage bgImage;
+    private double bg_x, bg_y;
     private boolean freeCamera, safeRoom;
 
 
     public Location(String name, boolean safeRoom, boolean freeCamera) {
         exits = new ArrayList<>();
         placeableObjects = new ArrayList<>();
+
         this.name = name;
         this.freeCamera = freeCamera;
         this.safeRoom = safeRoom; //if false, random tiles can cause battles
+
         tilemap = loadMap();
+        this.bgImage = makeBGImage(tilemap);
     }
 
     public void update(Player player, double delta){
@@ -88,13 +95,12 @@ public abstract class Location {
     }
 
     public void adjustCamera(double delta, Player player){
+
         if (freeCamera) {
             //move objects if the player is moving
             if (player.isGoingDown()) {
 
-                for (Tile[] aTilemap : tilemap)
-                    for (Tile anATilemap : aTilemap)
-                        anATilemap.setY(anATilemap.getY() - (delta * player.getBaseSpeed()));
+                bg_y -= delta * player.getBaseSpeed();
 
                 for (PlaceableObject placeableObject : placeableObjects)
                     placeableObject.setY(placeableObject.getY() - (delta * player.getBaseSpeed()));
@@ -104,9 +110,7 @@ public abstract class Location {
 
             } else if (player.isGoingUp()) {
 
-                for (Tile[] aTilemap : tilemap)
-                    for (Tile anATilemap : aTilemap)
-                        anATilemap.setY(anATilemap.getY() + (delta * player.getBaseSpeed()));
+                bg_y += delta * player.getBaseSpeed();
 
                 for (PlaceableObject placeableObject : placeableObjects)
                     placeableObject.setY(placeableObject.getY() + (delta * player.getBaseSpeed()));
@@ -117,9 +121,7 @@ public abstract class Location {
 
             if (player.isGoingLeft()) {
 
-                for (Tile[] aTilemap : tilemap)
-                    for (Tile anATilemap : aTilemap)
-                        anATilemap.setX(anATilemap.getX() + (delta * player.getBaseSpeed()));
+                bg_x += delta * player.getBaseSpeed();
 
                 for (PlaceableObject placeableObject : placeableObjects)
                     placeableObject.setX(placeableObject.getX() + (delta * player.getBaseSpeed()));
@@ -129,9 +131,7 @@ public abstract class Location {
 
             } else if (player.isGoingRight()) {
 
-                for (Tile[] aTilemap : tilemap)
-                    for (Tile anATilemap : aTilemap)
-                        anATilemap.setX(anATilemap.getX() - (delta * player.getBaseSpeed()));
+                bg_x -= delta * player.getBaseSpeed();
 
                 for (PlaceableObject placeableObject : placeableObjects)
                     placeableObject.setX(placeableObject.getX() - (delta * player.getBaseSpeed()));
@@ -141,18 +141,16 @@ public abstract class Location {
 
             }
         }
+
     }
 
     public void enterRoom(Player player){
         loadExits(tilemap);
 
         if (freeCamera) {
-            for (Tile[] aTilemap : tilemap) {
-                for (Tile tile : aTilemap) {
-                    tile.setX(tile.getX() + Window.WINDOW_WIDTH / 2 - (player.getX() + player.getWidth() / 2));
-                    tile.setY(tile.getY() + Window.WINDOW_HEIGHT / 2 - (player.getY() + player.getHeight() / 2));
-                }
-            }
+
+            bg_x = Window.WINDOW_WIDTH / 2 - (player.getX() + player.getWidth() / 2);
+            bg_y = Window.WINDOW_HEIGHT / 2 - (player.getY() + player.getHeight() / 2);
 
             for (PlaceableObject placeableObject : placeableObjects) {
                 placeableObject.setX(placeableObject.getX() + Window.WINDOW_WIDTH / 2 - (player.getX() + player.getWidth() / 2));
@@ -186,12 +184,14 @@ public abstract class Location {
             inspectTile = tilemap[playery][playerx - 1];
 
         PlaceableObject object = inspectTile.getObject();
+
         if (object != null) {
             GameManager.getInstance().getGameState().setInGameMenu(new DialogueMenu(player, object.getName() + " - " + object.getDesc()));
 
             inspectTile.getObject().onInspect(player);
             inspectTile.getObject().setEvent(ObjectEvent.NONE);
         }
+
     }
 
     public boolean hasFreeCamera(){
@@ -210,19 +210,22 @@ public abstract class Location {
 
     public abstract void loadExits(Tile[][] tilemap);
 
-    @Override
-    public String toString() {
-        return "Location{" +
-                "name='" + name + '\'' +
-                '}';
+    private BufferedImage makeBGImage(Tile[][] tilemap){
+
+        BufferedImage image = new BufferedImage(tilemap[0].length * Tile.TILE_SIZE, tilemap.length * Tile.TILE_SIZE, BufferedImage.TYPE_INT_ARGB);
+        Graphics g = image.createGraphics();
+
+        for (int i = 0; i < tilemap.length; i++)
+            for (int j = 0; j < tilemap[i].length; j++)
+                g.drawImage(tilemap[i][j].getImage(), j * Tile.TILE_SIZE, i * Tile.TILE_SIZE, null);
+
+        return image;
+
     }
 
     public void render(Graphics g) {
-        for (Tile[] array: tilemap){
-            for (Tile tile: array)
-                if (tile.getX() + Tile.TILE_SIZE > 0 && tile.getX() < Window.WINDOW_WIDTH && tile.getY() + Tile.TILE_SIZE > 0 && tile.getY() < Window.WINDOW_HEIGHT)
-                    tile.render(g);
-        }
+
+        g.drawImage(bgImage, (int) bg_x, (int) bg_y, null);
 
         for (PlaceableObject s: placeableObjects)
             if (s.getX() + s.getWidth() > 0 && s.getX() < Window.WINDOW_WIDTH && s.getY() + s.getHeight() > 0 && s.getY() < Window.WINDOW_HEIGHT)
@@ -232,5 +235,6 @@ public abstract class Location {
         for (Exit e: exits)
             if (e.getX() + e.getWidth() > 0 && e.getX() < Window.WINDOW_WIDTH && e.getY() + e.getHeight() > 0 && e.getY() < Window.WINDOW_HEIGHT)
                 g.fillRect((int) e.getX(), (int) e.getY(), e.getWidth(), e.getHeight());
+
     }
 }

@@ -32,9 +32,12 @@ public class Midtown extends Location {
         objects.add(Apartments.class);
         objects.add(Shed_normal.class);
         objects.add(Shed_tall.class);
-        objects.add(LBuilding1.class);
+        objects.add(Building_L1.class);
+        objects.add(Building_Long1.class);
 
         Tile[][] tilemap = ImageManager.loadMapFromImage(this, ImageManager.getInstance().loadImage("/me/volition/assets/image/rooms/midtown.png"), tiles, objects);
+
+        loadExits(tilemap);
 
         return tilemap;
     }

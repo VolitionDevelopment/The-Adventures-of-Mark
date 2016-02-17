@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class Midtown extends Location {
     public Midtown() {
-        super("Midtown", true, true);
+        super("Midtown", false, true);
     }
 
     @Override

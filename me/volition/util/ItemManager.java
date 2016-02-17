@@ -44,7 +44,9 @@ public class ItemManager {
     public static void onObjectEvent(Player player, ObjectEvent event){
         switch (event){
             case RANDOMITEM:
-                player.addItem(getRandomItem(1));
+                Item item = getRandomItem(1);
+                if (item != null)
+                    player.addItem(getRandomItem(1));
                 break;
             case PICKUP_FEDORA:
                 player.addItem(new Fedora());

@@ -109,6 +109,19 @@ public class ImageManager {
         return tileMap;
     }
 
+    public static BufferedImage makeImageFromTileMap(Tile[][] tilemap){
+
+        BufferedImage image = new BufferedImage(tilemap[0].length * Tile.TILE_SIZE, tilemap.length * Tile.TILE_SIZE, BufferedImage.TYPE_INT_ARGB);
+        Graphics g = image.createGraphics();
+
+        for (int i = 0; i < tilemap.length; i++)
+            for (int j = 0; j < tilemap[i].length; j++)
+                g.drawImage(tilemap[i][j].getImage(), j * Tile.TILE_SIZE, i * Tile.TILE_SIZE, null);
+
+        return image;
+
+    }
+
     public static void printRGB(BufferedImage image){
         for (int i = 0; i < image.getHeight(); i++)
             for (int j = 0; j < image.getWidth(); j++)

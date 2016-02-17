@@ -216,6 +216,8 @@ public class Player extends Entity{
     }
 
     public String[] getInventory_strarr(){
+        if (inventory == null)
+            System.out.println("Inv is null");
         String[] inv = new String[inventory.size()];
         for (int i = 0; i < inv.length; i++)
             inv[i] = inventory.get(i).getName();

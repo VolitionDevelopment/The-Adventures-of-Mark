@@ -8,6 +8,7 @@ import me.volition.location.tile.Tile;
 import me.volition.state.menu.ingamemenu.game.DialogueMenu;
 import me.volition.util.BattleManager;
 import me.volition.util.GameManager;
+import me.volition.util.ImageManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -37,7 +38,7 @@ public abstract class Location {
         this.safeRoom = safeRoom; //if false, random tiles can cause battles
 
         tilemap = loadMap();
-        this.bgImage = makeBGImage(tilemap);
+        this.bgImage = ImageManager.makeImageFromTileMap(tilemap);
     }
 
     public void update(Player player, double delta){
@@ -209,19 +210,6 @@ public abstract class Location {
     public abstract Tile[][] loadMap();
 
     public abstract void loadExits(Tile[][] tilemap);
-
-    private BufferedImage makeBGImage(Tile[][] tilemap){
-
-        BufferedImage image = new BufferedImage(tilemap[0].length * Tile.TILE_SIZE, tilemap.length * Tile.TILE_SIZE, BufferedImage.TYPE_INT_ARGB);
-        Graphics g = image.createGraphics();
-
-        for (int i = 0; i < tilemap.length; i++)
-            for (int j = 0; j < tilemap[i].length; j++)
-                g.drawImage(tilemap[i][j].getImage(), j * Tile.TILE_SIZE, i * Tile.TILE_SIZE, null);
-
-        return image;
-
-    }
 
     public void render(Graphics g) {
 

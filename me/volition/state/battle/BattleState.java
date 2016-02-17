@@ -3,6 +3,7 @@ package me.volition.state.battle;
 import me.volition.Window;
 import me.volition.entity.Entity;
 import me.volition.entity.Player;
+import me.volition.item.Item;
 import me.volition.location.tile.Tile;
 import me.volition.state.State;
 import me.volition.state.StateManager;
@@ -157,7 +158,11 @@ public class BattleState implements State {
         Random random = new Random();
 
         for (int i = 0; i < enemies.size(); i++) {
-            player.addItem(ItemManager.getRandomItem(10));
+
+            Item item= ItemManager.getRandomItem(10);
+            if (item != null)
+                player.addItem(item);
+
             player.modExp(random.nextInt(50) + 20);
             player.modMoney(random.nextInt(30) + 20);
         }

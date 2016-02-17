@@ -1,6 +1,7 @@
 package me.volition.entity;
 
 import me.volition.location.Location;
+import me.volition.location.placeableObject.ObjectEvent;
 import me.volition.move.Move;
 import me.volition.util.Animator;
 
@@ -23,15 +24,17 @@ public abstract class Entity {
     private int dir; //0 up, 1 down, 2 right, 3 left
     private double x, y;
     private Animator animator;
+    private ObjectEvent onInteract;
 
     private ArrayList<Move> moves;
 
-    public Entity(String name, String bio, int baseTolerance, int baseBrainpower, int baseSpeed, Location location, double x, double y) {
+    public Entity(String name, String bio, ObjectEvent onInteract, int baseTolerance, int baseBrainpower, int baseSpeed, Location location, double x, double y) {
 
         loadImages();
 
         this.name = name;
         this.bio = bio;
+        this.onInteract = onInteract;
         this.baseTolerance = baseTolerance;
         this.baseBrainpower = baseBrainpower;
         this.baseSpeed = baseSpeed;
@@ -72,6 +75,10 @@ public abstract class Entity {
 
     public String getBio() {
         return bio;
+    }
+
+    public ObjectEvent getOnInteract(){
+        return onInteract;
     }
 
     public int getBaseTolerance() {

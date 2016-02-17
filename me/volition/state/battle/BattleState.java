@@ -53,10 +53,6 @@ public class BattleState implements State {
         enemies.stream().filter(e -> e != null).forEach(e -> e.setAnimator(e.getBattleAnimator()));
     }
 
-    public ArrayList<Entity> getEnemies(){
-        return enemies;
-    }
-
     public ArrayList<Entity> getLiveEnemies(){
         ArrayList<Entity> liveEnemies = new ArrayList<>(enemies);
         for (int i = 0; i < liveEnemies.size(); i++) {
@@ -75,10 +71,6 @@ public class BattleState implements State {
             strarr[i] = liveEnemies.get(i).getName();
 
         return strarr;
-    }
-
-    public Entity getEnemy(int index){
-        return enemies.get(index);
     }
 
     public void setPlayer(Player player){

@@ -23,9 +23,10 @@ public abstract class PlaceableObject {
     private String name, desc;
     private int width, height;
     private ObjectEvent event;
+    private boolean isSolid;
 
     //solid objects
-    public PlaceableObject(BufferedImage image, Tile[][] tileMap, ObjectEvent event, String name, String desc, boolean isSolid, double x, double y) { //location, size in terms of TILES, not pixels
+    public PlaceableObject(BufferedImage image, ObjectEvent event, String name, String desc, boolean isSolid, double x, double y) { //location, size in terms of TILES, not pixels
         this.image = image;
         this.event = event;
         this.width = image.getWidth();
@@ -34,24 +35,7 @@ public abstract class PlaceableObject {
         this.y = y;
         this.name = name;
         this.desc = desc;
-
-        x /= Tile.TILE_SIZE;
-        y /= Tile.TILE_SIZE;
-
-        int width = image.getWidth() / Tile.TILE_SIZE;
-        int height = image.getHeight() / Tile.TILE_SIZE;
-
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                if (y + i < tileMap.length &&
-                        x + j < tileMap[i].length &&
-                        image.getRGB(j * Tile.TILE_SIZE + Tile.TILE_SIZE / 2, i * Tile.TILE_SIZE + Tile.TILE_SIZE / 2) != 16777215) { //makes sure transp. tiles arent solid
-
-                    tileMap[(int) y + i][(int) x + j].setSolid(isSolid);
-                    tileMap[(int) y + i][(int) x + j].setObject(this);
-                }
-            }
-        }
+        this.isSolid = isSolid;
     }
 
     //battle tiles
@@ -79,7 +63,7 @@ public abstract class PlaceableObject {
 
         }
 
-        tileMap[(int) y / Tile.TILE_SIZE][(int) x / Tile.TILE_SIZE].setEntities(entities);
+        tileMap[(int) y / Tile.TILE_SIZE][(int) x / Tile.TILE_SIZE].setBattleEntities(entities);
     }
 
     public String getName(){
@@ -104,6 +88,14 @@ public abstract class PlaceableObject {
 
     public double getY() {
         return y;
+    }
+
+    public boolean isSolid(){
+        return isSolid;
+    }
+
+    public BufferedImage getImage(){
+        return image;
     }
 
     public void setEvent(ObjectEvent event){

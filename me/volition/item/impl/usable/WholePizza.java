@@ -8,11 +8,11 @@ import me.volition.util.ImageManager;
  */
 public class WholePizza extends Usable {
     public WholePizza() {
-        super("Whole Pizza", "An entire pizza. The smell makes your eyes water and your stomach grumble.", "Restores all of your Tolerance.", 60, 0, ImageManager.getInstance().loadImage("/me/volition/assets/image/items/fullpizza.png"));
+        super("Whole Pizza", "An entire pizza. The smell makes your eyes water and your stomach grumble.", "Restores all of your Tolerance.", 60, -1, ImageManager.getInstance().loadImage("/me/volition/assets/image/items/fullpizza.png"));
     }
 
     @Override
     public void use(Player player) {
-        player.modTolerance(getValue());
+        player.modTolerance(player.getBaseTolerance());
     }
 }

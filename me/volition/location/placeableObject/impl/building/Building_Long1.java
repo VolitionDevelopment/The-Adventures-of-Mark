@@ -10,7 +10,7 @@ import me.volition.util.ImageManager;
  */
 public class Building_Long1 extends PlaceableObject{
 
-    public Building_Long1(Tile[][] tileMap, double x, double y) {
-        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/buildings/building_long_1.png"), tileMap, ObjectEvent.NONE, "A long building", "Not longer than my schlong.", true, x, y);
+    public Building_Long1(double x, double y) {
+        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/buildings/building_long_1.png"), ObjectEvent.NONE, "A long building", "Not longer than my schlong.", true, x, y);
     }
 }

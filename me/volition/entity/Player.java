@@ -12,6 +12,7 @@ import me.volition.item.impl.usable.WholePizza;
 import me.volition.item.impl.weapon.Fists;
 import me.volition.item.impl.weapon.Spoon;
 import me.volition.location.Location;
+import me.volition.location.placeableObject.ObjectEvent;
 import me.volition.location.tile.Tile;
 import me.volition.move.impl.BadPun;
 import me.volition.util.Animator;
@@ -39,7 +40,7 @@ public class Player extends Entity{
     private boolean isInBattle;
 
     public Player(Location location) {
-        super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", 20, 5, 10, location, 4 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE);
+        super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", ObjectEvent.NONE, 20, 5, 10, location, 4 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE);
         inventory = new ArrayList<>();
         equippedItems = new HashMap<>();
 
@@ -121,9 +122,6 @@ public class Player extends Entity{
 
         if (!isInBattle) {
 
-            //in case free camera room
-            getLocation().adjustCamera(delta, this);
-
             if (!isMoving()) {
                 if (isFacingLeft())
                     setAnimator(idleLeft);
@@ -157,7 +155,7 @@ public class Player extends Entity{
     }
 
     public void inspect(){
-        getLocation().inspect(this);
+        getLocation().inspect();
     }
 
     public void setInBattle(boolean isInBattle){

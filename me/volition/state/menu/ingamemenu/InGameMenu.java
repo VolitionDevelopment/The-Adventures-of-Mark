@@ -23,6 +23,10 @@ public abstract class InGameMenu {
         return currentIndex;
     }
 
+    public void setOptions(String[] options){
+        this.options = options;
+    }
+
     public void update(){
         if (currentIndex < 0)
             currentIndex = options.length - 1;

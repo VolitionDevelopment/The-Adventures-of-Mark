@@ -3,6 +3,7 @@ package me.volition.util;
 import me.volition.entity.Player;
 import me.volition.location.Location;
 import me.volition.location.impl.MarkApartment;
+import me.volition.location.impl.Shop_Restaurant;
 import me.volition.state.game.GameState;
 
 import java.awt.*;
@@ -13,27 +14,34 @@ import java.awt.*;
 public class GameManager {
     private static GameManager gameManager;
     private static GameState gameState;
-    private Player player;
+    private static Player player;
 
-    private GameManager(){
-        Location start = new MarkApartment();
+    public GameManager(){
 
+        Location start = new Shop_Restaurant();
         player = new Player(start);
-        start.enterRoom(player);
+
     }
 
     public static GameManager getInstance(){
-        if(gameManager == null)
+
+        if(gameManager == null) {
             gameManager = new GameManager();
 
+            player.getLocation().enterRoom();
+        }
+
         return gameManager;
+
     }
 
     public GameState getGameState(){
+
         if (gameState == null)
             gameState = new GameState();
 
         return gameState;
+
     }
 
     public Player getPlayer(){

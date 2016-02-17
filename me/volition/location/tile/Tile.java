@@ -18,8 +18,9 @@ public abstract class Tile {
     private BufferedImage image;
     private double x, y;
     private boolean isSolid;
-    private ArrayList<Entity> entities;
+    private ArrayList<Entity> battleEntities;
     private PlaceableObject object;
+    private Entity npc;
     private Exit exit;
 
     public Tile(BufferedImage image, boolean isSolid, double x, double y){
@@ -29,23 +30,23 @@ public abstract class Tile {
 
         this.isSolid = isSolid;
 
-        entities = null;
-    }
-
-    public void setObject(PlaceableObject object){
-        this.object = object;
+        battleEntities = null;
     }
 
     public PlaceableObject getObject(){
         return object;
     }
 
+    public Entity getNpc(){
+        return npc;
+    }
+
     public boolean isSolid(){
         return isSolid;
     }
 
-    public ArrayList<Entity> getEntities(){
-        return entities;
+    public ArrayList<Entity> getBattleEntities(){
+        return battleEntities;
     }
 
     public Exit getExit(){
@@ -64,12 +65,20 @@ public abstract class Tile {
         return image;
     }
 
+    public void setObject(PlaceableObject object){
+        this.object = object;
+    }
+
+    public void setNpc(Entity entity){
+        this.npc = entity;
+    }
+
     public void setSolid(boolean isSolid){
         this.isSolid = isSolid;
     }
 
-    public void setEntities(ArrayList<Entity> entities){
-        this.entities = entities;
+    public void setBattleEntities(ArrayList<Entity> battleEntities){
+        this.battleEntities = battleEntities;
     }
 
     public void setExit(Exit exit){

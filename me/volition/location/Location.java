@@ -1,6 +1,7 @@
 package me.volition.location;
 
 import me.volition.Window;
+import me.volition.entity.Entity;
 import me.volition.entity.Player;
 import me.volition.location.placeableObject.ObjectEvent;
 import me.volition.location.placeableObject.PlaceableObject;
@@ -9,6 +10,7 @@ import me.volition.state.menu.ingamemenu.game.DialogueMenu;
 import me.volition.util.BattleManager;
 import me.volition.util.GameManager;
 import me.volition.util.ImageManager;
+import me.volition.util.ItemManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -27,21 +29,77 @@ public abstract class Location {
     private BufferedImage bgImage;
     private double bg_x, bg_y;
     private boolean freeCamera, safeRoom;
+    private ArrayList<Entity> npcs;
 
 
     public Location(String name, boolean safeRoom, boolean freeCamera) {
         exits = new ArrayList<>();
         placeableObjects = new ArrayList<>();
+        npcs = new ArrayList<>();
 
         this.name = name;
         this.freeCamera = freeCamera;
         this.safeRoom = safeRoom; //if false, random tiles can cause battles
 
-        tilemap = loadMap();
+        loadMap();
         this.bgImage = ImageManager.makeImageFromTileMap(tilemap);
     }
 
-    public void update(Player player, double delta){
+    public boolean hasFreeCamera(){
+        return freeCamera;
+    }
+
+    public Tile[][] getTilemap(){
+        return tilemap;
+    }
+
+    public void addExit(Exit exit){
+        exits.add(exit);
+    }
+
+    public void addPlaceableObject(PlaceableObject placeableObject){
+        placeableObjects.add(placeableObject);
+
+        double x = placeableObject.getX() / Tile.TILE_SIZE;
+        double y = placeableObject.getY() / Tile.TILE_SIZE;
+
+        BufferedImage image = placeableObject.getImage();
+
+        if (image != null) {
+            int width = image.getWidth() / Tile.TILE_SIZE;
+            int height = image.getHeight() / Tile.TILE_SIZE;
+
+            for (int i = 0; i < height; i++) {
+                for (int j = 0; j < width; j++) {
+                    if (y + i < tilemap.length &&
+                            x + j < tilemap[i].length &&
+                            image.getRGB(j * Tile.TILE_SIZE + Tile.TILE_SIZE / 2, i * Tile.TILE_SIZE + Tile.TILE_SIZE / 2) != 16777215) { //makes sure transp. tiles arent solid
+
+                        tilemap[(int) y + i][(int) x + j].setSolid(placeableObject.isSolid());
+                        tilemap[(int) y + i][(int) x + j].setObject(placeableObject);
+                    }
+                }
+            }
+        }
+    }
+
+    public void addNpc(Entity npc){
+        npcs.add(npc);
+
+        double x = npc.getX() / Tile.TILE_SIZE;
+        double y = npc.getY() / Tile.TILE_SIZE;
+
+        tilemap[(int) y][(int) x].setSolid(true);
+        tilemap[(int) y][(int) x].setNpc(npc);
+    }
+
+    public void setTilemap(Tile[][] tilemap){
+        this.tilemap = tilemap;
+    }
+
+    public void update(double delta){
+
+        Player player = GameManager.getInstance().getPlayer();
 
         //collision detection
         int distConst = 10;
@@ -77,14 +135,14 @@ public abstract class Location {
         }
 
         //battle tiles
-        if (playerTile.getEntities() != null) {
+        if (playerTile.getBattleEntities() != null) {
 
             player.stopMoving();
 
             player.setAnimator(player.getBattleAnimator());
-            BattleManager.startBattle(player, playerTile.getEntities(), playerTile.getImage());
+            BattleManager.startBattle(player, playerTile.getBattleEntities(), playerTile.getImage());
 
-            playerTile.setEntities(null);
+            playerTile.setBattleEntities(null);
 
         }
 
@@ -93,11 +151,18 @@ public abstract class Location {
         if (exit != null && exit.isActive())
             exit.enter(player);
 
+        //update entity animations
+        for (Entity npc: npcs)
+            npc.update(delta);
+
     }
 
-    public void adjustCamera(double delta, Player player){
+    public void adjustCamera(double delta){
 
         if (freeCamera) {
+
+            Player player = GameManager.getInstance().getPlayer();
+
             //move objects if the player is moving
             if (player.isGoingDown()) {
 
@@ -105,6 +170,9 @@ public abstract class Location {
 
                 for (PlaceableObject placeableObject : placeableObjects)
                     placeableObject.setY(placeableObject.getY() - (delta * player.getBaseSpeed()));
+
+                for (Entity npc: npcs)
+                    npc.setY((npc.getY() - (delta * player.getBaseSpeed())));
 
                 for (Exit exit : exits)
                     exit.setY(exit.getY() - (delta * player.getBaseSpeed()));
@@ -115,6 +183,9 @@ public abstract class Location {
 
                 for (PlaceableObject placeableObject : placeableObjects)
                     placeableObject.setY(placeableObject.getY() + (delta * player.getBaseSpeed()));
+
+                for (Entity npc: npcs)
+                    npc.setY((npc.getY() + (delta * player.getBaseSpeed())));
 
                 for (Exit exit : exits)
                     exit.setY(exit.getY() + (delta * player.getBaseSpeed()));
@@ -127,6 +198,9 @@ public abstract class Location {
                 for (PlaceableObject placeableObject : placeableObjects)
                     placeableObject.setX(placeableObject.getX() + (delta * player.getBaseSpeed()));
 
+                for (Entity npc: npcs)
+                    npc.setX((npc.getX() + (delta * player.getBaseSpeed())));
+
                 for (Exit exit : exits)
                     exit.setX(exit.getX() + (delta * player.getBaseSpeed()));
 
@@ -137,6 +211,9 @@ public abstract class Location {
                 for (PlaceableObject placeableObject : placeableObjects)
                     placeableObject.setX(placeableObject.getX() - (delta * player.getBaseSpeed()));
 
+                for (Entity npc: npcs)
+                    npc.setX((npc.getX() - (delta * player.getBaseSpeed())));
+
                 for (Exit exit : exits)
                     exit.setX(exit.getX() - (delta * player.getBaseSpeed()));
 
@@ -145,7 +222,10 @@ public abstract class Location {
 
     }
 
-    public void enterRoom(Player player){
+    public void enterRoom(){
+
+        Player player = GameManager.getInstance().getPlayer();
+
         loadExits(tilemap);
 
         if (freeCamera) {
@@ -166,7 +246,10 @@ public abstract class Location {
 
     }
 
-    public void inspect(Player player){
+    public void inspect(){
+
+        Player player = GameManager.getInstance().getPlayer();
+
         int playerx = (int) (player.getX() + player.getWidth() / 2) / Tile.TILE_SIZE;
         int playery = (int) (player.getY() + player.getHeight() / 2) / Tile.TILE_SIZE;
 
@@ -184,36 +267,37 @@ public abstract class Location {
         else
             inspectTile = tilemap[playery][playerx - 1];
 
-        PlaceableObject object = inspectTile.getObject();
+        Entity npc = inspectTile.getNpc();
 
-        if (object != null) {
-            GameManager.getInstance().getGameState().setInGameMenu(new DialogueMenu(player, object.getName() + " - " + object.getDesc()));
+        if (npc != null) {
 
-            inspectTile.getObject().onInspect(player);
-            inspectTile.getObject().setEvent(ObjectEvent.NONE);
+            ItemManager.onObjectEvent(player, npc.getOnInteract());
+
+        } else {
+
+            PlaceableObject object = inspectTile.getObject();
+
+            if (object != null) {
+                GameManager.getInstance().getGameState().setInGameMenu(new DialogueMenu(player, object.getName() + " - " + object.getDesc()));
+
+                inspectTile.getObject().onInspect(player);
+                inspectTile.getObject().setEvent(ObjectEvent.NONE);
+            }
+
         }
 
     }
 
-    public boolean hasFreeCamera(){
-        return freeCamera;
-    }
-
-    public void addExit(Exit exit){
-        exits.add(exit);
-    }
-
-    public void addPlaceableObject(PlaceableObject placeableObject){
-        placeableObjects.add(placeableObject);
-    }
-
-    public abstract Tile[][] loadMap();
+    public abstract void loadMap();
 
     public abstract void loadExits(Tile[][] tilemap);
 
     public void render(Graphics g) {
 
         g.drawImage(bgImage, (int) bg_x, (int) bg_y, null);
+
+        for (Entity npc: npcs)
+            npc.render(g);
 
         for (PlaceableObject s: placeableObjects)
             if (s.getX() + s.getWidth() > 0 && s.getX() < Window.WINDOW_WIDTH && s.getY() + s.getHeight() > 0 && s.getY() < Window.WINDOW_HEIGHT)

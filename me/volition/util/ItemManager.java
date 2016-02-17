@@ -8,6 +8,7 @@ import me.volition.item.impl.usable.MtnDank;
 import me.volition.item.impl.usable.PizzaSlice;
 import me.volition.item.impl.usable.WholePizza;
 import me.volition.location.placeableObject.ObjectEvent;
+import me.volition.state.menu.ingamemenu.game.RestaurantShopMenu;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -47,6 +48,9 @@ public class ItemManager {
                 Item item = getRandomItem(1);
                 if (item != null)
                     player.addItem(getRandomItem(1));
+                break;
+            case OPEN_ITEMSTORE:
+                GameManager.getInstance().getGameState().setInGameMenu(new RestaurantShopMenu());
                 break;
             case PICKUP_FEDORA:
                 player.addItem(new Fedora());

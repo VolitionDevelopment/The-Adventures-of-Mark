@@ -44,6 +44,7 @@ public class Main extends JPanel{
     }
 
     public void loop(){
+
         float deltaTime = System.currentTimeMillis() - oldTime;
         oldTime = System.currentTimeMillis();
 

@@ -19,11 +19,11 @@ import java.util.ArrayList;
  */
 public class Midtown extends Location {
     public Midtown() {
-        super("Midtown", false, true);
+        super("Midtown", true, true);
     }
 
     @Override
-    public Tile[][] loadMap() {
+    public void loadMap() {
 
         ArrayList<Class<? extends Tile>> tiles = new ArrayList<>();
         tiles.add(BrickWall.class);
@@ -45,15 +45,33 @@ public class Midtown extends Location {
         objects.add(Fence_horiz.class);
         objects.add(Fence_vert.class);
 
-        Tile[][] tilemap = ImageManager.loadMapFromImage(this, ImageManager.getInstance().loadImage("/me/volition/assets/image/rooms/midtown.png"), tiles, objects);
-
-        loadExits(tilemap);
-
-        return tilemap;
+        ImageManager.loadMapFromImage(this, ImageManager.getInstance().loadImage("/me/volition/assets/image/rooms/midtown.png"), tiles, objects);
     }
 
     @Override
     public void loadExits(Tile[][] tilemap) {
-        addExit(new Exit(tilemap, 6 * Tile.TILE_SIZE, 8 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, MarkApartment.class, 10 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, true));
+        addExit(new Exit(
+                tilemap,
+                6 * Tile.TILE_SIZE, 8 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE,
+                MarkApartment.class, 10 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, true
+        ));
+
+        addExit(new Exit(
+                tilemap,
+                17 * Tile.TILE_SIZE, 17 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE,
+                Shop_Restaurant.class, 8 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, true
+        ));
+
+        addExit(new Exit(
+                tilemap,
+                27 * Tile.TILE_SIZE, 17 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE,
+                Shop_Clothing.class, 6 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, true
+        ));
+
+        addExit(new Exit(
+                tilemap,
+                16 * Tile.TILE_SIZE, 28 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE,
+                Shop_Dollar.class, 6 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, true
+        ));
     }
 }

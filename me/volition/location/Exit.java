@@ -33,7 +33,7 @@ public class Exit {
         player.setX(newx);
         player.setY(newy);
 
-        player.getLocation().enterRoom(player);
+        player.getLocation().enterRoom();
     }
 
     public void setX(double x) {

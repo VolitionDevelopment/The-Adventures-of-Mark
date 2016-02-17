@@ -4,6 +4,8 @@ import me.volition.location.Exit;
 import me.volition.location.Location;
 import me.volition.location.placeableObject.PlaceableObject;
 import me.volition.location.placeableObject.impl.building.*;
+import me.volition.location.placeableObject.impl.furniture.Fence_horiz;
+import me.volition.location.placeableObject.impl.furniture.Fence_vert;
 import me.volition.location.tile.BrickWall;
 import me.volition.location.tile.Grass;
 import me.volition.location.tile.Street;
@@ -34,6 +36,14 @@ public class Midtown extends Location {
         objects.add(Shed_tall.class);
         objects.add(Building_L1.class);
         objects.add(Building_Long1.class);
+        objects.add(Shop_1.class);
+        objects.add(Building_Block_small.class);
+        objects.add(Building_Block_large.class);
+        objects.add(Building_L2.class);
+        objects.add(Building_U1.class);
+        objects.add(Building_L3.class);
+        objects.add(Fence_horiz.class);
+        objects.add(Fence_vert.class);
 
         Tile[][] tilemap = ImageManager.loadMapFromImage(this, ImageManager.getInstance().loadImage("/me/volition/assets/image/rooms/midtown.png"), tiles, objects);
 

@@ -27,6 +27,10 @@ public abstract class InGameMenu {
         this.options = options;
     }
 
+    public void setCurrentIndex(int currentIndex){
+        this.currentIndex = currentIndex;
+    }
+
     public void update(){
         if (currentIndex < 0)
             currentIndex = options.length - 1;
@@ -35,11 +39,7 @@ public abstract class InGameMenu {
     }
 
     public void keyPressed(int k) {
-        if (k == KeyEvent.VK_S)
-            currentIndex++;
-        else if (k == KeyEvent.VK_W)
-            currentIndex--;
-        else if (k == KeyEvent.VK_ENTER || k == KeyEvent.VK_SPACE)
+        if (k == KeyEvent.VK_ENTER || k == KeyEvent.VK_SPACE)
             select(currentIndex);
         else if (k == KeyEvent.VK_ESCAPE)
             select(0);

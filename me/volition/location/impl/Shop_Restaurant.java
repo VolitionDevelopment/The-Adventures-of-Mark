@@ -40,7 +40,6 @@ public class Shop_Restaurant extends Location {
     @Override
     public void loadExits(Tile[][] tilemap) {
         addExit(new Exit(
-                tilemap,
                 8 * Tile.TILE_SIZE, 8 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE,
                 Midtown.class, 17 * Tile.TILE_SIZE, 18 * Tile.TILE_SIZE, true
         ));

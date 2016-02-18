@@ -42,7 +42,8 @@ public abstract class Location {
         this.safeRoom = safeRoom; //if false, random tiles can cause battles
 
         loadMap();
-        this.bgImage = ImageManager.makeImageFromTileMap(tilemap);
+
+        this.bgImage = ImageManager.makeImageFromMap(this);
     }
 
     public boolean hasFreeCamera(){
@@ -53,11 +54,21 @@ public abstract class Location {
         return tilemap;
     }
 
+    public ArrayList<PlaceableObject> getPlaceableObjects(){
+        return placeableObjects;
+    }
+
     public void addExit(Exit exit){
         exits.add(exit);
+
+        int x = (int) (exit.getX() / Tile.TILE_SIZE);
+        int y = (int) (exit.getY() / Tile.TILE_SIZE);
+
+        tilemap[y][x].setExit(exit);
     }
 
     public void addPlaceableObject(PlaceableObject placeableObject){
+
         placeableObjects.add(placeableObject);
 
         double x = placeableObject.getX() / Tile.TILE_SIZE;
@@ -84,6 +95,7 @@ public abstract class Location {
     }
 
     public void addNpc(Entity npc){
+
         npcs.add(npc);
 
         double x = npc.getX() / Tile.TILE_SIZE;
@@ -168,9 +180,6 @@ public abstract class Location {
 
                 bg_y -= delta * player.getBaseSpeed();
 
-                for (PlaceableObject placeableObject : placeableObjects)
-                    placeableObject.setY(placeableObject.getY() - (delta * player.getBaseSpeed()));
-
                 for (Entity npc: npcs)
                     npc.setY((npc.getY() - (delta * player.getBaseSpeed())));
 
@@ -180,9 +189,6 @@ public abstract class Location {
             } else if (player.isGoingUp()) {
 
                 bg_y += delta * player.getBaseSpeed();
-
-                for (PlaceableObject placeableObject : placeableObjects)
-                    placeableObject.setY(placeableObject.getY() + (delta * player.getBaseSpeed()));
 
                 for (Entity npc: npcs)
                     npc.setY((npc.getY() + (delta * player.getBaseSpeed())));
@@ -195,9 +201,6 @@ public abstract class Location {
 
                 bg_x += delta * player.getBaseSpeed();
 
-                for (PlaceableObject placeableObject : placeableObjects)
-                    placeableObject.setX(placeableObject.getX() + (delta * player.getBaseSpeed()));
-
                 for (Entity npc: npcs)
                     npc.setX((npc.getX() + (delta * player.getBaseSpeed())));
 
@@ -207,9 +210,6 @@ public abstract class Location {
             } else if (player.isGoingRight()) {
 
                 bg_x -= delta * player.getBaseSpeed();
-
-                for (PlaceableObject placeableObject : placeableObjects)
-                    placeableObject.setX(placeableObject.getX() - (delta * player.getBaseSpeed()));
 
                 for (Entity npc: npcs)
                     npc.setX((npc.getX() - (delta * player.getBaseSpeed())));
@@ -232,11 +232,6 @@ public abstract class Location {
 
             bg_x = Window.WINDOW_WIDTH / 2 - (player.getX() + player.getWidth() / 2);
             bg_y = Window.WINDOW_HEIGHT / 2 - (player.getY() + player.getHeight() / 2);
-
-            for (PlaceableObject placeableObject : placeableObjects) {
-                placeableObject.setX(placeableObject.getX() + Window.WINDOW_WIDTH / 2 - (player.getX() + player.getWidth() / 2));
-                placeableObject.setY(placeableObject.getY() + Window.WINDOW_HEIGHT / 2 - (player.getY() + player.getHeight() / 2));
-            }
 
             for (Exit exit : exits) {
                 exit.setX(exit.getX() + Window.WINDOW_WIDTH / 2 - (player.getX() + player.getWidth() / 2));
@@ -298,10 +293,6 @@ public abstract class Location {
 
         for (Entity npc: npcs)
             npc.render(g);
-
-        for (PlaceableObject s: placeableObjects)
-            if (s.getX() + s.getWidth() > 0 && s.getX() < Window.WINDOW_WIDTH && s.getY() + s.getHeight() > 0 && s.getY() < Window.WINDOW_HEIGHT)
-                s.render(g);
 
         g.setColor(Color.WHITE);
         for (Exit e: exits)

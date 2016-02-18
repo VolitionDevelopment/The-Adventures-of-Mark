@@ -1,11 +1,14 @@
 package me.volition.state.menu.ingamemenu.battle;
 
+import me.volition.*;
 import me.volition.entity.Entity;
 import me.volition.state.battle.BattleState;
 import me.volition.state.menu.ingamemenu.InGameMenu;
 import me.volition.util.RenderUtils;
 
 import java.awt.*;
+import java.awt.Window;
+import java.awt.event.KeyEvent;
 
 /**
  * Created by mccloskeybr on 2/8/2016.
@@ -70,6 +73,16 @@ public abstract class BattleMenu extends InGameMenu {
     public void keyPressed(int k){
         if (subMenu == null) {
             super.keyPressed(k);
+
+            if (k == KeyEvent.VK_S)
+                setCurrentIndex(getCurrentIndex() + 1);
+            else if (k == KeyEvent.VK_W)
+                setCurrentIndex(getCurrentIndex() - 1);
+            else if (k == KeyEvent.VK_D && getCurrentIndex() + 5 < getOptions().length)
+                setCurrentIndex(getCurrentIndex() + 5);
+            else if (k == KeyEvent.VK_A && getCurrentIndex() - 5 > -1)
+                setCurrentIndex(getCurrentIndex() - 5);
+
         } else {
             subMenu.keyPressed(k);
         }
@@ -77,15 +90,23 @@ public abstract class BattleMenu extends InGameMenu {
 
     @Override
     public void render(Graphics g){
-        Graphics2D g2 = RenderUtils.alias(g);
-        g2.setFont(new Font("Determination Sans", Font.PLAIN, 14));
+
+        g.setFont(new Font("Determination Sans", Font.PLAIN, 14));
+
+        int y = 3 * me.volition.Window.WINDOW_HEIGHT / 4;
         for (int i = 0; i < getOptions().length; i++) {
             if (i == getCurrentIndex())
-                g2.setColor(Color.RED);
+                g.setColor(Color.RED);
             else
-                g2.setColor(Color.WHITE);
+                g.setColor(Color.WHITE);
 
-            g2.drawString(getOptions()[i], x, 3 * me.volition.Window.WINDOW_HEIGHT / 4 + 30 * i);
+            g.drawString(getOptions()[i], x, y);
+
+            y += 30;
+            if (y >= me.volition.Window.WINDOW_HEIGHT - 30) {
+                y = 3 * me.volition.Window.WINDOW_HEIGHT / 4;
+                x += 120;
+            }
         }
 
         if (subMenu != null)

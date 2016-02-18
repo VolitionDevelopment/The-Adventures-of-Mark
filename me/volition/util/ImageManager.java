@@ -109,7 +109,10 @@ public class ImageManager {
         }
     }
 
-    public static BufferedImage makeImageFromTileMap(Tile[][] tilemap){
+    //requires tilemap AND placeable objects to have already been placed
+    public static BufferedImage makeImageFromMap(Location location){
+
+        Tile[][] tilemap = location.getTilemap();
 
         BufferedImage image = new BufferedImage(tilemap[0].length * Tile.TILE_SIZE, tilemap.length * Tile.TILE_SIZE, BufferedImage.TYPE_INT_ARGB);
         Graphics g = image.createGraphics();
@@ -117,6 +120,18 @@ public class ImageManager {
         for (int i = 0; i < tilemap.length; i++)
             for (int j = 0; j < tilemap[i].length; j++)
                 g.drawImage(tilemap[i][j].getImage(), j * Tile.TILE_SIZE, i * Tile.TILE_SIZE, null);
+
+
+        for (PlaceableObject object: location.getPlaceableObjects())
+            g.drawImage(object.getImage(), (int) object.getX(), (int) object.getY(), null);
+
+        /*
+        try {
+            ImageIO.write(image, "PNG", new File("image.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        */
 
         return image;
 

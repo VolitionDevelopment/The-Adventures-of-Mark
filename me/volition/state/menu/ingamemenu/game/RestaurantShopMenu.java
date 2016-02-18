@@ -11,6 +11,7 @@ import me.volition.util.RenderUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 /**
@@ -71,19 +72,37 @@ public class RestaurantShopMenu extends InGameMenu {
     }
 
     @Override
+    public void keyPressed(int k){
+        super.keyPressed(k);
+
+        if (k == KeyEvent.VK_D)
+            setCurrentIndex(getCurrentIndex() + 1);
+        else if (k == KeyEvent.VK_A)
+            setCurrentIndex(getCurrentIndex() - 1);
+    }
+
+    @Override
     public void render(Graphics g) {
 
-        g.setFont(new Font("Determination Sans", Font.PLAIN, 12));
+        g.setFont(new Font("Determination Sans", Font.PLAIN, 20));
 
-        RenderUtils.drawOutlinedBox(g, 50, 50, Window.WINDOW_WIDTH - 100, Window.WINDOW_HEIGHT - 350);
+        RenderUtils.drawOutlinedBox(g, 30, 50, Window.WINDOW_WIDTH - 60, Window.WINDOW_HEIGHT - 350);
+        RenderUtils.drawOutlinedBox(g, 30, Window.WINDOW_HEIGHT - 240, Window.WINDOW_WIDTH - 60, 75);
 
+        int x = 50;
         for (int i = 0; i < getOptions().length; i++){
             if (getCurrentIndex() == i)
                 g.setColor(Color.RED);
             else
                 g.setColor(Color.WHITE);
 
-            g.drawString(getOptions()[i], 50 + (i * 100), Window.WINDOW_HEIGHT - 150);
+            g.drawString(getOptions()[i], x, Window.WINDOW_HEIGHT - 200);
+
+            x += g.getFontMetrics().stringWidth(getOptions()[i] + 50);
+
+            if (i < shopItems.size())
+                g.drawImage(shopItems.get(i).getImage(), 100 + 256 * i, 100, null);
+
         }
 
     }

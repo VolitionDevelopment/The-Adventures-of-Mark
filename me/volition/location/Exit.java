@@ -11,7 +11,7 @@ public class Exit {
     private double x, y, newx, newy;
     private int width, height;
 
-    public Exit(Tile[][] tilemap, double x, double y, int width, int height, Class<? extends Location> leadsTo, int newx, int newy, boolean active) {
+    public Exit(double x, double y, int width, int height, Class<? extends Location> leadsTo, int newx, int newy, boolean active) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -21,8 +21,6 @@ public class Exit {
 
         m_leadsTo = leadsTo;
         this.active = active;
-
-        tilemap[(int) y / Tile.TILE_SIZE][(int) x / Tile.TILE_SIZE].setExit(this);
     }
 
     public void enter(Player player){

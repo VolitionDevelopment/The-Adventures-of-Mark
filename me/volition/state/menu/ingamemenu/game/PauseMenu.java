@@ -10,6 +10,7 @@ import me.volition.util.GameManager;
 import me.volition.util.RenderUtils;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 /**
  * Created by mccloskeybr on 2/9/2016.
@@ -38,6 +39,16 @@ public class PauseMenu extends InGameMenu {
             StateManager.setCurrentState(new StatusMenu(player));
         } else
             System.exit(0);
+    }
+
+    @Override
+    public void keyPressed(int k){
+        super.keyPressed(k);
+
+        if (k == KeyEvent.VK_D)
+            setCurrentIndex(getCurrentIndex() + 1);
+        else if (k == KeyEvent.VK_A)
+            setCurrentIndex(getCurrentIndex() - 1);
     }
 
     @Override

@@ -35,7 +35,6 @@ public class Shop_Dollar extends Location {
     @Override
     public void loadExits(Tile[][] tilemap) {
         addExit(new Exit(
-                tilemap,
                 6 * Tile.TILE_SIZE, 8 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE,
                 Midtown.class, 16 * Tile.TILE_SIZE, 29 * Tile.TILE_SIZE, true
         ));

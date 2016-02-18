@@ -56,6 +56,8 @@ public class Player extends Entity{
 
         addMove(new BadPun());
 
+        modMoney(1000);
+
         //levels up
         modExp(0);
     }

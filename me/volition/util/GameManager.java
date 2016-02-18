@@ -18,7 +18,7 @@ public class GameManager {
 
     public GameManager(){
 
-        Location start = new Shop_Restaurant();
+        Location start = new MarkApartment();
         player = new Player(start);
 
     }

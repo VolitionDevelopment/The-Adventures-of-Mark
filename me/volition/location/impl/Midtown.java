@@ -51,25 +51,21 @@ public class Midtown extends Location {
     @Override
     public void loadExits(Tile[][] tilemap) {
         addExit(new Exit(
-                tilemap,
                 6 * Tile.TILE_SIZE, 8 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE,
                 MarkApartment.class, 10 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, true
         ));
 
         addExit(new Exit(
-                tilemap,
                 17 * Tile.TILE_SIZE, 17 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE,
                 Shop_Restaurant.class, 8 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, true
         ));
 
         addExit(new Exit(
-                tilemap,
                 27 * Tile.TILE_SIZE, 17 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE,
                 Shop_Clothing.class, 6 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, true
         ));
 
         addExit(new Exit(
-                tilemap,
                 16 * Tile.TILE_SIZE, 28 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE,
                 Shop_Dollar.class, 6 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, true
         ));

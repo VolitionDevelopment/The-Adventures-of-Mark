@@ -9,6 +9,7 @@ import me.volition.state.State;
 import me.volition.state.StateManager;
 import me.volition.state.menu.ingamemenu.battle.BattleMainMenu;
 import me.volition.state.menu.ingamemenu.battle.BattleMenu;
+import me.volition.util.FontManager;
 import me.volition.util.GameManager;
 import me.volition.util.ItemManager;
 import me.volition.util.RenderUtils;
@@ -164,9 +165,9 @@ public class BattleState implements State {
     }
 
     @Override
-    public void render(Graphics g) {
+    public void render(Graphics2D g) {
 
-        g.setFont(new Font("Determination Sans", Font.PLAIN, 14));
+        g.setFont(FontManager.getSans(14));
 
         //render BG
         for (int i = 0; i < 7; i++)

@@ -2,6 +2,7 @@ package me.volition.component;
 
 import me.volition.Window;
 import me.volition.entity.Entity;
+import me.volition.util.FontManager;
 import me.volition.util.RenderUtils;
 
 import javax.swing.*;
@@ -27,7 +28,7 @@ public class Textbox extends JPanel {
         this.text = text;
     }
 
-    public void render(Graphics g){
+    public void render(Graphics2D g){
 
         g.setColor(Color.WHITE);
         g.fillRect(15, me.volition.Window.WINDOW_HEIGHT - 145, me.volition.Window.WINDOW_WIDTH - 30, 110);
@@ -35,7 +36,7 @@ public class Textbox extends JPanel {
         g.fillRect(20, me.volition.Window.WINDOW_HEIGHT - 140, me.volition.Window.WINDOW_WIDTH - 40, 100);
 
         g.setColor(Color.WHITE);
-        g.setFont(new Font("Determination Mono", Font.PLAIN, 18));
+        g.setFont(FontManager.getMono(18));
         if(entity != null){
             g.drawString(entity.getName() + ": ", 25, me.volition.Window.WINDOW_HEIGHT - 120);
         }

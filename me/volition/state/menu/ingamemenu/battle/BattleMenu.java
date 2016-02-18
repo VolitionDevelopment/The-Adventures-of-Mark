@@ -4,6 +4,7 @@ import me.volition.*;
 import me.volition.entity.Entity;
 import me.volition.state.battle.BattleState;
 import me.volition.state.menu.ingamemenu.InGameMenu;
+import me.volition.util.FontManager;
 import me.volition.util.RenderUtils;
 
 import java.awt.*;
@@ -89,9 +90,9 @@ public abstract class BattleMenu extends InGameMenu {
     }
 
     @Override
-    public void render(Graphics g){
+    public void render(Graphics2D g){
 
-        g.setFont(new Font("Determination Sans", Font.PLAIN, 14));
+        g.setFont(FontManager.getSans(14));
 
         int y = 3 * me.volition.Window.WINDOW_HEIGHT / 4;
         for (int i = 0; i < getOptions().length; i++) {

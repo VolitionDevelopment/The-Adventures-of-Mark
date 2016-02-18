@@ -53,7 +53,7 @@ public class GameState implements State {
     }
 
     @Override
-    public void render(Graphics g) {
+    public void render(Graphics2D g) {
 
         player.getLocation().render(g);
         player.render(g);

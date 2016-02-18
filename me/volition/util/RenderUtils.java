@@ -16,28 +16,26 @@ public class RenderUtils {
         return g2;
     }
 
-    public static void drawCenteredText(Graphics g, String line, int y, int size){
-        Graphics2D g2 = alias(g);
-        g2.setColor(Color.WHITE);
-        g2.setFont(new Font("Determination Sans", Font.PLAIN, size));
-        g2.drawString(line, (me.volition.Window.WINDOW_WIDTH / 2) - (g.getFontMetrics().stringWidth(line) / 2), y);
+    public static void drawCenteredText(Graphics2D g, String line, int y, int size){
+        g.setColor(Color.WHITE);
+        g.setFont(FontManager.getSans(size));
+        g.drawString(line, (me.volition.Window.WINDOW_WIDTH / 2) - (g.getFontMetrics().stringWidth(line) / 2), y);
     }
 
-    public static void drawLeftText(Graphics g, String line, int y, int size){
-        Graphics2D g2 = alias(g);
-        g2.setColor(Color.WHITE);
-        g2.setFont(new Font("Determination Sans", Font.PLAIN, size));
-        g2.drawString(line, 20, y);
+    public static void drawLeftText(Graphics2D g, String line, int y, int size){
+        g.setColor(Color.WHITE);
+        g.setFont(FontManager.getSans(size));
+        g.drawString(line, 20, y);
     }
 
-    public static void drawOutlinedBox(Graphics g, int x, int y, int width, int height){
+    public static void drawOutlinedBox(Graphics2D g, int x, int y, int width, int height){
         g.setColor(Color.WHITE);
         g.fillRect(x, y, width, height);
         g.setColor(Color.BLACK);
         g.fillRect(x + 5, y + 5, width - 10, height - 10);
     }
 
-    public static void drawWrappedText(Graphics g, String str, int x, int y, int width){
+    public static void drawWrappedText(Graphics2D g, String str, int x, int y, int width){
         ArrayList<String> strings = new ArrayList<>();
 
         int loclastBreak = 0;
@@ -60,7 +58,7 @@ public class RenderUtils {
             g.drawString(strings.get(i), x, y + 30 * i);
     }
 
-    public static void drawBoxedWrappedText(Graphics g, String str, int x, int y, int width){
+    public static void drawBoxedWrappedText(Graphics2D g, String str, int x, int y, int width){
         ArrayList<String> strings = new ArrayList<>();
 
         int loclastBreak = 0;

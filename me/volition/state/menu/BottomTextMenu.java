@@ -15,7 +15,7 @@ public abstract class BottomTextMenu extends MenuState {
     }
 
     @Override
-    public void render(Graphics g) {
+    public void render(Graphics2D g) {
         super.render(g);
 
         Font menuFont = getMenuFont();

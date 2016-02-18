@@ -70,7 +70,7 @@ public class OpeningCutscene extends CutsceneState {
     }
 
     @Override
-    public void render(Graphics g){
+    public void render(Graphics2D g){
         if (getIndex() < getDialogue_images().length && getDialogue_images()[getIndex()] != null)
                 g.drawImage(getDialogue_images()[getIndex()], 0, 0, me.volition.Window.WINDOW_WIDTH, me.volition.Window.WINDOW_HEIGHT, null);
 

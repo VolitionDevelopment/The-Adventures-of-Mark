@@ -5,6 +5,7 @@ import me.volition.Window;
 import me.volition.entity.Player;
 import me.volition.item.Item;
 import me.volition.state.menu.ingamemenu.InGameMenu;
+import me.volition.util.FontManager;
 import me.volition.util.GameManager;
 import me.volition.util.ItemManager;
 import me.volition.util.RenderUtils;
@@ -82,9 +83,9 @@ public class RestaurantShopMenu extends InGameMenu {
     }
 
     @Override
-    public void render(Graphics g) {
+    public void render(Graphics2D g) {
 
-        g.setFont(new Font("Determination Sans", Font.PLAIN, 20));
+        g.setFont(FontManager.getSans(20));
 
         RenderUtils.drawOutlinedBox(g, 30, 50, Window.WINDOW_WIDTH - 60, Window.WINDOW_HEIGHT - 350);
         RenderUtils.drawOutlinedBox(g, 30, Window.WINDOW_HEIGHT - 240, Window.WINDOW_WIDTH - 60, 75);

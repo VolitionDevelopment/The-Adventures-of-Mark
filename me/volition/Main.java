@@ -1,6 +1,7 @@
 package me.volition;
 
 import me.volition.state.StateManager;
+import me.volition.util.RenderUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,7 +59,9 @@ public class Main extends JPanel{
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        StateManager.getCurrentState().render(g);
+
+        Graphics2D g2 = RenderUtils.alias(g);
+        StateManager.getCurrentState().render(g2);
     }
 
 }

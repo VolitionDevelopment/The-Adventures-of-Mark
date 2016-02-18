@@ -6,6 +6,7 @@ import me.volition.state.StateManager;
 import me.volition.state.menu.impl.InventoryMenu;
 import me.volition.state.menu.impl.StatusMenu;
 import me.volition.state.menu.ingamemenu.InGameMenu;
+import me.volition.util.FontManager;
 import me.volition.util.GameManager;
 import me.volition.util.RenderUtils;
 
@@ -52,9 +53,9 @@ public class PauseMenu extends InGameMenu {
     }
 
     @Override
-    public void render(Graphics g) {
+    public void render(Graphics2D g) {
         RenderUtils.drawOutlinedBox(g, 0,  4 * Window.WINDOW_HEIGHT / 5, Window.WINDOW_WIDTH - 5, Window.WINDOW_HEIGHT / 5 - 5);
-        g.setFont(new Font("Determination Sans", Font.PLAIN, 30));
+        g.setFont(FontManager.getSans(30));
 
         for (int i = 0; i < getOptions().length; i++) {
             if (i == getCurrentIndex())

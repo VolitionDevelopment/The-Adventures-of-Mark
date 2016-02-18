@@ -11,7 +11,7 @@ public interface State {
 
     void update(double delta);
 
-    void render(Graphics g);
+    void render(Graphics2D g);
 
     void keyPressed(int k);
 

@@ -320,15 +320,15 @@ public abstract class Entity {
 
     public abstract Animator getBattleAnimator();
 
-    public void render(Graphics g){
+    public void render(Graphics2D g){
         g.drawImage(animator.getCurrentImage(), (int) x, (int) y, null);
     }
 
-    public void render(Graphics g, int x, int y){
+    public void render(Graphics2D g, int x, int y){
         g.drawImage(animator.getCurrentImage(), x, y, null);
     }
 
-    public void render(Graphics g, int x, int y, int width, int height){
+    public void render(Graphics2D g, int x, int y, int width, int height){
         g.drawImage(animator.getCurrentImage(), x, y, width, height, null);
     }
 }

@@ -5,6 +5,7 @@ import me.volition.entity.Player;
 import me.volition.item.ItemSlot;
 import me.volition.state.StateManager;
 import me.volition.state.menu.BottomTextMenu;
+import me.volition.util.FontManager;
 import me.volition.util.GameManager;
 import me.volition.util.RenderUtils;
 
@@ -29,12 +30,12 @@ public class StatusMenu extends BottomTextMenu {
             StateManager.setCurrentState(GameManager.getInstance().getGameState());
     }
 
-    public void render(Graphics g){
+    public void render(Graphics2D g){
         super.render(g);
 
         RenderUtils.drawOutlinedBox(g, 30, 30, Window.WINDOW_WIDTH - 60, Window.WINDOW_HEIGHT - 120);
 
-        g.setFont(new Font("Determination Sans", Font.PLAIN, 20));
+        g.setFont(FontManager.getSans(20));
 
         int x = 100;
         int y = 100;

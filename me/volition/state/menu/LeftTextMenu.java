@@ -14,7 +14,7 @@ public abstract class LeftTextMenu extends MenuState {
 
     public abstract void select(int index);
 
-    public void render(Graphics g){
+    public void render(Graphics2D g){
         super.render(g);
 
         String[] menuOptions = getMenuOptions();

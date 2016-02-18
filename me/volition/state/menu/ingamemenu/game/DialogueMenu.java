@@ -26,7 +26,7 @@ public class DialogueMenu extends InGameMenu {
     }
 
     @Override
-    public void render(Graphics g) {
+    public void render(Graphics2D g) {
         textbox.render(g);
     }
 }

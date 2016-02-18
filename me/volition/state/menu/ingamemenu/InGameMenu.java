@@ -47,6 +47,6 @@ public abstract class InGameMenu {
 
     public abstract void select(int currentIndex);
 
-    public abstract void render(Graphics g);
+    public abstract void render(Graphics2D g);
 
 }

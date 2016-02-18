@@ -287,7 +287,7 @@ public abstract class Location {
 
     public abstract void loadExits(Tile[][] tilemap);
 
-    public void render(Graphics g) {
+    public void render(Graphics2D g) {
 
         g.drawImage(bgImage, (int) bg_x, (int) bg_y, null);
 

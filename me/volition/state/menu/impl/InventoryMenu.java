@@ -5,6 +5,7 @@ import me.volition.entity.Player;
 import me.volition.item.ItemSlot;
 import me.volition.state.StateManager;
 import me.volition.state.menu.LeftTextMenu;
+import me.volition.util.FontManager;
 import me.volition.util.GameManager;
 import me.volition.util.RenderUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -36,10 +37,10 @@ public class InventoryMenu extends LeftTextMenu {
     }
 
     @Override
-    public void render(Graphics g){
+    public void render(Graphics2D g){
         super.render(g);
 
-        g.setFont(new Font("Determination Sans", Font.PLAIN, 24));
+        g.setFont(FontManager.getSans(24));
 
         RenderUtils.drawOutlinedBox(g, 200, 30, Window.WINDOW_WIDTH - 250, Window.WINDOW_HEIGHT - 60);
         if (getCurrentIndex() != 0) {

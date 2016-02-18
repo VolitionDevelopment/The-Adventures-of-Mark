@@ -2,6 +2,7 @@ package me.volition.state.menu;
 
 import me.volition.Window;
 import me.volition.state.State;
+import me.volition.util.FontManager;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -26,7 +27,7 @@ public abstract class MenuState implements State {
         this.textColor = textColor;
         this.textColor_select = textColor_select;
 
-        menuFont = new Font("Determination Sans", Font.PLAIN, 20);
+        menuFont = FontManager.getSans(20);
         menuFont_select = menuFont.deriveFont(menuFont.getSize() + 7f);
     }
 
@@ -87,7 +88,7 @@ public abstract class MenuState implements State {
     public void keyReleased(int k) {}
 
     @Override
-    public void render(Graphics g){
+    public void render(Graphics2D g){
         g.drawImage(backgroundImage, 0, 0, Window.WINDOW_WIDTH, Window.WINDOW_HEIGHT, null);
     }
 

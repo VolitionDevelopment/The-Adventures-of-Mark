@@ -114,8 +114,4 @@ public abstract class PlaceableObject {
         ItemManager.onObjectEvent(player, event);
     }
 
-    public void render(Graphics g){
-        if (image != null)
-            g.drawImage(image, (int) x, (int) y, null);
-    }
 }

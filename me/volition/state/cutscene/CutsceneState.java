@@ -60,7 +60,7 @@ public abstract class CutsceneState implements State{
     }
 
     @Override
-    public void render(Graphics g) {
+    public void render(Graphics2D g) {
         if (index < dialogue_images.length && dialogue_images[index] != null)
                 g.drawImage(dialogue_images[index], 0, 0, Window.WINDOW_WIDTH, Window.WINDOW_HEIGHT, null);
         textbox.render(g);

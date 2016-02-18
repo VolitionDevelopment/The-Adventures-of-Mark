@@ -297,7 +297,7 @@ public class Player extends Entity{
     }
 
     @Override
-    public void render(Graphics g){
+    public void render(Graphics2D g){
         if (getLocation().hasFreeCamera())
             super.render(g, Window.WINDOW_WIDTH / 2 - getWidth() / 2, Window.WINDOW_HEIGHT / 2 - getHeight() / 2);
         else

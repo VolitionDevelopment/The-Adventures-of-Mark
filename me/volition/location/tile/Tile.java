@@ -85,16 +85,4 @@ public abstract class Tile {
         this.exit = exit;
     }
 
-    public void setX(double x){
-        this.x = x;
-    }
-
-    public void setY(double y){
-        this.y = y;
-    }
-
-    public void render(Graphics g){
-        if (image != null)
-            g.drawImage(image, (int) x, (int) y, TILE_SIZE, TILE_SIZE, null);
-    }
 }

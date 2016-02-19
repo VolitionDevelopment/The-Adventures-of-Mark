@@ -2,8 +2,8 @@ package me.volition.location.impl;
 
 import me.volition.location.Exit;
 import me.volition.location.Location;
-import me.volition.location.placeableObject.*;
-import me.volition.location.placeableObject.impl.furniture.*;
+import me.volition.mapObject.placeableObject.*;
+import me.volition.mapObject.placeableObject.impl.furniture.*;
 import me.volition.location.tile.BrickWall;
 import me.volition.location.tile.Tile;
 import me.volition.location.tile.WoodFloor;

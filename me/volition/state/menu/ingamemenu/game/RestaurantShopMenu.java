@@ -1,8 +1,7 @@
 package me.volition.state.menu.ingamemenu.game;
 
-import me.volition.*;
 import me.volition.Window;
-import me.volition.entity.Player;
+import me.volition.mapObject.entity.Player;
 import me.volition.item.Item;
 import me.volition.state.menu.ingamemenu.InGameMenu;
 import me.volition.util.FontManager;

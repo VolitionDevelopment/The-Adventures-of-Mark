@@ -1,6 +1,6 @@
 package me.volition.move.impl;
 
-import me.volition.entity.Entity;
+import me.volition.mapObject.entity.Entity;
 import me.volition.move.LingerEffect;
 import me.volition.move.Move;
 

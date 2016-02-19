@@ -1,6 +1,6 @@
 package me.volition.state.game;
 
-import me.volition.entity.Player;
+import me.volition.mapObject.entity.Player;
 import me.volition.location.Location;
 import me.volition.state.State;
 import me.volition.state.StateManager;

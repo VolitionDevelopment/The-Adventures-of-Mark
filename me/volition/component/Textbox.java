@@ -1,7 +1,7 @@
 package me.volition.component;
 
 import me.volition.Window;
-import me.volition.entity.Entity;
+import me.volition.mapObject.entity.Entity;
 import me.volition.util.FontManager;
 import me.volition.util.RenderUtils;
 

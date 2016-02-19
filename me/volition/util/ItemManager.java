@@ -1,13 +1,15 @@
 package me.volition.util;
 
-import me.volition.entity.Player;
+import me.volition.mapObject.MapObject;
+import me.volition.mapObject.entity.Player;
 import me.volition.item.Item;
 import me.volition.item.impl.armor.DeliveryUniform;
 import me.volition.item.impl.helmet.Fedora;
 import me.volition.item.impl.usable.MtnDank;
 import me.volition.item.impl.usable.PizzaSlice;
 import me.volition.item.impl.usable.WholePizza;
-import me.volition.location.placeableObject.ObjectEvent;
+import me.volition.mapObject.placeableObject.ObjectEvent;
+import me.volition.state.menu.ingamemenu.game.DialogueMenu;
 import me.volition.state.menu.ingamemenu.game.RestaurantShopMenu;
 
 import java.util.ArrayList;
@@ -42,12 +44,19 @@ public class ItemManager {
         return null;
     }
 
-    public static void onObjectEvent(Player player, ObjectEvent event){
+    public static void onObjectEvent(MapObject mapObject){
+
+        Player player = GameManager.getInstance().getPlayer();
+
+        ObjectEvent event = mapObject.getOnInspect();
+
         switch (event){
             case RANDOMITEM:
                 Item item = getRandomItem(1);
-                if (item != null)
+                if (item != null) {
                     player.addItem(getRandomItem(1));
+                    GameManager.getInstance().getGameState().setInGameMenu(new DialogueMenu(player, "I found a " + item.getName() + "."));
+                }
                 break;
             case OPEN_ITEMSTORE:
                 GameManager.getInstance().getGameState().setInGameMenu(new RestaurantShopMenu());
@@ -59,6 +68,7 @@ public class ItemManager {
                 player.addItem(new DeliveryUniform());
                 break;
             case NONE:
+                GameManager.getInstance().getGameState().setInGameMenu(new DialogueMenu(player, mapObject.getName() + " - " + mapObject.getDesc()));
                 break;
         }
     }

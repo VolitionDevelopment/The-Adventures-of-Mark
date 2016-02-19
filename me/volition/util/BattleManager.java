@@ -1,10 +1,10 @@
 package me.volition.util;
 
-import me.volition.entity.Entity;
-import me.volition.entity.Player;
-import me.volition.entity.enemies.Chili;
-import me.volition.entity.enemies.Fratkid;
-import me.volition.entity.enemies.Stoner;
+import me.volition.mapObject.entity.Entity;
+import me.volition.mapObject.entity.Player;
+import me.volition.mapObject.entity.enemies.Chili;
+import me.volition.mapObject.entity.enemies.Fratkid;
+import me.volition.mapObject.entity.enemies.Stoner;
 import me.volition.state.StateManager;
 import me.volition.state.battle.BattleState;
 

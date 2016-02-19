@@ -1,12 +1,9 @@
 package me.volition.util;
 
-import me.volition.entity.Player;
+import me.volition.mapObject.entity.Player;
 import me.volition.location.Location;
 import me.volition.location.impl.MarkApartment;
-import me.volition.location.impl.Shop_Restaurant;
 import me.volition.state.game.GameState;
-
-import java.awt.*;
 
 /**
  * Created by Demerzel on 2/3/16.

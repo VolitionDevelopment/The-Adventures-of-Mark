@@ -1,10 +1,10 @@
 package me.volition.location;
 
 import me.volition.Window;
-import me.volition.entity.Entity;
-import me.volition.entity.Player;
-import me.volition.location.placeableObject.ObjectEvent;
-import me.volition.location.placeableObject.PlaceableObject;
+import me.volition.mapObject.entity.Entity;
+import me.volition.mapObject.entity.Player;
+import me.volition.mapObject.placeableObject.ObjectEvent;
+import me.volition.mapObject.placeableObject.PlaceableObject;
 import me.volition.location.tile.Tile;
 import me.volition.state.menu.ingamemenu.game.DialogueMenu;
 import me.volition.util.BattleManager;
@@ -266,17 +266,15 @@ public abstract class Location {
 
         if (npc != null) {
 
-            ItemManager.onObjectEvent(player, npc.getOnInteract());
+            ItemManager.onObjectEvent(npc);
 
         } else {
 
             PlaceableObject object = inspectTile.getObject();
 
             if (object != null) {
-                GameManager.getInstance().getGameState().setInGameMenu(new DialogueMenu(player, object.getName() + " - " + object.getDesc()));
-
-                inspectTile.getObject().onInspect(player);
-                inspectTile.getObject().setEvent(ObjectEvent.NONE);
+                inspectTile.getObject().onInspect();
+                inspectTile.getObject().setOnInspect(ObjectEvent.NONE);
             }
 
         }

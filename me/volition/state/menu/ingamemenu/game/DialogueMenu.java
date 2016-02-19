@@ -1,7 +1,7 @@
 package me.volition.state.menu.ingamemenu.game;
 
 import me.volition.component.Textbox;
-import me.volition.entity.Entity;
+import me.volition.mapObject.entity.Entity;
 import me.volition.state.menu.ingamemenu.InGameMenu;
 import me.volition.util.GameManager;
 

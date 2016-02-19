@@ -2,10 +2,10 @@ package me.volition.location.impl;
 
 import me.volition.location.Exit;
 import me.volition.location.Location;
-import me.volition.location.placeableObject.PlaceableObject;
-import me.volition.location.placeableObject.impl.building.*;
-import me.volition.location.placeableObject.impl.furniture.Fence_horiz;
-import me.volition.location.placeableObject.impl.furniture.Fence_vert;
+import me.volition.mapObject.placeableObject.PlaceableObject;
+import me.volition.mapObject.placeableObject.impl.building.*;
+import me.volition.mapObject.placeableObject.impl.furniture.Fence_horiz;
+import me.volition.mapObject.placeableObject.impl.furniture.Fence_vert;
 import me.volition.location.tile.BrickWall;
 import me.volition.location.tile.Grass;
 import me.volition.location.tile.Street;

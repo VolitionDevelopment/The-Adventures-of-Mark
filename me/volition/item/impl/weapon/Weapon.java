@@ -1,6 +1,6 @@
 package me.volition.item.impl.weapon;
 
-import me.volition.entity.Player;
+import me.volition.mapObject.entity.Player;
 import me.volition.item.Item;
 import me.volition.item.ItemSlot;
 

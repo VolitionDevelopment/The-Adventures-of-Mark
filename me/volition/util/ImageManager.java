@@ -1,14 +1,12 @@
 package me.volition.util;
 
 import me.volition.location.Location;
-import me.volition.location.placeableObject.PlaceableObject;
+import me.volition.mapObject.placeableObject.PlaceableObject;
 import me.volition.location.tile.Tile;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**

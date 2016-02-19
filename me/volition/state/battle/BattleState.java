@@ -1,8 +1,8 @@
 package me.volition.state.battle;
 
 import me.volition.Window;
-import me.volition.entity.Entity;
-import me.volition.entity.Player;
+import me.volition.mapObject.entity.Entity;
+import me.volition.mapObject.entity.Player;
 import me.volition.item.Item;
 import me.volition.location.tile.Tile;
 import me.volition.state.State;

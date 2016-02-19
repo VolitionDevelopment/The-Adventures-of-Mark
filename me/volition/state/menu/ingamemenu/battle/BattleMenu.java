@@ -1,14 +1,11 @@
 package me.volition.state.menu.ingamemenu.battle;
 
-import me.volition.*;
-import me.volition.entity.Entity;
+import me.volition.mapObject.entity.Entity;
 import me.volition.state.battle.BattleState;
 import me.volition.state.menu.ingamemenu.InGameMenu;
 import me.volition.util.FontManager;
-import me.volition.util.RenderUtils;
 
 import java.awt.*;
-import java.awt.Window;
 import java.awt.event.KeyEvent;
 
 /**

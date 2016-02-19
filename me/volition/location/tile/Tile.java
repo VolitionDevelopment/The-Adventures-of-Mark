@@ -1,10 +1,9 @@
 package me.volition.location.tile;
 
-import me.volition.entity.Entity;
+import me.volition.mapObject.entity.Entity;
 import me.volition.location.Exit;
-import me.volition.location.placeableObject.PlaceableObject;
+import me.volition.mapObject.placeableObject.PlaceableObject;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 

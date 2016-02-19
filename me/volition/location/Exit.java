@@ -1,8 +1,7 @@
 package me.volition.location;
 
 
-import me.volition.entity.Player;
-import me.volition.location.tile.Tile;
+import me.volition.mapObject.entity.Player;
 
 public class Exit {
     // Numerical codes

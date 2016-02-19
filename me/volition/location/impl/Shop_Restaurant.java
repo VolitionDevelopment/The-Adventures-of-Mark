@@ -1,10 +1,9 @@
 package me.volition.location.impl;
 
-import me.volition.entity.Player;
-import me.volition.entity.shopkeepers.Peppito;
+import me.volition.mapObject.entity.shopkeepers.Peppito;
 import me.volition.location.Exit;
 import me.volition.location.Location;
-import me.volition.location.placeableObject.PlaceableObject;
+import me.volition.mapObject.placeableObject.PlaceableObject;
 import me.volition.location.tile.Tile;
 import me.volition.location.tile.WoodFloor;
 import me.volition.location.tile.WoodWall;

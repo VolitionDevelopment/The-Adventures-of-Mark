@@ -1,6 +1,6 @@
 package me.volition.state.menu.ingamemenu.battle;
 
-import me.volition.entity.Entity;
+import me.volition.mapObject.entity.Entity;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.ArrayList;

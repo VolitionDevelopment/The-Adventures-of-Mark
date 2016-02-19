@@ -1,6 +1,6 @@
 package me.volition.item;
 
-import me.volition.entity.Player;
+import me.volition.mapObject.entity.Player;
 
 import java.awt.image.BufferedImage;
 

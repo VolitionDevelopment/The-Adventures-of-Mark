@@ -1,7 +1,7 @@
 package me.volition.state.menu.ingamemenu.game;
 
 import me.volition.Window;
-import me.volition.entity.Player;
+import me.volition.mapObject.entity.Player;
 import me.volition.state.StateManager;
 import me.volition.state.menu.impl.InventoryMenu;
 import me.volition.state.menu.impl.StatusMenu;

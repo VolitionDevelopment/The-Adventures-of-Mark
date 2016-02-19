@@ -1,6 +1,7 @@
 package me.volition.mapObject.placeableObject;
 
 import me.volition.mapObject.MapObject;
+import me.volition.mapObject.ObjectEvent;
 import me.volition.mapObject.entity.Entity;
 import me.volition.mapObject.entity.enemies.Chili;
 import me.volition.mapObject.entity.enemies.Fratkid;

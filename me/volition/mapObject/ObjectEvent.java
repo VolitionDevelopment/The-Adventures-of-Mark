@@ -1,4 +1,4 @@
-package me.volition.mapObject.placeableObject;
+package me.volition.mapObject;
 
 /**
  * Created by mccloskeybr on 2/13/16.

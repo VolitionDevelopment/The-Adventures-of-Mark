@@ -1,6 +1,6 @@
 package me.volition.mapObject.placeableObject.impl.building;
 
-import me.volition.mapObject.placeableObject.ObjectEvent;
+import me.volition.mapObject.ObjectEvent;
 import me.volition.mapObject.placeableObject.PlaceableObject;
 import me.volition.util.ImageManager;
 

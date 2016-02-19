@@ -2,7 +2,7 @@ package me.volition.mapObject.entity;
 
 import me.volition.location.Location;
 import me.volition.mapObject.MapObject;
-import me.volition.mapObject.placeableObject.ObjectEvent;
+import me.volition.mapObject.ObjectEvent;
 import me.volition.move.Move;
 import me.volition.util.Animator;
 

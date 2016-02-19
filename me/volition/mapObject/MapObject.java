@@ -1,7 +1,5 @@
 package me.volition.mapObject;
 
-import me.volition.mapObject.placeableObject.ObjectEvent;
-
 /**
  * Created by mccloskeybr on 2/19/16.
  */

@@ -12,7 +12,7 @@ import me.volition.item.impl.usable.WholePizza;
 import me.volition.item.impl.weapon.Fists;
 import me.volition.item.impl.weapon.Spoon;
 import me.volition.location.Location;
-import me.volition.mapObject.placeableObject.ObjectEvent;
+import me.volition.mapObject.ObjectEvent;
 import me.volition.location.tile.Tile;
 import me.volition.move.impl.BadPun;
 import me.volition.util.Animator;

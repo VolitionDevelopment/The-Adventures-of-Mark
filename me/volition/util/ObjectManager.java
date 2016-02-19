@@ -10,7 +10,7 @@ import me.volition.item.impl.helmet.Fedora;
 import me.volition.item.impl.usable.MtnDank;
 import me.volition.item.impl.usable.PizzaSlice;
 import me.volition.item.impl.usable.WholePizza;
-import me.volition.mapObject.placeableObject.ObjectEvent;
+import me.volition.mapObject.ObjectEvent;
 import me.volition.state.menu.ingamemenu.game.DialogueMenu;
 import me.volition.state.menu.ingamemenu.game.ShopMenu;
 

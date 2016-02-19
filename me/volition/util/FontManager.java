@@ -24,17 +24,11 @@ public class FontManager {
     }
 
     public static Font getSans(int size){
-        if (sans == null)
-            sans = new Font("Determination Sans", Font.PLAIN, 24);
-
-        return sans.deriveFont(size);
+        return new Font("Determination Sans", Font.PLAIN, size);
     }
 
     public static Font getMono(int size){
-        if (mono == null)
-            mono = new Font("Determination Mono", Font.PLAIN, 24);
-
-        return mono.deriveFont(size);
+        return new Font("Determination Mono", Font.PLAIN, size);
     }
 
 }

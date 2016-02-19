@@ -3,7 +3,7 @@ package me.volition.location;
 import me.volition.Window;
 import me.volition.mapObject.entity.Entity;
 import me.volition.mapObject.entity.Player;
-import me.volition.mapObject.placeableObject.ObjectEvent;
+import me.volition.mapObject.ObjectEvent;
 import me.volition.mapObject.placeableObject.PlaceableObject;
 import me.volition.location.tile.Tile;
 import me.volition.util.BattleManager;

@@ -7,7 +7,7 @@ import me.volition.mapObject.placeableObject.PlaceableObject;
 import me.volition.location.tile.Tile;
 import me.volition.location.tile.WoodFloor;
 import me.volition.location.tile.WoodWall;
-import me.volition.state.menu.ingamemenu.game.RestaurantShopMenu;
+import me.volition.state.menu.ingamemenu.game.ShopMenu;
 import me.volition.util.ImageManager;
 
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class Shop_Restaurant extends Location {
     public void enterRoom(){
         super.enterRoom();
 
-        RestaurantShopMenu.generateRandomItems();
+        ShopMenu.generateRandomItems(0);
     }
 
 }

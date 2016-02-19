@@ -10,6 +10,6 @@ import me.volition.util.ImageManager;
  */
 public class Chest extends PlaceableObject {
     public Chest(double x, double y) {
-        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/furniture/chest.png"), ObjectEvent.RANDOMITEM, "A Box", "I wonder what's inside?", true, x, y);
+        super(ImageManager.getInstance().loadImage("/me/volition/assets/image/objects/furniture/chest.png"), ObjectEvent.RANDOMUSABLE, "A Box", "I wonder what's inside?", true, x, y);
     }
 }

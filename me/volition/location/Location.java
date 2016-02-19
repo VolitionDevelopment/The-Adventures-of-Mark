@@ -6,11 +6,10 @@ import me.volition.mapObject.entity.Player;
 import me.volition.mapObject.placeableObject.ObjectEvent;
 import me.volition.mapObject.placeableObject.PlaceableObject;
 import me.volition.location.tile.Tile;
-import me.volition.state.menu.ingamemenu.game.DialogueMenu;
 import me.volition.util.BattleManager;
 import me.volition.util.GameManager;
 import me.volition.util.ImageManager;
-import me.volition.util.ItemManager;
+import me.volition.util.ObjectManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -266,7 +265,7 @@ public abstract class Location {
 
         if (npc != null) {
 
-            ItemManager.onObjectEvent(npc);
+            ObjectManager.onObjectEvent(npc);
 
         } else {
 

@@ -2,12 +2,11 @@ package me.volition.mapObject.placeableObject;
 
 import me.volition.mapObject.MapObject;
 import me.volition.mapObject.entity.Entity;
-import me.volition.mapObject.entity.Player;
 import me.volition.mapObject.entity.enemies.Chili;
 import me.volition.mapObject.entity.enemies.Fratkid;
 import me.volition.mapObject.entity.enemies.Stoner;
 import me.volition.location.tile.Tile;
-import me.volition.util.ItemManager;
+import me.volition.util.ObjectManager;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -88,7 +87,7 @@ public abstract class PlaceableObject extends MapObject{
     }
 
     public void onInspect(){
-        ItemManager.onObjectEvent(this);
+        ObjectManager.onObjectEvent(this);
     }
 
 }

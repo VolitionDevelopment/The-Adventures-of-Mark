@@ -6,7 +6,7 @@ import me.volition.item.Item;
 import me.volition.state.menu.ingamemenu.InGameMenu;
 import me.volition.util.FontManager;
 import me.volition.util.GameManager;
-import me.volition.util.ItemManager;
+import me.volition.util.ObjectManager;
 import me.volition.util.RenderUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -17,23 +17,31 @@ import java.util.ArrayList;
 /**
  * Created by mccloskeybr on 2/17/16.
  */
-public class RestaurantShopMenu extends InGameMenu {
+public class ShopMenu extends InGameMenu {
 
     private static ArrayList<Item> shopItems;
     private static String[] shopItems_str;
 
-    public RestaurantShopMenu() {
+    public ShopMenu() {
         super(ArrayUtils.addAll(new String[]{"Go Back"}, shopItems_str));
     }
 
-    public static void generateRandomItems(){
+    //TYPE is type of item, 0 is usable, 1 is armor, 2 is weapon
+    public static void generateRandomItems(int type){
 
         int numItemsInShop = 3;
 
         shopItems = new ArrayList<>();
 
-        while (shopItems.size() < numItemsInShop)
-            shopItems.add(ItemManager.getRandomItem(1));
+        if (type == 0)
+            while (shopItems.size() < numItemsInShop)
+                shopItems.add(ObjectManager.getRandomUsable(1));
+        else if (type == 1)
+            while (shopItems.size() < numItemsInShop)
+                shopItems.add(ObjectManager.getRandomArmor(1));
+        else
+            while (shopItems.size() < numItemsInShop)
+                shopItems.add(ObjectManager.getRandomWeapon(1));
 
         shopItems_str = new String[shopItems.size()];
 
@@ -65,7 +73,7 @@ public class RestaurantShopMenu extends InGameMenu {
 
                 setOptions(ArrayUtils.addAll(new String[]{"Go Back"}, shopItems_str));
 
-                GameManager.getInstance().getGameState().setInGameMenu(new RestaurantShopMenu());
+                GameManager.getInstance().getGameState().setInGameMenu(new ShopMenu());
 
             }
         }

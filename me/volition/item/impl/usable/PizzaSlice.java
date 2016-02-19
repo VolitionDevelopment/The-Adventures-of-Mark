@@ -8,7 +8,7 @@ import me.volition.util.ImageManager;
  */
 public class PizzaSlice extends Usable {
     public PizzaSlice() {
-        super("Slice of Pizza", "A delicious single slice of pizza.",  "Heals 25 Tolerance.", 15, 25, ImageManager.getInstance().loadImage("/me/volition/assets/image/items/slicepizza.png"));
+        super("Single Slice", "A delicious single slice of pizza.",  "Heals 25 Tolerance.", 15, 25, ImageManager.getInstance().loadImage("/me/volition/assets/image/items/slicepizza.png"));
     }
 
     @Override

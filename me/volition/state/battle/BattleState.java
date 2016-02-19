@@ -11,7 +11,7 @@ import me.volition.state.menu.ingamemenu.battle.BattleMainMenu;
 import me.volition.state.menu.ingamemenu.battle.BattleMenu;
 import me.volition.util.FontManager;
 import me.volition.util.GameManager;
-import me.volition.util.ItemManager;
+import me.volition.util.ObjectManager;
 import me.volition.util.RenderUtils;
 
 import java.awt.*;
@@ -152,7 +152,7 @@ public class BattleState implements State {
 
         for (int i = 0; i < enemies.size(); i++) {
 
-            Item item= ItemManager.getRandomItem(10);
+            Item item= ObjectManager.getRandomUsable(10);
             if (item != null)
                 player.addItem(item);
 

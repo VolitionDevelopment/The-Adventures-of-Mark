@@ -8,12 +8,15 @@ import java.util.ArrayList;
  */
 public class RenderUtils {
 
+    private static final int BUFFER = 50;
+
     public static Graphics2D alias(Graphics g){
         Graphics2D g2 = (Graphics2D)g;
 
         RenderingHints rh = new RenderingHints(
                 RenderingHints.KEY_TEXT_ANTIALIASING,
-                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON
+        );
 
         g2.setRenderingHints(rh);
 
@@ -41,46 +44,39 @@ public class RenderUtils {
     }
 
     public static void drawWrappedText(Graphics2D g, String str, int x, int y, int width){
+
         ArrayList<String> strings = new ArrayList<>();
+        String[] strbits = str.split(" ");
 
-        int loclastBreak = 0;
-        int locLastSpace = 0;
-        int index = 0;
-
-        while (index < str.length()) {
-            if (str.charAt(index) == ' ')
-                locLastSpace = index;
-            else if (g.getFontMetrics().stringWidth(str.substring(loclastBreak, index)) > width) {
-                strings.add(str.substring(loclastBreak, locLastSpace));
-                loclastBreak = locLastSpace + 1;
+        String currentString = "";
+        for (int i = 0; i < strbits.length; i++){
+            currentString += strbits[i] + " ";
+            if (g.getFontMetrics().stringWidth(currentString) >=  width - BUFFER) {
+                strings.add(currentString);
+                currentString = "";
             }
-            index++;
-            if (index == str.length())
-                strings.add(str.substring(loclastBreak, str.length()));
         }
+        strings.add(currentString.trim()); //adds last string (doesn't exceed width)
 
         for (int i = 0; i < strings.size(); i++)
-            g.drawString(strings.get(i), x, y + 30 * i);
+            g.drawString("" + strings.get(i), x, y + 30 * i);
+
     }
 
     public static void drawBoxedWrappedText(Graphics2D g, String str, int x, int y, int width){
         ArrayList<String> strings = new ArrayList<>();
 
-        int loclastBreak = 0;
-        int locLastSpace = 0;
-        int index = 0;
+        String[] strbits = str.split(" ");
 
-        while (index < str.length()) {
-            if (str.charAt(index) == ' ')
-                locLastSpace = index;
-            else if (g.getFontMetrics().stringWidth(str.substring(loclastBreak, index)) > width) {
-                strings.add(str.substring(loclastBreak, locLastSpace));
-                loclastBreak = locLastSpace + 1;
+        String currentString = "";
+        for (int i = 0; i < strbits.length; i++){
+            currentString += strbits[i] + " ";
+            if (g.getFontMetrics().stringWidth(currentString) >=  width - BUFFER) {
+                strings.add(currentString);
+                currentString = "";
             }
-            index++;
-            if (index == str.length())
-                strings.add(str.substring(loclastBreak, str.length()));
         }
+        strings.add(currentString.trim()); //adds last string (doesn't exceed width)
 
         drawOutlinedBox(g, x - 10, y - 20, width, strings.size() * 30);
 

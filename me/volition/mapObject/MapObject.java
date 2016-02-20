@@ -3,7 +3,7 @@ package me.volition.mapObject;
 /**
  * Created by mccloskeybr on 2/19/16.
  */
-public class MapObject {
+public abstract class MapObject {
 
     private double x, y;
     private String name, desc;
@@ -48,4 +48,5 @@ public class MapObject {
     public void setOnInspect(ObjectEvent onInspect){
         this.onInspect = onInspect;
     }
+
 }

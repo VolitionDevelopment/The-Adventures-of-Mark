@@ -63,14 +63,6 @@ public abstract class PlaceableObject extends MapObject{
         tileMap[(int) y / Tile.TILE_SIZE][(int) x / Tile.TILE_SIZE].setBattleEntities(entities);
     }
 
-    public String getName(){
-        return name;
-    }
-
-    public String getDesc(){
-        return desc;
-    }
-
     public int getWidth() {
         return width;
     }

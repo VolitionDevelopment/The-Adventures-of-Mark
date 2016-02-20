@@ -23,7 +23,7 @@ public class ShopMenu extends InGameMenu {
     private static String[] shopItems_str;
 
     public ShopMenu() {
-        super(ArrayUtils.addAll(new String[]{"Go Back"}, shopItems_str));
+        super(ArrayUtils.addAll(new String[]{"Exit"}, shopItems_str));
     }
 
     //TYPE is type of item, 0 is usable, 1 is armor, 2 is weapon

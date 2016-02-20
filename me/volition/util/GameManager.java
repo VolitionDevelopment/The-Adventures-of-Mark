@@ -22,13 +22,17 @@ public class GameManager {
 
     public static GameManager getInstance(){
 
-        if(gameManager == null) {
-            gameManager = new GameManager();
-
-            player.getLocation().enterRoom();
-        }
+        if(gameManager == null)
+            newGame();
 
         return gameManager;
+
+    }
+
+    public static void newGame(){
+
+        gameManager = new GameManager();
+        player.getLocation().enterRoom();
 
     }
 

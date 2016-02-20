@@ -14,8 +14,8 @@ public class Start {
         new FontManager().registerFont("/me/volition/assets/font/DTM-Sans.otf");
         new FontManager().registerFont("/me/volition/assets/font/DTM-Mono.otf");
 
-        StateManager.setCurrentState(new MainMenu());
-        //StateManager.setCurrentState(GameManager.getInstance().getGameState());
+        //StateManager.setCurrentState(new MainMenu());
+        StateManager.setCurrentState(GameManager.getInstance().getGameState());
 
         new Main();
 

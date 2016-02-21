@@ -1,7 +1,6 @@
 package me.volition;
 
 import me.volition.state.StateManager;
-import me.volition.state.menu.impl.MainMenu;
 import me.volition.util.FontManager;
 import me.volition.util.GameManager;
 
@@ -17,7 +16,7 @@ public class Start {
         //StateManager.setCurrentState(new MainMenu());
         StateManager.setCurrentState(GameManager.getInstance().getGameState());
 
-        new Main();
+        Main.getInstance();
 
     }
 }

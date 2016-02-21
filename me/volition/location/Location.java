@@ -6,6 +6,8 @@ import me.volition.mapObject.entity.Player;
 import me.volition.mapObject.ObjectEvent;
 import me.volition.mapObject.placeableObject.PlaceableObject;
 import me.volition.location.tile.Tile;
+import me.volition.state.StateManager;
+import me.volition.state.menu.impl.LoadMenu;
 import me.volition.util.BattleManager;
 import me.volition.util.GameManager;
 import me.volition.util.ImageManager;
@@ -41,8 +43,8 @@ public abstract class Location {
         this.safeRoom = safeRoom; //if false, random tiles can cause battles
 
         loadMap();
-
         this.bgImage = ImageManager.makeImageFromMap(this);
+
     }
 
     public boolean hasFreeCamera(){
@@ -159,8 +161,12 @@ public abstract class Location {
 
         //check if at exit
         Exit exit = playerTile.getExit();
-        if (exit != null && exit.isActive())
+        if (exit != null && exit.isActive()) {
+
+            StateManager.setCurrentState(new LoadMenu());
+
             exit.enter(player);
+        }
 
         //update entity animations
         for (Entity npc: npcs)

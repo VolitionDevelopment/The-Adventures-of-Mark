@@ -9,30 +9,24 @@ import me.volition.state.game.GameState;
  * Created by Demerzel on 2/3/16.
  */
 public class GameManager {
+
     private static GameManager gameManager;
     private static GameState gameState;
     private static Player player;
 
     public GameManager(){
-
         Location start = new MarkApartment();
         player = new Player(start);
-
     }
 
     public static GameManager getInstance(){
 
-        if(gameManager == null)
-            newGame();
+        if(gameManager == null) {
+            gameManager = new GameManager();
+            player.getLocation().enterRoom();
+        }
 
         return gameManager;
-
-    }
-
-    public static void newGame(){
-
-        gameManager = new GameManager();
-        player.getLocation().enterRoom();
 
     }
 

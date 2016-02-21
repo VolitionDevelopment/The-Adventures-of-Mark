@@ -24,9 +24,12 @@ public class GameState implements State {
         player = GameManager.getInstance().getPlayer();
     }
 
-    public void setInGameMenu(InGameMenu inGameMenu){
-        player.stopMoving();
+    public InGameMenu getInGameMenu(){
+        System.out.println();
+        return inGameMenu;
+    }
 
+    public void setInGameMenu(InGameMenu inGameMenu){
         this.inGameMenu = inGameMenu;
     }
 

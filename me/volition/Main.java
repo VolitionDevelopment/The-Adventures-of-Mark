@@ -14,9 +14,10 @@ import java.awt.event.KeyListener;
  */
 public class Main extends JPanel{
 
-    private Window window;
+    public static Main gameMain;
 
-    private long oldTime;
+    private static Window window;
+    private static long oldTime;
 
     public Main(){
 
@@ -42,6 +43,13 @@ public class Main extends JPanel{
         //noinspection InfiniteLoopStatement
         while (true)
             loop();
+    }
+
+    public static Main getInstance(){
+        if (gameMain == null)
+            gameMain = new Main();
+
+        return gameMain;
     }
 
     public void loop(){

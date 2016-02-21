@@ -7,6 +7,6 @@ import me.volition.util.ImageManager;
  */
 public class DeliveryUniform extends Armor {
     public DeliveryUniform() {
-        super("Delivery Uniform", "A uniform bestowed upon you by Peppito himself.", 4, 0, ImageManager.getInstance().loadImage("/me/volition/assets/image/items/pizzauniform.png"));
+        super("Delivery Uniform", "A uniform bestowed upon you by Peppito himself.", 4, 0, ImageManager.getInstance().loadImage("/me/volition/assets/image/items/armor/pizzauniform.png"));
     }
 }

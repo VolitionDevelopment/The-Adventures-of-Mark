@@ -1,4 +1,4 @@
-package me.volition.item.impl.helmet;
+package me.volition.item.impl.armor.helmet;
 
 import me.volition.mapObject.entity.Player;
 import me.volition.item.Item;

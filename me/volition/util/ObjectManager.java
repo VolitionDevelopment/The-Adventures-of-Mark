@@ -1,16 +1,13 @@
 package me.volition.util;
 
-import me.volition.item.impl.armor.Jammies;
-import me.volition.item.impl.weapon.Spoon;
-import me.volition.mapObject.MapObject;
-import me.volition.mapObject.entity.Player;
 import me.volition.item.Item;
-import me.volition.item.impl.armor.DeliveryUniform;
-import me.volition.item.impl.helmet.Fedora;
-import me.volition.item.impl.usable.MtnDank;
-import me.volition.item.impl.usable.PizzaSlice;
-import me.volition.item.impl.usable.WholePizza;
+import me.volition.item.impl.armor.*;
+import me.volition.item.impl.weapon.*;
+import me.volition.item.impl.armor.helmet.*;
+import me.volition.item.impl.usable.*;
+import me.volition.mapObject.MapObject;
 import me.volition.mapObject.ObjectEvent;
+import me.volition.mapObject.entity.Player;
 import me.volition.state.menu.ingamemenu.game.DialogueMenu;
 import me.volition.state.menu.ingamemenu.game.ShopMenu;
 
@@ -33,12 +30,21 @@ public class ObjectManager {
         allUsables.add(WholePizza.class);
         allUsables.add(PizzaSlice.class);
 
-        allArmor = new ArrayList<>();
+        allArmor = new ArrayList<>(); //includes helmets
         allArmor.add(Jammies.class);
         allArmor.add(DeliveryUniform.class);
+        allArmor.add(BusinessOutfit.class);
+        allArmor.add(GraphicTee.class);
+        allArmor.add(LeopardSpeedo.class);
+        allArmor.add(Fedora.class);
+        allArmor.add(BikeHelmet.class);
+        allArmor.add(BallCap.class);
 
         allWeapons = new ArrayList<>();
         allWeapons.add(Spoon.class);
+        allWeapons.add(Spork.class);
+        allWeapons.add(LaxStick.class);
+        allWeapons.add(Book.class);
 
     }
 

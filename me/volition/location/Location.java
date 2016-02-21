@@ -114,6 +114,10 @@ public abstract class Location {
 
         Player player = GameManager.getInstance().getPlayer();
 
+        //update entity animations
+        for (Entity npc: npcs)
+            npc.update(delta);
+
         //collision detection
         int distConst = 10;
 
@@ -133,6 +137,8 @@ public abstract class Location {
                 tilemap[(int) player.getY() / Tile.TILE_SIZE][((int) player.getX() + player.getWidth() - distConst) / Tile.TILE_SIZE].isSolid())
             player.setGoingUp(false);
 
+
+
         Tile playerTile = tilemap[((int) player.getY() + player.getHeight() / 2) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth() / 2) / Tile.TILE_SIZE];
 
         //random battles
@@ -146,33 +152,29 @@ public abstract class Location {
 
             }
         }
-
         //battle tiles
-        if (playerTile.getBattleEntities() != null) {
+        ArrayList<Entity> entities = playerTile.getBattleEntities();
+        if (entities != null) {
 
             player.stopMoving();
 
             player.setAnimator(player.getBattleAnimator());
-            BattleManager.startBattle(player, playerTile.getBattleEntities(), playerTile.getImage());
+            BattleManager.startBattle(player, entities, playerTile.getImage());
 
             playerTile.setBattleEntities(null);
 
         }
-
         //check if at exit
         Exit exit = playerTile.getExit();
         if (exit != null && exit.isActive()) {
 
+            player.stopMoving();
+
             GameManager.getInstance().getGameState().setInGameMenu(new LoadMenu());
             Main.getInstance().repaint();
 
-            player.stopMoving();
             exit.enter(player);
         }
-
-        //update entity animations
-        for (Entity npc: npcs)
-            npc.update(delta);
 
     }
 
@@ -182,6 +184,7 @@ public abstract class Location {
 
         loadExits(tilemap);
 
+        //readjusts camera if its a free camera room
         if (freeCamera) {
 
             bg_x = Window.WINDOW_WIDTH / 2 - (player.getX() + player.getWidth() / 2);
@@ -203,48 +206,37 @@ public abstract class Location {
         if (freeCamera) {
 
             Player player = GameManager.getInstance().getPlayer();
+            double dist = delta * player.getBaseSpeed();
 
             //move objects if the player is moving
             if (player.isGoingDown()) {
 
-                bg_y -= delta * player.getBaseSpeed();
+                bg_y -= dist;
 
                 for (Entity npc: npcs)
-                    npc.setY((npc.getY() - (delta * player.getBaseSpeed())));
-
-                for (Exit exit : exits)
-                    exit.setY(exit.getY() - (delta * player.getBaseSpeed()));
+                    npc.setY(npc.getY() - dist);
 
             } else if (player.isGoingUp()) {
 
-                bg_y += delta * player.getBaseSpeed();
+                bg_y += dist;
 
                 for (Entity npc: npcs)
-                    npc.setY((npc.getY() + (delta * player.getBaseSpeed())));
-
-                for (Exit exit : exits)
-                    exit.setY(exit.getY() + (delta * player.getBaseSpeed()));
+                    npc.setY(npc.getY() + dist);
             }
 
             if (player.isGoingLeft()) {
 
-                bg_x += delta * player.getBaseSpeed();
+                bg_x += dist;
 
                 for (Entity npc: npcs)
-                    npc.setX((npc.getX() + (delta * player.getBaseSpeed())));
-
-                for (Exit exit : exits)
-                    exit.setX(exit.getX() + (delta * player.getBaseSpeed()));
+                    npc.setX(npc.getX() + dist);
 
             } else if (player.isGoingRight()) {
 
-                bg_x -= delta * player.getBaseSpeed();
+                bg_x -= dist;
 
                 for (Entity npc: npcs)
-                    npc.setX((npc.getX() - (delta * player.getBaseSpeed())));
-
-                for (Exit exit : exits)
-                    exit.setX(exit.getX() - (delta * player.getBaseSpeed()));
+                    npc.setX(npc.getX() - dist);
 
             }
         }
@@ -301,11 +293,6 @@ public abstract class Location {
 
         for (Entity npc: npcs)
             npc.render(g);
-
-        g.setColor(Color.WHITE);
-        for (Exit e: exits)
-            if (e.getX() + e.getWidth() > 0 && e.getX() < Window.WINDOW_WIDTH && e.getY() + e.getHeight() > 0 && e.getY() < Window.WINDOW_HEIGHT)
-                g.fillRect((int) e.getX(), (int) e.getY(), e.getWidth(), e.getHeight());
 
     }
 }

@@ -39,6 +39,7 @@ public class Main extends JPanel{
                 StateManager.getCurrentState().keyReleased(e.getKeyCode());
             }
         });
+
     }
 
     public static Main getInstance(){
@@ -53,7 +54,7 @@ public class Main extends JPanel{
         float deltaTime = System.currentTimeMillis() - oldTime;
         oldTime = System.currentTimeMillis();
 
-        if (deltaTime > 0.02f)
+        if (deltaTime > 0.02f) //frame cap
             deltaTime = 0.02f;
 
         StateManager.getCurrentState().update(deltaTime);

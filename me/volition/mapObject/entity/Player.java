@@ -4,7 +4,7 @@ import me.volition.Window;
 import me.volition.item.Item;
 import me.volition.item.ItemSlot;
 import me.volition.item.impl.armor.DeliveryUniform;
-import me.volition.item.impl.helmet.Fedora;
+import me.volition.item.impl.armor.helmet.Fedora;
 import me.volition.item.impl.armor.Jammies;
 import me.volition.item.impl.usable.MtnDank;
 import me.volition.item.impl.usable.PizzaSlice;

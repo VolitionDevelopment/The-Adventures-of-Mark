@@ -8,7 +8,7 @@ import me.volition.util.ImageManager;
  */
 public class WholePizza extends Usable {
     public WholePizza() {
-        super("Pizza", "An entire pizza. The smell makes your eyes water and your stomach grumble.", "Restores all of your Tolerance.", 60, -1, ImageManager.getInstance().loadImage("/me/volition/assets/image/items/fullpizza.png"));
+        super("Pizza", "An entire pizza. The smell makes your eyes water and your stomach grumble.", "Restores all of your Tolerance.", 60, -1, ImageManager.getInstance().loadImage("/me/volition/assets/image/items/usables/fullpizza.png"));
     }
 
     @Override

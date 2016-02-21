@@ -16,7 +16,11 @@ public class Start {
         //StateManager.setCurrentState(new MainMenu());
         StateManager.setCurrentState(GameManager.getInstance().getGameState());
 
-        Main.getInstance();
+        Main gameMain = Main.getInstance();
+
+        //noinspection InfiniteLoopStatement
+        while (true)
+            gameMain.loop();
 
     }
 }

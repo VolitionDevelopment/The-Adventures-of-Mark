@@ -16,8 +16,8 @@ public class Main extends JPanel{
 
     public static Main gameMain;
 
-    private static Window window;
-    private static long oldTime;
+    private Window window;
+    private long oldTime;
 
     public Main(){
 
@@ -39,10 +39,6 @@ public class Main extends JPanel{
                 StateManager.getCurrentState().keyReleased(e.getKeyCode());
             }
         });
-
-        //noinspection InfiniteLoopStatement
-        while (true)
-            loop();
     }
 
     public static Main getInstance(){

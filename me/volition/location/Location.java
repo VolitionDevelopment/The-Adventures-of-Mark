@@ -1,13 +1,13 @@
 package me.volition.location;
 
+import me.volition.Main;
 import me.volition.Window;
+import me.volition.location.tile.Tile;
+import me.volition.mapObject.ObjectEvent;
 import me.volition.mapObject.entity.Entity;
 import me.volition.mapObject.entity.Player;
-import me.volition.mapObject.ObjectEvent;
 import me.volition.mapObject.placeableObject.PlaceableObject;
-import me.volition.location.tile.Tile;
-import me.volition.state.StateManager;
-import me.volition.state.menu.impl.LoadMenu;
+import me.volition.state.menu.ingamemenu.game.LoadMenu;
 import me.volition.util.BattleManager;
 import me.volition.util.GameManager;
 import me.volition.util.ImageManager;
@@ -163,14 +163,38 @@ public abstract class Location {
         Exit exit = playerTile.getExit();
         if (exit != null && exit.isActive()) {
 
-            StateManager.setCurrentState(new LoadMenu());
+            GameManager.getInstance().getGameState().setInGameMenu(new LoadMenu());
+            Main.getInstance().repaint();
 
+            player.stopMoving();
             exit.enter(player);
         }
 
         //update entity animations
         for (Entity npc: npcs)
             npc.update(delta);
+
+    }
+
+    public void enterRoom(){
+
+        Player player = GameManager.getInstance().getPlayer();
+
+        loadExits(tilemap);
+
+        if (freeCamera) {
+
+            bg_x = Window.WINDOW_WIDTH / 2 - (player.getX() + player.getWidth() / 2);
+            bg_y = Window.WINDOW_HEIGHT / 2 - (player.getY() + player.getHeight() / 2);
+
+            for (Exit exit : exits) {
+                exit.setX(exit.getX() + Window.WINDOW_WIDTH / 2 - (player.getX() + player.getWidth() / 2));
+                exit.setY(exit.getY() + Window.WINDOW_HEIGHT / 2 - (player.getY() + player.getHeight() / 2));
+            }
+        }
+
+        //exit loading screen
+        GameManager.getInstance().getGameState().setInGameMenu(null);
 
     }
 
@@ -222,25 +246,6 @@ public abstract class Location {
                 for (Exit exit : exits)
                     exit.setX(exit.getX() - (delta * player.getBaseSpeed()));
 
-            }
-        }
-
-    }
-
-    public void enterRoom(){
-
-        Player player = GameManager.getInstance().getPlayer();
-
-        loadExits(tilemap);
-
-        if (freeCamera) {
-
-            bg_x = Window.WINDOW_WIDTH / 2 - (player.getX() + player.getWidth() / 2);
-            bg_y = Window.WINDOW_HEIGHT / 2 - (player.getY() + player.getHeight() / 2);
-
-            for (Exit exit : exits) {
-                exit.setX(exit.getX() + Window.WINDOW_WIDTH / 2 - (player.getX() + player.getWidth() / 2));
-                exit.setY(exit.getY() + Window.WINDOW_HEIGHT / 2 - (player.getY() + player.getHeight() / 2));
             }
         }
 

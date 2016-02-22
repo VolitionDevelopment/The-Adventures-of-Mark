@@ -32,7 +32,7 @@ public class MarkApartment extends Location {
         objects.add(TexasCarpet.class);
         objects.add(PizzaBox.class);
         objects.add(Television.class);
-        objects.add(Chest.class);
+        objects.add(Box.class);
         objects.add(Couch.class);
         objects.add(Desk.class);
         objects.add(Bed.class);

@@ -1,6 +1,8 @@
 package me.volition.mapObject.entity;
 
+import me.volition.*;
 import me.volition.location.Location;
+import me.volition.location.tile.Tile;
 import me.volition.mapObject.MapObject;
 import me.volition.mapObject.ObjectEvent;
 import me.volition.move.Move;
@@ -277,7 +279,12 @@ public abstract class Entity extends MapObject {
     public abstract Animator getBattleAnimator();
 
     public void render(Graphics2D g){
-        g.drawImage(animator.getCurrentImage(), (int) getX(), (int) getY(), null);
+        //g.drawImage(animator.getCurrentImage(), (int) getX(), (int) getY(), null);
+        g.drawImage(
+                animator.getCurrentImage(),
+                (int) (me.volition.Window.WINDOW_WIDTH / 2 + (Tile.TILE_SIZE / 2) * (getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2) * (getY() / Tile.TILE_SIZE)),
+                (int) ((Tile.TILE_SIZE / 4) * (getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4) * (getY() / Tile.TILE_SIZE)),
+                null);
     }
 
     public void render(Graphics2D g, int x, int y){

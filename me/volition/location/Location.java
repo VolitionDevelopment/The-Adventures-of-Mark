@@ -295,8 +295,8 @@ public abstract class Location {
             for (int j = 0; j < tilemap[i].length; j++)
                 g.drawImage(
                         ImageManager.getInstance().loadImage("/me/volition/assets/image/test.png"),
-                        (Tile.TILE_SIZE / 2) * j + (Tile.TILE_SIZE / 2) * i,
-                        (Tile.TILE_SIZE / 4) * j - (Tile.TILE_SIZE / 4) * i,
+                        Window.WINDOW_WIDTH / 2 + (Tile.TILE_SIZE / 2) * j - (Tile.TILE_SIZE / 2) * i,
+                        (Tile.TILE_SIZE / 4) * j + (Tile.TILE_SIZE / 4) * i,
                         null);
 
         for (Entity npc: npcs)

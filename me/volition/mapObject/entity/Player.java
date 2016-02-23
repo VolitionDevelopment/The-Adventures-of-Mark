@@ -137,25 +137,21 @@ public class Player extends Entity{
             }else {
                 if (isGoingDown()) {
                     setY(getY() + (delta * getBaseSpeed()));
-                    //setX(getX() + (delta * getBaseSpeed()));
 
                     setAnimator(walkDown);
                 } else if (isGoingUp()) {
                     setY(getY() - (delta * getBaseSpeed()));
-                    //setX(getX() - (delta * getBaseSpeed()));
 
                     setAnimator(walkUp);
                 }
                 //up/down animations have priority over left/right
                 if (isGoingLeft()) {
                     setX(getX() - (delta * getBaseSpeed()));
-                    //setY(getY() + (delta * getBaseSpeed()));
 
                     if (!isGoingUp() && !isGoingDown())
                         setAnimator(walkLeft);
                 } else if (isGoingRight()) {
                     setX(getX() + (delta * getBaseSpeed()));
-                    //setY(getY() - (delta * getBaseSpeed()));
 
                     if (!isGoingUp() && !isGoingDown())
                         setAnimator(walkRight);

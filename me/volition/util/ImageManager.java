@@ -130,16 +130,6 @@ public class ImageManager {
                 );
 
         /*
-        for (PlaceableObject object: location.getPlaceableObjects())
-            g.drawImage(
-                    object.getImage(),
-                    (int) ((Tile.TILE_SIZE / 2) * (object.getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2) * (object.getY() / Tile.TILE_SIZE)),
-                    (int) ((Tile.TILE_SIZE / 4) * (object.getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4) * (object.getY() / Tile.TILE_SIZE)),
-                    null
-            );
-        */
-
-        /*
         try {
             ImageIO.write(image, "PNG", new File("image.png"));
         } catch (IOException e) {

@@ -298,12 +298,27 @@ public abstract class Location {
 
     public abstract void loadExits(Tile[][] tilemap);
 
-    public void render(Graphics2D g) {
-
+    public void renderBg(Graphics2D g){
         g.drawImage(bgImage, (int) bg_x, (int) bg_y, null);
 
         g.setColor(Color.WHITE);
         g.drawRect((int) bg_x, (int) bg_y, bgImage.getWidth(), bgImage.getHeight());
+
+    }
+
+    public void renderObj(Graphics2D g) {
+
+        for (PlaceableObject object: placeableObjects)
+            g.drawImage(
+                    object.getImage(),
+                    (int) bg_horizOffset + (tilemap.length * Tile.TILE_SIZE / 2)
+                            + (int) ((Tile.TILE_SIZE / 2) * (object.getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2) * (object.getY() / Tile.TILE_SIZE))
+                            - object.getWidth() / 2,
+                    (int) bg_vertOffset
+                            + (int) ((Tile.TILE_SIZE / 4) * (object.getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4) * (object.getY() / Tile.TILE_SIZE))
+                            - object.getHeight() / 2,
+                    null
+            );
 
         for (Entity npc: npcs)
             npc.render(g);

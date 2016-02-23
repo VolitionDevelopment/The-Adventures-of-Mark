@@ -29,6 +29,20 @@ public class MarkApartment extends Location {
         tiles.add(WoodFloor.class);
 
         ArrayList<Class<? extends PlaceableObject>> objects = new ArrayList<>();
+
+        objects.add(PizzaBox.class);
+        objects.add(Television.class);
+        objects.add(PizzaBox.class);
+        objects.add(PizzaBox.class);
+        objects.add(PizzaBox.class);
+        objects.add(PizzaBox.class);
+        objects.add(PizzaBox.class);
+        objects.add(PizzaBox.class);
+        objects.add(PizzaBox.class);
+        objects.add(PizzaBox.class);
+
+
+        /*
         objects.add(TexasCarpet.class);
         objects.add(PizzaBox.class);
         objects.add(Television.class);
@@ -39,6 +53,7 @@ public class MarkApartment extends Location {
         objects.add(Toilet.class);
         objects.add(LavaLamp.class);
         objects.add(Wardrobe.class);
+        */
 
         ImageManager.loadMapFromImage(this, ImageManager.getInstance().loadImage("/me/volition/assets/image/rooms/marksroom.png"), tiles, objects);
 

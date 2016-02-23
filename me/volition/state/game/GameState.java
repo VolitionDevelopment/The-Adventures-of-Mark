@@ -53,8 +53,9 @@ public class GameState implements State {
     @Override
     public void render(Graphics2D g) {
 
-        player.getLocation().render(g);
+        player.getLocation().renderBg(g);
         player.render(g);
+        player.getLocation().renderObj(g);
 
         if (inGameMenu != null)
             inGameMenu.render(g);

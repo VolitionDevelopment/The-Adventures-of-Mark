@@ -283,8 +283,12 @@ public abstract class Entity extends MapObject {
 
         g.drawImage(
                 animator.getCurrentImage(),
-                (location.getTilemap().length * Tile.TILE_SIZE / 2) + (int) location.getBg_horizOffset() / 2 + (int) ((Tile.TILE_SIZE / 2) * (getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2) * (getY() / Tile.TILE_SIZE)),
-                (int) location.getBg_vertOffset() / 2 + (int) ((Tile.TILE_SIZE / 4) * (getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4) * (getY() / Tile.TILE_SIZE)),
+                (int) location.getBg_horizOffset() + (location.getTilemap().length * Tile.TILE_SIZE / 2)
+                        + (int) ((Tile.TILE_SIZE / 2) * (getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2) * (getY() / Tile.TILE_SIZE))
+                        - getWidth() / 2,
+                (int) location.getBg_vertOffset()
+                        + (int) ((Tile.TILE_SIZE / 4) * (getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4) * (getY() / Tile.TILE_SIZE))
+                        - getHeight() / 2,
                 null
         );
 

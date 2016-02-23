@@ -9,6 +9,7 @@ import me.volition.mapObject.entity.enemies.Stoner;
 import me.volition.location.tile.Tile;
 import me.volition.util.ObjectManager;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
@@ -19,7 +20,6 @@ import java.util.Random;
 public abstract class PlaceableObject extends MapObject{
 
     private BufferedImage image;
-    private String name, desc;
     private int width, height;
     private boolean isSolid;
 
@@ -30,8 +30,6 @@ public abstract class PlaceableObject extends MapObject{
         this.image = image;
         this.width = image.getWidth();
         this.height = image.getHeight();
-        this.name = name;
-        this.desc = desc;
         this.isSolid = isSolid;
     }
 

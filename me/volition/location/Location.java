@@ -289,7 +289,15 @@ public abstract class Location {
 
     public void render(Graphics2D g) {
 
-        g.drawImage(bgImage, (int) bg_x, (int) bg_y, null);
+        //g.drawImage(bgImage, (int) bg_x, (int) bg_y, null);
+
+        for (int i = 0; i < tilemap.length; i++)
+            for (int j = 0; j < tilemap[i].length; j++)
+                g.drawImage(
+                        ImageManager.getInstance().loadImage("/me/volition/assets/image/test.png"),
+                        (Tile.TILE_SIZE / 2) * j + (Tile.TILE_SIZE / 2) * i,
+                        (Tile.TILE_SIZE / 4) * j - (Tile.TILE_SIZE / 4) * i,
+                        null);
 
         for (Entity npc: npcs)
             npc.render(g);

@@ -112,16 +112,32 @@ public class ImageManager {
 
         Tile[][] tilemap = location.getTilemap();
 
-        BufferedImage image = new BufferedImage(tilemap[0].length * Tile.TILE_SIZE, tilemap.length * Tile.TILE_SIZE, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage image =
+                new BufferedImage(
+                        tilemap.length * Tile.TILE_SIZE / 2 + tilemap[0].length * Tile.TILE_SIZE / 2,
+                        tilemap.length * Tile.TILE_SIZE / 4 + tilemap[0].length * Tile.TILE_SIZE / 4 + Tile.TILE_SIZE / 4,
+                        BufferedImage.TYPE_INT_ARGB
+                );
         Graphics g = image.createGraphics();
 
         for (int i = 0; i < tilemap.length; i++)
             for (int j = 0; j < tilemap[i].length; j++)
-                g.drawImage(tilemap[i][j].getImage(), j * Tile.TILE_SIZE, i * Tile.TILE_SIZE, null);
+                g.drawImage(
+                        tilemap[i][j].getImage(),
+                        (tilemap.length * Tile.TILE_SIZE / 2) + (Tile.TILE_SIZE / 2) * j - (Tile.TILE_SIZE / 2) * i - Tile.TILE_SIZE / 2,
+                        (Tile.TILE_SIZE / 4) * j + (Tile.TILE_SIZE / 4) * i - Tile.TILE_SIZE / 4,
+                        null
+                );
 
-
+        /*
         for (PlaceableObject object: location.getPlaceableObjects())
-            g.drawImage(object.getImage(), (int) object.getX(), (int) object.getY(), null);
+            g.drawImage(
+                    object.getImage(),
+                    (int) ((Tile.TILE_SIZE / 2) * (object.getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2) * (object.getY() / Tile.TILE_SIZE)),
+                    (int) ((Tile.TILE_SIZE / 4) * (object.getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4) * (object.getY() / Tile.TILE_SIZE)),
+                    null
+            );
+        */
 
         /*
         try {

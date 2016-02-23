@@ -28,7 +28,7 @@ public abstract class Location {
     private ArrayList<PlaceableObject> placeableObjects;
     private Tile[][] tilemap;
     private BufferedImage bgImage;
-    private double bg_x, bg_y;
+    private double bg_x, bg_y, bg_horizOffset, bg_vertOffset;
     private boolean freeCamera, safeRoom;
     private ArrayList<Entity> npcs;
 
@@ -45,6 +45,14 @@ public abstract class Location {
         loadMap();
         this.bgImage = ImageManager.makeImageFromMap(this);
 
+    }
+
+    public double getBg_horizOffset() {
+        return bg_horizOffset;
+    }
+
+    public double getBg_vertOffset() {
+        return bg_vertOffset;
     }
 
     public boolean hasFreeCamera(){
@@ -190,10 +198,13 @@ public abstract class Location {
             bg_x = Window.WINDOW_WIDTH / 2 - (player.getX() + player.getWidth() / 2);
             bg_y = Window.WINDOW_HEIGHT / 2 - (player.getY() + player.getHeight() / 2);
 
-            for (Exit exit : exits) {
-                exit.setX(exit.getX() + Window.WINDOW_WIDTH / 2 - (player.getX() + player.getWidth() / 2));
-                exit.setY(exit.getY() + Window.WINDOW_HEIGHT / 2 - (player.getY() + player.getHeight() / 2));
-            }
+        } else {
+
+            bg_horizOffset = (Window.WINDOW_WIDTH - bgImage.getWidth()) / 2;
+            bg_vertOffset = ((Window.WINDOW_HEIGHT - bgImage.getHeight()) / 2) - Tile.TILE_SIZE / 4;
+            bg_x += bg_horizOffset;
+            bg_y += bg_vertOffset;
+
         }
 
         //exit loading screen
@@ -289,15 +300,10 @@ public abstract class Location {
 
     public void render(Graphics2D g) {
 
-        //g.drawImage(bgImage, (int) bg_x, (int) bg_y, null);
+        g.drawImage(bgImage, (int) bg_x, (int) bg_y, null);
 
-        for (int i = 0; i < tilemap.length; i++)
-            for (int j = 0; j < tilemap[i].length; j++)
-                g.drawImage(
-                        ImageManager.getInstance().loadImage("/me/volition/assets/image/test.png"),
-                        Window.WINDOW_WIDTH / 2 + (Tile.TILE_SIZE / 2) * j - (Tile.TILE_SIZE / 2) * i,
-                        (Tile.TILE_SIZE / 4) * j + (Tile.TILE_SIZE / 4) * i,
-                        null);
+        g.setColor(Color.WHITE);
+        g.drawRect((int) bg_x, (int) bg_y, bgImage.getWidth(), bgImage.getHeight());
 
         for (Entity npc: npcs)
             npc.render(g);

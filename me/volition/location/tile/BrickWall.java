@@ -17,7 +17,7 @@ public class BrickWall extends Tile {
 
     public static BufferedImage loadImage(){
         if (image == null)
-            image = ImageManager.getInstance().loadImage("/me/volition/assets/image/tiles/brickwall_top.png");
+            image = ImageManager.getInstance().loadImage("/me/volition/assets/image/tiles/brickwall_side.png");
 
         return image;
     }

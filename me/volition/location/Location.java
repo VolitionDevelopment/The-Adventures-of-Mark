@@ -293,15 +293,9 @@ public abstract class Location {
 
     public abstract void loadExits(Tile[][] tilemap);
 
-    public void renderBg(Graphics2D g){
+    public void render(Graphics2D g) {
+
         g.drawImage(bgImage, (int) bg_x, (int) bg_y, null);
-
-        g.setColor(Color.WHITE);
-        g.drawRect((int) bg_x, (int) bg_y, bgImage.getWidth(), bgImage.getHeight());
-
-    }
-
-    public void renderObj(Graphics2D g) {
 
         for (PlaceableObject object: placeableObjects)
             g.drawImage(
@@ -311,8 +305,8 @@ public abstract class Location {
                             - object.getWidth() / 2,
                     (int) bg_vertOffset
                             + (int) ((Tile.TILE_SIZE / 4) * (object.getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4) * (object.getY() / Tile.TILE_SIZE))
-                            - object.getHeight() / 2
-                            + Tile.TILE_SIZE / 4,
+                            - object.getHeight() / 2 - (Tile.TILE_SIZE / 2 * (object.getHeight() / Tile.TILE_SIZE - 1))
+                            + Tile.TILE_SIZE / 2,
                     null
             );
 

@@ -115,7 +115,7 @@ public class ImageManager {
         BufferedImage image =
                 new BufferedImage(
                         tilemap.length * Tile.TILE_SIZE / 2 + tilemap[0].length * Tile.TILE_SIZE / 2,
-                        tilemap.length * Tile.TILE_SIZE / 4 + tilemap[0].length * Tile.TILE_SIZE / 4 + Tile.TILE_SIZE / 4,
+                        tilemap.length * Tile.TILE_SIZE / 4 + tilemap[0].length * Tile.TILE_SIZE / 4 + Tile.TILE_SIZE / 2,
                         BufferedImage.TYPE_INT_ARGB
                 );
         Graphics g = image.createGraphics();
@@ -125,7 +125,7 @@ public class ImageManager {
                 g.drawImage(
                         tilemap[i][j].getImage(),
                         (tilemap.length * Tile.TILE_SIZE / 2) + (Tile.TILE_SIZE / 2) * j - (Tile.TILE_SIZE / 2) * i - Tile.TILE_SIZE / 2,
-                        (Tile.TILE_SIZE / 4) * j + (Tile.TILE_SIZE / 4) * i - Tile.TILE_SIZE / 4,
+                        (Tile.TILE_SIZE / 4) * j + (Tile.TILE_SIZE / 4) * i,
                         null
                 );
 

@@ -28,7 +28,7 @@ public abstract class Location {
     private ArrayList<PlaceableObject> placeableObjects;
     private Tile[][] tilemap;
     private BufferedImage bgImage;
-    private double bg_x, bg_y;
+    private double bg_x, bg_y, bg_horizOffset, bg_vertOffset;
     private boolean freeCamera, safeRoom;
     private ArrayList<Entity> npcs;
 
@@ -45,6 +45,14 @@ public abstract class Location {
         loadMap();
         this.bgImage = ImageManager.makeImageFromMap(this);
 
+    }
+
+    public double getBg_horizOffset() {
+        return bg_horizOffset;
+    }
+
+    public double getBg_vertOffset() {
+        return bg_vertOffset;
     }
 
     public boolean hasFreeCamera(){
@@ -79,17 +87,12 @@ public abstract class Location {
 
         if (image != null) {
             int width = image.getWidth() / Tile.TILE_SIZE;
-            int height = image.getHeight() / Tile.TILE_SIZE;
 
-            for (int i = 0; i < height; i++) {
-                for (int j = 0; j < width; j++) {
-                    if (y + i < tilemap.length &&
-                            x + j < tilemap[i].length &&
-                            image.getRGB(j * Tile.TILE_SIZE + Tile.TILE_SIZE / 2, i * Tile.TILE_SIZE + Tile.TILE_SIZE / 2) != 16777215) { //makes sure transp. tiles arent solid
+            for (int i = 0; i < width; i++) {
+                if (image.getRGB(i * Tile.TILE_SIZE + Tile.TILE_SIZE / 2,  Tile.TILE_SIZE / 2) != 16777215) { //makes sure transp. tiles arent solid
 
-                        tilemap[(int) y + i][(int) x + j].setSolid(placeableObject.isSolid());
-                        tilemap[(int) y + i][(int) x + j].setObject(placeableObject);
-                    }
+                    tilemap[(int) y + i][(int) x + i].setSolid(placeableObject.isSolid());
+                    tilemap[(int) y + i][(int) x + i].setObject(placeableObject);
                 }
             }
         }
@@ -190,10 +193,13 @@ public abstract class Location {
             bg_x = Window.WINDOW_WIDTH / 2 - (player.getX() + player.getWidth() / 2);
             bg_y = Window.WINDOW_HEIGHT / 2 - (player.getY() + player.getHeight() / 2);
 
-            for (Exit exit : exits) {
-                exit.setX(exit.getX() + Window.WINDOW_WIDTH / 2 - (player.getX() + player.getWidth() / 2));
-                exit.setY(exit.getY() + Window.WINDOW_HEIGHT / 2 - (player.getY() + player.getHeight() / 2));
-            }
+        } else {
+
+            bg_horizOffset = (Window.WINDOW_WIDTH - bgImage.getWidth()) / 2;
+            bg_vertOffset = ((Window.WINDOW_HEIGHT - bgImage.getHeight()) / 2) - Tile.TILE_SIZE / 4;
+            bg_x += bg_horizOffset;
+            bg_y += bg_vertOffset;
+
         }
 
         //exit loading screen
@@ -287,9 +293,28 @@ public abstract class Location {
 
     public abstract void loadExits(Tile[][] tilemap);
 
-    public void render(Graphics2D g) {
-
+    public void renderBg(Graphics2D g){
         g.drawImage(bgImage, (int) bg_x, (int) bg_y, null);
+
+        g.setColor(Color.WHITE);
+        g.drawRect((int) bg_x, (int) bg_y, bgImage.getWidth(), bgImage.getHeight());
+
+    }
+
+    public void renderObj(Graphics2D g) {
+
+        for (PlaceableObject object: placeableObjects)
+            g.drawImage(
+                    object.getImage(),
+                    (int) bg_horizOffset + (tilemap.length * Tile.TILE_SIZE / 2)
+                            + (int) ((Tile.TILE_SIZE / 2) * (object.getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2) * (object.getY() / Tile.TILE_SIZE))
+                            - object.getWidth() / 2,
+                    (int) bg_vertOffset
+                            + (int) ((Tile.TILE_SIZE / 4) * (object.getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4) * (object.getY() / Tile.TILE_SIZE))
+                            - object.getHeight() / 2
+                            + Tile.TILE_SIZE / 4,
+                    null
+            );
 
         for (Entity npc: npcs)
             npc.render(g);

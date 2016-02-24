@@ -39,8 +39,8 @@ public class Player extends Entity{
     private Animator idleRight, idleLeft, idleUp, idleDown;
     private boolean isInBattle;
 
-    public Player(Location location) {
-        super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", ObjectEvent.NONE, 20, 5, 10, location, 4 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE);
+    public Player(Location location, int x, int y) {
+        super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", ObjectEvent.NONE, 20, 5, 10, location, x, y);
         inventory = new ArrayList<>();
         equippedItems = new HashMap<>();
 
@@ -137,18 +137,22 @@ public class Player extends Entity{
             }else {
                 if (isGoingDown()) {
                     setY(getY() + (delta * getBaseSpeed()));
+
                     setAnimator(walkDown);
                 } else if (isGoingUp()) {
                     setY(getY() - (delta * getBaseSpeed()));
+
                     setAnimator(walkUp);
                 }
                 //up/down animations have priority over left/right
                 if (isGoingLeft()) {
                     setX(getX() - (delta * getBaseSpeed()));
+
                     if (!isGoingUp() && !isGoingDown())
                         setAnimator(walkLeft);
                 } else if (isGoingRight()) {
                     setX(getX() + (delta * getBaseSpeed()));
+
                     if (!isGoingUp() && !isGoingDown())
                         setAnimator(walkRight);
                 }

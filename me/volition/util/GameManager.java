@@ -1,5 +1,6 @@
 package me.volition.util;
 
+import me.volition.location.tile.Tile;
 import me.volition.mapObject.entity.Player;
 import me.volition.location.Location;
 import me.volition.location.impl.MarkApartment;
@@ -16,7 +17,7 @@ public class GameManager {
 
     public GameManager(){
         Location start = new MarkApartment();
-        player = new Player(start);
+        player = new Player(start, 4 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE);
     }
 
     public static GameManager getInstance(){

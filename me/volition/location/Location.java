@@ -87,17 +87,12 @@ public abstract class Location {
 
         if (image != null) {
             int width = image.getWidth() / Tile.TILE_SIZE;
-            int height = image.getHeight() / Tile.TILE_SIZE;
 
-            for (int i = 0; i < height; i++) {
-                for (int j = 0; j < width; j++) {
-                    if (y + i < tilemap.length &&
-                            x + j < tilemap[i].length &&
-                            image.getRGB(j * Tile.TILE_SIZE + Tile.TILE_SIZE / 2, i * Tile.TILE_SIZE + Tile.TILE_SIZE / 2) != 16777215) { //makes sure transp. tiles arent solid
+            for (int i = 0; i < width; i++) {
+                if (image.getRGB(i * Tile.TILE_SIZE + Tile.TILE_SIZE / 2,  Tile.TILE_SIZE / 2) != 16777215) { //makes sure transp. tiles arent solid
 
-                        tilemap[(int) y + i][(int) x + j].setSolid(placeableObject.isSolid());
-                        tilemap[(int) y + i][(int) x + j].setObject(placeableObject);
-                    }
+                    tilemap[(int) y + i][(int) x + i].setSolid(placeableObject.isSolid());
+                    tilemap[(int) y + i][(int) x + i].setObject(placeableObject);
                 }
             }
         }
@@ -316,7 +311,8 @@ public abstract class Location {
                             - object.getWidth() / 2,
                     (int) bg_vertOffset
                             + (int) ((Tile.TILE_SIZE / 4) * (object.getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4) * (object.getY() / Tile.TILE_SIZE))
-                            - object.getHeight() / 2,
+                            - object.getHeight() / 2
+                            + Tile.TILE_SIZE / 4,
                     null
             );
 

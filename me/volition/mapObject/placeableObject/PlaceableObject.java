@@ -1,5 +1,6 @@
 package me.volition.mapObject.placeableObject;
 
+import me.volition.location.Location;
 import me.volition.mapObject.MapObject;
 import me.volition.mapObject.ObjectEvent;
 import me.volition.mapObject.entity.Entity;
@@ -7,6 +8,7 @@ import me.volition.mapObject.entity.enemies.Chili;
 import me.volition.mapObject.entity.enemies.Fratkid;
 import me.volition.mapObject.entity.enemies.Stoner;
 import me.volition.location.tile.Tile;
+import me.volition.util.GameManager;
 import me.volition.util.ObjectManager;
 
 import java.awt.*;
@@ -79,6 +81,23 @@ public abstract class PlaceableObject extends MapObject{
 
     public void onInspect(){
         ObjectManager.onObjectEvent(this);
+    }
+
+    public void render(Graphics2D g){
+
+        Location location = GameManager.getInstance().getGameState().getCurrentLocation();
+
+        g.drawImage(
+                image,
+                (int) location.getBg_horizOffset() + (location.getTilemap().length * Tile.TILE_SIZE / 2)
+                        + (int) ((Tile.TILE_SIZE / 2) * (getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2) * (getY() / Tile.TILE_SIZE))
+                        - getWidth() / 2,
+                (int) location.getBg_vertOffset()
+                        + (int) ((Tile.TILE_SIZE / 4) * (getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4) * (getY() / Tile.TILE_SIZE))
+                        - getHeight() / 2 * ((getHeight() / Tile.TILE_SIZE) - 1),
+                null
+        );
+
     }
 
 }

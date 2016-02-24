@@ -18,14 +18,23 @@ import java.awt.event.KeyEvent;
 public class GameState implements State {
 
     private Player player;
+    private Location currentLocation;
     private InGameMenu inGameMenu;
 
     public GameState() {
         player = GameManager.getInstance().getPlayer();
     }
 
+    public Location getCurrentLocation(){
+        return currentLocation;
+    }
+
     public void setInGameMenu(InGameMenu inGameMenu){
         this.inGameMenu = inGameMenu;
+    }
+
+    public void setLocation(Location currentLocation){
+        this.currentLocation = currentLocation;
     }
 
     @Override
@@ -35,8 +44,6 @@ public class GameState implements State {
     public void update(double delta) {
 
         if (inGameMenu == null) {
-
-            Location currentLocation = GameManager.getInstance().getPlayer().getLocation();
 
             player.update(delta);
             currentLocation.update(delta);
@@ -53,8 +60,7 @@ public class GameState implements State {
     @Override
     public void render(Graphics2D g) {
 
-        player.getLocation().render(g);
-        player.render(g);
+        GameManager.getInstance().getGameState().getCurrentLocation().render(g);
 
         if (inGameMenu != null)
             inGameMenu.render(g);

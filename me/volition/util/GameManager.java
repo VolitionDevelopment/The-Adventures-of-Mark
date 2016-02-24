@@ -16,15 +16,18 @@ public class GameManager {
     private static Player player;
 
     public GameManager(){
-        Location start = new MarkApartment();
-        player = new Player(start, 4 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE);
+        player = new Player(4 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE);
     }
 
     public static GameManager getInstance(){
 
         if(gameManager == null) {
+
             gameManager = new GameManager();
-            player.getLocation().enterRoom();
+
+            gameManager.getGameState().setLocation(new MarkApartment());
+            gameManager.getGameState().getCurrentLocation().enterRoom();
+
         }
 
         return gameManager;

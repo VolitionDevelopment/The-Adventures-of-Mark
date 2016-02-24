@@ -15,8 +15,8 @@ public class Peppito extends Entity {
 
     private Animator idle;
 
-    public Peppito(Location location, double x, double y) {
-        super("The Legendary Peppito Himself", "I heard he learned how to make pizzas from Mr. Hanky.", ObjectEvent.OPEN_ITEMSTORE, 100, 5, 5, location, x, y);
+    public Peppito(double x, double y) {
+        super("The Legendary Peppito Himself", "I heard he learned how to make pizzas from Mr. Hanky.", ObjectEvent.OPEN_ITEMSTORE, 100, 5, 5, x, y);
     }
 
     @Override

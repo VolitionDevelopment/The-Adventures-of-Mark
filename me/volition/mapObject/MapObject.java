@@ -1,5 +1,8 @@
 package me.volition.mapObject;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 /**
  * Created by mccloskeybr on 2/19/16.
  */
@@ -48,5 +51,13 @@ public abstract class MapObject {
     public void setOnInspect(ObjectEvent onInspect){
         this.onInspect = onInspect;
     }
+
+    public abstract int getWidth();
+
+    public abstract int getHeight();
+
+    public abstract BufferedImage getImage();
+
+    public abstract void render(Graphics2D g);
 
 }

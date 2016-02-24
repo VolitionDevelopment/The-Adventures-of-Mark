@@ -8,8 +8,10 @@ import me.volition.mapObject.MapObject;
 import me.volition.mapObject.ObjectEvent;
 import me.volition.move.Move;
 import me.volition.util.Animator;
+import me.volition.util.GameManager;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
@@ -22,14 +24,13 @@ public abstract class Entity extends MapObject {
     private int baseBrainpower, brainpower;
     private int baseSpeed;
     private int armor, wepDamage;
-    private Location location;
     private boolean goingRight, goingLeft, goingUp, goingDown;
     private int dir; //0 up, 1 down, 2 right, 3 left
     private Animator animator;
 
     private ArrayList<Move> moves;
 
-    public Entity(String name, String bio, ObjectEvent onInteract, int baseTolerance, int baseBrainpower, int baseSpeed, Location location, double x, double y) {
+    public Entity(String name, String bio, ObjectEvent onInteract, int baseTolerance, int baseBrainpower, int baseSpeed, double x, double y) {
         super(x, y, onInteract, name, bio);
 
         loadImages();
@@ -37,7 +38,6 @@ public abstract class Entity extends MapObject {
         this.baseTolerance = baseTolerance;
         this.baseBrainpower = baseBrainpower;
         this.baseSpeed = baseSpeed;
-        this.location = location;
 
         this.moves = new ArrayList<>();
 
@@ -141,12 +141,12 @@ public abstract class Entity extends MapObject {
         return animator.getCurrentImage().getHeight();
     }
 
-    public Animator getAnimator(){
-        return animator;
+    public BufferedImage getImage(){
+        return animator.getCurrentImage();
     }
 
-    public Location getLocation() {
-        return location;
+    public Animator getAnimator(){
+        return animator;
     }
 
     public ArrayList<Move> getMoves() {
@@ -234,10 +234,6 @@ public abstract class Entity extends MapObject {
         }
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
     public void addMove(Move move){
         this.moves.add(move);
     }
@@ -281,6 +277,8 @@ public abstract class Entity extends MapObject {
 
     public void render(Graphics2D g){
 
+        Location location = GameManager.getInstance().getGameState().getCurrentLocation();
+
         g.drawImage(
                 animator.getCurrentImage(),
                 (int) location.getBg_horizOffset() + (location.getTilemap().length * Tile.TILE_SIZE / 2)
@@ -288,7 +286,7 @@ public abstract class Entity extends MapObject {
                         - getWidth() / 2,
                 (int) location.getBg_vertOffset()
                         + (int) ((Tile.TILE_SIZE / 4) * (getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4) * (getY() / Tile.TILE_SIZE))
-                        - getHeight() / 2,
+                        - getHeight() / 2 * ((getHeight() / Tile.TILE_SIZE) - 1),
                 null
         );
 

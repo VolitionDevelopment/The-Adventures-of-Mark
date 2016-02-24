@@ -3,6 +3,7 @@ package me.volition.location;
 import me.volition.Main;
 import me.volition.Window;
 import me.volition.location.tile.Tile;
+import me.volition.mapObject.MapObject;
 import me.volition.mapObject.ObjectEvent;
 import me.volition.mapObject.entity.Entity;
 import me.volition.mapObject.entity.Player;
@@ -26,6 +27,7 @@ public abstract class Location {
     private String name;
     private ArrayList<Exit> exits;
     private ArrayList<PlaceableObject> placeableObjects;
+    private ArrayList<MapObject> perspectiveList;
     private Tile[][] tilemap;
     private BufferedImage bgImage;
     private double bg_x, bg_y, bg_horizOffset, bg_vertOffset;
@@ -44,6 +46,10 @@ public abstract class Location {
 
         loadMap();
         this.bgImage = ImageManager.makeImageFromMap(this);
+
+        perspectiveList = new ArrayList<>();
+        perspectiveList.addAll(placeableObjects);
+        perspectiveList.addAll(npcs);
 
     }
 
@@ -179,6 +185,26 @@ public abstract class Location {
             exit.enter(player);
         }
 
+        determinePerspective();
+
+    }
+
+    public void determinePerspective(){
+
+        if (!perspectiveList.contains(GameManager.getInstance().getPlayer()))
+            perspectiveList.add(GameManager.getInstance().getPlayer());
+
+        for (int i = 1; i < perspectiveList.size(); i++){
+            int j = i;
+            while (j > 0 && perspectiveList.get(j).getY() < perspectiveList.get(j - 1).getY()) {
+                MapObject temp = perspectiveList.get(j);
+
+                perspectiveList.set(j, perspectiveList.get(j - 1));
+                perspectiveList.set(j - 1, temp);
+
+                j--;
+            }
+        }
     }
 
     public void enterRoom(){
@@ -297,21 +323,8 @@ public abstract class Location {
 
         g.drawImage(bgImage, (int) bg_x, (int) bg_y, null);
 
-        for (PlaceableObject object: placeableObjects)
-            g.drawImage(
-                    object.getImage(),
-                    (int) bg_horizOffset + (tilemap.length * Tile.TILE_SIZE / 2)
-                            + (int) ((Tile.TILE_SIZE / 2) * (object.getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2) * (object.getY() / Tile.TILE_SIZE))
-                            - object.getWidth() / 2,
-                    (int) bg_vertOffset
-                            + (int) ((Tile.TILE_SIZE / 4) * (object.getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4) * (object.getY() / Tile.TILE_SIZE))
-                            - object.getHeight() / 2 - (Tile.TILE_SIZE / 2 * (object.getHeight() / Tile.TILE_SIZE - 1))
-                            + Tile.TILE_SIZE / 2,
-                    null
-            );
-
-        for (Entity npc: npcs)
-            npc.render(g);
+        for (int i = 0; i < perspectiveList.size(); i++)
+            perspectiveList.get(i).render(g);
 
     }
 }

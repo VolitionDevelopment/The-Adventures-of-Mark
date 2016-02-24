@@ -2,6 +2,7 @@ package me.volition.location;
 
 
 import me.volition.mapObject.entity.Player;
+import me.volition.util.GameManager;
 
 public class Exit {
     // Numerical codes
@@ -24,13 +25,13 @@ public class Exit {
 
     public void enter(Player player){
         try {
-            player.setLocation(m_leadsTo.newInstance());
+            GameManager.getInstance().getGameState().setLocation(m_leadsTo.newInstance());
         } catch (Exception e) { e.printStackTrace(); }
 
         player.setX(newx);
         player.setY(newy);
 
-        player.getLocation().enterRoom();
+        GameManager.getInstance().getGameState().getCurrentLocation().enterRoom();
     }
 
     public void setX(double x) {

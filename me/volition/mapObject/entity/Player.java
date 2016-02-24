@@ -16,6 +16,7 @@ import me.volition.mapObject.ObjectEvent;
 import me.volition.location.tile.Tile;
 import me.volition.move.impl.BadPun;
 import me.volition.util.Animator;
+import me.volition.util.GameManager;
 import me.volition.util.ImageManager;
 
 import java.awt.*;
@@ -39,8 +40,8 @@ public class Player extends Entity{
     private Animator idleRight, idleLeft, idleUp, idleDown;
     private boolean isInBattle;
 
-    public Player(Location location, int x, int y) {
-        super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", ObjectEvent.NONE, 20, 5, 10, location, x, y);
+    public Player(int x, int y) {
+        super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", ObjectEvent.NONE, 20, 5, 10, x, y);
         inventory = new ArrayList<>();
         equippedItems = new HashMap<>();
 
@@ -135,33 +136,47 @@ public class Player extends Entity{
                     setAnimator(idleDown);
 
             }else {
+
+                double speed = delta * getBaseSpeed();
+
                 if (isGoingDown()) {
-                    setY(getY() + (delta * getBaseSpeed()));
+
+                    setY(getY() + speed);
+                    setX(getX() + speed);
 
                     setAnimator(walkDown);
+
                 } else if (isGoingUp()) {
-                    setY(getY() - (delta * getBaseSpeed()));
+                    setY(getY() - speed);
+                    setX(getX() - speed);
 
                     setAnimator(walkUp);
+
                 }
                 //up/down animations have priority over left/right
                 if (isGoingLeft()) {
-                    setX(getX() - (delta * getBaseSpeed()));
+
+                    setY(getY() + speed);
+                    setX(getX() - speed);
 
                     if (!isGoingUp() && !isGoingDown())
                         setAnimator(walkLeft);
+
                 } else if (isGoingRight()) {
-                    setX(getX() + (delta * getBaseSpeed()));
+
+                    setY(getY() - speed);
+                    setX(getX() + speed);
 
                     if (!isGoingUp() && !isGoingDown())
                         setAnimator(walkRight);
+
                 }
             }
         }
     }
 
     public void inspect(){
-        getLocation().inspect();
+        GameManager.getInstance().getGameState().getCurrentLocation().inspect();
     }
 
     public void setInBattle(boolean isInBattle){
@@ -302,7 +317,7 @@ public class Player extends Entity{
 
     @Override
     public void render(Graphics2D g){
-        if (getLocation().hasFreeCamera())
+        if (GameManager.getInstance().getGameState().getCurrentLocation().hasFreeCamera())
             super.render(g, Window.WINDOW_WIDTH / 2 - getWidth() / 2, Window.WINDOW_HEIGHT / 2 - getHeight() / 2);
         else
             super.render(g);

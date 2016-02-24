@@ -33,7 +33,7 @@ public class Shop_Clothing extends Location{
 
         ImageManager.loadMapFromImage(this, ImageManager.getInstance().loadImage("/me/volition/assets/image/rooms/shop_clothing.png"), tiles, objects);
 
-        addNpc(new Peppito(this, 5 * Tile.TILE_SIZE, 2 * Tile.TILE_SIZE));
+        addNpc(new Peppito(5 * Tile.TILE_SIZE, 2 * Tile.TILE_SIZE));
 
     }
 

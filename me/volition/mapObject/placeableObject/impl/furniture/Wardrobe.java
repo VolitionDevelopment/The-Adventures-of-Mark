@@ -1,5 +1,6 @@
 package me.volition.mapObject.placeableObject.impl.furniture;
 
+import me.volition.location.Location;
 import me.volition.mapObject.ObjectEvent;
 import me.volition.mapObject.placeableObject.PlaceableObject;
 import me.volition.util.ImageManager;

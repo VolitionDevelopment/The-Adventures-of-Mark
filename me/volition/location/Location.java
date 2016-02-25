@@ -89,13 +89,15 @@ public abstract class Location {
         BufferedImage image = placeableObject.getImage();
 
         if (image != null) {
-            int width = image.getWidth() / Tile.TILE_SIZE;
+            int width = image.getWidth() / (Tile.TILE_SIZE / 2) - 1;
 
-            for (int i = 0; i < width; i++) {
-                if (image.getRGB(i * Tile.TILE_SIZE + Tile.TILE_SIZE / 2,  Tile.TILE_SIZE / 2) != 16777215) { //makes sure transp. tiles arent solid
+            for (int i = width - 1; i >= 0; i--) {
+                if (image.getRGB(
+                        (i * Tile.TILE_SIZE / 2) + Tile.TILE_SIZE / 2,
+                        (i * Tile.TILE_SIZE / 4) + Tile.TILE_SIZE / 2) != 16777215) { //makes sure transp. tiles arent solid
 
-                    tilemap[(int) y + i][(int) x + i].setSolid(placeableObject.isSolid());
-                    tilemap[(int) y + i][(int) x + i].setObject(placeableObject);
+                    tilemap[(int) y][(int) x + (i - 1)].setSolid(placeableObject.isSolid());
+                    tilemap[(int) y][(int) x + (i - 1)].setObject(placeableObject);
                 }
             }
         }
@@ -119,10 +121,6 @@ public abstract class Location {
     public void update(double delta){
 
         Player player = GameManager.getInstance().getGameState().getPlayer();
-
-        //update entity animations
-        for (Entity npc: npcs)
-            npc.update(delta);
 
         //collision detection
         int distConst = 10;
@@ -182,7 +180,12 @@ public abstract class Location {
             exit.enter(player);
         }
 
+        //objects closer to camera need to be displayed on top
         determinePerspective();
+
+        //update entity animations
+        for (Entity npc: npcs)
+            npc.update(delta);
 
     }
 

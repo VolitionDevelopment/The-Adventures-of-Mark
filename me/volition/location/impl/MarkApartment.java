@@ -31,7 +31,7 @@ public class MarkApartment extends Location {
         ArrayList<Class<? extends PlaceableObject>> objects = new ArrayList<>();
 
         objects.add(PizzaBox.class);
-        objects.add(Television.class);
+        objects.add(Couch.class);
 
         /*
         objects.add(TexasCarpet.class);

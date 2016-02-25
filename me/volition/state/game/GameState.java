@@ -1,5 +1,6 @@
 package me.volition.state.game;
 
+import me.volition.location.tile.Tile;
 import me.volition.mapObject.entity.Player;
 import me.volition.location.Location;
 import me.volition.state.State;
@@ -22,7 +23,11 @@ public class GameState implements State {
     private InGameMenu inGameMenu;
 
     public GameState() {
-        player = GameManager.getInstance().getPlayer();
+        player = new Player(4 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE);
+    }
+
+    public Player getPlayer(){
+        return player;
     }
 
     public Location getCurrentLocation(){
@@ -49,7 +54,7 @@ public class GameState implements State {
             currentLocation.update(delta);
             currentLocation.adjustCamera(delta);
 
-            if (GameManager.getInstance().getPlayer().isDead())
+            if (player.isDead())
                 StateManager.setCurrentState(new MainMenu());
 
         } else
@@ -72,13 +77,13 @@ public class GameState implements State {
 
         if (inGameMenu == null) {
             if (k == KeyEvent.VK_W)
-                GameManager.getInstance().getPlayer().setGoingUp(true);
+                player.setGoingUp(true);
             else if (k == KeyEvent.VK_S)
-                GameManager.getInstance().getPlayer().setGoingDown(true);
+                player.setGoingDown(true);
             else if (k == KeyEvent.VK_A)
-                GameManager.getInstance().getPlayer().setGoingLeft(true);
+                player.setGoingLeft(true);
             else if (k == KeyEvent.VK_D)
-                GameManager.getInstance().getPlayer().setGoingRight(true);
+                player.setGoingRight(true);
             else if (k == KeyEvent.VK_E)
                 player.inspect();
             else if (k == KeyEvent.VK_ESCAPE)
@@ -92,13 +97,13 @@ public class GameState implements State {
     public void keyReleased(int k) {
         if (inGameMenu == null) {
             if (k == KeyEvent.VK_W)
-                GameManager.getInstance().getPlayer().setGoingUp(false);
+                player.setGoingUp(false);
             else if (k == KeyEvent.VK_S)
-                GameManager.getInstance().getPlayer().setGoingDown(false);
+                player.setGoingDown(false);
             else if (k == KeyEvent.VK_A)
-                GameManager.getInstance().getPlayer().setGoingLeft(false);
+                player.setGoingLeft(false);
             else if (k == KeyEvent.VK_D)
-                GameManager.getInstance().getPlayer().setGoingRight(false);
+                player.setGoingRight(false);
         }
     }
 }

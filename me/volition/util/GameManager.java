@@ -13,25 +13,29 @@ public class GameManager {
 
     private static GameManager gameManager;
     private static GameState gameState;
-    private static Player player;
 
     public GameManager(){
-        player = new Player(4 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE);
+        gameState = new GameState();
     }
 
     public static GameManager getInstance(){
 
         if(gameManager == null) {
-
             gameManager = new GameManager();
 
-            gameManager.getGameState().setLocation(new MarkApartment());
-            gameManager.getGameState().getCurrentLocation().enterRoom();
-
+            gameState.setLocation(new MarkApartment());
+            gameState.getCurrentLocation().enterRoom();
         }
 
         return gameManager;
 
+    }
+
+    public void startGame(){
+        gameState = new GameState();
+
+        gameState.setLocation(new MarkApartment());
+        gameState.getCurrentLocation().enterRoom();
     }
 
     public GameState getGameState(){
@@ -41,9 +45,5 @@ public class GameManager {
 
         return gameState;
 
-    }
-
-    public Player getPlayer(){
-        return player;
     }
 }

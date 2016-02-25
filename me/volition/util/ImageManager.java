@@ -107,7 +107,7 @@ public class ImageManager {
         }
     }
 
-    //requires tilemap AND placeable objects to have already been placed
+    //requires tilemap to have already been placed
     public static BufferedImage makeImageFromMap(Location location){
 
         Tile[][] tilemap = location.getTilemap();

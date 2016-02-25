@@ -286,7 +286,8 @@ public abstract class Entity extends MapObject {
                         - getWidth() / 2,
                 (int) location.getBg_vertOffset()
                         + (int) ((Tile.TILE_SIZE / 4) * (getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4) * (getY() / Tile.TILE_SIZE))
-                        - getHeight() / 2 * ((getHeight() / Tile.TILE_SIZE) - 1),
+                        - getHeight() / 2 * ((getHeight() / Tile.TILE_SIZE) - 1)
+                        - Tile.TILE_SIZE / 2,
                 null
         );
 

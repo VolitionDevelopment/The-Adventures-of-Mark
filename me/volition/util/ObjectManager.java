@@ -89,7 +89,7 @@ public class ObjectManager {
 
     public static void onObjectEvent(MapObject mapObject){
 
-        Player player = GameManager.getInstance().getPlayer();
+        Player player = GameManager.getInstance().getGameState().getPlayer();
 
         ObjectEvent event = mapObject.getOnInspect();
 

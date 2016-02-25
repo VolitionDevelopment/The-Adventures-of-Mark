@@ -40,6 +40,8 @@ public abstract class Location {
         placeableObjects = new ArrayList<>();
         npcs = new ArrayList<>();
 
+        perspectiveList = new ArrayList<>();
+
         this.name = name;
         this.freeCamera = freeCamera;
         this.safeRoom = safeRoom; //if false, random tiles can cause battles
@@ -47,7 +49,6 @@ public abstract class Location {
         loadMap();
         this.bgImage = ImageManager.makeImageFromMap(this);
 
-        perspectiveList = new ArrayList<>();
         perspectiveList.addAll(placeableObjects);
         perspectiveList.addAll(npcs);
 
@@ -67,10 +68,6 @@ public abstract class Location {
 
     public Tile[][] getTilemap(){
         return tilemap;
-    }
-
-    public ArrayList<PlaceableObject> getPlaceableObjects(){
-        return placeableObjects;
     }
 
     public void addExit(Exit exit){
@@ -121,7 +118,7 @@ public abstract class Location {
 
     public void update(double delta){
 
-        Player player = GameManager.getInstance().getPlayer();
+        Player player = GameManager.getInstance().getGameState().getPlayer();
 
         //update entity animations
         for (Entity npc: npcs)
@@ -147,7 +144,6 @@ public abstract class Location {
             player.setGoingUp(false);
 
 
-
         Tile playerTile = tilemap[((int) player.getY() + player.getHeight() / 2) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth() / 2) / Tile.TILE_SIZE];
 
         //random battles
@@ -161,6 +157,7 @@ public abstract class Location {
 
             }
         }
+
         //battle tiles
         ArrayList<Entity> entities = playerTile.getBattleEntities();
         if (entities != null) {
@@ -191,12 +188,14 @@ public abstract class Location {
 
     public void determinePerspective(){
 
-        if (!perspectiveList.contains(GameManager.getInstance().getPlayer()))
-            perspectiveList.add(GameManager.getInstance().getPlayer());
+        if (!perspectiveList.contains(GameManager.getInstance().getGameState().getPlayer()))
+            perspectiveList.add(GameManager.getInstance().getGameState().getPlayer());
 
+        //bubble sort
         for (int i = 1; i < perspectiveList.size(); i++){
             int j = i;
-            while (j > 0 && perspectiveList.get(j).getY() < perspectiveList.get(j - 1).getY()) {
+            while (j > 0 && perspectiveList.get(j).getX() < perspectiveList.get(j - 1).getX()) {
+
                 MapObject temp = perspectiveList.get(j);
 
                 perspectiveList.set(j, perspectiveList.get(j - 1));
@@ -209,7 +208,7 @@ public abstract class Location {
 
     public void enterRoom(){
 
-        Player player = GameManager.getInstance().getPlayer();
+        Player player = GameManager.getInstance().getGameState().getPlayer();
 
         loadExits(tilemap);
 
@@ -237,7 +236,7 @@ public abstract class Location {
 
         if (freeCamera) {
 
-            Player player = GameManager.getInstance().getPlayer();
+            Player player = GameManager.getInstance().getGameState().getPlayer();
             double dist = delta * player.getBaseSpeed();
 
             //move objects if the player is moving
@@ -277,7 +276,7 @@ public abstract class Location {
 
     public void inspect(){
 
-        Player player = GameManager.getInstance().getPlayer();
+        Player player = GameManager.getInstance().getGameState().getPlayer();
 
         int playerx = (int) (player.getX() + player.getWidth() / 2) / Tile.TILE_SIZE;
         int playery = (int) (player.getY() + player.getHeight() / 2) / Tile.TILE_SIZE;

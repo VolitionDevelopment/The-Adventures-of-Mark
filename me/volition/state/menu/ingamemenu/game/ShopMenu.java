@@ -56,7 +56,7 @@ public class ShopMenu extends InGameMenu {
             GameManager.getInstance().getGameState().setInGameMenu(null);
         else {
 
-            Player player = GameManager.getInstance().getPlayer();
+            Player player = GameManager.getInstance().getGameState().getPlayer();
             Item item = shopItems.get(currentIndex - 1);
 
             if (player.getMoney() >= item.getPrice()) {

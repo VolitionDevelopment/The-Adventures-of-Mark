@@ -52,7 +52,7 @@ public class Midtown extends Location {
     public void loadExits(Tile[][] tilemap) {
         addExit(new Exit(
                 6 * Tile.TILE_SIZE, 8 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE,
-                MarkApartment.class, 10 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, true
+                MarkApartment.class, 11 * Tile.TILE_SIZE, 13 * Tile.TILE_SIZE, true
         ));
 
         addExit(new Exit(

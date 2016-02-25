@@ -32,15 +32,6 @@ public class MarkApartment extends Location {
 
         objects.add(PizzaBox.class);
         objects.add(Television.class);
-        objects.add(PizzaBox.class);
-        objects.add(PizzaBox.class);
-        objects.add(PizzaBox.class);
-        objects.add(PizzaBox.class);
-        objects.add(PizzaBox.class);
-        objects.add(PizzaBox.class);
-        objects.add(PizzaBox.class);
-        objects.add(PizzaBox.class);
-
 
         /*
         objects.add(TexasCarpet.class);
@@ -63,7 +54,7 @@ public class MarkApartment extends Location {
     @Override
     public void loadExits(Tile[][] tileMap){
         addExit(new Exit(
-                tileMap[0].length * Tile.TILE_SIZE - Tile.TILE_SIZE * 2, tileMap.length / 2 * Tile.TILE_SIZE + 2 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE,
+                11 * Tile.TILE_SIZE, 14 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE,
                 Midtown.class, 6 * Tile.TILE_SIZE, 9 * Tile.TILE_SIZE, true
         ));
     }

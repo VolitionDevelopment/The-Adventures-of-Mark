@@ -31,7 +31,7 @@ public class HelpMenu extends BottomTextMenu {
 
         super.render(g);
 
-        Textbox textbox = new Textbox("Hello World", GameManager.getInstance().getPlayer());
+        Textbox textbox = new Textbox("Hello World", GameManager.getInstance().getGameState().getPlayer());
         textbox.render(g);
     }
 }

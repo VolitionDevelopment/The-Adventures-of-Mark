@@ -142,13 +142,11 @@ public class Player extends Entity{
                 if (isGoingDown()) {
 
                     setY(getY() + speed);
-                    setX(getX() + speed);
 
                     setAnimator(walkDown);
 
                 } else if (isGoingUp()) {
                     setY(getY() - speed);
-                    setX(getX() - speed);
 
                     setAnimator(walkUp);
 
@@ -156,7 +154,6 @@ public class Player extends Entity{
                 //up/down animations have priority over left/right
                 if (isGoingLeft()) {
 
-                    setY(getY() + speed);
                     setX(getX() - speed);
 
                     if (!isGoingUp() && !isGoingDown())
@@ -164,7 +161,6 @@ public class Player extends Entity{
 
                 } else if (isGoingRight()) {
 
-                    setY(getY() - speed);
                     setX(getX() + speed);
 
                     if (!isGoingUp() && !isGoingDown())

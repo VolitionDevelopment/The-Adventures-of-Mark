@@ -1,5 +1,6 @@
 package me.volition.mapObject.placeableObject.impl.building;
 
+import me.volition.location.tile.Tile;
 import me.volition.mapObject.ObjectEvent;
 import me.volition.mapObject.placeableObject.PlaceableObject;
 import me.volition.util.ImageManager;
@@ -14,7 +15,7 @@ public class Shop_1 extends PlaceableObject {
     private static BufferedImage image;
 
     public Shop_1(double x, double y) {
-        super(loadImage(), ObjectEvent.NONE, "Shop", "Can buy things here.", true, x, y);
+        super(loadImage(), ObjectEvent.NONE, "Shop", "Can buy things here.", true, x, y, Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
     }
 
     public static BufferedImage loadImage(){

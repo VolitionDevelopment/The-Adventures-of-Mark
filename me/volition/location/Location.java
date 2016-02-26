@@ -34,6 +34,8 @@ public abstract class Location {
     private boolean freeCamera, safeRoom;
     private ArrayList<Entity> npcs;
 
+    private static final int DIST_CONST = 15; //for collision detection
+
 
     public Location(String name, boolean safeRoom, boolean freeCamera) {
         exits = new ArrayList<>();
@@ -89,15 +91,13 @@ public abstract class Location {
         BufferedImage image = placeableObject.getImage();
 
         if (image != null) {
-            int width = image.getWidth() / (Tile.TILE_SIZE / 2) - 1;
+            int width = placeableObject.getWidth() / Tile.TILE_SIZE;
+            int length = placeableObject.getLength() / Tile.TILE_SIZE;
 
-            for (int i = width - 1; i >= 0; i--) {
-                if (image.getRGB(
-                        (i * Tile.TILE_SIZE / 2) + Tile.TILE_SIZE / 2,
-                        (i * Tile.TILE_SIZE / 4) + Tile.TILE_SIZE / 2) != 16777215) { //makes sure transp. tiles arent solid
-
-                    tilemap[(int) y][(int) x + (i - 1)].setSolid(placeableObject.isSolid());
-                    tilemap[(int) y][(int) x + (i - 1)].setObject(placeableObject);
+            for (int i = 0; i < width; i++) {
+                for (int j = 0; j < length; j++){
+                    tilemap[(int) y + j][(int) x + i].setSolid(placeableObject.isSolid());
+                    tilemap[(int) y + j][(int) x + i].setObject(placeableObject);
                 }
             }
         }
@@ -121,26 +121,6 @@ public abstract class Location {
     public void update(double delta){
 
         Player player = GameManager.getInstance().getGameState().getPlayer();
-
-        //collision detection
-        int distConst = 10;
-
-        if (tilemap[(int) (player.getY() + distConst) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth()) / Tile.TILE_SIZE].isSolid() ||
-                tilemap[(int) (player.getY() + player.getHeight() - distConst) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth()) / Tile.TILE_SIZE].isSolid())
-            player.setGoingRight(false);
-
-        else if (tilemap[(int) (player.getY() + distConst) / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].isSolid() ||
-                tilemap[((int) player.getY() + player.getHeight() - distConst) / Tile.TILE_SIZE][(int) player.getX() / Tile.TILE_SIZE].isSolid())
-            player.setGoingLeft(false);
-
-        if (tilemap[((int) player.getY() + player.getHeight()) / Tile.TILE_SIZE][(int) (player.getX() + distConst) / Tile.TILE_SIZE].isSolid() ||
-                tilemap[((int) player.getY() + player.getHeight()) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth() - distConst) / Tile.TILE_SIZE].isSolid())
-            player.setGoingDown(false);
-
-        else if (tilemap[(int) player.getY() / Tile.TILE_SIZE][(int) (player.getX() + distConst) / Tile.TILE_SIZE].isSolid() ||
-                tilemap[(int) player.getY() / Tile.TILE_SIZE][((int) player.getX() + player.getWidth() - distConst) / Tile.TILE_SIZE].isSolid())
-            player.setGoingUp(false);
-
 
         Tile playerTile = tilemap[((int) player.getY() + player.getHeight() / 2) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth() / 2) / Tile.TILE_SIZE];
 
@@ -218,8 +198,11 @@ public abstract class Location {
         //readjusts camera if its a free camera room
         if (freeCamera) {
 
+            bg_horizOffset = 0;
+            bg_vertOffset = 0;
             bg_x = Window.WINDOW_WIDTH / 2 - (player.getX() + player.getWidth() / 2);
             bg_y = Window.WINDOW_HEIGHT / 2 - (player.getY() + player.getHeight() / 2);
+
 
         } else {
 
@@ -250,12 +233,18 @@ public abstract class Location {
                 for (Entity npc: npcs)
                     npc.setY(npc.getY() - dist);
 
+                for (PlaceableObject object: placeableObjects)
+                    object.setY(object.getY() - dist);
+
             } else if (player.isGoingUp()) {
 
                 bg_y += dist;
 
                 for (Entity npc: npcs)
                     npc.setY(npc.getY() + dist);
+
+                for (PlaceableObject object: placeableObjects)
+                    object.setY(object.getY() + dist);
             }
 
             if (player.isGoingLeft()) {
@@ -265,12 +254,18 @@ public abstract class Location {
                 for (Entity npc: npcs)
                     npc.setX(npc.getX() + dist);
 
+                for (PlaceableObject object: placeableObjects)
+                    object.setX(object.getX() + dist);
+
             } else if (player.isGoingRight()) {
 
                 bg_x -= dist;
 
                 for (Entity npc: npcs)
                     npc.setX(npc.getX() - dist);
+
+                for (PlaceableObject object: placeableObjects)
+                    object.setX(object.getX() - dist);
 
             }
         }
@@ -315,6 +310,46 @@ public abstract class Location {
 
         }
 
+    }
+
+    public boolean ableMoveUp(){
+        Player player = GameManager.getInstance().getGameState().getPlayer();
+
+        if (tilemap[(int) (player.getY() / Tile.TILE_SIZE)][(int) (player.getX() + DIST_CONST) / Tile.TILE_SIZE].isSolid() ||
+                tilemap[(int) (player.getY() / Tile.TILE_SIZE)][(int) ((player.getX() + player.getWidth() - DIST_CONST) / Tile.TILE_SIZE)].isSolid())
+            return false;
+
+        return true;
+    }
+
+    public boolean ableMoveDown(){
+        Player player = GameManager.getInstance().getGameState().getPlayer();
+
+        if (tilemap[(int) ((player.getY() + player.getHeight()) / Tile.TILE_SIZE)][(int) ((player.getX() + DIST_CONST) / Tile.TILE_SIZE)].isSolid() ||
+                tilemap[(int) ((player.getY() + player.getHeight()) / Tile.TILE_SIZE)][(int) ((player.getX() + player.getWidth() - DIST_CONST) / Tile.TILE_SIZE)].isSolid())
+            return false;
+
+        return true;
+    }
+
+    public boolean ableMoveLeft(){
+        Player player = GameManager.getInstance().getGameState().getPlayer();
+
+        if (tilemap[(int) ((player.getY() + DIST_CONST) / Tile.TILE_SIZE)][(int) (player.getX() / Tile.TILE_SIZE)].isSolid() ||
+                tilemap[(int) ((player.getY() + player.getHeight() - DIST_CONST) / Tile.TILE_SIZE)][(int) (player.getX() / Tile.TILE_SIZE)].isSolid())
+            return false;
+
+        return true;
+    }
+
+    public boolean ableMoveRight(){
+        Player player = GameManager.getInstance().getGameState().getPlayer();
+
+        if (tilemap[(int) (player.getY() / Tile.TILE_SIZE)][(int) ((player.getX() + player.getWidth()) / Tile.TILE_SIZE)].isSolid() ||
+                tilemap[(int) ((player.getY() + player.getHeight() - DIST_CONST) / Tile.TILE_SIZE)][(int) ((player.getX() + player.getWidth()) / Tile.TILE_SIZE)].isSolid())
+            return false;
+
+        return true;
     }
 
     public abstract void loadMap();

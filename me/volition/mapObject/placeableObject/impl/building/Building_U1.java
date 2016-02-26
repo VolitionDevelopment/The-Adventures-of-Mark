@@ -1,5 +1,6 @@
 package me.volition.mapObject.placeableObject.impl.building;
 
+import me.volition.location.tile.Tile;
 import me.volition.mapObject.ObjectEvent;
 import me.volition.mapObject.placeableObject.PlaceableObject;
 import me.volition.util.ImageManager;
@@ -14,7 +15,7 @@ public class Building_U1 extends PlaceableObject {
     private static BufferedImage image;
 
     public Building_U1(double x, double y) {
-        super(loadImage(), ObjectEvent.NONE, "Weirdly shaped building", "Why is it shaped so weirdly?", true, x, y);
+        super(loadImage(), ObjectEvent.NONE, "Weirdly shaped building", "Why is it shaped so weirdly?", true, x, y, Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
     }
 
     public static BufferedImage loadImage(){

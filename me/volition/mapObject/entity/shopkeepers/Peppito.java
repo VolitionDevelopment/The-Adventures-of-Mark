@@ -1,5 +1,6 @@
 package me.volition.mapObject.entity.shopkeepers;
 
+import me.volition.location.tile.Tile;
 import me.volition.mapObject.entity.Entity;
 import me.volition.location.Location;
 import me.volition.mapObject.ObjectEvent;
@@ -16,7 +17,7 @@ public class Peppito extends Entity {
     private Animator idle;
 
     public Peppito(double x, double y) {
-        super("The Legendary Peppito Himself", "I heard he learned how to make pizzas from Mr. Hanky.", ObjectEvent.OPEN_ITEMSTORE, 100, 5, 5, x, y);
+        super("The Legendary Peppito Himself", "I heard he learned how to make pizzas from Mr. Hanky.", ObjectEvent.OPEN_ITEMSTORE, 100, 5, 5, x, y, Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
     }
 
     @Override

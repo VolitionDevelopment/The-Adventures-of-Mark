@@ -1,5 +1,6 @@
 package me.volition.mapObject.placeableObject.impl.furniture;
 
+import me.volition.location.tile.Tile;
 import me.volition.mapObject.ObjectEvent;
 import me.volition.mapObject.placeableObject.PlaceableObject;
 import me.volition.util.ImageManager;
@@ -14,7 +15,7 @@ public class PizzaBox extends PlaceableObject {
     private static BufferedImage image;
 
     public PizzaBox(int x, int y) {
-        super(loadImage(), ObjectEvent.NONE, "Pizza box", "Freshman 50 here I come!", false, x, y);
+        super(loadImage(), ObjectEvent.NONE, "Pizza box", "Freshman 50 here I come!", false, x, y, Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
     }
 
     public static BufferedImage loadImage(){

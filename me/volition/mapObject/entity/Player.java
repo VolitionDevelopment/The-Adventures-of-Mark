@@ -41,7 +41,7 @@ public class Player extends Entity{
     private boolean isInBattle;
 
     public Player(int x, int y) {
-        super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", ObjectEvent.NONE, 20, 5, 10, x, y);
+        super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", ObjectEvent.NONE, 20, 5, 10, x, y, Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
         inventory = new ArrayList<>();
         equippedItems = new HashMap<>();
 
@@ -137,15 +137,17 @@ public class Player extends Entity{
 
             }else {
 
+                Location location = GameManager.getInstance().getGameState().getCurrentLocation();
+
                 double speed = delta * getBaseSpeed();
 
-                if (isGoingDown()) {
+                if (isGoingDown() && location.ableMoveDown()) {
                     setX(getX() + speed);
                     setY(getY() + speed);
 
                     setAnimator(walkDown);
 
-                } else if (isGoingUp()) {
+                } else if (isGoingUp() && location.ableMoveUp()) {
                     setX(getX() - speed);
                     setY(getY() - speed);
 
@@ -153,14 +155,14 @@ public class Player extends Entity{
 
                 }
                 //up/down animations have priority over left/right
-                if (isGoingLeft()) {
+                if (isGoingLeft() && location.ableMoveLeft()) {
                     setX(getX() - speed);
                     setY(getY() + speed);
 
                     if (!isGoingUp() && !isGoingDown())
                         setAnimator(walkLeft);
 
-                } else if (isGoingRight()) {
+                } else if (isGoingRight() && location.ableMoveRight()) {
                     setX(getX() + speed);
                     setY(getY() - speed);
 

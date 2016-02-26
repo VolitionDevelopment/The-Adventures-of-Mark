@@ -1,5 +1,6 @@
 package me.volition.mapObject.placeableObject.impl.furniture;
 
+import me.volition.location.tile.Tile;
 import me.volition.mapObject.ObjectEvent;
 import me.volition.mapObject.placeableObject.PlaceableObject;
 import me.volition.util.ImageManager;
@@ -14,7 +15,7 @@ public class Couch extends PlaceableObject {
     private static BufferedImage image;
 
     public Couch(double x, double y) {
-        super(loadImage(), ObjectEvent.NONE, "Couch", "I once gave birth on this beauty.", true, x, y);
+        super(loadImage(), ObjectEvent.NONE, "Couch", "I once gave birth on this beauty.", true, x, y, Tile.TILE_SIZE, 3 * Tile.TILE_SIZE, Tile.TILE_SIZE);
     }
 
     public static BufferedImage loadImage(){

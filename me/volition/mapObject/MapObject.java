@@ -9,12 +9,16 @@ import java.awt.image.BufferedImage;
 public abstract class MapObject {
 
     private double x, y;
+    private int length, width, height; //in terms of multiview measurements, not isometric
     private String name, desc;
     private ObjectEvent onInspect;
 
-    public MapObject(double x, double y, ObjectEvent onInspect, String name, String desc){
+    public MapObject(double x, double y, int length, int width, int height, ObjectEvent onInspect, String name, String desc){
         this.x = x;
         this.y = y;
+        this.length = length;
+        this.width = width;
+        this.height = height;
         this.onInspect = onInspect;
         this.name = name;
         this.desc = desc;
@@ -26,6 +30,18 @@ public abstract class MapObject {
 
     public double getY() {
         return y;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public int getWidth(){
+        return width;
+    }
+
+    public int getHeight(){
+        return height;
     }
 
     public String getName() {
@@ -51,10 +67,6 @@ public abstract class MapObject {
     public void setOnInspect(ObjectEvent onInspect){
         this.onInspect = onInspect;
     }
-
-    public abstract int getWidth();
-
-    public abstract int getHeight();
 
     public abstract BufferedImage getImage();
 

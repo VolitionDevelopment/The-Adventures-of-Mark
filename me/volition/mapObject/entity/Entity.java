@@ -30,8 +30,8 @@ public abstract class Entity extends MapObject {
 
     private ArrayList<Move> moves;
 
-    public Entity(String name, String bio, ObjectEvent onInteract, int baseTolerance, int baseBrainpower, int baseSpeed, double x, double y) {
-        super(x, y, onInteract, name, bio);
+    public Entity(String name, String bio, ObjectEvent onInteract, int baseTolerance, int baseBrainpower, int baseSpeed, double x, double y, int length, int width, int height) {
+        super(x, y, length, width, height, onInteract, name, bio);
 
         loadImages();
 
@@ -46,7 +46,7 @@ public abstract class Entity extends MapObject {
 
     //for enemies that exist only inside battles
     public Entity(String name, String bio, int baseTolerance, int baseBrainpower, int baseSpeed) {
-        super(-1, -1, ObjectEvent.NONE, name, bio);
+        super(-1, -1, -1, -1, -1, ObjectEvent.NONE, name, bio);
 
         loadImages();
 
@@ -131,14 +131,6 @@ public abstract class Entity extends MapObject {
 
     public boolean isFacingLeft(){
         return dir == 3;
-    }
-
-    public int getWidth(){
-        return animator.getCurrentImage().getWidth();
-    }
-
-    public int getHeight(){
-        return animator.getCurrentImage().getHeight();
     }
 
     public BufferedImage getImage(){

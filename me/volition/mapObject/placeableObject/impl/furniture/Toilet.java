@@ -1,5 +1,6 @@
 package me.volition.mapObject.placeableObject.impl.furniture;
 
+import me.volition.location.tile.Tile;
 import me.volition.mapObject.ObjectEvent;
 import me.volition.mapObject.placeableObject.PlaceableObject;
 import me.volition.util.ImageManager;
@@ -14,7 +15,7 @@ public class Toilet extends PlaceableObject {
     private static BufferedImage image;
 
     public Toilet(double x, double y) {
-        super(loadImage(), ObjectEvent.NONE, "The Porcelain Throne", "It's positioned in such a way that I can stare my lover in the eyes while I take a dump.", true, x, y);
+        super(loadImage(), ObjectEvent.NONE, "The Porcelain Throne", "It's positioned in such a way that I can stare my lover in the eyes while I take a dump.", true, x, y, Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
     }
 
     public static BufferedImage loadImage(){

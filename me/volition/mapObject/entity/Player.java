@@ -135,7 +135,7 @@ public class Player extends Entity{
                 else
                     setAnimator(idleDown);
 
-            }else {
+            } else {
 
                 Location location = GameManager.getInstance().getGameState().getCurrentLocation();
 

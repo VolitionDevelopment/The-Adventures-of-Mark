@@ -51,11 +51,9 @@ public class GameState implements State {
         if (inGameMenu == null) {
 
             player.update(delta);
+
             currentLocation.update(delta);
             currentLocation.adjustCamera(delta);
-
-            if (player.isDead())
-                StateManager.setCurrentState(new MainMenu());
 
         } else
             inGameMenu.update();

@@ -200,8 +200,18 @@ public abstract class Location {
 
             bg_horizOffset = 0;
             bg_vertOffset = 0;
-            bg_x = Window.WINDOW_WIDTH / 2 - (player.getX() + player.getWidth() / 2);
-            bg_y = Window.WINDOW_HEIGHT / 2 - (player.getY() + player.getHeight() / 2);
+
+            bg_x -= - Window.WINDOW_WIDTH / 2 +
+                    (tilemap.length * Tile.TILE_SIZE / 2)
+                    + (int) ((Tile.TILE_SIZE / 2) * (player.getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2) * (player.getY() / Tile.TILE_SIZE))
+                    - player.getWidth() / 2;
+
+            bg_y -= - Window.WINDOW_HEIGHT / 2 +
+                    (int) ((Tile.TILE_SIZE / 4) * (player.getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4) * (player.getY() / Tile.TILE_SIZE))
+                    - player.getHeight() / 2 * ((player.getHeight() / Tile.TILE_SIZE) - 1)
+                    - Tile.TILE_SIZE / 2;
+
+            System.out.println(bg_x);
 
 
         } else {

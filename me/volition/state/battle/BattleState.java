@@ -7,6 +7,7 @@ import me.volition.item.Item;
 import me.volition.location.tile.Tile;
 import me.volition.state.State;
 import me.volition.state.StateManager;
+import me.volition.state.menu.impl.MainMenu;
 import me.volition.state.menu.ingamemenu.battle.BattleMainMenu;
 import me.volition.state.menu.ingamemenu.battle.BattleMenu;
 import me.volition.util.FontManager;
@@ -130,7 +131,7 @@ public class BattleState implements State {
     public void switchTurns(){
         //checks to see if any entities are dead
         if (player.getTolerance() <= 0)
-            System.exit(0);
+            StateManager.setCurrentState(new MainMenu());
         else {
             boolean isDone = true;
             for (Entity e : enemies)

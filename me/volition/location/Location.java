@@ -211,8 +211,20 @@ public abstract class Location {
                     - player.getHeight() / 2 * ((player.getHeight() / Tile.TILE_SIZE) - 1)
                     - Tile.TILE_SIZE / 2;
 
-            System.out.println(bg_x);
 
+            for (PlaceableObject object: placeableObjects) {
+                object.setX(
+                        object.getX() - (Window.WINDOW_WIDTH / 2 +
+                        (tilemap.length * Tile.TILE_SIZE / 2)
+                        + (int) ((Tile.TILE_SIZE / 2) * (player.getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2) * (player.getY() / Tile.TILE_SIZE))
+                        - player.getWidth() / 2));
+
+                object.setY(
+                        object.getY() - (Window.WINDOW_HEIGHT / 2 +
+                        (int) ((Tile.TILE_SIZE / 4) * (player.getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4) * (player.getY() / Tile.TILE_SIZE))
+                        - player.getHeight() / 2 * ((player.getHeight() / Tile.TILE_SIZE) - 1)
+                        - Tile.TILE_SIZE / 2));
+            }
 
         } else {
 
@@ -236,7 +248,7 @@ public abstract class Location {
             double dist = delta * player.getBaseSpeed();
 
             //move objects if the player is moving
-            if (player.isGoingDown()) {
+            if (player.isGoingDown() && ableMoveDown()) {
 
                 bg_y -= dist;
 
@@ -246,7 +258,7 @@ public abstract class Location {
                 for (PlaceableObject object: placeableObjects)
                     object.setY(object.getY() - dist);
 
-            } else if (player.isGoingUp()) {
+            } else if (player.isGoingUp() && ableMoveUp()) {
 
                 bg_y += dist;
 
@@ -257,7 +269,7 @@ public abstract class Location {
                     object.setY(object.getY() + dist);
             }
 
-            if (player.isGoingLeft()) {
+            if (player.isGoingLeft() && ableMoveLeft()) {
 
                 bg_x += dist;
 
@@ -267,7 +279,7 @@ public abstract class Location {
                 for (PlaceableObject object: placeableObjects)
                     object.setX(object.getX() + dist);
 
-            } else if (player.isGoingRight()) {
+            } else if (player.isGoingRight() && ableMoveRight()) {
 
                 bg_x -= dist;
 

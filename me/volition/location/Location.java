@@ -198,32 +198,29 @@ public abstract class Location {
         //readjusts camera if its a free camera room
         if (freeCamera) {
 
-            bg_horizOffset = 0;
-            bg_vertOffset = 0;
+            //center of player in render world
+            double px = (Tile.TILE_SIZE / 2 * player.getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2 * player.getY() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2);
+            double py = (Tile.TILE_SIZE / 4 * player.getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4 * player.getY() / Tile.TILE_SIZE);
 
-            bg_x -= - Window.WINDOW_WIDTH / 2 +
-                    (tilemap.length * Tile.TILE_SIZE / 2)
-                    + (int) ((Tile.TILE_SIZE / 2) * (player.getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2) * (player.getY() / Tile.TILE_SIZE))
-                    - player.getWidth() / 2;
+            px += player.getWidth() / 2;
+            py += player.getHeight() / 2;
 
-            bg_y -= - Window.WINDOW_HEIGHT / 2 +
-                    (int) ((Tile.TILE_SIZE / 4) * (player.getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4) * (player.getY() / Tile.TILE_SIZE))
-                    - player.getHeight() / 2 * ((player.getHeight() / Tile.TILE_SIZE) - 1)
-                    - Tile.TILE_SIZE / 2;
+            bg_x = px - Window.WINDOW_WIDTH / 2;
+            bg_y = py - Window.WINDOW_HEIGHT / 2;
+
+            System.out.println(bg_x);
 
 
             for (PlaceableObject object: placeableObjects) {
                 object.setX(
                         object.getX() - (Window.WINDOW_WIDTH / 2 +
                         (tilemap.length * Tile.TILE_SIZE / 2)
-                        + (int) ((Tile.TILE_SIZE / 2) * (player.getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2) * (player.getY() / Tile.TILE_SIZE))
-                        - player.getWidth() / 2));
+                        + (int) ((Tile.TILE_SIZE / 2) * (player.getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2) * (player.getY() / Tile.TILE_SIZE))));
 
                 object.setY(
                         object.getY() - (Window.WINDOW_HEIGHT / 2 +
                         (int) ((Tile.TILE_SIZE / 4) * (player.getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4) * (player.getY() / Tile.TILE_SIZE))
-                        - player.getHeight() / 2 * ((player.getHeight() / Tile.TILE_SIZE) - 1)
-                        - Tile.TILE_SIZE / 2));
+                        - player.getHeight() / 2 * ((player.getHeight() / Tile.TILE_SIZE) - 1)));
             }
 
         } else {

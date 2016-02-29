@@ -124,8 +124,9 @@ public class ImageManager {
             for (int j = 0; j < tilemap[i].length; j++)
                 g.drawImage(
                         tilemap[i][j].getImage(),
-                        (tilemap.length * Tile.TILE_SIZE / 2) + (Tile.TILE_SIZE / 2) * j - (Tile.TILE_SIZE / 2) * i - Tile.TILE_SIZE / 2,
-                        (Tile.TILE_SIZE / 4) * j + (Tile.TILE_SIZE / 4) * i,
+                        (tilemap.length * Tile.TILE_SIZE / 2) // centers the map
+                                + (Tile.TILE_SIZE / 2) * j - (Tile.TILE_SIZE / 2) * i - Tile.TILE_SIZE / 2, //draws x
+                        (Tile.TILE_SIZE / 4) * j + (Tile.TILE_SIZE / 4) * i, // draws y
                         null
                 );
 

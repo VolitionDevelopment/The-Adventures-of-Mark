@@ -72,4 +72,6 @@ public abstract class MapObject {
 
     public abstract void render(Graphics2D g);
 
+    public abstract void render(Graphics2D g, int x, int y);
+
 }

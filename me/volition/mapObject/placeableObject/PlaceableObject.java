@@ -105,4 +105,8 @@ public abstract class PlaceableObject extends MapObject{
 
     }
 
+    public void render(Graphics2D g, int x, int y){
+        g.drawImage(image, x, y, null);
+    }
+
 }

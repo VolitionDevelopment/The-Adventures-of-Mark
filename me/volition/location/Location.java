@@ -199,28 +199,18 @@ public abstract class Location {
         if (freeCamera) {
 
             //center of player in render world
-            double px = (Tile.TILE_SIZE / 2 * player.getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2 * player.getY() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2);
-            double py = (Tile.TILE_SIZE / 4 * player.getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4 * player.getY() / Tile.TILE_SIZE);
+            double px = (Tile.TILE_SIZE / 2 * player.getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2 * player.getY() / Tile.TILE_SIZE) + player.getWidth() / 2;
+            double py = (Tile.TILE_SIZE / 4 * player.getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4 * player.getY() / Tile.TILE_SIZE) + player.getHeight() / 2;
 
-            px += player.getWidth() / 2;
-            py += player.getHeight() / 2;
+            double delta_x = - px / 2 - tilemap.length * Tile.TILE_SIZE / 2 + Window.WINDOW_WIDTH / 2;
+            double delta_y = - py / 2 + Window.WINDOW_HEIGHT / 2;
 
-            bg_x = px - Window.WINDOW_WIDTH / 2;
-            bg_y = py - Window.WINDOW_HEIGHT / 2;
+            bg_x = delta_x;
+            bg_y = delta_y;
 
-            System.out.println(bg_x);
-
-
-            for (PlaceableObject object: placeableObjects) {
-                object.setX(
-                        object.getX() - (Window.WINDOW_WIDTH / 2 +
-                        (tilemap.length * Tile.TILE_SIZE / 2)
-                        + (int) ((Tile.TILE_SIZE / 2) * (player.getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2) * (player.getY() / Tile.TILE_SIZE))));
-
-                object.setY(
-                        object.getY() - (Window.WINDOW_HEIGHT / 2 +
-                        (int) ((Tile.TILE_SIZE / 4) * (player.getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4) * (player.getY() / Tile.TILE_SIZE))
-                        - player.getHeight() / 2 * ((player.getHeight() / Tile.TILE_SIZE) - 1)));
+            for (MapObject object: perspectiveList) {
+                object.setX(object.getX() + delta_x);
+                object.setY(object.getY() + delta_y);
             }
 
         } else {

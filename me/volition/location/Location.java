@@ -198,19 +198,22 @@ public abstract class Location {
         //readjusts camera if its a free camera room
         if (freeCamera) {
 
-            //center of player in render world
-            double px = (Tile.TILE_SIZE / 2 * player.getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2 * player.getY() / Tile.TILE_SIZE) + player.getWidth() / 2;
-            double py = (Tile.TILE_SIZE / 4 * player.getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4 * player.getY() / Tile.TILE_SIZE) + player.getHeight() / 2;
+            double x = (Tile.TILE_SIZE / 2 * player.getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2 * player.getY() / Tile.TILE_SIZE);
+            double y = (Tile.TILE_SIZE / 4 * player.getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4 * player.getY() / Tile.TILE_SIZE);
 
-            double delta_x = - px / 2 - tilemap.length * Tile.TILE_SIZE / 2 + Window.WINDOW_WIDTH / 2;
-            double delta_y = - py / 2 + Window.WINDOW_HEIGHT / 2;
+            double delta_x = - x / 2 - tilemap.length * Tile.TILE_SIZE / 2 + Window.WINDOW_WIDTH / 2;
+            double delta_y = - y / 2 + Window.WINDOW_HEIGHT / 2;
 
-            bg_x = delta_x;
-            bg_y = delta_y;
+            bg_x += delta_x;
+            bg_y += delta_y;
 
             for (MapObject object: perspectiveList) {
-                object.setX(object.getX() + delta_x);
-                object.setY(object.getY() + delta_y);
+                x = (tilemap.length * Tile.TILE_SIZE / 2) + (Tile.TILE_SIZE / 2 * object.getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2 * object.getY() / Tile.TILE_SIZE);
+                y = (Tile.TILE_SIZE / 4 * object.getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4 * object.getY() / Tile.TILE_SIZE);
+
+                object.setX(bg_x + x);
+                object.setY(bg_y + y);
+
             }
 
         } else {

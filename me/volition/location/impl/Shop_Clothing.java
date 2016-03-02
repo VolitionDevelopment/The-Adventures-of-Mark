@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class Shop_Clothing extends Location{
 
     public Shop_Clothing() {
-        super("The GAP", true, false);
+        super("The GAP", true);
     }
 
     @Override
@@ -39,10 +39,6 @@ public class Shop_Clothing extends Location{
 
     @Override
     public void loadExits(Tile[][] tilemap) {
-        addExit(new Exit(
-                6 * Tile.TILE_SIZE, 8 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE,
-                Midtown.class, 27 * Tile.TILE_SIZE, 18 * Tile.TILE_SIZE, true
-        ));
     }
 
     @Override

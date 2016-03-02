@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class Shop_Dollar extends Location {
 
     public Shop_Dollar() {
-        super("The Dollar Store", true, false);
+        super("The Dollar Store", true);
     }
 
     @Override
@@ -38,10 +38,6 @@ public class Shop_Dollar extends Location {
 
     @Override
     public void loadExits(Tile[][] tilemap) {
-        addExit(new Exit(
-                6 * Tile.TILE_SIZE, 8 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE,
-                Midtown.class, 16 * Tile.TILE_SIZE, 29 * Tile.TILE_SIZE, true
-        ));
     }
 
     @Override

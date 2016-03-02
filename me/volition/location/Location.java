@@ -31,13 +31,13 @@ public abstract class Location {
     private Tile[][] tilemap;
     private BufferedImage bgImage;
     private double bg_x, bg_y, bg_horizOffset, bg_vertOffset;
-    private boolean freeCamera, safeRoom;
+    private boolean safeRoom;
     private ArrayList<Entity> npcs;
 
     private static final int DIST_CONST = 15; //for collision detection
 
 
-    public Location(String name, boolean safeRoom, boolean freeCamera) {
+    public Location(String name, boolean safeRoom) {
         exits = new ArrayList<>();
         placeableObjects = new ArrayList<>();
         npcs = new ArrayList<>();
@@ -45,7 +45,6 @@ public abstract class Location {
         perspectiveList = new ArrayList<>();
 
         this.name = name;
-        this.freeCamera = freeCamera;
         this.safeRoom = safeRoom; //if false, random tiles can cause battles
 
         loadMap();
@@ -62,10 +61,6 @@ public abstract class Location {
 
     public double getBg_vertOffset() {
         return bg_vertOffset;
-    }
-
-    public boolean hasFreeCamera(){
-        return freeCamera;
     }
 
     public Tile[][] getTilemap(){
@@ -195,92 +190,13 @@ public abstract class Location {
 
         loadExits(tilemap);
 
-        //readjusts camera if its a free camera room
-        if (freeCamera) {
-
-            double x = (Tile.TILE_SIZE / 2 * player.getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2 * player.getY() / Tile.TILE_SIZE);
-            double y = (Tile.TILE_SIZE / 4 * player.getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4 * player.getY() / Tile.TILE_SIZE);
-
-            double delta_x = - x / 2 - tilemap.length * Tile.TILE_SIZE / 2 + Window.WINDOW_WIDTH / 2;
-            double delta_y = - y / 2 + Window.WINDOW_HEIGHT / 2;
-
-            bg_x += delta_x;
-            bg_y += delta_y;
-
-            for (MapObject object: perspectiveList) {
-                x = (tilemap.length * Tile.TILE_SIZE / 2) + (Tile.TILE_SIZE / 2 * object.getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2 * object.getY() / Tile.TILE_SIZE);
-                y = (Tile.TILE_SIZE / 4 * object.getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4 * object.getY() / Tile.TILE_SIZE);
-
-                object.setX(bg_x + x);
-                object.setY(bg_y + y);
-
-            }
-
-        } else {
-
-            bg_horizOffset = (Window.WINDOW_WIDTH - bgImage.getWidth()) / 2;
-            bg_vertOffset = ((Window.WINDOW_HEIGHT - bgImage.getHeight()) / 2) - Tile.TILE_SIZE / 4;
-            bg_x += bg_horizOffset;
-            bg_y += bg_vertOffset;
-
-        }
+        bg_horizOffset = (Window.WINDOW_WIDTH - bgImage.getWidth()) / 2;
+        bg_vertOffset = ((Window.WINDOW_HEIGHT - bgImage.getHeight()) / 2) - Tile.TILE_SIZE / 4;
+        bg_x += bg_horizOffset;
+        bg_y += bg_vertOffset;
 
         //exit loading screen
         GameManager.getInstance().getGameState().setInGameMenu(null);
-
-    }
-
-    public void adjustCamera(double delta){
-
-        if (freeCamera) {
-
-            Player player = GameManager.getInstance().getGameState().getPlayer();
-            double dist = delta * player.getBaseSpeed();
-
-            //move objects if the player is moving
-            if (player.isGoingDown() && ableMoveDown()) {
-
-                bg_y -= dist;
-
-                for (Entity npc: npcs)
-                    npc.setY(npc.getY() - dist);
-
-                for (PlaceableObject object: placeableObjects)
-                    object.setY(object.getY() - dist);
-
-            } else if (player.isGoingUp() && ableMoveUp()) {
-
-                bg_y += dist;
-
-                for (Entity npc: npcs)
-                    npc.setY(npc.getY() + dist);
-
-                for (PlaceableObject object: placeableObjects)
-                    object.setY(object.getY() + dist);
-            }
-
-            if (player.isGoingLeft() && ableMoveLeft()) {
-
-                bg_x += dist;
-
-                for (Entity npc: npcs)
-                    npc.setX(npc.getX() + dist);
-
-                for (PlaceableObject object: placeableObjects)
-                    object.setX(object.getX() + dist);
-
-            } else if (player.isGoingRight() && ableMoveRight()) {
-
-                bg_x -= dist;
-
-                for (Entity npc: npcs)
-                    npc.setX(npc.getX() - dist);
-
-                for (PlaceableObject object: placeableObjects)
-                    object.setX(object.getX() - dist);
-
-            }
-        }
 
     }
 

@@ -8,9 +8,12 @@ import me.volition.item.impl.usable.*;
 import me.volition.mapObject.MapObject;
 import me.volition.mapObject.ObjectEvent;
 import me.volition.mapObject.entity.Player;
+import me.volition.mapObject.placeableObject.PlaceableObject;
+import me.volition.mapObject.placeableObject.impl.furniture.*;
 import me.volition.state.menu.ingamemenu.game.DialogueMenu;
 import me.volition.state.menu.ingamemenu.game.ShopMenu;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -19,18 +22,26 @@ import java.util.Random;
  */
 public class ObjectManager {
 
+    private static ArrayList<Class<? extends PlaceableObject>> allBasementObjects;
+
     private static ArrayList<Class<? extends Item>> allUsables;
     private static ArrayList<Class<? extends Item>> allWeapons;
     private static ArrayList<Class<? extends Item>> allArmor;
 
-    private static void registerAllItems(){
+    private static void registerUsables(){
+
         allUsables = new ArrayList<>();
 
         allUsables.add(MtnDank.class);
         allUsables.add(WholePizza.class);
         allUsables.add(PizzaSlice.class);
 
+    }
+
+    private static void registerArmor(){
+
         allArmor = new ArrayList<>(); //includes helmets
+
         allArmor.add(Jammies.class);
         allArmor.add(DeliveryUniform.class);
         allArmor.add(BusinessOutfit.class);
@@ -40,7 +51,12 @@ public class ObjectManager {
         allArmor.add(BikeHelmet.class);
         allArmor.add(BallCap.class);
 
+    }
+
+    private static void registerWeapons(){
+
         allWeapons = new ArrayList<>();
+
         allWeapons.add(Spoon.class);
         allWeapons.add(Spork.class);
         allWeapons.add(LaxStick.class);
@@ -48,9 +64,21 @@ public class ObjectManager {
 
     }
 
+    private static void registerBasementObjects(){
+
+        allBasementObjects = new ArrayList<>();
+
+        allBasementObjects.add(Couch.class);
+        allBasementObjects.add(Desk.class);
+        allBasementObjects.add(LavaLamp.class);
+        allBasementObjects.add(PizzaBox.class);
+        allBasementObjects.add(Television.class);
+
+    }
+
     public static Item getRandomUsable(int rng_multiplier) {
         if (allUsables == null)
-            registerAllItems();
+            registerUsables();
 
         int r = new Random().nextInt(allUsables.size() * rng_multiplier);
         if (r < allUsables.size()) {
@@ -63,7 +91,7 @@ public class ObjectManager {
 
     public static Item getRandomArmor(int rng_multiplier) {
         if (allArmor == null)
-            registerAllItems();
+            registerArmor();
 
         int r = new Random().nextInt(allArmor.size() * rng_multiplier);
         if (r < allArmor.size()) {
@@ -76,7 +104,7 @@ public class ObjectManager {
 
     public static Item getRandomWeapon(int rng_multiplier) {
         if (allWeapons == null)
-            registerAllItems();
+            registerWeapons();
 
         int r = new Random().nextInt(allWeapons.size() * rng_multiplier);
         if (r < allWeapons.size()) {
@@ -84,6 +112,17 @@ public class ObjectManager {
                 return allWeapons.get(r).newInstance();
             } catch (Exception e) { e.printStackTrace(); }
         }
+        return null;
+    }
+
+    public static Class<? extends PlaceableObject> getRandomObject(int roomType) throws IllegalAccessException, InvocationTargetException, InstantiationException {
+
+        if (roomType == 0) { // Basement
+            if (allBasementObjects == null)
+                registerBasementObjects();
+            return allBasementObjects.get(new Random().nextInt(allBasementObjects.size()));
+        }
+
         return null;
     }
 

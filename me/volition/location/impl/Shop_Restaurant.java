@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class Shop_Restaurant extends Location {
     public Shop_Restaurant() {
-        super("Peppito's Pizzaria", true, false);
+        super("Peppito's Pizzaria", true);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Shop_Restaurant extends Location {
     public void loadExits(Tile[][] tilemap) {
         addExit(new Exit(
                 8 * Tile.TILE_SIZE, 8 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE,
-                Midtown.class, 17 * Tile.TILE_SIZE, 18 * Tile.TILE_SIZE, true
+                MarkApartment.class, 17 * Tile.TILE_SIZE, 18 * Tile.TILE_SIZE, true
         ));
     }
 

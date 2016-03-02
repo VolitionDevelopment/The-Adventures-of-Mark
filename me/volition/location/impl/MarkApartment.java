@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class MarkApartment extends Location {
 
     public MarkApartment() {
-        super("Mark's Apartment", true, false);
+        super("Mark's Apartment", true);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class MarkApartment extends Location {
     public void loadExits(Tile[][] tileMap){
         addExit(new Exit(
                 11 * Tile.TILE_SIZE, 14 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE,
-                Midtown.class, 6 * Tile.TILE_SIZE, 9 * Tile.TILE_SIZE, true
+                MarkApartment.class, 6 * Tile.TILE_SIZE, 9 * Tile.TILE_SIZE, true
         ));
     }
 }

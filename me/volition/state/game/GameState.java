@@ -51,9 +51,7 @@ public class GameState implements State {
         if (inGameMenu == null) {
 
             player.update(delta);
-
             currentLocation.update(delta);
-            currentLocation.adjustCamera(delta);
 
         } else
             inGameMenu.update();

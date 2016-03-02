@@ -314,12 +314,4 @@ public class Player extends Entity{
         return idleRight;
     }
 
-    @Override
-    public void render(Graphics2D g){
-        if (GameManager.getInstance().getGameState().getCurrentLocation().hasFreeCamera())
-            super.render(g, Window.WINDOW_WIDTH / 2 - getWidth() / 2, Window.WINDOW_HEIGHT / 2 - getHeight() / 2);
-        else
-            super.render(g);
-    }
-
 }

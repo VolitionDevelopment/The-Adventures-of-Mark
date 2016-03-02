@@ -77,32 +77,19 @@ public abstract class PlaceableObject extends MapObject{
         if (image != null) {
             Location location = GameManager.getInstance().getGameState().getCurrentLocation();
 
-            if (location.hasFreeCamera()) {
+            g.drawImage(
+                    image,
+                    (int) location.getBg_horizOffset() + (location.getTilemap().length * Tile.TILE_SIZE / 2)
+                            + (int) ((Tile.TILE_SIZE / 2) * (getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2) * (getY() / Tile.TILE_SIZE))
+                            - Tile.TILE_SIZE / 2,
+                    (int) location.getBg_vertOffset()
+                            + (int) ((Tile.TILE_SIZE / 4) * (getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4) * (getY() / Tile.TILE_SIZE))
+                            - image.getHeight() / 2 * ((image.getHeight() / Tile.TILE_SIZE) - 1)
+                            + Tile.TILE_SIZE / 4,
+                    null
+            );
 
-                g.drawImage(
-                        image,
-                        (int) getX(),
-                        (int) getY(),
-                        null
-                );
-
-            } else {
-
-                g.drawImage(
-                        image,
-                        (int) location.getBg_horizOffset() + (location.getTilemap().length * Tile.TILE_SIZE / 2)
-                                + (int) ((Tile.TILE_SIZE / 2) * (getX() / Tile.TILE_SIZE) - (Tile.TILE_SIZE / 2) * (getY() / Tile.TILE_SIZE))
-                                - Tile.TILE_SIZE / 2,
-                        (int) location.getBg_vertOffset()
-                                + (int) ((Tile.TILE_SIZE / 4) * (getX() / Tile.TILE_SIZE) + (Tile.TILE_SIZE / 4) * (getY() / Tile.TILE_SIZE))
-                                - image.getHeight() / 2 * ((image.getHeight() / Tile.TILE_SIZE) - 1)
-                                + Tile.TILE_SIZE / 4,
-                        null
-                );
-
-            }
         }
-
     }
 
     public void render(Graphics2D g, int x, int y){

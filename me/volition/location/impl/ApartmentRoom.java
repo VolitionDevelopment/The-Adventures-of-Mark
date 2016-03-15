@@ -5,8 +5,6 @@ import me.volition.location.tile.BrickWall;
 import me.volition.location.tile.Tile;
 import me.volition.location.tile.WoodFloor;
 import me.volition.mapObject.placeableObject.PlaceableObject;
-import me.volition.mapObject.placeableObject.impl.furniture.Couch;
-import me.volition.mapObject.placeableObject.impl.furniture.PizzaBox;
 import me.volition.util.ImageManager;
 import me.volition.util.ObjectManager;
 
@@ -25,7 +23,7 @@ public class ApartmentRoom extends Location {
     public void loadMap() {
 
         ArrayList<Class<? extends Tile>> tiles = new ArrayList<>();
-        
+
         tiles.add(BrickWall.class);
         tiles.add(WoodFloor.class);
         tiles.add(WoodFloor.class);

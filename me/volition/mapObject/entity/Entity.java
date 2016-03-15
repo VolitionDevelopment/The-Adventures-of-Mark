@@ -1,7 +1,5 @@
 package me.volition.mapObject.entity;
 
-import me.volition.*;
-import me.volition.Window;
 import me.volition.location.Location;
 import me.volition.location.tile.Tile;
 import me.volition.mapObject.MapObject;

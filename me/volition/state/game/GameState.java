@@ -4,8 +4,6 @@ import me.volition.location.tile.Tile;
 import me.volition.mapObject.entity.Player;
 import me.volition.location.Location;
 import me.volition.state.State;
-import me.volition.state.StateManager;
-import me.volition.state.menu.impl.MainMenu;
 import me.volition.state.menu.ingamemenu.InGameMenu;
 import me.volition.state.menu.ingamemenu.game.PauseMenu;
 import me.volition.util.GameManager;

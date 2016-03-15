@@ -1,8 +1,5 @@
 package me.volition.util;
 
-import me.volition.location.tile.Tile;
-import me.volition.mapObject.entity.Player;
-import me.volition.location.Location;
 import me.volition.location.impl.MarkApartment;
 import me.volition.state.game.GameState;
 

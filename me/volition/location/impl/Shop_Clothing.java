@@ -1,6 +1,5 @@
 package me.volition.location.impl;
 
-import me.volition.location.Exit;
 import me.volition.location.Location;
 import me.volition.mapObject.entity.shopkeepers.Peppito;
 import me.volition.mapObject.placeableObject.PlaceableObject;

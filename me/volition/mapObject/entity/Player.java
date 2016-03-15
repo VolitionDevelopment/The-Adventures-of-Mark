@@ -1,6 +1,5 @@
 package me.volition.mapObject.entity;
 
-import me.volition.Window;
 import me.volition.item.Item;
 import me.volition.item.ItemSlot;
 import me.volition.item.impl.armor.DeliveryUniform;
@@ -19,7 +18,6 @@ import me.volition.util.Animator;
 import me.volition.util.GameManager;
 import me.volition.util.ImageManager;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;

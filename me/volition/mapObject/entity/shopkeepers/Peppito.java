@@ -2,7 +2,6 @@ package me.volition.mapObject.entity.shopkeepers;
 
 import me.volition.location.tile.Tile;
 import me.volition.mapObject.entity.Entity;
-import me.volition.location.Location;
 import me.volition.mapObject.ObjectEvent;
 import me.volition.util.Animator;
 import me.volition.util.ImageManager;

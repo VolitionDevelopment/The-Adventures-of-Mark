@@ -22,8 +22,7 @@ public class FileManager {
     public Tile[][] loadMapFromText(String path){
         try {
 
-            System.out.println(getClass().getResource(path).toString());
-            BufferedReader br = new BufferedReader(new FileReader(new File(getClass().getResource(path).toString().substring(5))));
+            BufferedReader br = new BufferedReader(new FileReader(new File(getClass().getResource(path).toString().substring(5)))); //substr to get rid of 'file:'
 
             String line = br.readLine();
             String[] linebits = line.split(" :: ");

@@ -50,7 +50,7 @@ public class LvGen_Window {
 
         JButton open = new JButton("Open");
         open.addActionListener(e -> {
-            LvGen_Main.getInstance().setMap(LvGen_FileManager.getInstance().open("/Users/mccloskeybr/IdeaProjects/GIT/The-Adventures-of-Mark/apartment.txt"));
+            LvGen_Main.getInstance().setMap(LvGen_FileManager.getInstance().open("/Users/mccloskeybr/IdeaProjects/GIT/The-Adventures-of-Mark/LVGEN_lv.txt"));
         });
         toolBar.add(open);
         toolBar.addSeparator();

@@ -139,33 +139,54 @@ public class Player extends Entity{
 
                 double speed = delta * getBaseSpeed();
 
-                if (isGoingDown() && location.ableMoveDown()) {
-                    setX(getX() + speed);
-                    setY(getY() + speed);
+                if (isGoingDown()) {
+                    if (location.ableMoveDown()) {
 
-                    setAnimator(walkDown);
+                        setX(getX() + speed);
+                        setY(getY() + speed);
 
-                } else if (isGoingUp() && location.ableMoveUp()) {
-                    setX(getX() - speed);
-                    setY(getY() - speed);
+                        setAnimator(walkDown);
 
-                    setAnimator(walkUp);
+                    } else
+                        setAnimator(idleDown);
+
+                } else if (isGoingUp()) {
+                    if (location.ableMoveUp()){
+
+                        setX(getX() - speed);
+                        setY(getY() - speed);
+
+                        setAnimator(walkUp);
+
+                    } else
+                        setAnimator(idleUp);
 
                 }
+
                 //up/down animations have priority over left/right
-                if (isGoingLeft() && location.ableMoveLeft()) {
-                    setX(getX() - speed);
-                    setY(getY() + speed);
+                if (isGoingLeft()) {
+                    if (location.ableMoveLeft()){
 
-                    if (!isGoingUp() && !isGoingDown())
-                        setAnimator(walkLeft);
+                        setX(getX() - speed);
+                        setY(getY() + speed);
 
-                } else if (isGoingRight() && location.ableMoveRight()) {
-                    setX(getX() + speed);
-                    setY(getY() - speed);
+                        if (!isGoingUp() && !isGoingDown())
+                            setAnimator(walkLeft);
 
-                    if (!isGoingUp() && !isGoingDown())
-                        setAnimator(walkRight);
+                    } else if (!isGoingUp() && !isGoingDown())
+                        setAnimator(idleLeft);
+
+                } else if (isGoingRight()) {
+                    if (location.ableMoveRight()){
+
+                        setX(getX() + speed);
+                        setY(getY() - speed);
+
+                        if (!isGoingUp() && !isGoingDown())
+                            setAnimator(walkRight);
+
+                    } else if (!isGoingUp() && !isGoingDown())
+                        setAnimator(idleRight);
 
                 }
             }

@@ -11,7 +11,7 @@ import java.util.HashMap;
  */
 public class TileManager {
 
-    public static HashMap<Integer, TileProperty> properties;
+    private static HashMap<Integer, TileProperty> properties;
 
     /**
      * 0 = empty

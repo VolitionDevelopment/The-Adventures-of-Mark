@@ -21,7 +21,7 @@ public class GameState implements State {
     private InGameMenu inGameMenu;
 
     public GameState() {
-        player = new Player(4 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE);
+        player = new Player(7 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE);
     }
 
     public Player getPlayer(){

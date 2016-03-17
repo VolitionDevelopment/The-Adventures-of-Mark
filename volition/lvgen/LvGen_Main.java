@@ -1,7 +1,7 @@
 package volition.lvgen;
 
 import volition.lvgen.comp.LvGen_Tile;
-import volition.lvgen.util.LvGen_TileManager;
+import volition.lvgen.util.LvGen_ObjectManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,7 +35,7 @@ public class LvGen_Main extends JPanel{
 
     public LvGen_Main(){
 
-        currentID = LvGen_TileManager.DEFAULT_ID;
+        currentID = LvGen_ObjectManager.DEFAULT_ID;
 
         map = new LvGen_Tile[15][15];
         for (int i = 0; i < map.length; i++)
@@ -113,11 +113,11 @@ public class LvGen_Main extends JPanel{
 
     public void draw(MouseEvent e){
         if (
-                e.getX() < map[0].length * LvGen_TileManager.getTileRender_size() + window.getToolBar().getWidth() &&
-                e.getY() < map.length * LvGen_TileManager.getTileRender_size() + 32) {
+                e.getX() < map[0].length * LvGen_ObjectManager.getTileRenderScale() + window.getToolBar().getWidth() &&
+                e.getY() < map.length * LvGen_ObjectManager.getTileRenderScale() + 32) {
 
-            int x = (e.getX() - window.getToolBar().getWidth()) / LvGen_TileManager.getTileRender_size();
-            int y = (int) ((e.getY() / LvGen_TileManager.getTileRender_size()) - 0.1);
+            int x = (int) ((e.getX() - window.getToolBar().getWidth()) * LvGen_ObjectManager.getTileRenderScale());
+            int y = (int) ((e.getY() * LvGen_ObjectManager.getTileRenderScale()) - 0.1);
 
             if (x >= 0 && y >= 0)
                 map[y][x].setID(currentID);
@@ -136,29 +136,29 @@ public class LvGen_Main extends JPanel{
 
         for (int i = 0; i < map.length; i++)
             for (int j = 0; j < map[i].length; j++)
-                map[i][j].render(g, j * LvGen_TileManager.getTileRender_size(), i * LvGen_TileManager.getTileRender_size());
+                map[i][j].render(g, (int) (j * 64 * LvGen_ObjectManager.getTileRenderScale()), (int) (i * 64 * LvGen_ObjectManager.getTileRenderScale()));
 
         g.setColor(Color.BLACK);
 
-        g.drawRect(0, 0, map[0].length * LvGen_TileManager.getTileRender_size(), map.length * LvGen_TileManager.getTileRender_size());
-        g.drawString("(O)", map[0].length * LvGen_TileManager.getTileRender_size(), map.length * LvGen_TileManager.getTileRender_size() + g.getFontMetrics().getHeight());
+        g.drawRect(0, 0, (int) (map[0].length * 64 / LvGen_ObjectManager.getTileRenderScale()), (int) (map.length * 64 * LvGen_ObjectManager.getTileRenderScale()));
+        g.drawString("(O)", (int) (map[0].length * 64 * LvGen_ObjectManager.getTileRenderScale()), (int) (map.length * 64 * LvGen_ObjectManager.getTileRenderScale() + g.getFontMetrics().getHeight()));
 
         if (showGrid) {
             for (int i = 0; i <= map.length; i++)
-                g.drawLine(0, i * LvGen_TileManager.getTileRender_size(), map.length * LvGen_TileManager.getTileRender_size(), i * LvGen_TileManager.getTileRender_size());
+                g.drawLine(0, (int) (i * 64 * LvGen_ObjectManager.getTileRenderScale()), (int) (map.length * 64 * LvGen_ObjectManager.getTileRenderScale()), (int) (i * 64 * LvGen_ObjectManager.getTileRenderScale()));
 
             for (int i = 0; i <= map[0].length; i++)
-                g.drawLine(i * LvGen_TileManager.getTileRender_size(), 0, i * LvGen_TileManager.getTileRender_size(), map.length * LvGen_TileManager.getTileRender_size());
+                g.drawLine((int) (i * 64 * LvGen_ObjectManager.getTileRenderScale()), 0, (int) (i * 64 * LvGen_ObjectManager.getTileRenderScale()), (int) (map.length * 64 * LvGen_ObjectManager.getTileRenderScale()));
         }
 
         if (showID) {
             for (int i = 0; i < map.length; i++)
                 for (int j = 0; j < map[i].length; j++) {
-                    if (map[i][j].getID() != 0) {
+                    if (map[i][j].getTile_ID() != 0) {
                         g.setColor(Color.WHITE);
-                        g.fillRect(j * LvGen_TileManager.getTileRender_size(), i * LvGen_TileManager.getTileRender_size(), g.getFontMetrics().stringWidth("" + map[i][j].getID()), g.getFontMetrics().getHeight());
+                        g.fillRect((int) (j * LvGen_ObjectManager.getTileRenderScale()), (int) (i * 64 * LvGen_ObjectManager.getTileRenderScale()), g.getFontMetrics().stringWidth("" + map[i][j].getTile_ID()), g.getFontMetrics().getHeight());
                         g.setColor(Color.BLACK);
-                        g.drawString("" + map[i][j].getID(), j * LvGen_TileManager.getTileRender_size(), i * LvGen_TileManager.getTileRender_size() + g.getFontMetrics().getHeight() - 2);
+                        g.drawString("" + map[i][j].getTile_ID(), (int) (j * 64 * LvGen_ObjectManager.getTileRenderScale()), (int) (i * 64 * LvGen_ObjectManager.getTileRenderScale() + g.getFontMetrics().getHeight() - 2));
                     }
                 }
         }

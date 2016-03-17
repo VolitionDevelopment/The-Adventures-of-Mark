@@ -32,8 +32,16 @@ public class LvGen_FileManager {
                 bufferedWriter.newLine();
 
                 String line = "";
-                for (int j = 0; j < map[0].length; j++)
-                    line += map[i][j].getID() + " ";
+                for (int j = 0; j < map[0].length; j++) {
+
+                    line += map[i][j].getTile_ID();
+
+                    if (map[i][j].getObj_ID() != 0)
+                        line += ":" + map[i][j].getObj_ID();
+
+                    line += " ";
+
+                }
 
                 bufferedWriter.write(line.trim());
 
@@ -64,8 +72,19 @@ public class LvGen_FileManager {
                 line = br.readLine();
                 linebits = line.split(" ");
 
-                for (int j = 0; j < c; j++)
-                    map[i][j] = new LvGen_Tile(Integer.parseInt(linebits[j]));
+                for (int j = 0; j < linebits.length; j++) {
+
+                    if (!linebits[j].contains(":"))
+                        map[i][j] = new LvGen_Tile(Integer.parseInt(linebits[j]));
+
+                    else {
+
+                        String[] tilebits = linebits[j].split(":");
+                        map[i][j] = new LvGen_Tile(Integer.parseInt(tilebits[0]), Integer.parseInt(tilebits[1]));
+
+                    }
+
+                }
 
             }
 

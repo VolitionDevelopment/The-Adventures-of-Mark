@@ -15,14 +15,13 @@ import volition.adv_of_mark.state.menu.ingamemenu.game.ShopMenu;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 /**
  * Created by mccloskeybr on 2/13/16.
  */
 public class ObjectManager {
-
-    private static ArrayList<Class<? extends PlaceableObject>> allBasementObjects;
 
     private static ArrayList<Class<? extends Item>> allUsables;
     private static ArrayList<Class<? extends Item>> allWeapons;
@@ -61,18 +60,6 @@ public class ObjectManager {
         allWeapons.add(Spork.class);
         allWeapons.add(LaxStick.class);
         allWeapons.add(Book.class);
-
-    }
-
-    private static void registerBasementObjects(){
-
-        allBasementObjects = new ArrayList<>();
-
-        allBasementObjects.add(Couch.class);
-        allBasementObjects.add(Desk.class);
-        allBasementObjects.add(LavaLamp.class);
-        allBasementObjects.add(PizzaBox.class);
-        allBasementObjects.add(Television.class);
 
     }
 
@@ -115,17 +102,6 @@ public class ObjectManager {
         return null;
     }
 
-    public static Class<? extends PlaceableObject> getRandomObject(int roomType) throws IllegalAccessException, InvocationTargetException, InstantiationException {
-
-        if (roomType == 0) { // Basement
-            if (allBasementObjects == null)
-                registerBasementObjects();
-            return allBasementObjects.get(new Random().nextInt(allBasementObjects.size()));
-        }
-
-        return null;
-    }
-
     public static void onObjectEvent(MapObject mapObject){
 
         Player player = GameManager.getInstance().getGameState().getPlayer();
@@ -164,7 +140,9 @@ public class ObjectManager {
                 break;
 
             case NONE:
+
                 GameManager.getInstance().getGameState().setInGameMenu(new DialogueMenu(player, mapObject.getName() + " - " + mapObject.getDesc()));
+
                 break;
         }
     }

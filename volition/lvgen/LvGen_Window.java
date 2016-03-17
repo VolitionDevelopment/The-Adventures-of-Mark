@@ -1,7 +1,8 @@
 package volition.lvgen;
 
 import volition.lvgen.util.LvGen_FileManager;
-import volition.lvgen.util.LvGen_TileManager;
+import volition.lvgen.util.LvGen_ObjectManager;
+import volition.lvgen.util.LvGen_ObjectProperty;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +20,8 @@ public class LvGen_Window {
 
     private JFrame frame;
     private JToolBar toolBar;
+
+    private boolean mapSwitch;
 
     public LvGen_Window(JPanel jPanel){
 
@@ -55,6 +58,20 @@ public class LvGen_Window {
         toolBar.add(open);
         toolBar.addSeparator();
 
+        JButton switchObj = new JButton("Tile:Object");
+        switchObj.addActionListener(e -> {
+
+            mapSwitch = !mapSwitch;
+
+            if (mapSwitch)
+                createTileSelectMenu();
+            else
+                createObjectSelectMenu();
+
+        });
+        toolBar.add(switchObj);
+        toolBar.addSeparator();
+
         JButton showGrid = new JButton("Show Grid");
         showGrid.addActionListener(e -> {
             LvGen_Main.getInstance().showGrid();
@@ -84,7 +101,7 @@ public class LvGen_Window {
 
     private void createTileSelectMenu(){
 
-        HashMap<Integer, BufferedImage> idMap = LvGen_TileManager.getInstance().getIdMap();
+        HashMap<Integer, BufferedImage> idMap = LvGen_ObjectManager.getInstance().getIdMap();
 
         int tileMenu_tileSize = 64;
         int tileMenu_X = LvGen_Window.WINDOW_WIDTH - tileMenu_tileSize * 4 - 1;
@@ -108,6 +125,33 @@ public class LvGen_Window {
             }
         }
 
+    }
+
+    private void createObjectSelectMenu(){
+
+        HashMap<Integer, LvGen_ObjectProperty> objMap = LvGen_ObjectManager.getInstance().getObjectMap();
+
+        int tileMenu_tileSize = 64;
+        int tileMenu_X = LvGen_Window.WINDOW_WIDTH - tileMenu_tileSize * 4 - 1;
+
+        int x = 0, y = 0;
+        for (int i = 50; i < 50 + objMap.keySet().size(); i++) {
+
+            int flag = i;
+
+            JButton button = new JButton(new ImageIcon(objMap.get(flag).getIconImage()));
+
+            button.setBounds(tileMenu_X + x, y, tileMenu_tileSize, tileMenu_tileSize);
+            button.addActionListener(e -> LvGen_Main.getInstance().setCurrentID(flag));
+            button.setVisible(true);
+            frame.add(button);
+
+            x += tileMenu_tileSize;
+            if (x == 4 * tileMenu_tileSize) {
+                x = 0;
+                y += tileMenu_tileSize;
+            }
+        }
     }
 
     public JToolBar getToolBar(){

@@ -17,11 +17,14 @@ import java.awt.event.KeyEvent;
 public class GameState implements State {
 
     private Player player;
-    private Location currentLocation;
+    private Location[][] map;
+    private int loc_x, loc_y;
     private InGameMenu inGameMenu;
 
     public GameState() {
         player = new Player(7 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE);
+
+        loc_x = loc_y = 5;
     }
 
     public Player getPlayer(){
@@ -29,15 +32,24 @@ public class GameState implements State {
     }
 
     public Location getCurrentLocation(){
-        return currentLocation;
+        return map[loc_y][loc_x];
     }
 
     public void setInGameMenu(InGameMenu inGameMenu){
         this.inGameMenu = inGameMenu;
     }
 
-    public void setLocation(Location currentLocation){
-        this.currentLocation = currentLocation;
+    public void setLocation(int x, int y){
+        loc_x = x;
+        loc_y = y;
+    }
+
+    // resets map as well
+    public void setMap(Location[][] map){
+        this.map = map;
+
+        loc_y = 5;
+        loc_x = 5;
     }
 
     @Override
@@ -49,7 +61,7 @@ public class GameState implements State {
         if (inGameMenu == null) {
 
             player.update(delta);
-            currentLocation.update(delta);
+            map[loc_y][loc_x].update(delta);
 
         } else
             inGameMenu.update();

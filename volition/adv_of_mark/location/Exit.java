@@ -25,7 +25,7 @@ public class Exit {
 
     public void enter(Player player){
         try {
-            GameManager.getInstance().getGameState().setLocation(m_leadsTo.newInstance());
+            //GameManager.getInstance().getGameState().setLocation(m_leadsTo.newInstance());
         } catch (Exception e) { e.printStackTrace(); }
 
         player.setX(newx);

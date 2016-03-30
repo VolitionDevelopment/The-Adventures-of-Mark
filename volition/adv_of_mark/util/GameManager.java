@@ -18,21 +18,16 @@ public class GameManager {
     public static GameManager getInstance(){
 
         if(gameManager == null) {
+            // start the game
+            
             gameManager = new GameManager();
 
-            gameState.setLocation(new ApartmentRoom());
+            gameState.setMap(LocationManager.loadDungeon(LocationManager.APARTMENT));
             gameState.getCurrentLocation().enterRoom();
         }
 
         return gameManager;
 
-    }
-
-    public void startGame(){
-        gameState = new GameState();
-
-        gameState.setLocation(new ApartmentRoom());
-        gameState.getCurrentLocation().enterRoom();
     }
 
     public GameState getGameState(){

@@ -58,7 +58,23 @@ public class LocationManager {
 
         }
 
+        printDungeon(map);
+
         return map;
+
+    }
+
+    private static void printDungeon(Location[][] map){
+
+        for (int n = 0; n < map.length; n++) {
+            for (int j = 0; j < map[n].length; j++) {
+                if (map[n][j] == null)
+                    System.out.print("-");
+                else
+                    System.out.print("x");
+            }
+            System.out.println();
+        }
 
     }
 

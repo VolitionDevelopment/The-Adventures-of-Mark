@@ -21,7 +21,6 @@ public class Tile {
     private Exit exit;
     private Entity npc;
     private PlaceableObject object;
-    private ArrayList<Entity> battleEntities;
 
     private BufferedImage image;
 
@@ -54,10 +53,6 @@ public class Tile {
         return object;
     }
 
-    public ArrayList<Entity> getBattleEntities(){
-        return battleEntities;
-    }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -80,10 +75,6 @@ public class Tile {
 
     public void setObject(PlaceableObject object) {
         this.object = object;
-    }
-
-    public void setBattleEntities(ArrayList<Entity> battleEntities) {
-        this.battleEntities = battleEntities;
     }
 
 }

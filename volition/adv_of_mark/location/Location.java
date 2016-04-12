@@ -7,6 +7,7 @@ import volition.adv_of_mark.mapObject.MapObject;
 import volition.adv_of_mark.mapObject.ObjectEvent;
 import volition.adv_of_mark.mapObject.entity.Entity;
 import volition.adv_of_mark.mapObject.entity.Player;
+import volition.adv_of_mark.mapObject.entity.enemies.EnemyParty;
 import volition.adv_of_mark.mapObject.placeableObject.PlaceableObject;
 import volition.adv_of_mark.state.menu.ingamemenu.game.LoadMenu;
 import volition.adv_of_mark.util.BattleManager;
@@ -17,6 +18,7 @@ import volition.adv_of_mark.util.ObjectManager;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Demerzel on 2/3/16.
@@ -30,26 +32,47 @@ public abstract class Location {
     private Tile[][] tilemap;
     private BufferedImage bgImage;
     private double bg_x, bg_y, bg_horizOffset, bg_vertOffset;
-    private boolean safeRoom;
     private ArrayList<Entity> npcs;
+    private ArrayList<EnemyParty> enemyParties;
 
     private static final int DIST_CONST = 15; //for collision detection
 
 
-    public Location(String name, boolean safeRoom) {
+    public Location(String name) {
         placeableObjects = new ArrayList<>();
         npcs = new ArrayList<>();
+        enemyParties = new ArrayList<>();
+
+        Random rand = new Random();
+        if (rand.nextInt(3) > 0) {
+
+            int numParties = rand.nextInt(5);
+            for (int i = 0; i < numParties; i++) {
+
+                EnemyParty party = new EnemyParty((rand.nextInt(13) + 1) * Tile.TILE_SIZE, (rand.nextInt(13) + 1) * Tile.TILE_SIZE);
+
+                int numEnemies = rand.nextInt(3) + 1;
+                for (int j = 0; j < numEnemies; j++)
+                    party.addEnemy();
+
+                enemyParties.add(party);
+
+            }
+        }
 
         perspectiveList = new ArrayList<>();
 
         this.name = name;
-        this.safeRoom = safeRoom; //if false, random tiles can cause battles
 
         loadMap();
 
         perspectiveList.addAll(placeableObjects);
         perspectiveList.addAll(npcs);
 
+    }
+
+    public ArrayList<EnemyParty> getEnemyParties(){
+        return enemyParties;
     }
 
     public double getBg_horizOffset() {
@@ -114,33 +137,9 @@ public abstract class Location {
 
         Tile playerTile = tilemap[((int) player.getY() + player.getHeight() / 2) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth() / 2) / Tile.TILE_SIZE];
 
-        //random battles
-        if (!safeRoom && player.isMoving()){
-            if (Math.random() < Math.pow(delta, 2.5)) {
-
-                player.stopMoving();
-
-                player.setAnimator(player.getBattleAnimator());
-                BattleManager.startBattle(player, playerTile.getImage());
-
-            }
-        }
-
-        //battle tiles
-        ArrayList<Entity> entities = playerTile.getBattleEntities();
-        if (entities != null) {
-
-            player.stopMoving();
-
-            player.setAnimator(player.getBattleAnimator());
-            BattleManager.startBattle(player, entities, playerTile.getImage());
-
-            playerTile.setBattleEntities(null);
-
-        }
         //check if at exit
         Exit exit = playerTile.getExit();
-        if (exit != null && exit.isActive()) {
+        if (exit != null && (enemyParties.size() == 0 || exit.getLeadsTo().getEnemyParties().size() == 0)) {
 
             player.stopMoving();
 
@@ -148,6 +147,19 @@ public abstract class Location {
             Main.getInstance().repaint();
 
             exit.enter(player);
+        }
+
+        //check if colliding with group of enemies
+        for (int i = 0; i < enemyParties.size(); i++) {
+            if (enemyParties.get(i).getX() > player.getX() && enemyParties.get(i).getX() < player.getX() + player.getWidth() &&
+                    enemyParties.get(i).getY() > player.getY() && enemyParties.get(i).getY() < player.getY() + player.getHeight()) {
+
+                BattleManager.startBattle(player, enemyParties.get(i).getMembers(), playerTile.getImage());
+
+                enemyParties.remove(i);
+                i--;
+
+            }
         }
 
         //objects closer to camera need to be displayed on top
@@ -281,6 +293,9 @@ public abstract class Location {
 
         for (int i = 0; i < perspectiveList.size(); i++)
             perspectiveList.get(i).render(g);
+
+        for (EnemyParty party: enemyParties)
+            party.render(g);
 
     }
 }

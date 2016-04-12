@@ -31,6 +31,10 @@ public class GameState implements State {
         return player;
     }
 
+    public Location getLocationFromMap(int x, int y){
+        return map[y][x];
+    }
+
     public Location getCurrentLocation(){
         return map[loc_y][loc_x];
     }

@@ -33,6 +33,10 @@ public class Exit {
         GameManager.getInstance().getGameState().getCurrentLocation().enterRoom();
     }
 
+    public Location getLeadsTo(){
+        return GameManager.getInstance().getGameState().getLocationFromMap(newLocX, newLocY);
+    }
+
     public void setX(double x) {
         this.x = x;
     }

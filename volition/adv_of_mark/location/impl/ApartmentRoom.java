@@ -11,7 +11,7 @@ import volition.adv_of_mark.util.FileManager;
 public class ApartmentRoom extends Location {
 
     public ApartmentRoom() {
-        super("Apartment Room", false);
+        super("Apartment Room");
     }
 
     @Override

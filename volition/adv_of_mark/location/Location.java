@@ -25,7 +25,6 @@ import java.util.ArrayList;
 public abstract class Location {
 
     private String name;
-    private ArrayList<Exit> exits;
     private ArrayList<PlaceableObject> placeableObjects;
     private ArrayList<MapObject> perspectiveList;
     private Tile[][] tilemap;
@@ -38,7 +37,6 @@ public abstract class Location {
 
 
     public Location(String name, boolean safeRoom) {
-        exits = new ArrayList<>();
         placeableObjects = new ArrayList<>();
         npcs = new ArrayList<>();
 
@@ -48,7 +46,6 @@ public abstract class Location {
         this.safeRoom = safeRoom; //if false, random tiles can cause battles
 
         loadMap();
-        this.bgImage = ImageManager.makeImageFromMap(getTilemap());
 
         perspectiveList.addAll(placeableObjects);
         perspectiveList.addAll(npcs);
@@ -68,8 +65,6 @@ public abstract class Location {
     }
 
     public void addExit(Exit exit){
-        exits.add(exit);
-
         int x = (int) (exit.getX() / Tile.TILE_SIZE);
         int y = (int) (exit.getY() / Tile.TILE_SIZE);
 
@@ -186,14 +181,12 @@ public abstract class Location {
 
     public void enterRoom(){
 
-        Player player = GameManager.getInstance().getGameState().getPlayer();
-
-        loadExits(tilemap);
+        this.bgImage = ImageManager.makeImageFromMap(getTilemap());
 
         bg_horizOffset = (Window.WINDOW_WIDTH - bgImage.getWidth()) / 2;
         bg_vertOffset = ((Window.WINDOW_HEIGHT - bgImage.getHeight()) / 2) - Tile.TILE_SIZE / 4;
-        bg_x += bg_horizOffset;
-        bg_y += bg_vertOffset;
+        bg_x = bg_horizOffset;
+        bg_y = bg_vertOffset;
 
         //exit loading screen
         GameManager.getInstance().getGameState().setInGameMenu(null);
@@ -281,8 +274,6 @@ public abstract class Location {
     }
 
     public abstract void loadMap();
-
-    public abstract void loadExits(Tile[][] tilemap);
 
     public void render(Graphics2D g) {
 

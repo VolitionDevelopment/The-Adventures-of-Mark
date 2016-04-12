@@ -40,15 +40,24 @@ public class ImageManager {
                 );
         Graphics g = image.createGraphics();
 
-        for (int i = 0; i < tilemap.length; i++)
-            for (int j = 0; j < tilemap[i].length; j++)
+        for (int i = 0; i < tilemap.length; i++) {
+            for (int j = 0; j < tilemap[i].length; j++) {
+
+                BufferedImage tileImage;
+                if (tilemap[i][j].getExit() == null)
+                    tileImage = tilemap[i][j].getImage();
+                else
+                    tileImage = getInstance().loadImage("/volition/adv_of_mark/assets/image/tiles/brickfloor.png");
+
                 g.drawImage(
-                        tilemap[i][j].getImage(),
+                        tileImage,
                         (tilemap.length * Tile.TILE_SIZE / 2) // centers the map
                                 + (Tile.TILE_SIZE / 2) * j - (Tile.TILE_SIZE / 2) * i - Tile.TILE_SIZE / 2, //draws x
                         (Tile.TILE_SIZE / 4) * j + (Tile.TILE_SIZE / 4) * i, // draws y
                         null
                 );
+            }
+        }
 
         // saves the full map, if you so desire.
         /*

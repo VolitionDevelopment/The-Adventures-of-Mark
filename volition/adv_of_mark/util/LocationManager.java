@@ -1,7 +1,9 @@
 package volition.adv_of_mark.util;
 
+import volition.adv_of_mark.location.Exit;
 import volition.adv_of_mark.location.Location;
 import volition.adv_of_mark.location.impl.ApartmentRoom;
+import volition.adv_of_mark.location.tile.Tile;
 
 import java.util.Random;
 
@@ -14,10 +16,33 @@ public class LocationManager {
 
     public static Location[][] loadDungeon(int dungeonType){
 
-        if (dungeonType == APARTMENT)
-            return loadApartmentLocation();
+        Location[][] map = null;
 
-        return null;
+        if (dungeonType == APARTMENT)
+            map = loadApartmentLocation();
+
+        // add exits to other rooms
+
+        if (map != null) {
+            for (int i = 0; i < map.length; i++) {
+                for (int j = 0; j < map[i].length; j++) {
+                    if (map[i][j] != null) {
+                        if (i > 0 && map[i - 1][j] != null) // north
+                            map[i][j].addExit(new Exit(7 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, j, i - 1, 7 * Tile.TILE_SIZE, 12 * Tile.TILE_SIZE, true));
+                        if (j > 0 && map[i][j - 1] != null) // west
+                            map[i][j].addExit(new Exit(Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, j - 1, i, 12 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, true));
+                        if (i < map.length - 1 && map[i + 1][j] != null) // south
+                            map[i][j].addExit(new Exit(7 * Tile.TILE_SIZE, 13 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, j, i + 1, 7 * Tile.TILE_SIZE, 2 * Tile.TILE_SIZE, true));
+                        if (j < map[i].length - 1 && map[i][j + 1] != null) // east
+                            map[i][j].addExit(new Exit(13 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, j + 1, i, 2 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, true));
+                    }
+                }
+            }
+        }
+
+        printDungeon(map);
+
+        return map;
 
     }
 
@@ -57,8 +82,6 @@ public class LocationManager {
             i++;
 
         }
-
-        printDungeon(map);
 
         return map;
 

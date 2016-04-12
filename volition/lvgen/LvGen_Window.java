@@ -45,14 +45,14 @@ public class LvGen_Window {
 
         JButton save = new JButton("Save");
         save.addActionListener(e -> {
-            LvGen_FileManager.getInstance().save("LVGEN_lv.txt", LvGen_Main.getInstance().getMap());
+            LvGen_FileManager.getInstance().save("volition/adv_of_mark/assets/maps/LVGEN.txt", LvGen_Main.getInstance().getMap());
         });
         toolBar.add(save);
         toolBar.addSeparator();
 
         JButton open = new JButton("Open");
         open.addActionListener(e -> {
-            LvGen_Main.getInstance().setMap(LvGen_FileManager.getInstance().open("/Users/mccloskeybr/IdeaProjects/GIT/The-Adventures-of-Mark/LVGEN_lv.txt"));
+            LvGen_Main.getInstance().setMap(LvGen_FileManager.getInstance().open("/Users/mccloskeybr/IdeaProjects/GIT/The-Adventures-of-Mark/volition/adv_of_mark/assets/maps/LVGEN.txt"));
         });
         toolBar.add(open);
         toolBar.addSeparator();

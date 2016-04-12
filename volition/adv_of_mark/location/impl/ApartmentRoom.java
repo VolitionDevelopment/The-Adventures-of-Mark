@@ -16,13 +16,6 @@ public class ApartmentRoom extends Location {
 
     @Override
     public void loadMap() {
-
-        setTilemap(FileManager.getInstance().loadMapFromText("/volition/adv_of_mark/assets/maps/apartment.txt"));
-
-    }
-
-    @Override
-    public void loadExits(Tile[][] tilemap) {
-
+        setTilemap(FileManager.getInstance().loadMapFromText("/volition/adv_of_mark/assets/maps/test.txt"));
     }
 }

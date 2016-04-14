@@ -7,9 +7,9 @@ import volition.adv_of_mark.item.Item;
 import volition.adv_of_mark.location.tile.Tile;
 import volition.adv_of_mark.state.State;
 import volition.adv_of_mark.state.StateManager;
-import volition.adv_of_mark.state.menu.impl.MainMenu;
 import volition.adv_of_mark.state.menu.ingamemenu.battle.BattleMainMenu;
 import volition.adv_of_mark.state.menu.ingamemenu.battle.BattleMenu;
+import volition.adv_of_mark.state.menu.impl.DeathMenu;
 import volition.adv_of_mark.util.FontManager;
 import volition.adv_of_mark.util.GameManager;
 import volition.adv_of_mark.util.ObjectManager;
@@ -131,7 +131,7 @@ public class BattleState implements State {
     public void switchTurns(){
         //checks to see if any entities are dead
         if (player.getTolerance() <= 0)
-            StateManager.setCurrentState(new MainMenu());
+            StateManager.setCurrentState(new DeathMenu());
         else {
             boolean isDone = true;
             for (Entity e : enemies)

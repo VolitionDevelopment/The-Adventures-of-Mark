@@ -58,7 +58,7 @@ public abstract class Entity extends MapObject {
         levelUp();
     }
 
-    public void useMove(int index, Entity target){
+    public void useMove(int index, Entity target) {
         if (index < moves.size())
             moves.get(index).onCast(this, target);
     }
@@ -79,15 +79,15 @@ public abstract class Entity extends MapObject {
         return brainpower;
     }
 
-    public int getArmor(){
+    public int getArmor() {
         return armor;
     }
 
-    public int getWepDamage(){
+    public int getWepDamage() {
         return wepDamage;
     }
 
-    public String getSpeech(){
+    public String getSpeech() {
         return speech;
     }
 
@@ -95,47 +95,47 @@ public abstract class Entity extends MapObject {
         return baseSpeed;
     }
 
-    public boolean isMoving(){
+    public boolean isMoving() {
         return goingUp || goingDown || goingLeft || goingRight;
     }
 
-    public boolean isGoingRight(){
+    public boolean isGoingRight() {
         return goingRight;
     }
 
-    public boolean isGoingLeft(){
+    public boolean isGoingLeft() {
         return goingLeft;
     }
 
-    public boolean isGoingUp(){
+    public boolean isGoingUp() {
         return goingUp;
     }
 
-    public boolean isGoingDown(){
+    public boolean isGoingDown() {
         return goingDown;
     }
 
-    public boolean isFacingUp(){
+    public boolean isFacingUp() {
         return dir == 0;
     }
 
-    public boolean isFacingDown(){
+    public boolean isFacingDown() {
         return dir == 1;
     }
 
-    public boolean isFacingRight(){
+    public boolean isFacingRight() {
         return dir == 2;
     }
 
-    public boolean isFacingLeft(){
+    public boolean isFacingLeft() {
         return dir == 3;
     }
 
-    public BufferedImage getImage(){
+    public BufferedImage getImage() {
         return animator.getCurrentImage();
     }
 
-    public Animator getAnimator(){
+    public Animator getAnimator() {
         return animator;
     }
 
@@ -143,7 +143,7 @@ public abstract class Entity extends MapObject {
         return moves;
     }
 
-    public boolean isDead(){
+    public boolean isDead() {
         return tolerance <= 0;
     }
 
@@ -152,7 +152,7 @@ public abstract class Entity extends MapObject {
         this.baseTolerance = baseTolerance;
     }
 
-    public void modBaseTolerance(int health){
+    public void modBaseTolerance(int health) {
         this.baseTolerance += health;
     }
 
@@ -160,7 +160,7 @@ public abstract class Entity extends MapObject {
         this.tolerance = tolerance;
     }
 
-    public void modTolerance(int health){
+    public void modTolerance(int health) {
         this.tolerance += health;
         if (tolerance > baseTolerance)
             tolerance = baseTolerance;
@@ -170,7 +170,7 @@ public abstract class Entity extends MapObject {
         this.baseBrainpower = baseBrainpower;
     }
 
-    public void modBaseBrainpower(int mana){
+    public void modBaseBrainpower(int mana) {
         this.baseBrainpower += mana;
     }
 
@@ -178,21 +178,21 @@ public abstract class Entity extends MapObject {
         this.brainpower = brainpower;
     }
 
-    public void modBrainpower(int mana){
+    public void modBrainpower(int mana) {
         this.brainpower += mana;
         if (brainpower > baseBrainpower)
             brainpower = baseBrainpower;
     }
 
-    public void setArmor(int armor){
+    public void setArmor(int armor) {
         this.armor = armor;
     }
 
-    public void setWepDamage(int wepDamage){
+    public void setWepDamage(int wepDamage) {
         this.wepDamage = wepDamage;
     }
 
-    public void setSpeech(String speech){
+    public void setSpeech(String speech) {
         this.speech = speech;
     }
 
@@ -216,7 +216,7 @@ public abstract class Entity extends MapObject {
         this.goingDown = goingDown;
     }
 
-    public void setAnimator(Animator animator){
+    public void setAnimator(Animator animator) {
         if (this.animator != animator) {
             if (this.animator != null)
                 this.animator.reset();
@@ -224,18 +224,18 @@ public abstract class Entity extends MapObject {
         }
     }
 
-    public void addMove(Move move){
+    public void addMove(Move move) {
         this.moves.add(move);
     }
 
-    public void stopMoving(){
+    public void stopMoving() {
         goingDown = false;
         goingUp = false;
         goingLeft = false;
         goingRight = false;
     }
 
-    public void takeDamage(int damage){
+    public void takeDamage(int damage) {
         damage -= armor;
         if (damage < 0)
             damage = 0;
@@ -243,12 +243,12 @@ public abstract class Entity extends MapObject {
         this.tolerance -= damage;
     }
 
-    public void levelUp(){
+    public void levelUp() {
         setTolerance(getBaseTolerance());
         setBrainpower(getBaseBrainpower());
     }
 
-    public void update(double delta){
+    public void update(double delta) {
         animator.update(delta);
 
         if (goingUp)
@@ -265,7 +265,7 @@ public abstract class Entity extends MapObject {
 
     public abstract Animator getBattleAnimator();
 
-    public void render(Graphics2D g){
+    public void render(Graphics2D g) {
 
         Location location = GameManager.getInstance().getGameState().getCurrentLocation();
 
@@ -283,11 +283,11 @@ public abstract class Entity extends MapObject {
 
     }
 
-    public void render(Graphics2D g, int x, int y){
+    public void render(Graphics2D g, int x, int y) {
         g.drawImage(animator.getCurrentImage(), x, y, null);
     }
 
-    public void render(Graphics2D g, int x, int y, int width, int height){
+    public void render(Graphics2D g, int x, int y, int width, int height) {
         g.drawImage(animator.getCurrentImage(), x, y, width, height, null);
     }
 }

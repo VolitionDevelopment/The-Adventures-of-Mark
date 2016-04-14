@@ -151,9 +151,12 @@ public abstract class Location {
 
         //check if colliding with group of enemies
         for (int i = 0; i < enemyParties.size(); i++) {
+            enemyParties.get(i).update(delta);
             if (enemyParties.get(i).getX() > player.getX() && enemyParties.get(i).getX() < player.getX() + player.getWidth() &&
                     enemyParties.get(i).getY() > player.getY() && enemyParties.get(i).getY() < player.getY() + player.getHeight()) {
 
+                player.stopMoving();
+                enemyParties.get(i).startBattle();
                 BattleManager.startBattle(player, enemyParties.get(i).getMembers(), playerTile.getImage());
 
                 enemyParties.remove(i);

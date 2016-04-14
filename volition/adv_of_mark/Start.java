@@ -1,6 +1,8 @@
 package volition.adv_of_mark;
 
 import volition.adv_of_mark.state.StateManager;
+import volition.adv_of_mark.state.menu.impl.DeathMenu;
+import volition.adv_of_mark.state.menu.impl.MainMenu;
 import volition.adv_of_mark.util.FontManager;
 import volition.adv_of_mark.util.GameManager;
 

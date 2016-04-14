@@ -32,12 +32,20 @@ public class EnemyParty {
         return y;
     }
 
+    public ArrayList<Entity> getMembers(){
+        return members;
+    }
+
     public void addEnemy(){
         members.add(new Fratkid());
     }
 
-    public ArrayList<Entity> getMembers(){
-        return members;
+    public void update(double delta){
+        members.get(0).update(delta);
+    }
+
+    public void startBattle(){
+        members.get(0).getAnimator().reset();
     }
 
     public void render(Graphics g) {

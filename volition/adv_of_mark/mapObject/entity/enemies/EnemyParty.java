@@ -4,6 +4,7 @@ import volition.adv_of_mark.location.Location;
 import volition.adv_of_mark.location.tile.Tile;
 import volition.adv_of_mark.mapObject.entity.Entity;
 import volition.adv_of_mark.util.GameManager;
+import volition.adv_of_mark.util.LocationManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -50,7 +51,7 @@ public class EnemyParty {
 
     public void render(Graphics g) {
 
-        Location location = GameManager.getInstance().getGameState().getCurrentLocation();
+        Location location = LocationManager.getCurrentLocation();
         BufferedImage image = members.get(0).getImage();
 
         g.drawImage(

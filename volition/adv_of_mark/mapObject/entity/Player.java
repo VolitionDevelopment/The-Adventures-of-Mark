@@ -17,6 +17,7 @@ import volition.adv_of_mark.move.impl.BadPun;
 import volition.adv_of_mark.util.Animator;
 import volition.adv_of_mark.util.GameManager;
 import volition.adv_of_mark.util.ImageManager;
+import volition.adv_of_mark.util.LocationManager;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -135,7 +136,7 @@ public class Player extends Entity{
 
             } else {
 
-                Location location = GameManager.getInstance().getGameState().getCurrentLocation();
+                Location location = LocationManager.getCurrentLocation();
 
                 double speed = delta * getBaseSpeed();
 
@@ -194,7 +195,7 @@ public class Player extends Entity{
     }
 
     public void inspect(){
-        GameManager.getInstance().getGameState().getCurrentLocation().inspect();
+        LocationManager.getCurrentLocation().inspect();
     }
 
     public void setInBattle(boolean isInBattle){

@@ -7,6 +7,7 @@ import volition.adv_of_mark.mapObject.ObjectEvent;
 import volition.adv_of_mark.move.Move;
 import volition.adv_of_mark.util.Animator;
 import volition.adv_of_mark.util.GameManager;
+import volition.adv_of_mark.util.LocationManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -267,7 +268,7 @@ public abstract class Entity extends MapObject {
 
     public void render(Graphics2D g) {
 
-        Location location = GameManager.getInstance().getGameState().getCurrentLocation();
+        Location location = LocationManager.getCurrentLocation();
 
         g.drawImage(
                 animator.getCurrentImage(),

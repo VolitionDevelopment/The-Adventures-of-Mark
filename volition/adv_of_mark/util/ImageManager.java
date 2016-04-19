@@ -83,7 +83,7 @@ public class ImageManager {
 
         for (int i = 0; i < surroundingLocationImages.length; i++)
             for (int j = 0; j < surroundingLocationImages[i].length; j++)
-                if (surroundingLocationImages[i][j] != null)
+                if (surroundingLocationImages[i][j] != null && surroundingLocations[i][j].hasEntered())
                     g.drawImage(
                             surroundingLocationImages[i][j],
                             (3 * (15 * Tile.TILE_SIZE) / 2) // centers the map

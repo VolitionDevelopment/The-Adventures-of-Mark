@@ -7,6 +7,7 @@ import volition.adv_of_mark.state.State;
 import volition.adv_of_mark.state.menu.ingamemenu.InGameMenu;
 import volition.adv_of_mark.state.menu.ingamemenu.game.PauseMenu;
 import volition.adv_of_mark.util.GameManager;
+import volition.adv_of_mark.util.LocationManager;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -17,43 +18,18 @@ import java.awt.event.KeyEvent;
 public class GameState implements State {
 
     private Player player;
-    private Location[][] map;
-    private int loc_x, loc_y;
     private InGameMenu inGameMenu;
 
     public GameState() {
         player = new Player(7 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE);
-
-        loc_x = loc_y = 5;
     }
 
     public Player getPlayer(){
         return player;
     }
 
-    public Location getLocationFromMap(int x, int y){
-        return map[y][x];
-    }
-
-    public Location getCurrentLocation(){
-        return map[loc_y][loc_x];
-    }
-
     public void setInGameMenu(InGameMenu inGameMenu){
         this.inGameMenu = inGameMenu;
-    }
-
-    public void setLocation(int x, int y){
-        loc_x = x;
-        loc_y = y;
-    }
-
-    // resets map as well
-    public void setMap(Location[][] map){
-        this.map = map;
-
-        loc_y = 5;
-        loc_x = 5;
     }
 
     @Override
@@ -65,7 +41,7 @@ public class GameState implements State {
         if (inGameMenu == null) {
 
             player.update(delta);
-            map[loc_y][loc_x].update(delta);
+            LocationManager.getCurrentLocation().update(delta);
 
         } else
             inGameMenu.update();
@@ -75,7 +51,7 @@ public class GameState implements State {
     @Override
     public void render(Graphics2D g) {
 
-        GameManager.getInstance().getGameState().getCurrentLocation().render(g);
+        LocationManager.getCurrentLocation().render(g);
 
         if (inGameMenu != null)
             inGameMenu.render(g);

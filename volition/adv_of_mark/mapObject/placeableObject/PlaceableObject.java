@@ -9,6 +9,7 @@ import volition.adv_of_mark.mapObject.entity.enemies.Fratkid;
 import volition.adv_of_mark.mapObject.entity.enemies.Stoner;
 import volition.adv_of_mark.location.tile.Tile;
 import volition.adv_of_mark.util.GameManager;
+import volition.adv_of_mark.util.LocationManager;
 import volition.adv_of_mark.util.ObjectManager;
 
 import java.awt.*;
@@ -47,7 +48,7 @@ public abstract class PlaceableObject extends MapObject{
     public void render(Graphics2D g){
 
         if (image != null) {
-            Location location = GameManager.getInstance().getGameState().getCurrentLocation();
+            Location location = LocationManager.getCurrentLocation();
 
             g.drawImage(
                     image,

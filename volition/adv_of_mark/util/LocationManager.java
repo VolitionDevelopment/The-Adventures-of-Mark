@@ -15,6 +15,31 @@ public class LocationManager {
 
     public static final int APARTMENT = 0;
 
+    private static Location[][] map;
+    private static int loc_x, loc_y;
+
+    public static Location getCurrentLocation(){
+        return map[loc_y][loc_x];
+    }
+
+    public static Location getLocationFromMap(int x, int y) {
+        if (x < map[0].length && x > -1 && y < map.length && y > -1)
+            return map[y][x];
+        return null;
+    }
+
+    public static void setMap(Location[][] map1) {
+        map = map1;
+
+        loc_x = 5;
+        loc_y = 5;
+    }
+
+    public static void setLocation(int x, int y){
+        loc_x = x;
+        loc_y = y;
+    }
+
     public static Location[][] loadDungeon(int dungeonType){
 
         Location[][] map = null;
@@ -95,17 +120,17 @@ public class LocationManager {
 
         Location[][] surroundingLocations = new Location[3][3];
 
-        surroundingLocations[0][0] = gs.getLocationFromMap(location.getX() - 1, location.getY() - 1);
-        surroundingLocations[0][1] = gs.getLocationFromMap(location.getX(), location.getY() - 1);
-        surroundingLocations[0][2] = gs.getLocationFromMap(location.getX() + 1, location.getY() - 1);
+        surroundingLocations[0][0] = getLocationFromMap(location.getX() - 1, location.getY() - 1);
+        surroundingLocations[0][1] = getLocationFromMap(location.getX(), location.getY() - 1);
+        surroundingLocations[0][2] = getLocationFromMap(location.getX() + 1, location.getY() - 1);
 
-        surroundingLocations[1][0] = gs.getLocationFromMap(location.getX() - 1, location.getY());
-        surroundingLocations[1][1] = location;
-        surroundingLocations[1][2] = gs.getLocationFromMap(location.getX() + 1, location.getY());
+        surroundingLocations[1][0] = getLocationFromMap(location.getX() - 1, location.getY());
+        surroundingLocations[1][1] = getCurrentLocation();
+        surroundingLocations[1][2] = getLocationFromMap(location.getX() + 1, location.getY());
 
-        surroundingLocations[2][0] = gs.getLocationFromMap(location.getX() - 1, location.getY() + 1);
-        surroundingLocations[2][1] = gs.getLocationFromMap(location.getX(), location.getY() + 1);
-        surroundingLocations[2][2] = gs.getLocationFromMap(location.getX() + 1, location.getY() + 1);
+        surroundingLocations[2][0] = getLocationFromMap(location.getX() - 1, location.getY() + 1);
+        surroundingLocations[2][1] = getLocationFromMap(location.getX(), location.getY() + 1);
+        surroundingLocations[2][2] = getLocationFromMap(location.getX() + 1, location.getY() + 1);
 
         return surroundingLocations;
 

@@ -25,6 +25,7 @@ import java.util.Random;
 public abstract class Location {
 
     private String name;
+    private boolean hasEntered;
     private int x, y;
     private ArrayList<PlaceableObject> placeableObjects;
     private ArrayList<MapObject> perspectiveList;
@@ -79,6 +80,10 @@ public abstract class Location {
 
     public int getY(){
         return y;
+    }
+
+    public boolean hasEntered(){
+        return hasEntered;
     }
 
     public BufferedImage getTileImage(){
@@ -212,6 +217,8 @@ public abstract class Location {
     }
 
     public void enterRoom(){
+
+        hasEntered = true;
 
         bgImage = ImageManager.makeBackgroundImage(LocationManager.getSurroundingLocations(this));
 

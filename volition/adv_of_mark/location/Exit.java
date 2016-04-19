@@ -3,6 +3,7 @@ package volition.adv_of_mark.location;
 
 import volition.adv_of_mark.mapObject.entity.Player;
 import volition.adv_of_mark.util.GameManager;
+import volition.adv_of_mark.util.LocationManager;
 
 public class Exit {
     // Numerical codes
@@ -25,16 +26,16 @@ public class Exit {
     }
 
     public void enter(Player player){
-        GameManager.getInstance().getGameState().setLocation(newLocX, newLocY);
+        LocationManager.setLocation(newLocX, newLocY);
 
         player.setX(newx);
         player.setY(newy);
 
-        GameManager.getInstance().getGameState().getCurrentLocation().enterRoom();
+        LocationManager.getCurrentLocation().enterRoom();
     }
 
     public Location getLeadsTo(){
-        return GameManager.getInstance().getGameState().getLocationFromMap(newLocX, newLocY);
+        return LocationManager.getLocationFromMap(newLocX, newLocY);
     }
 
     public void setX(double x) {

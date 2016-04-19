@@ -4,6 +4,7 @@ import volition.adv_of_mark.location.Exit;
 import volition.adv_of_mark.location.Location;
 import volition.adv_of_mark.location.impl.ApartmentRoom;
 import volition.adv_of_mark.location.tile.Tile;
+import volition.adv_of_mark.state.game.GameState;
 
 import java.util.Random;
 
@@ -49,6 +50,7 @@ public class LocationManager {
     private static Location[][] loadApartmentLocation(){
 
         Location[][] map = new Location[10][10];
+
         int numRooms = 10;
 
         Random rand = new Random();
@@ -57,7 +59,7 @@ public class LocationManager {
         int x = 5, y = 5;
         while (i < numRooms) {
 
-            map[y][x] = new ApartmentRoom();
+            map[y][x] = new ApartmentRoom(x, y);
 
             int r;
             while (map[y][x] != null) {
@@ -84,6 +86,28 @@ public class LocationManager {
         }
 
         return map;
+
+    }
+
+    public static Location[][] getSurroundingLocations(Location location) {
+
+        GameState gs = GameManager.getInstance().getGameState();
+
+        Location[][] surroundingLocations = new Location[3][3];
+
+        surroundingLocations[0][0] = gs.getLocationFromMap(location.getX() - 1, location.getY() - 1);
+        surroundingLocations[0][1] = gs.getLocationFromMap(location.getX(), location.getY() - 1);
+        surroundingLocations[0][2] = gs.getLocationFromMap(location.getX() + 1, location.getY() - 1);
+
+        surroundingLocations[1][0] = gs.getLocationFromMap(location.getX() - 1, location.getY());
+        surroundingLocations[1][1] = location;
+        surroundingLocations[1][2] = gs.getLocationFromMap(location.getX() + 1, location.getY());
+
+        surroundingLocations[2][0] = gs.getLocationFromMap(location.getX() - 1, location.getY() + 1);
+        surroundingLocations[2][1] = gs.getLocationFromMap(location.getX(), location.getY() + 1);
+        surroundingLocations[2][2] = gs.getLocationFromMap(location.getX() + 1, location.getY() + 1);
+
+        return surroundingLocations;
 
     }
 

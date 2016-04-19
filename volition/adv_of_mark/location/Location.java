@@ -9,11 +9,9 @@ import volition.adv_of_mark.mapObject.entity.Entity;
 import volition.adv_of_mark.mapObject.entity.Player;
 import volition.adv_of_mark.mapObject.entity.enemies.EnemyParty;
 import volition.adv_of_mark.mapObject.placeableObject.PlaceableObject;
+import volition.adv_of_mark.state.game.GameState;
 import volition.adv_of_mark.state.menu.ingamemenu.game.LoadMenu;
-import volition.adv_of_mark.util.BattleManager;
-import volition.adv_of_mark.util.GameManager;
-import volition.adv_of_mark.util.ImageManager;
-import volition.adv_of_mark.util.ObjectManager;
+import volition.adv_of_mark.util.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -27,10 +25,11 @@ import java.util.Random;
 public abstract class Location {
 
     private String name;
+    private int x, y;
     private ArrayList<PlaceableObject> placeableObjects;
     private ArrayList<MapObject> perspectiveList;
     private Tile[][] tilemap;
-    private BufferedImage bgImage;
+    private BufferedImage tileImage, bgImage;
     private double bg_x, bg_y, bg_horizOffset, bg_vertOffset;
     private ArrayList<Entity> npcs;
     private ArrayList<EnemyParty> enemyParties;
@@ -38,10 +37,13 @@ public abstract class Location {
     private static final int DIST_CONST = 15; //for collision detection
 
 
-    public Location(String name) {
+    public Location(String name, int x, int y) {
         placeableObjects = new ArrayList<>();
         npcs = new ArrayList<>();
         enemyParties = new ArrayList<>();
+
+        this.x = x;
+        this.y = y;
 
         Random rand = new Random();
         if (rand.nextInt(3) > 0) {
@@ -71,16 +73,31 @@ public abstract class Location {
 
     }
 
+    public int getX(){
+        return x;
+    }
+
+    public int getY(){
+        return y;
+    }
+
+    public BufferedImage getTileImage(){
+        if (tileImage == null)
+            tileImage = ImageManager.makeImageFromMap(getTilemap());
+
+        return tileImage;
+    }
+
     public ArrayList<EnemyParty> getEnemyParties(){
         return enemyParties;
     }
 
     public double getBg_horizOffset() {
-        return bg_horizOffset;
+        return bg_horizOffset + tileImage.getWidth();
     }
 
     public double getBg_vertOffset() {
-        return bg_vertOffset;
+        return bg_vertOffset + tileImage.getHeight();
     }
 
     public Tile[][] getTilemap(){
@@ -196,10 +213,10 @@ public abstract class Location {
 
     public void enterRoom(){
 
-        this.bgImage = ImageManager.makeImageFromMap(getTilemap());
+        bgImage = ImageManager.makeBackgroundImage(LocationManager.getSurroundingLocations(this));
 
-        bg_horizOffset = (Window.WINDOW_WIDTH - bgImage.getWidth()) / 2;
-        bg_vertOffset = ((Window.WINDOW_HEIGHT - bgImage.getHeight()) / 2) - Tile.TILE_SIZE / 4;
+        bg_horizOffset = (Window.WINDOW_WIDTH - 3 * tileImage.getWidth()) / 2;
+        bg_vertOffset = ((Window.WINDOW_HEIGHT - 3 * tileImage.getHeight()) / 2) - Tile.TILE_SIZE / 4;
         bg_x = bg_horizOffset;
         bg_y = bg_vertOffset;
 

@@ -10,8 +10,8 @@ import volition.adv_of_mark.util.FileManager;
  */
 public class ApartmentRoom extends Location {
 
-    public ApartmentRoom() {
-        super("Apartment Room");
+    public ApartmentRoom(int x, int y) {
+        super("Apartment Room", x, y);
     }
 
     @Override

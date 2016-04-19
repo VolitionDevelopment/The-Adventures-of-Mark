@@ -141,7 +141,7 @@ public class Player extends Entity{
                 double speed = delta * getBaseSpeed();
 
                 if (isGoingDown()) {
-                    if (location.ableMoveDown()) {
+                    if (location.ableMoveDown() && location.ableMoveRight()) {
 
                         setX(getX() + speed);
                         setY(getY() + speed);
@@ -152,7 +152,7 @@ public class Player extends Entity{
                         setAnimator(idleDown);
 
                 } else if (isGoingUp()) {
-                    if (location.ableMoveUp()){
+                    if (location.ableMoveUp() && location.ableMoveLeft()){
 
                         setX(getX() - speed);
                         setY(getY() - speed);
@@ -166,7 +166,7 @@ public class Player extends Entity{
 
                 //up/down animations have priority over left/right
                 if (isGoingLeft()) {
-                    if (location.ableMoveLeft()){
+                    if (location.ableMoveDown() && location.ableMoveLeft()){
 
                         setX(getX() - speed);
                         setY(getY() + speed);
@@ -178,7 +178,7 @@ public class Player extends Entity{
                         setAnimator(idleLeft);
 
                 } else if (isGoingRight()) {
-                    if (location.ableMoveRight()){
+                    if (location.ableMoveUp() && location.ableMoveRight()){
 
                         setX(getX() + speed);
                         setY(getY() - speed);

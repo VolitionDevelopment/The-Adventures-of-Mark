@@ -54,13 +54,20 @@ public class LocationManager {
                 for (int j = 0; j < map[i].length; j++) {
                     if (map[i][j] != null) {
                         if (i > 0 && map[i - 1][j] != null) // north
-                            map[i][j].addExit(new Exit(7 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, j, i - 1, 7 * Tile.TILE_SIZE, 12 * Tile.TILE_SIZE, true));
+                            for (int k = 1; k < 14; k++)
+                                map[i][j].addExit(new Exit(k * Tile.TILE_SIZE, 0, Tile.TILE_SIZE, Tile.TILE_SIZE, j, i - 1, k * Tile.TILE_SIZE, 13 * Tile.TILE_SIZE, true));
+
                         if (j > 0 && map[i][j - 1] != null) // west
-                            map[i][j].addExit(new Exit(Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, j - 1, i, 12 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, true));
+                            for (int k = 1; k < 14; k++)
+                                map[i][j].addExit(new Exit(0, k * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, j - 1, i, 13 * Tile.TILE_SIZE, k * Tile.TILE_SIZE, true));
+
                         if (i < map.length - 1 && map[i + 1][j] != null) // south
-                            map[i][j].addExit(new Exit(7 * Tile.TILE_SIZE, 13 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, j, i + 1, 7 * Tile.TILE_SIZE, 2 * Tile.TILE_SIZE, true));
+                            for (int k = 1; k < 14; k++)
+                                map[i][j].addExit(new Exit(k * Tile.TILE_SIZE, 14 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, j, i + 1, k * Tile.TILE_SIZE, Tile.TILE_SIZE, true));
+
                         if (j < map[i].length - 1 && map[i][j + 1] != null) // east
-                            map[i][j].addExit(new Exit(13 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, j + 1, i, 2 * Tile.TILE_SIZE, 7 * Tile.TILE_SIZE, true));
+                            for (int k = 1; k < 14; k++)
+                                map[i][j].addExit(new Exit(14 * Tile.TILE_SIZE, k * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, j + 1, i, Tile.TILE_SIZE, k * Tile.TILE_SIZE, true));
                     }
                 }
             }
@@ -115,8 +122,6 @@ public class LocationManager {
     }
 
     public static Location[][] getSurroundingLocations(Location location) {
-
-        GameState gs = GameManager.getInstance().getGameState();
 
         Location[][] surroundingLocations = new Location[3][3];
 

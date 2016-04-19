@@ -31,15 +31,19 @@ public class TileManager {
 
         properties.put(0, null);
 
+        // wood
         properties.put(1, new TileProperty(false, im.loadImage("/volition/adv_of_mark/assets/image/tiles/woodfloor.png")));
         properties.put(2, new TileProperty(true, im.loadImage("/volition/adv_of_mark/assets/image/tiles/woodwall.png")));
 
+        // brick
         properties.put(3, new TileProperty(false, im.loadImage("/volition/adv_of_mark/assets/image/tiles/brickfloor.png")));
         properties.put(4, new TileProperty(true, im.loadImage("/volition/adv_of_mark/assets/image/tiles/brickwall.png")));
 
+        // grass
         properties.put(5, new TileProperty(false, im.loadImage("/volition/adv_of_mark/assets/image/tiles/grassfloor.png")));
         properties.put(6, new TileProperty(true, im.loadImage("/volition/adv_of_mark/assets/image/tiles/grasswall.png")));
 
+        // street
         properties.put(7, new TileProperty(false, im.loadImage("/volition/adv_of_mark/assets/image/tiles/streetfloor.png")));
 
     }

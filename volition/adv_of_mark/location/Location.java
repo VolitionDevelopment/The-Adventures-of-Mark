@@ -275,7 +275,8 @@ public abstract class Location {
     public boolean ableMoveUp(){
         Player player = GameManager.getInstance().getGameState().getPlayer();
 
-        if (tilemap[(int) (player.getY() / Tile.TILE_SIZE)][(int) (player.getX() + DIST_CONST) / Tile.TILE_SIZE].isSolid() ||
+        if (player.getY() / Tile.TILE_SIZE < 0.25 ||
+                tilemap[(int) (player.getY() / Tile.TILE_SIZE)][(int) (player.getX() + DIST_CONST) / Tile.TILE_SIZE].isSolid() ||
                 tilemap[(int) (player.getY() / Tile.TILE_SIZE)][(int) ((player.getX() + player.getWidth() - DIST_CONST) / Tile.TILE_SIZE)].isSolid())
             return false;
 
@@ -285,7 +286,8 @@ public abstract class Location {
     public boolean ableMoveDown(){
         Player player = GameManager.getInstance().getGameState().getPlayer();
 
-        if (tilemap[(int) ((player.getY() + player.getHeight()) / Tile.TILE_SIZE)][(int) ((player.getX() + DIST_CONST) / Tile.TILE_SIZE)].isSolid() ||
+        if ((int) (player.getY() / Tile.TILE_SIZE) == tilemap.length - 1 ||
+                tilemap[(int) ((player.getY() + player.getHeight()) / Tile.TILE_SIZE)][(int) ((player.getX() + DIST_CONST) / Tile.TILE_SIZE)].isSolid() ||
                 tilemap[(int) ((player.getY() + player.getHeight()) / Tile.TILE_SIZE)][(int) ((player.getX() + player.getWidth() - DIST_CONST) / Tile.TILE_SIZE)].isSolid())
             return false;
 
@@ -295,7 +297,8 @@ public abstract class Location {
     public boolean ableMoveLeft(){
         Player player = GameManager.getInstance().getGameState().getPlayer();
 
-        if (tilemap[(int) ((player.getY() + DIST_CONST) / Tile.TILE_SIZE)][(int) (player.getX() / Tile.TILE_SIZE)].isSolid() ||
+        if (player.getX() / Tile.TILE_SIZE < 0.25 ||
+                tilemap[(int) ((player.getY() + DIST_CONST) / Tile.TILE_SIZE)][(int) (player.getX() / Tile.TILE_SIZE)].isSolid() ||
                 tilemap[(int) ((player.getY() + player.getHeight() - DIST_CONST) / Tile.TILE_SIZE)][(int) (player.getX() / Tile.TILE_SIZE)].isSolid())
             return false;
 
@@ -305,7 +308,8 @@ public abstract class Location {
     public boolean ableMoveRight(){
         Player player = GameManager.getInstance().getGameState().getPlayer();
 
-        if (tilemap[(int) (player.getY() / Tile.TILE_SIZE)][(int) ((player.getX() + player.getWidth()) / Tile.TILE_SIZE)].isSolid() ||
+        if ((int) (player.getX() / Tile.TILE_SIZE) == tilemap[0].length - 1 ||
+                tilemap[(int) (player.getY() / Tile.TILE_SIZE)][(int) ((player.getX() + player.getWidth()) / Tile.TILE_SIZE)].isSolid() ||
                 tilemap[(int) ((player.getY() + player.getHeight() - DIST_CONST) / Tile.TILE_SIZE)][(int) ((player.getX() + player.getWidth()) / Tile.TILE_SIZE)].isSolid())
             return false;
 

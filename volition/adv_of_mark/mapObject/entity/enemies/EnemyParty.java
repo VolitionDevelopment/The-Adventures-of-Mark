@@ -38,7 +38,7 @@ public class EnemyParty {
     }
 
     public void addEnemy(){
-        members.add(new Fratkid());
+        members.add(new Chili());
     }
 
     public void update(double delta){

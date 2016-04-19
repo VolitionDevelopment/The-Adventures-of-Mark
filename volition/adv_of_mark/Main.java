@@ -49,8 +49,11 @@ public class Main extends JPanel{
 
     public void loop(){
 
-        float deltaTime = System.currentTimeMillis() - oldTime;
-        oldTime = System.currentTimeMillis();
+        long newTime = System.currentTimeMillis();
+
+        float deltaTime = newTime - oldTime;
+
+        oldTime = newTime;
 
         if (deltaTime > 0.02f) //frame cap
             deltaTime = 0.02f;

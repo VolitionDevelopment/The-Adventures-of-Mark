@@ -16,6 +16,6 @@ public class ApartmentRoom extends Location {
 
     @Override
     public void loadMap() {
-        setTilemap(FileManager.getInstance().loadMapFromText("/volition/adv_of_mark/assets/maps/test.txt"));
+        setTilemap(FileManager.getInstance().loadMapFromText("/volition/adv_of_mark/assets/maps/test_grass.txt"));
     }
 }

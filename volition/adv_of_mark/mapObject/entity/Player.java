@@ -37,7 +37,7 @@ public class Player extends Entity{
     private HashMap<ItemSlot, Item> equippedItems;
     private Animator walkRight, walkLeft, walkUp, walkDown;
     private Animator idleRight, idleLeft, idleUp, idleDown;
-    private boolean isInBattle;
+    private boolean ableMove;
 
     public Player(int x, int y) {
         super("Mark", "Mark is a man fresh out of college. He won 'Frattiest Bro' at his frat house, Theta Xi.", ObjectEvent.NONE, 20, 5, 10, x, y, Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE);
@@ -122,7 +122,7 @@ public class Player extends Entity{
     public void update(double delta){
         super.update(delta);
 
-        if (!isInBattle) {
+        if (ableMove) {
 
             if (!isMoving()) {
                 if (isFacingLeft())
@@ -198,8 +198,8 @@ public class Player extends Entity{
         LocationManager.getCurrentLocation().inspect();
     }
 
-    public void setInBattle(boolean isInBattle){
-        this.isInBattle = isInBattle;
+    public void setAbleMove(boolean ableMove){
+        this.ableMove = ableMove;
     }
 
     public String[] getMoves_strarr(){

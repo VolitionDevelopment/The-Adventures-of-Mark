@@ -36,7 +36,7 @@ public abstract class Location {
     private ArrayList<EnemyParty> enemyParties;
 
     private boolean isTransitioning;
-    private int deltax, deltay;
+    private int[] transLoc;
     private Exit toExit;
     private double transitionX, transitionY;
 
@@ -168,18 +168,23 @@ public abstract class Location {
 
         if (isTransitioning) {
 
-            bg_x += delta * deltax / 8;
-            bg_y += delta * deltay / 16;
-            
+            int animSpeed = 16;
+
+            bg_x += delta * transLoc[0] / (animSpeed);
+            bg_y += delta * transLoc[1] / (animSpeed * 2);
+
+            player.setX(player.getX() + delta * transLoc[2] / (animSpeed / 2));
+            player.setY(player.getY() + delta * transLoc[3] / (animSpeed / 2));
+
+            //end of transition
             if (Math.sqrt(Math.pow(transitionX - bg_x, 2) + Math.pow(transitionY - bg_y, 2)) <= 215) {
                 isTransitioning = false;
                 transitionX = 0;
                 transitionY = 0;
 
+                //GameManager.getInstance().getGameState().setInGameMenu(new LoadMenu());
                 toExit.enter(player);
             }
-
-            Main.getInstance().repaint();
 
         } else {
 
@@ -189,18 +194,15 @@ public abstract class Location {
             Exit exit = playerTile.getExit();
             if (exit != null && (enemyParties.size() == 0 || exit.getLeadsTo().getEnemyParties().size() == 0)) {
 
-                player.stopMoving();
+                // start transition
+                player.setAbleMove(false);
 
-                //GameManager.getInstance().getGameState().setInGameMenu(new LoadMenu());
                 Main.getInstance().repaint();
 
+                transLoc = LocationManager.enterNewArea(exit.getLeadsTo().getX(), exit.getLeadsTo().getY());
 
-                int[] d = LocationManager.enterNewArea(exit.getLeadsTo().getX(), exit.getLeadsTo().getY());
-                deltax = d[0];
-                deltay = d[1];
-
-                transitionX = bg_x + d[0];
-                transitionY = bg_y + d[1];
+                transitionX = bg_x + transLoc[0];
+                transitionY = bg_y + transLoc[1];
 
                 isTransitioning = true;
                 toExit = exit;
@@ -254,18 +256,21 @@ public abstract class Location {
 
     public void enterRoom(){
 
+        // must have been in room to see it (surrounding locations)
         hasEntered = true;
 
-        bgImage = ImageManager.makeBackgroundImage(LocationManager.getSurroundingLocations(this));
+        GameManager.getInstance().getGameState().getPlayer().setAbleMove(true);
 
-        bg_horizOffset = (Window.WINDOW_WIDTH - 3 * tileImage.getWidth()) / 2;
-        bg_vertOffset = ((Window.WINDOW_HEIGHT - 3 * tileImage.getHeight()) / 2) - Tile.TILE_SIZE / 4;
+        bg_horizOffset = (Window.WINDOW_WIDTH - 3 * getTileImage().getWidth()) / 2;
+        bg_vertOffset = ((Window.WINDOW_HEIGHT - 3 * getTileImage().getHeight()) / 2) - Tile.TILE_SIZE / 4;
         bg_x = bg_horizOffset;
         bg_y = bg_vertOffset;
 
-        //exit loading screen
-        GameManager.getInstance().getGameState().setInGameMenu(null);
+        bgImage = ImageManager.makeBackgroundImage(LocationManager.getSurroundingLocations(this));
 
+        // exit loading screen
+        GameManager.getInstance().getGameState().setInGameMenu(null);
+        
     }
 
     public void inspect(){

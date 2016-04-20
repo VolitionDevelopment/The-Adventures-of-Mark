@@ -19,7 +19,7 @@ public class BattleMainMenu extends BattleMenu {
         else if (currentIndex == 1)
             setSubMenu(new ItemMenu(this));
         else {
-            getBattleState().getPlayer().setInBattle(false);
+            getBattleState().getPlayer().setAbleMove(true);
             StateManager.setCurrentState(GameManager.getInstance().getGameState());
         }
     }

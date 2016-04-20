@@ -77,7 +77,7 @@ public class BattleState implements State {
 
     public void setPlayer(Player player){
         this.player = player;
-        player.setInBattle(true);
+        player.setAbleMove(false);
         player.setAnimator(player.getBattleAnimator());
     }
 
@@ -161,7 +161,7 @@ public class BattleState implements State {
             player.modMoney(random.nextInt(30) + 20);
         }
 
-        player.setInBattle(false);
+        player.setAbleMove(true);
         StateManager.setCurrentState(GameManager.getInstance().getGameState());
     }
 

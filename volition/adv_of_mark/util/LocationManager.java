@@ -141,6 +141,29 @@ public class LocationManager {
 
     }
 
+    public static int[] enterNewArea(int newLoc_x, int newLoc_y) {
+
+        int deltaX = 0;
+        int deltaY = 0;
+
+        if (newLoc_x == loc_x - 1) {
+            deltaX = + 15 * Tile.TILE_SIZE / 2;
+            deltaY = + 15 * Tile.TILE_SIZE / 2;
+        } else if (newLoc_x == loc_x + 1) {
+            deltaX = - 15 * Tile.TILE_SIZE / 2;
+            deltaY = - 15 * Tile.TILE_SIZE / 2;
+        } else if (newLoc_y == loc_y - 1) {
+            deltaX = - 15 * Tile.TILE_SIZE / 2;
+            deltaY = + 15 * Tile.TILE_SIZE / 2;
+        } else {
+            deltaX = + 15 * Tile.TILE_SIZE / 2;
+            deltaY = - 15 * Tile.TILE_SIZE / 2;
+        }
+
+        return new int[] {deltaX, deltaY};
+
+    }
+
     private static void printDungeon(Location[][] map){
 
         for (int n = 0; n < map.length; n++) {

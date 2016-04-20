@@ -35,6 +35,11 @@ public abstract class Location {
     private ArrayList<Entity> npcs;
     private ArrayList<EnemyParty> enemyParties;
 
+    private boolean isTransitioning;
+    private int deltax, deltay;
+    private Exit toExit;
+    private double transitionX, transitionY;
+
     private static final int DIST_CONST = 15; //for collision detection
 
 
@@ -45,6 +50,8 @@ public abstract class Location {
 
         this.x = x;
         this.y = y;
+
+        /* ENEMY PARTIES
 
         Random rand = new Random();
         if (rand.nextInt(3) > 0) {
@@ -62,6 +69,8 @@ public abstract class Location {
 
             }
         }
+
+        */
 
         perspectiveList = new ArrayList<>();
 
@@ -157,42 +166,69 @@ public abstract class Location {
 
         Player player = GameManager.getInstance().getGameState().getPlayer();
 
-        Tile playerTile = tilemap[((int) player.getY() + player.getHeight() / 2) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth() / 2) / Tile.TILE_SIZE];
+        if (isTransitioning) {
 
-        //check if at exit
-        Exit exit = playerTile.getExit();
-        if (exit != null && (enemyParties.size() == 0 || exit.getLeadsTo().getEnemyParties().size() == 0)) {
+            bg_x += delta * deltax / 8;
+            bg_y += delta * deltay / 16;
+            
+            if (Math.sqrt(Math.pow(transitionX - bg_x, 2) + Math.pow(transitionY - bg_y, 2)) <= 215) {
+                isTransitioning = false;
+                transitionX = 0;
+                transitionY = 0;
 
-            player.stopMoving();
+                toExit.enter(player);
+            }
 
-            GameManager.getInstance().getGameState().setInGameMenu(new LoadMenu());
             Main.getInstance().repaint();
 
-            exit.enter(player);
-        }
+        } else {
 
-        //check if colliding with group of enemies
-        for (int i = 0; i < enemyParties.size(); i++) {
-            enemyParties.get(i).update(delta);
-            if (enemyParties.get(i).getX() > player.getX() && enemyParties.get(i).getX() < player.getX() + player.getWidth() &&
-                    enemyParties.get(i).getY() > player.getY() && enemyParties.get(i).getY() < player.getY() + player.getHeight()) {
+            Tile playerTile = tilemap[((int) player.getY() + player.getHeight() / 2) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth() / 2) / Tile.TILE_SIZE];
+
+            //check if at exit
+            Exit exit = playerTile.getExit();
+            if (exit != null && (enemyParties.size() == 0 || exit.getLeadsTo().getEnemyParties().size() == 0)) {
 
                 player.stopMoving();
-                enemyParties.get(i).startBattle();
-                BattleManager.startBattle(player, enemyParties.get(i).getMembers(), playerTile.getImage());
 
-                enemyParties.remove(i);
-                i--;
+                //GameManager.getInstance().getGameState().setInGameMenu(new LoadMenu());
+                Main.getInstance().repaint();
 
+
+                int[] d = LocationManager.enterNewArea(exit.getLeadsTo().getX(), exit.getLeadsTo().getY());
+                deltax = d[0];
+                deltay = d[1];
+
+                transitionX = bg_x + d[0];
+                transitionY = bg_y + d[1];
+
+                isTransitioning = true;
+                toExit = exit;
             }
+
+            //check if colliding with group of enemies
+            for (int i = 0; i < enemyParties.size(); i++) {
+                enemyParties.get(i).update(delta);
+                if (enemyParties.get(i).getX() > player.getX() && enemyParties.get(i).getX() < player.getX() + player.getWidth() &&
+                        enemyParties.get(i).getY() > player.getY() && enemyParties.get(i).getY() < player.getY() + player.getHeight()) {
+
+                    player.stopMoving();
+                    enemyParties.get(i).startBattle();
+                    BattleManager.startBattle(player, enemyParties.get(i).getMembers(), playerTile.getImage());
+
+                    enemyParties.remove(i);
+                    i--;
+
+                }
+            }
+
+            //objects closer to camera need to be displayed on top
+            determinePerspective();
+
+            //update entity animations
+            for (Entity npc : npcs)
+                npc.update(delta);
         }
-
-        //objects closer to camera need to be displayed on top
-        determinePerspective();
-
-        //update entity animations
-        for (Entity npc: npcs)
-            npc.update(delta);
 
     }
 

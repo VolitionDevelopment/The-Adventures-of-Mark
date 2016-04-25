@@ -7,22 +7,17 @@ import volition.adv_of_mark.util.LocationManager;
 
 public class Exit {
     // Numerical codes
-    private boolean active;
     private int newLocX, newLocY;
-    private double x, y, newx, newy;
-    private int width, height;
+    private int x, y, newx, newy;
 
-    public Exit(double x, double y, int width, int height, int newLocX, int newLocY, int newx, int newy, boolean active) {
+    public Exit(int x, int y, int newLocX, int newLocY, int newx, int newy) {
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
         this.newx = newx;
         this.newy = newy;
 
         this.newLocX = newLocX;
         this.newLocY = newLocY;
-        this.active = active;
     }
 
     public void enter(Player player){
@@ -38,36 +33,20 @@ public class Exit {
         return LocationManager.getLocationFromMap(newLocX, newLocY);
     }
 
-    public void setX(double x) {
+    public void setX(int x) {
         this.x = x;
     }
 
-    public void setY(double y) {
+    public void setY(int y) {
         this.y = y;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public double getX() {
+    public int getX() {
         return x;
     }
 
-    public double getY() {
+    public int getY() {
         return y;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 
 }

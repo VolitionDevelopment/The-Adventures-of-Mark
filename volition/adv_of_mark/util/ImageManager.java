@@ -58,6 +58,16 @@ public class ImageManager {
                         (Tile.TILE_SIZE / 4) * j + (Tile.TILE_SIZE / 4) * i, // draws y
                         null
                 );
+
+                // walls get placed one on top of the bottom one (so its actually a wall XD)
+                if (tilemap[i][j].getId() % 2 == 0)
+                    g.drawImage(
+                            tileImage,
+                            (tilemap.length * Tile.TILE_SIZE / 2) // centers the map
+                                    + (Tile.TILE_SIZE / 2) * j - (Tile.TILE_SIZE / 2) * i - Tile.TILE_SIZE / 2, //draws x
+                            (Tile.TILE_SIZE / 4) * j + (Tile.TILE_SIZE / 4) * i - Tile.TILE_SIZE / 2, // draws y
+                            null
+                    );
             }
         }
 
@@ -69,29 +79,30 @@ public class ImageManager {
 
         BufferedImage[][] surroundingLocationImages = new BufferedImage[surroundingLocations.length][surroundingLocations[0].length];
 
+        int size = surroundingLocationImages.length;
+
         for (int i = 0; i < surroundingLocationImages.length; i++)
             for (int j = 0; j < surroundingLocationImages[i].length; j++)
                 if (surroundingLocations[i][j] != null)
                     surroundingLocationImages[i][j] = surroundingLocations[i][j].getTileImage();
 
         BufferedImage bgImage = new BufferedImage(
-                3 * (15 * Tile.TILE_SIZE) / 2 + 3 * (15 * Tile.TILE_SIZE) / 2,
-                3 * (15 * Tile.TILE_SIZE) / 4 + 3 * (15 * Tile.TILE_SIZE) / 4 + (15 * Tile.TILE_SIZE) / 2,
+                size * (15 * Tile.TILE_SIZE) / 2 + size * (15 * Tile.TILE_SIZE) / 2,
+                size * (15 * Tile.TILE_SIZE) / 4 + size * (15 * Tile.TILE_SIZE) / 4 + (15 * Tile.TILE_SIZE) / 2,
                 BufferedImage.TYPE_INT_ARGB
         );
         Graphics g = bgImage.createGraphics();
 
         for (int i = 0; i < surroundingLocationImages.length; i++)
             for (int j = 0; j < surroundingLocationImages[i].length; j++)
-                if (surroundingLocationImages[i][j] != null && surroundingLocations[i][j].hasEntered())
+                if (surroundingLocationImages[i][j] != null) {
                     g.drawImage(
                             surroundingLocationImages[i][j],
-                            (3 * (15 * Tile.TILE_SIZE) / 2) // centers the map
+                            (size * (15 * Tile.TILE_SIZE) / 2) // centers the map
                                     + ((15 * Tile.TILE_SIZE) / 2) * j - ((15 * Tile.TILE_SIZE) / 2) * i - (15 * Tile.TILE_SIZE) / 2, //draws x
                             ((15 * Tile.TILE_SIZE) / 4) * j + ((15 * Tile.TILE_SIZE) / 4) * i + Tile.TILE_SIZE / 2, // draws y
                             null);
-
-        saveImage(bgImage);
+                }
 
         return bgImage;
 

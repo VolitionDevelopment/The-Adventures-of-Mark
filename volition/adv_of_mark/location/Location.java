@@ -9,8 +9,6 @@ import volition.adv_of_mark.mapObject.entity.Entity;
 import volition.adv_of_mark.mapObject.entity.Player;
 import volition.adv_of_mark.mapObject.entity.enemies.EnemyParty;
 import volition.adv_of_mark.mapObject.placeableObject.PlaceableObject;
-import volition.adv_of_mark.state.game.GameState;
-import volition.adv_of_mark.state.menu.ingamemenu.game.LoadMenu;
 import volition.adv_of_mark.util.*;
 
 import java.awt.*;
@@ -25,10 +23,10 @@ import java.util.Random;
 public abstract class Location {
 
     private String name;
-    private boolean hasEntered;
     private int x, y;
     private ArrayList<PlaceableObject> placeableObjects;
     private ArrayList<MapObject> perspectiveList;
+    private int numSurroundingLocations;
     private Tile[][] tilemap;
     private BufferedImage tileImage, bgImage;
     private double bg_x, bg_y, bg_horizOffset, bg_vertOffset;
@@ -36,9 +34,9 @@ public abstract class Location {
     private ArrayList<EnemyParty> enemyParties;
 
     private boolean isTransitioning;
-    private int[] transLoc;
+    private int[] delta;
     private Exit toExit;
-    private double transitionX, transitionY;
+    private double finalTransitionX, finalTransitionY;
 
     private static final int DIST_CONST = 15; //for collision detection
 
@@ -50,8 +48,6 @@ public abstract class Location {
 
         this.x = x;
         this.y = y;
-
-        /* ENEMY PARTIES
 
         Random rand = new Random();
         if (rand.nextInt(3) > 0) {
@@ -69,8 +65,6 @@ public abstract class Location {
 
             }
         }
-
-        */
 
         perspectiveList = new ArrayList<>();
 
@@ -91,8 +85,20 @@ public abstract class Location {
         return y;
     }
 
-    public boolean hasEntered(){
-        return hasEntered;
+    public ArrayList<EnemyParty> getEnemyParties(){
+        return enemyParties;
+    }
+
+    public double getBg_horizOffset() {
+        return bg_horizOffset + 2 * tileImage.getWidth();
+    }
+
+    public double getBg_vertOffset() {
+        return bg_vertOffset + 2 * tileImage.getHeight() - Tile.TILE_SIZE / 4;
+    }
+
+    public Tile[][] getTilemap(){
+        return tilemap;
     }
 
     public BufferedImage getTileImage(){
@@ -102,27 +108,12 @@ public abstract class Location {
         return tileImage;
     }
 
-    public ArrayList<EnemyParty> getEnemyParties(){
-        return enemyParties;
-    }
-
-    public double getBg_horizOffset() {
-        return bg_horizOffset + tileImage.getWidth();
-    }
-
-    public double getBg_vertOffset() {
-        return bg_vertOffset + tileImage.getHeight();
-    }
-
-    public Tile[][] getTilemap(){
-        return tilemap;
+    public void setTilemap(Tile[][] tilemap){
+        this.tilemap = tilemap;
     }
 
     public void addExit(Exit exit){
-        int x = (int) (exit.getX() / Tile.TILE_SIZE);
-        int y = (int) (exit.getY() / Tile.TILE_SIZE);
-
-        tilemap[y][x].setExit(exit);
+        tilemap[exit.getY()][exit.getX()].setExit(exit);
     }
 
     public void addPlaceableObject(PlaceableObject placeableObject){
@@ -158,10 +149,6 @@ public abstract class Location {
         tilemap[(int) y][(int) x].setNpc(npc);
     }
 
-    public void setTilemap(Tile[][] tilemap){
-        this.tilemap = tilemap;
-    }
-
     public void update(double delta){
 
         Player player = GameManager.getInstance().getGameState().getPlayer();
@@ -170,17 +157,22 @@ public abstract class Location {
 
             int animSpeed = 16;
 
-            bg_x += delta * transLoc[0] / (animSpeed);
-            bg_y += delta * transLoc[1] / (animSpeed * 2);
+            bg_x += delta * this.delta[0] / (animSpeed);
+            bg_y += delta * this.delta[1] / (animSpeed * 2);
 
-            player.setX(player.getX() + delta * transLoc[2] / (animSpeed / 2));
-            player.setY(player.getY() + delta * transLoc[3] / (animSpeed / 2));
+            player.setX(player.getX() + delta * this.delta[2] / (animSpeed / 2));
+            player.setY(player.getY() + delta * this.delta[3] / (animSpeed / 2));
+
+            for (EnemyParty party: enemyParties) {
+                party.setRenderx(party.getRenderx() + delta * this.delta[2] / (animSpeed / 2));
+                party.setRendery(party.getRendery() + delta * this.delta[3] / (animSpeed / 2));
+            }
 
             //end of transition
-            if (Math.sqrt(Math.pow(transitionX - bg_x, 2) + Math.pow(transitionY - bg_y, 2)) <= 215) {
+            if (Math.sqrt(Math.pow(finalTransitionX - bg_x, 2) + Math.pow(finalTransitionY - bg_y, 2)) <= 215) {
                 isTransitioning = false;
-                transitionX = 0;
-                transitionY = 0;
+                finalTransitionX = 0;
+                finalTransitionY = 0;
 
                 //GameManager.getInstance().getGameState().setInGameMenu(new LoadMenu());
                 toExit.enter(player);
@@ -192,17 +184,17 @@ public abstract class Location {
 
             //check if at exit
             Exit exit = playerTile.getExit();
-            if (exit != null && (enemyParties.size() == 0 || exit.getLeadsTo().getEnemyParties().size() == 0)) {
+            if (exit != null) {
 
                 // start transition
                 player.setAbleMove(false);
 
                 Main.getInstance().repaint();
 
-                transLoc = LocationManager.enterNewArea(exit.getLeadsTo().getX(), exit.getLeadsTo().getY());
+                this.delta = LocationManager.enterNewArea(exit.getLeadsTo().getX(), exit.getLeadsTo().getY());
 
-                transitionX = bg_x + transLoc[0];
-                transitionY = bg_y + transLoc[1];
+                finalTransitionX = bg_x + this.delta[0];
+                finalTransitionY = bg_y + this.delta[1];
 
                 isTransitioning = true;
                 toExit = exit;
@@ -234,43 +226,32 @@ public abstract class Location {
 
     }
 
-    public void determinePerspective(){
-
-        if (!perspectiveList.contains(GameManager.getInstance().getGameState().getPlayer()))
-            perspectiveList.add(GameManager.getInstance().getGameState().getPlayer());
-
-        //bubble sort
-        for (int i = 1; i < perspectiveList.size(); i++){
-            int j = i;
-            while (j > 0 && perspectiveList.get(j).getX() < perspectiveList.get(j - 1).getX()) {
-
-                MapObject temp = perspectiveList.get(j);
-
-                perspectiveList.set(j, perspectiveList.get(j - 1));
-                perspectiveList.set(j - 1, temp);
-
-                j--;
-            }
-        }
-    }
-
     public void enterRoom(){
-
-        // must have been in room to see it (surrounding locations)
-        hasEntered = true;
 
         GameManager.getInstance().getGameState().getPlayer().setAbleMove(true);
 
-        bg_horizOffset = (Window.WINDOW_WIDTH - 3 * getTileImage().getWidth()) / 2;
-        bg_vertOffset = ((Window.WINDOW_HEIGHT - 3 * getTileImage().getHeight()) / 2) - Tile.TILE_SIZE / 4;
+        bg_horizOffset = (Window.WINDOW_WIDTH - 5 * getTileImage().getWidth()) / 2;
+        bg_vertOffset = ((Window.WINDOW_HEIGHT - 5 * getTileImage().getHeight()) / 2) - Tile.TILE_SIZE / 4;
         bg_x = bg_horizOffset;
         bg_y = bg_vertOffset;
 
-        bgImage = ImageManager.makeBackgroundImage(LocationManager.getSurroundingLocations(this));
+        // reset x and y for parties (map transitions screw everything up)
+        for (EnemyParty party: enemyParties)
+            party.reset();
 
-        // exit loading screen
-        GameManager.getInstance().getGameState().setInGameMenu(null);
-        
+        // decide if should repaint bg or not
+        Location[][] surroundingLocations = LocationManager.getSurroundingLocations(this);
+        int numSurroundingLocations = 0;
+        for (Location[] row : surroundingLocations)
+            for (Location loc : row)
+                if (loc != null)
+                    numSurroundingLocations++;
+
+        if (bgImage == null || this.numSurroundingLocations != numSurroundingLocations) {
+            bgImage = ImageManager.makeBackgroundImage(surroundingLocations);
+            this.numSurroundingLocations = numSurroundingLocations;
+        }
+
     }
 
     public void inspect(){
@@ -311,6 +292,26 @@ public abstract class Location {
 
         }
 
+    }
+
+    public void determinePerspective(){
+
+        if (!perspectiveList.contains(GameManager.getInstance().getGameState().getPlayer()))
+            perspectiveList.add(GameManager.getInstance().getGameState().getPlayer());
+
+        //bubble sort
+        for (int i = 1; i < perspectiveList.size(); i++){
+            int j = i;
+            while (j > 0 && perspectiveList.get(j).getX() < perspectiveList.get(j - 1).getX()) {
+
+                MapObject temp = perspectiveList.get(j);
+
+                perspectiveList.set(j, perspectiveList.get(j - 1));
+                perspectiveList.set(j - 1, temp);
+
+                j--;
+            }
+        }
     }
 
     public boolean ableMoveUp(){

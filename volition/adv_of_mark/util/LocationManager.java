@@ -55,19 +55,19 @@ public class LocationManager {
                     if (map[i][j] != null) {
                         if (i > 0 && map[i - 1][j] != null) // north
                             for (int k = 1; k < 14; k++)
-                                map[i][j].addExit(new Exit(k * Tile.TILE_SIZE, 0, Tile.TILE_SIZE, Tile.TILE_SIZE, j, i - 1, k * Tile.TILE_SIZE, 13 * Tile.TILE_SIZE, true));
+                                map[i][j].addExit(new Exit(k, 0, j, i - 1, k * Tile.TILE_SIZE, 13 * Tile.TILE_SIZE));
 
                         if (j > 0 && map[i][j - 1] != null) // west
                             for (int k = 1; k < 14; k++)
-                                map[i][j].addExit(new Exit(0, k * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, j - 1, i, 13 * Tile.TILE_SIZE, k * Tile.TILE_SIZE, true));
+                                map[i][j].addExit(new Exit(0, k, j - 1, i, 13 * Tile.TILE_SIZE, k * Tile.TILE_SIZE));
 
                         if (i < map.length - 1 && map[i + 1][j] != null) // south
                             for (int k = 1; k < 14; k++)
-                                map[i][j].addExit(new Exit(k * Tile.TILE_SIZE, 14 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, j, i + 1, k * Tile.TILE_SIZE, Tile.TILE_SIZE, true));
+                                map[i][j].addExit(new Exit(k, 14, j, i + 1, k * Tile.TILE_SIZE, Tile.TILE_SIZE));
 
                         if (j < map[i].length - 1 && map[i][j + 1] != null) // east
                             for (int k = 1; k < 14; k++)
-                                map[i][j].addExit(new Exit(14 * Tile.TILE_SIZE, k * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, j + 1, i, Tile.TILE_SIZE, k * Tile.TILE_SIZE, true));
+                                map[i][j].addExit(new Exit(14, k, j + 1, i, Tile.TILE_SIZE, k * Tile.TILE_SIZE));
                     }
                 }
             }
@@ -121,21 +121,16 @@ public class LocationManager {
 
     }
 
+    // BUG: if player is on edge of map will get out of bounds exception
     public static Location[][] getSurroundingLocations(Location location) {
 
-        Location[][] surroundingLocations = new Location[3][3];
+        Location[][] surroundingLocations = new Location[5][5];
 
-        surroundingLocations[0][0] = getLocationFromMap(location.getX() - 1, location.getY() - 1);
-        surroundingLocations[0][1] = getLocationFromMap(location.getX(), location.getY() - 1);
-        surroundingLocations[0][2] = getLocationFromMap(location.getX() + 1, location.getY() - 1);
-
-        surroundingLocations[1][0] = getLocationFromMap(location.getX() - 1, location.getY());
-        surroundingLocations[1][1] = getCurrentLocation();
-        surroundingLocations[1][2] = getLocationFromMap(location.getX() + 1, location.getY());
-
-        surroundingLocations[2][0] = getLocationFromMap(location.getX() - 1, location.getY() + 1);
-        surroundingLocations[2][1] = getLocationFromMap(location.getX(), location.getY() + 1);
-        surroundingLocations[2][2] = getLocationFromMap(location.getX() + 1, location.getY() + 1);
+        for (int i = -2; i < 3; i++)
+            for (int j = -2; j < 3; j++)
+                if (getCurrentLocation().getX() + j >= 0 && getCurrentLocation().getX() + j < map[0].length &&
+                        getCurrentLocation().getY() + i >= 0 && getCurrentLocation().getY() + i < map.length)
+                    surroundingLocations[i + 2][j + 2] = getLocationFromMap(location.getX() + j, location.getY() + i);
 
         return surroundingLocations;
 

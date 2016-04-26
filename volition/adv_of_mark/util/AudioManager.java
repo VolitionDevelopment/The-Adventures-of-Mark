@@ -22,6 +22,14 @@ public class AudioManager {
     private static float volume;
     private static boolean isMuted;
 
+    public static boolean isMuted(){
+        return isMuted;
+    }
+
+    public static void flipMuted(){
+        isMuted = !isMuted;
+    }
+
     public static void setIsMuted(boolean muted) {
         isMuted = muted;
     }

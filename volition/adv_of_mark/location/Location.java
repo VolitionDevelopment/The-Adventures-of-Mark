@@ -228,29 +228,19 @@ public abstract class Location {
 
     public void enterRoom(){
 
-        GameManager.getInstance().getGameState().getPlayer().setAbleMove(true);
+        // reset x and y for parties (map transitions screw everything up)
+        for (EnemyParty party: enemyParties)
+            party.reset();
+
+        if (bgImage == null)
+            bgImage = ImageManager.makeBackgroundImage(LocationManager.getSurroundingLocations(this));
 
         bg_horizOffset = (Window.WINDOW_WIDTH - 5 * getTileImage().getWidth()) / 2;
         bg_vertOffset = ((Window.WINDOW_HEIGHT - 5 * getTileImage().getHeight()) / 2) - Tile.TILE_SIZE / 4;
         bg_x = bg_horizOffset;
         bg_y = bg_vertOffset;
 
-        // reset x and y for parties (map transitions screw everything up)
-        for (EnemyParty party: enemyParties)
-            party.reset();
-
-        // decide if should repaint bg or not
-        Location[][] surroundingLocations = LocationManager.getSurroundingLocations(this);
-        int numSurroundingLocations = 0;
-        for (Location[] row : surroundingLocations)
-            for (Location loc : row)
-                if (loc != null)
-                    numSurroundingLocations++;
-
-        if (bgImage == null || this.numSurroundingLocations != numSurroundingLocations) {
-            bgImage = ImageManager.makeBackgroundImage(surroundingLocations);
-            this.numSurroundingLocations = numSurroundingLocations;
-        }
+        GameManager.getInstance().getGameState().getPlayer().setAbleMove(true);
 
     }
 

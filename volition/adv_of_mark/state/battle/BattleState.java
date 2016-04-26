@@ -10,10 +10,7 @@ import volition.adv_of_mark.state.StateManager;
 import volition.adv_of_mark.state.menu.ingamemenu.battle.BattleMainMenu;
 import volition.adv_of_mark.state.menu.ingamemenu.battle.BattleMenu;
 import volition.adv_of_mark.state.menu.impl.DeathMenu;
-import volition.adv_of_mark.util.FontManager;
-import volition.adv_of_mark.util.GameManager;
-import volition.adv_of_mark.util.ObjectManager;
-import volition.adv_of_mark.util.RenderUtils;
+import volition.adv_of_mark.util.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -115,11 +112,18 @@ public class BattleState implements State {
             if (playerTurn)
                 battleMenu.update();
             else {
+
+                int cHealth = GameManager.getInstance().getGameState().getPlayer().getTolerance();
+
                 Random random = new Random();
                 enemies.stream().filter(e -> e != null).forEach(e -> {
                     e.useMove(random.nextInt(e.getMoves().size()), player);
                     conversation = true;
                 });
+
+                if (GameManager.getInstance().getGameState().getPlayer().getTolerance() != cHealth)
+                    AudioManager.getInstance().playAudio("/volition/adv_of_mark/assets/sound/hit.wav");
+
                 switchTurns();
 
                 battleMenu = new BattleMainMenu(this);

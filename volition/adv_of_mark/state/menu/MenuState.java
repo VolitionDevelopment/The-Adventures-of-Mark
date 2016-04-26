@@ -2,6 +2,7 @@ package volition.adv_of_mark.state.menu;
 
 import volition.adv_of_mark.Window;
 import volition.adv_of_mark.state.State;
+import volition.adv_of_mark.util.AudioManager;
 import volition.adv_of_mark.util.FontManager;
 
 import java.awt.*;
@@ -55,6 +56,10 @@ public abstract class MenuState implements State {
         return textColor_select;
     }
 
+    public void onKeyPress(){
+        AudioManager.getInstance().playAudio("/volition/adv_of_mark/assets/sound/menu_blip.wav");
+    }
+
     @Override
     public void init() {
         currentIndex = 0;
@@ -74,13 +79,19 @@ public abstract class MenuState implements State {
 
     @Override
     public void keyPressed(int k) {
-        if (k == KeyEvent.VK_S || k == KeyEvent.VK_D)
-            currentIndex++;
-        else if (k == KeyEvent.VK_W || k == KeyEvent.VK_A)
-            currentIndex--;
 
-        else if (k == KeyEvent.VK_ENTER)
+        if (k == KeyEvent.VK_S || k == KeyEvent.VK_D) {
+            currentIndex++;
+            onKeyPress();
+        } else if (k == KeyEvent.VK_W || k == KeyEvent.VK_A) {
+            currentIndex--;
+            onKeyPress();
+        }
+
+        else if (k == KeyEvent.VK_ENTER) {
             hasSelected = true;
+            AudioManager.getInstance().playAudio("/volition/adv_of_mark/assets/sound/menu_select.wav");
+        }
 
     }
 

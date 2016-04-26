@@ -72,14 +72,19 @@ public abstract class BattleMenu extends InGameMenu {
         if (subMenu == null) {
             super.keyPressed(k);
 
-            if (k == KeyEvent.VK_S)
+            if (k == KeyEvent.VK_S) {
                 setCurrentIndex(getCurrentIndex() + 1);
-            else if (k == KeyEvent.VK_W)
+                onKeyPress();
+            } else if (k == KeyEvent.VK_W) {
                 setCurrentIndex(getCurrentIndex() - 1);
-            else if (k == KeyEvent.VK_D && getCurrentIndex() + 5 < getOptions().length)
+                onKeyPress();
+            } else if (k == KeyEvent.VK_D && getCurrentIndex() + 5 < getOptions().length) {
                 setCurrentIndex(getCurrentIndex() + 5);
-            else if (k == KeyEvent.VK_A && getCurrentIndex() - 5 > -1)
+                onKeyPress();
+            } else if (k == KeyEvent.VK_A && getCurrentIndex() - 5 > -1) {
                 setCurrentIndex(getCurrentIndex() - 5);
+                onKeyPress();
+            }
 
         } else {
             subMenu.keyPressed(k);

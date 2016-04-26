@@ -1,6 +1,7 @@
 package volition.adv_of_mark;
 
 import volition.adv_of_mark.state.StateManager;
+import volition.adv_of_mark.util.AudioManager;
 import volition.adv_of_mark.util.RenderUtils;
 
 import javax.swing.*;
@@ -29,7 +30,12 @@ public class Main extends JPanel{
 
             @Override
             public void keyPressed(KeyEvent e) {
+
+                if (e.getKeyCode() == KeyEvent.VK_M)
+                    AudioManager.flipMuted();
+
                 StateManager.getCurrentState().keyPressed(e.getKeyCode());
+
             }
 
             @Override

@@ -1,5 +1,7 @@
 package volition.adv_of_mark.state.menu.ingamemenu;
 
+import volition.adv_of_mark.util.AudioManager;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
@@ -38,11 +40,18 @@ public abstract class InGameMenu {
             currentIndex = 0;
     }
 
+    public void onKeyPress(){
+        AudioManager.getInstance().playAudio("/volition/adv_of_mark/assets/sound/menu_blip.wav");
+    }
+
     public void keyPressed(int k) {
-        if (k == KeyEvent.VK_ENTER || k == KeyEvent.VK_SPACE)
+        if (k == KeyEvent.VK_ENTER || k == KeyEvent.VK_SPACE) {
             select(currentIndex);
-        else if (k == KeyEvent.VK_ESCAPE)
+            AudioManager.getInstance().playAudio("/volition/adv_of_mark/assets/sound/menu_select.wav");
+        } else if (k == KeyEvent.VK_ESCAPE) {
             select(0);
+            AudioManager.getInstance().playAudio("/volition/adv_of_mark/assets/sound/menu_select.wav");
+        }
     }
 
     public abstract void select(int currentIndex);

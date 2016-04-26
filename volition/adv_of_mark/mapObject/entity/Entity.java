@@ -148,7 +148,6 @@ public abstract class Entity extends MapObject {
         return tolerance <= 0;
     }
 
-
     public void setBaseTolerance(int baseTolerance) {
         this.baseTolerance = baseTolerance;
     }

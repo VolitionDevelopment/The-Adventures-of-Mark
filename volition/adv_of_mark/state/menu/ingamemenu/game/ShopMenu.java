@@ -83,10 +83,13 @@ public class ShopMenu extends InGameMenu {
     public void keyPressed(int k){
         super.keyPressed(k);
 
-        if (k == KeyEvent.VK_D)
+        if (k == KeyEvent.VK_D) {
             setCurrentIndex(getCurrentIndex() + 1);
-        else if (k == KeyEvent.VK_A)
+            onKeyPress();
+        }else if (k == KeyEvent.VK_A) {
             setCurrentIndex(getCurrentIndex() - 1);
+            onKeyPress();
+        }
     }
 
     @Override

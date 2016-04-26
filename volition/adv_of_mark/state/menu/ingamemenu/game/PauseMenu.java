@@ -6,6 +6,7 @@ import volition.adv_of_mark.state.StateManager;
 import volition.adv_of_mark.state.menu.impl.InventoryMenu;
 import volition.adv_of_mark.state.menu.impl.StatusMenu;
 import volition.adv_of_mark.state.menu.ingamemenu.InGameMenu;
+import volition.adv_of_mark.util.AudioManager;
 import volition.adv_of_mark.util.FontManager;
 import volition.adv_of_mark.util.GameManager;
 import volition.adv_of_mark.util.RenderUtils;
@@ -46,10 +47,13 @@ public class PauseMenu extends InGameMenu {
     public void keyPressed(int k){
         super.keyPressed(k);
 
-        if (k == KeyEvent.VK_D)
+        if (k == KeyEvent.VK_D) {
             setCurrentIndex(getCurrentIndex() + 1);
-        else if (k == KeyEvent.VK_A)
+            onKeyPress();
+        } else if (k == KeyEvent.VK_A) {
             setCurrentIndex(getCurrentIndex() - 1);
+            onKeyPress();
+        }
     }
 
     @Override

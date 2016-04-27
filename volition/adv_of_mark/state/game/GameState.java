@@ -6,6 +6,7 @@ import volition.adv_of_mark.location.Location;
 import volition.adv_of_mark.state.State;
 import volition.adv_of_mark.state.menu.ingamemenu.InGameMenu;
 import volition.adv_of_mark.state.menu.ingamemenu.game.PauseMenu;
+import volition.adv_of_mark.util.AudioManager;
 import volition.adv_of_mark.util.GameManager;
 import volition.adv_of_mark.util.LocationManager;
 
@@ -37,6 +38,9 @@ public class GameState implements State {
 
     @Override
     public void update(double delta) {
+
+        if (AudioManager.getInstance().musicDone())
+            AudioManager.getInstance().playMusic("/volition/adv_of_mark/assets/sound/main.wav");
 
         if (inGameMenu == null) {
 

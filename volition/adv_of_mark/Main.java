@@ -32,7 +32,7 @@ public class Main extends JPanel{
             public void keyPressed(KeyEvent e) {
 
                 if (e.getKeyCode() == KeyEvent.VK_M)
-                    AudioManager.flipMuted();
+                    AudioManager.getInstance().setIsMuted(!AudioManager.getInstance().isMuted());
 
                 StateManager.getCurrentState().keyPressed(e.getKeyCode());
 

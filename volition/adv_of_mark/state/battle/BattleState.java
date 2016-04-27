@@ -122,7 +122,7 @@ public class BattleState implements State {
                 });
 
                 if (GameManager.getInstance().getGameState().getPlayer().getTolerance() != cHealth)
-                    AudioManager.getInstance().playAudio("/volition/adv_of_mark/assets/sound/hit.wav");
+                    AudioManager.getInstance().playSound("/volition/adv_of_mark/assets/sound/hit.wav");
 
                 switchTurns();
 

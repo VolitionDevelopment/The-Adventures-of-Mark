@@ -41,16 +41,16 @@ public abstract class InGameMenu {
     }
 
     public void onKeyPress(){
-        AudioManager.getInstance().playAudio("/volition/adv_of_mark/assets/sound/menu_blip.wav");
+        AudioManager.getInstance().playSound("/volition/adv_of_mark/assets/sound/menu_blip.wav");
     }
 
     public void keyPressed(int k) {
         if (k == KeyEvent.VK_ENTER || k == KeyEvent.VK_SPACE) {
             select(currentIndex);
-            AudioManager.getInstance().playAudio("/volition/adv_of_mark/assets/sound/menu_select.wav");
+            AudioManager.getInstance().playSound("/volition/adv_of_mark/assets/sound/menu_select.wav");
         } else if (k == KeyEvent.VK_ESCAPE) {
             select(0);
-            AudioManager.getInstance().playAudio("/volition/adv_of_mark/assets/sound/menu_select.wav");
+            AudioManager.getInstance().playSound("/volition/adv_of_mark/assets/sound/menu_select.wav");
         }
     }
 

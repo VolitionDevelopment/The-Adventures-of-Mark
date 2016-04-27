@@ -41,7 +41,10 @@ public class AboutMenu extends BottomTextMenu {
                 "    - 3D Rock Paper Scissors Lizard Spock",
                 "    - Learning to Count: Reloaded ",
                 "    - Scrubby the Mop ",
-                "This is their last game before going to college, so they will make this one their best yet!"
+                "This is their last game before going to college, so they will make this one their best yet!",
+                "",
+                "",
+                "We would like to thank 8-Bit Universe for his 8 Bit remix of Centuries (Fall out boy)"
         };
 
 

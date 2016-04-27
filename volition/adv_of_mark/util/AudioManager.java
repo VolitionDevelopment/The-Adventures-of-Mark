@@ -20,25 +20,32 @@ public class AudioManager {
     }
 
     private static float volume;
-    private static boolean isMuted;
+    private boolean isMuted;
 
-    public static boolean isMuted(){
+    public boolean isMuted(){
         return isMuted;
     }
 
-    public static void flipMuted(){
-        isMuted = !isMuted;
+    public void flipMuted(){
+        setIsMuted(!isMuted);
     }
 
-    public static void setIsMuted(boolean muted) {
-        isMuted = muted;
+    public void setIsMuted(boolean isMuted) {
+        this.isMuted = isMuted;
+
+        if (!isMuted)
+            stopMusic();
+
+        else if (music != null)
+            music.start();
+
     }
 
     public static void setVolume(float vol) {
         volume = vol;
     }
 
-    public void playAudio(String path) {
+    public void playSound(String path) {
         if (!isMuted) {
             try {
 
@@ -54,6 +61,39 @@ public class AudioManager {
 
             } catch (Exception e) { e.printStackTrace(); }
         }
+    }
+
+    private Clip music;
+
+    public void playMusic(String path) {
+        if (!isMuted) {
+            try {
+
+                if (music == null) {
+                    AudioInputStream ais = AudioSystem.getAudioInputStream(getClass().getResource(path));
+                    music = AudioSystem.getClip();
+
+                    music.open(ais);
+
+                    FloatControl gainControl = (FloatControl) music.getControl(FloatControl.Type.MASTER_GAIN);
+                    gainControl.setValue(volume);
+
+                    music.start();
+
+                } else
+                    music.setMicrosecondPosition(0);
+
+            } catch (Exception e) { e.printStackTrace(); }
+        }
+    }
+
+    public void stopMusic(){
+        if (music != null)
+            music.stop();
+    }
+
+    public boolean musicDone(){
+        return music == null || !music.isRunning();
     }
 
 }

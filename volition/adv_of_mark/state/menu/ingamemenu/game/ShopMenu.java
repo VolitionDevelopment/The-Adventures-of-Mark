@@ -20,33 +20,27 @@ import java.util.ArrayList;
 public class ShopMenu extends InGameMenu {
 
     private static ArrayList<Item> shopItems;
-    private static String[] shopItems_str;
+    private static String[] items;
 
     public ShopMenu() {
-        super(ArrayUtils.addAll(new String[]{"Exit"}, shopItems_str));
+        super(ArrayUtils.addAll(new String[]{"Exit"}, generateRandomItems()));
     }
 
-    //TYPE is type of item, 0 is usable, 1 is armor, 2 is weapon
-    public static void generateRandomItems(int type){
+    public static String[] generateRandomItems(){
 
         int numItemsInShop = 3;
 
         shopItems = new ArrayList<>();
 
-        if (type == 0)
-            while (shopItems.size() < numItemsInShop)
-                shopItems.add(ObjectManager.getRandomUsable(1));
-        else if (type == 1)
-            while (shopItems.size() < numItemsInShop)
-                shopItems.add(ObjectManager.getRandomArmor(1));
-        else
-            while (shopItems.size() < numItemsInShop)
-                shopItems.add(ObjectManager.getRandomWeapon(1));
+        while (shopItems.size() < numItemsInShop)
+            shopItems.add(ObjectManager.getRandomItem(1));
 
-        shopItems_str = new String[shopItems.size()];
+        items = new String[shopItems.size()];
 
-        for (int i = 0; i < shopItems_str.length; i++)
-            shopItems_str[i] = shopItems.get(i).getName() + " - $" + shopItems.get(i).getPrice();
+        for (int i = 0; i < items.length; i++)
+            items[i] = shopItems.get(i).getName() + " - $" + shopItems.get(i).getPrice();
+
+        return items;
 
     }
 
@@ -66,14 +60,12 @@ public class ShopMenu extends InGameMenu {
                 player.addItem(item);
                 shopItems.remove(item);
 
-                shopItems_str = new String[shopItems.size()];
+                items = new String[shopItems.size()];
 
-                for (int i = 0; i < shopItems_str.length; i++)
-                    shopItems_str[i] = shopItems.get(i).getName() + " - $" + shopItems.get(i).getPrice();
+                for (int i = 0; i < items.length; i++)
+                    items[i] = shopItems.get(i).getName() + " - $" + shopItems.get(i).getPrice();
 
-                setOptions(ArrayUtils.addAll(new String[]{"Go Back"}, shopItems_str));
-
-                GameManager.getInstance().getGameState().setInGameMenu(new ShopMenu());
+                setOptions(ArrayUtils.addAll(new String[]{"Exit"}, items));
 
             }
         }

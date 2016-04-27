@@ -49,14 +49,10 @@ public class TileManager {
     }
 
     public static void setProperties(Tile tile) {
-
         if (properties == null)
             loadProperties();
 
-        System.out.println(tile.getId());
-
         properties.get(tile.getId()).setProperties(tile);
-
     }
 
 }

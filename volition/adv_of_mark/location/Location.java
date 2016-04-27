@@ -159,8 +159,10 @@ public abstract class Location {
         double x = npc.getX();
         double y = npc.getY();
 
-        tilemap[(int) y][(int) x].setSolid(true);
-        tilemap[(int) y][(int) x].setNpc(npc);
+        tilemap[(int) y / Tile.TILE_SIZE][(int) x / Tile.TILE_SIZE].setSolid(true);
+        tilemap[(int) y / Tile.TILE_SIZE][(int) x / Tile.TILE_SIZE].setNpc(npc);
+
+        perspectiveList.add(npc);
     }
 
     public void update(double delta){
@@ -226,12 +228,12 @@ public abstract class Location {
                 playerTile.setEnemyParty(null);
             }
 
+            //objects closer to camera need to be displayed on top
+            determinePerspective();
+
             // update enemy parties (animations)
             for (int i = 0; i < enemyParties.size(); i++)
                 enemyParties.get(i).update(delta);
-
-            //objects closer to camera need to be displayed on top
-            determinePerspective();
 
             //update entity animations
             for (Entity npc : npcs)

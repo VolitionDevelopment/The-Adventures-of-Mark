@@ -6,6 +6,8 @@ import volition.adv_of_mark.location.impl.Inside_Apartment;
 import volition.adv_of_mark.location.impl.Outside_ApartmentEntrance;
 import volition.adv_of_mark.location.impl.Outside_Grass;
 import volition.adv_of_mark.location.tile.Tile;
+import volition.adv_of_mark.mapObject.entity.Entity;
+import volition.adv_of_mark.mapObject.entity.shopkeepers.Peppito;
 
 import java.util.Random;
 
@@ -47,6 +49,19 @@ public class LocationManager {
 
         if (dungeonType == FIRST_FLOOR)
             map = loadApartmentLocation();
+
+        Random rand = new Random();
+        // add shop keeper
+        Entity shopkeeper = new Peppito((rand.nextInt(14) + 1) * Tile.TILE_SIZE, (rand.nextInt(14) + 1) * Tile.TILE_SIZE);
+        int x = -1;
+        int y = -1;
+
+        while (y == -1 || map[y][x] == null) {
+            x = rand.nextInt(map[0].length);
+            y = rand.nextInt(map.length);
+        }
+
+        map[y][x].addNpc(shopkeeper);
 
         // add exits to other rooms
         if (map != null) {

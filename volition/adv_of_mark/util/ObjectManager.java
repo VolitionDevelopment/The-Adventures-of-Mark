@@ -63,6 +63,18 @@ public class ObjectManager {
 
     }
 
+    public static Item getRandomItem(int rng_multiplier) {
+        int r = new Random().nextInt(3);
+
+        if (r == 0)
+            return getRandomUsable(rng_multiplier);
+        else if (r == 1)
+            return getRandomArmor(rng_multiplier);
+        else
+            return getRandomWeapon(rng_multiplier);
+
+    }
+
     public static Item getRandomUsable(int rng_multiplier) {
         if (allUsables == null)
             registerUsables();

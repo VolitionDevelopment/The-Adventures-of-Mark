@@ -1,7 +1,5 @@
 package volition.adv_of_mark.util;
 
-import volition.adv_of_mark.location.Location;
-import volition.adv_of_mark.location.impl.ApartmentRoom;
 import volition.adv_of_mark.state.game.GameState;
 
 /**
@@ -22,7 +20,7 @@ public class GameManager {
             // start the game
             gameManager = new GameManager();
 
-            LocationManager.setMap(LocationManager.loadDungeon(LocationManager.APARTMENT));
+            LocationManager.setMap(LocationManager.loadDungeon(LocationManager.FIRST_FLOOR));
             LocationManager.getCurrentLocation().enterRoom();
         }
 

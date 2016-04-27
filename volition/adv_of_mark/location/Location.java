@@ -42,12 +42,17 @@ public abstract class Location {
 
 
     public Location(String name, int x, int y) {
+        this.name = name;
+
         placeableObjects = new ArrayList<>();
         npcs = new ArrayList<>();
         enemyParties = new ArrayList<>();
+        perspectiveList = new ArrayList<>();
 
         this.x = x;
         this.y = y;
+
+        loadMap();
 
         Random rand = new Random();
         if (rand.nextInt(3) > 0) {
@@ -55,26 +60,35 @@ public abstract class Location {
             int numParties = rand.nextInt(5);
             for (int i = 0; i < numParties; i++) {
 
-                EnemyParty party = new EnemyParty((rand.nextInt(13) + 1) * Tile.TILE_SIZE, (rand.nextInt(13) + 1) * Tile.TILE_SIZE);
+                int party_y = -1;
+                int party_x = -1;
+
+                while (tilemap[party_y / Tile.TILE_SIZE][party_x / Tile.TILE_SIZE].isSolid() || party_y == -1) {
+
+                    party_x = (rand.nextInt(13) + 1) * Tile.TILE_SIZE;
+                    party_y = (rand.nextInt(13) + 1) * Tile.TILE_SIZE;
+
+                }
+
+                EnemyParty party = new EnemyParty(party_x, party_y);
 
                 int numEnemies = rand.nextInt(3) + 1;
                 for (int j = 0; j < numEnemies; j++)
                     party.addEnemy();
 
+                tilemap[party_y / Tile.TILE_SIZE][party_x / Tile.TILE_SIZE].setEnemyParty(party);
                 enemyParties.add(party);
 
             }
         }
 
-        perspectiveList = new ArrayList<>();
-
-        this.name = name;
-
-        loadMap();
-
         perspectiveList.addAll(placeableObjects);
         perspectiveList.addAll(npcs);
 
+    }
+
+    public String getName(){
+        return name;
     }
 
     public int getX(){
@@ -182,7 +196,7 @@ public abstract class Location {
 
             Tile playerTile = tilemap[((int) player.getY() + player.getHeight() / 2) / Tile.TILE_SIZE][((int) player.getX() + player.getWidth() / 2) / Tile.TILE_SIZE];
 
-            //check if at exit
+            // check if at exit
             Exit exit = playerTile.getExit();
             if (exit != null) {
 
@@ -200,21 +214,21 @@ public abstract class Location {
                 toExit = exit;
             }
 
-            //check if colliding with group of enemies
-            for (int i = 0; i < enemyParties.size(); i++) {
-                enemyParties.get(i).update(delta);
-                if (enemyParties.get(i).getX() > player.getX() && enemyParties.get(i).getX() < player.getX() + player.getWidth() &&
-                        enemyParties.get(i).getY() > player.getY() && enemyParties.get(i).getY() < player.getY() + player.getHeight()) {
+            // check if should fight group of enemies
+            EnemyParty enemyParty = playerTile.getEnemyParty();
+            if (enemyParty != null) {
+                player.stopMoving();
+                enemyParty.startBattle();
 
-                    player.stopMoving();
-                    enemyParties.get(i).startBattle();
-                    BattleManager.startBattle(player, enemyParties.get(i).getMembers(), playerTile.getImage());
+                BattleManager.startBattle(player, enemyParty.getMembers(), playerTile.getImage());
 
-                    enemyParties.remove(i);
-                    i--;
-
-                }
+                enemyParties.remove(enemyParty);
+                playerTile.setEnemyParty(null);
             }
+
+            // update enemy parties (animations)
+            for (int i = 0; i < enemyParties.size(); i++)
+                enemyParties.get(i).update(delta);
 
             //objects closer to camera need to be displayed on top
             determinePerspective();

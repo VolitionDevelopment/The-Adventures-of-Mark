@@ -2,6 +2,7 @@ package volition.adv_of_mark.location.tile;
 
 import volition.adv_of_mark.location.Exit;
 import volition.adv_of_mark.mapObject.entity.Entity;
+import volition.adv_of_mark.mapObject.entity.enemies.EnemyParty;
 import volition.adv_of_mark.mapObject.placeableObject.PlaceableObject;
 import volition.adv_of_mark.util.TileManager;
 
@@ -21,6 +22,7 @@ public class Tile {
     private Exit exit;
     private Entity npc;
     private PlaceableObject object;
+    private EnemyParty enemyParty;
 
     private BufferedImage image;
 
@@ -53,8 +55,13 @@ public class Tile {
         return object;
     }
 
+    public EnemyParty getEnemyParty(){
+        return enemyParty;
+    }
+
     public void setId(int id) {
         this.id = id;
+        TileManager.setProperties(this);
     }
 
     public void setSolid(boolean solid) {
@@ -75,6 +82,10 @@ public class Tile {
 
     public void setObject(PlaceableObject object) {
         this.object = object;
+    }
+
+    public void setEnemyParty(EnemyParty enemyParty) {
+        this.enemyParty = enemyParty;
     }
 
 }

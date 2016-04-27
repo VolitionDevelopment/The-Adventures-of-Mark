@@ -2,9 +2,10 @@ package volition.adv_of_mark.util;
 
 import volition.adv_of_mark.location.Exit;
 import volition.adv_of_mark.location.Location;
-import volition.adv_of_mark.location.impl.ApartmentRoom;
+import volition.adv_of_mark.location.impl.Inside_Apartment;
+import volition.adv_of_mark.location.impl.Outside_ApartmentEntrance;
+import volition.adv_of_mark.location.impl.Outside_Grass;
 import volition.adv_of_mark.location.tile.Tile;
-import volition.adv_of_mark.state.game.GameState;
 
 import java.util.Random;
 
@@ -13,7 +14,7 @@ import java.util.Random;
  */
 public class LocationManager {
 
-    public static final int APARTMENT = 0;
+    public static final int FIRST_FLOOR = 0;
 
     private static Location[][] map;
     private static int loc_x, loc_y;
@@ -44,11 +45,10 @@ public class LocationManager {
 
         Location[][] map = null;
 
-        if (dungeonType == APARTMENT)
+        if (dungeonType == FIRST_FLOOR)
             map = loadApartmentLocation();
 
         // add exits to other rooms
-
         if (map != null) {
             for (int i = 0; i < map.length; i++) {
                 for (int j = 0; j < map[i].length; j++) {
@@ -86,12 +86,23 @@ public class LocationManager {
         int numRooms = 10;
 
         Random rand = new Random();
+        boolean outside = true;
 
         int i = 0;
         int x = 5, y = 5;
         while (i < numRooms) {
 
-            map[y][x] = new ApartmentRoom(x, y);
+            if (outside) {
+                map[y][x] = new Outside_Grass(x, y);
+
+                if (Math.random() < 0.1)
+                    map[y][x] = new Outside_ApartmentEntrance(x, y);
+
+                else if (Math.random() < 0.1)
+                    outside = false;
+
+            } else
+                map[y][x] = new Inside_Apartment(x, y);
 
             int r;
             while (map[y][x] != null) {
@@ -109,12 +120,40 @@ public class LocationManager {
                 if (y < 0 || y >= map.length || x < 0 || x >= map[0].length) {
                     x = 5;
                     y = 5;
+                    outside = true;
                 }
 
             }
 
             i++;
 
+        }
+
+        // add/remove walls inside
+        for (int r = 0; r < map.length; r++) {
+            for(int c = 0; c < map[r].length; c++) {
+                if(map[r][c] != null && map[r][c].getName().equals("Apartment Room")) {
+
+                    Tile[][] tilemap = map[r][c].getTilemap();
+
+                    if (r > 0 && map[r - 1][c] != null) // north
+                        for (int k = 1; k < tilemap[0].length - 1; k++)
+                            tilemap[0][k].setId(1);
+
+                    if (c > 0 && map[r][c - 1] != null) // west
+                        for (int k = 1; k < tilemap.length - 1; k++)
+                            tilemap[k][0].setId(1);
+
+                    if (r < map.length - 1 && map[r + 1][c] != null) // south
+                        for (int k = 1; k < tilemap[0].length - 1; k++)
+                            tilemap[tilemap.length - 1][k].setId(1);
+
+                    if (c < map[r].length - 1 && map[r][c + 1] != null) // east
+                        for (int k = 1; k < tilemap.length - 1; k++)
+                            tilemap[k][tilemap[0].length - 1].setId(1);
+
+                }
+            }
         }
 
         return map;

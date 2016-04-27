@@ -1,17 +1,15 @@
 package volition.adv_of_mark.location.impl;
 
 import volition.adv_of_mark.location.Location;
-import volition.adv_of_mark.location.tile.Tile;
 import volition.adv_of_mark.util.FileManager;
 
-
 /**
- * Created by mccloskeybr on 3/2/16.
+ * Created by mccloskeybr on 4/27/16.
  */
-public class ApartmentRoom extends Location {
+public class Outside_Grass extends Location{
 
-    public ApartmentRoom(int x, int y) {
-        super("Apartment Room", x, y);
+    public Outside_Grass(int x, int y) {
+        super("Outside", x, y);
     }
 
     @Override

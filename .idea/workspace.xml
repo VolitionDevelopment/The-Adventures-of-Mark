@@ -60,16 +60,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Peppito.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/volition/adv_of_mark/mapObject/entity/shopkeepers/Peppito.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="AudioManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/volition/adv_of_mark/util/AudioManager.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -83,11 +73,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BattleState.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="BattleState.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/volition/adv_of_mark/state/battle/BattleState.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="123" column="99" selection-start-line="123" selection-start-column="99" selection-end-line="123" selection-end-column="99" />
+            <state vertical-scroll-proportion="0.37037036">
+              <caret line="177" column="66" selection-start-line="177" selection-start-column="66" selection-end-line="177" selection-end-column="66" />
               <folding />
             </state>
           </provider>
@@ -113,11 +103,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BattleMenu.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BattleMenu.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/volition/adv_of_mark/state/menu/ingamemenu/battle/BattleMenu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.66137564">
+            <state vertical-scroll-proportion="0.0">
               <caret line="31" column="33" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ImageManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/volition/adv_of_mark/util/ImageManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="39" column="118" selection-start-line="39" selection-start-column="118" selection-end-line="39" selection-end-column="121" />
               <folding />
             </state>
           </provider>
@@ -185,8 +185,6 @@
         <option value="$PROJECT_DIR$/volition/adv_of_mark/state/menu/ingamemenu/game/PauseMenu.java" />
         <option value="$PROJECT_DIR$/volition/adv_of_mark/state/menu/MenuState.java" />
         <option value="$PROJECT_DIR$/volition/adv_of_mark/mapObject/entity/Entity.java" />
-        <option value="$PROJECT_DIR$/volition/adv_of_mark/state/battle/BattleState.java" />
-        <option value="$PROJECT_DIR$/volition/adv_of_mark/util/ImageManager.java" />
         <option value="$PROJECT_DIR$/volition/adv_of_mark/location/impl/ApartmentRoom.java" />
         <option value="$PROJECT_DIR$/volition/adv_of_mark/assets/maps/test_house.txt" />
         <option value="$PROJECT_DIR$/volition/adv_of_mark/location/impl/Outside_Grass.java" />
@@ -206,11 +204,13 @@
         <option value="$PROJECT_DIR$/volition/adv_of_mark/state/menu/ingamemenu/battle/BattleMainMenu.java" />
         <option value="$PROJECT_DIR$/volition/adv_of_mark/state/menu/ingamemenu/battle/ItemMenu.java" />
         <option value="$PROJECT_DIR$/volition/adv_of_mark/state/menu/ingamemenu/battle/BattleMenu.java" />
+        <option value="$PROJECT_DIR$/volition/adv_of_mark/util/ImageManager.java" />
+        <option value="$PROJECT_DIR$/volition/adv_of_mark/state/battle/BattleState.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="91" />
+    <option name="x" value="61" />
     <option name="y" value="23" />
     <option name="width" value="1275" />
     <option name="height" value="819" />
@@ -926,7 +926,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="91" y="23" width="1275" height="819" extended-state="0" />
+    <frame x="61" y="23" width="1275" height="819" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1289,14 +1289,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/volition/adv_of_mark/util/ImageManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="51" column="87" selection-start-line="51" selection-start-column="87" selection-end-line="51" selection-end-column="87" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/volition/adv_of_mark/mapObject/entity/Player.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1393,18 +1385,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/volition/adv_of_mark/state/battle/BattleState.java">
+    <entry file="file://$PROJECT_DIR$/volition/adv_of_mark/state/menu/ingamemenu/battle/BattleMenu.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="123" column="99" selection-start-line="123" selection-start-column="99" selection-end-line="123" selection-end-column="99" />
+          <caret line="31" column="33" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/volition/adv_of_mark/state/menu/ingamemenu/battle/BattleMenu.java">
+    <entry file="file://$PROJECT_DIR$/volition/adv_of_mark/util/ImageManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.66137564">
-          <caret line="31" column="33" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="39" column="118" selection-start-line="39" selection-start-column="118" selection-end-line="39" selection-end-column="121" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/volition/adv_of_mark/state/battle/BattleState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.37037036">
+          <caret line="177" column="66" selection-start-line="177" selection-start-column="66" selection-end-line="177" selection-end-column="66" />
           <folding />
         </state>
       </provider>

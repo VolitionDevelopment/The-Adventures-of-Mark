@@ -174,12 +174,8 @@ public class BattleState implements State {
 
         g.setFont(FontManager.getSans(14));
 
-        //render BG
-        for (int i = 0; i < 7; i++)
-            for (int j = 0; j < 13; j++)
-                g.drawImage(bgTile, j * Tile.TILE_SIZE, i * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, null);
-
         //render entities
+        g.drawImage(bgTile, 4 * Tile.TILE_SIZE, 4 * Tile.TILE_SIZE, Tile.TILE_SIZE, Tile.TILE_SIZE, null);
         player.render(g, 4 * Tile.TILE_SIZE, 4 * Tile.TILE_SIZE - Tile.TILE_SIZE / 2);
         if (player.getSpeech() != null) {
             int x = 4 * Tile.TILE_SIZE - g.getFontMetrics().stringWidth(player.getSpeech());
@@ -203,6 +199,7 @@ public class BattleState implements State {
                 else
                     y = Tile.TILE_SIZE / 2 + 2 * Tile.TILE_SIZE;
 
+                g.drawImage(bgTile, x, y + Tile.TILE_SIZE, Tile.TILE_SIZE * 2, Tile.TILE_SIZE * 2, null);
                 enemies.get(i).render(g, x, y, 128, 128);
 
                 if (enemies.get(i).getSpeech() != null) {

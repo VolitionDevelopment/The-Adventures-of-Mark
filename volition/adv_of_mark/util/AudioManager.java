@@ -33,7 +33,7 @@ public class AudioManager {
     public void setIsMuted(boolean isMuted) {
         this.isMuted = isMuted;
 
-        if (!isMuted)
+        if (isMuted)
             stopMusic();
 
         else if (music != null)

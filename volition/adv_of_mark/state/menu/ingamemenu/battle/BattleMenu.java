@@ -97,6 +97,7 @@ public abstract class BattleMenu extends InGameMenu {
         g.setFont(FontManager.getSans(14));
 
         int y = 3 * volition.adv_of_mark.Window.WINDOW_HEIGHT / 4;
+        int x = this.x;
         for (int i = 0; i < getOptions().length; i++) {
             if (i == getCurrentIndex())
                 g.setColor(Color.RED);

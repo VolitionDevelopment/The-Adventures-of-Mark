@@ -20,7 +20,7 @@ public class LvGen_FileManager {
 
     }
 
-    public void save(String name, LvGen_Tile[][] map){
+    public void save(String name, LvGen_Tile[][] map, int tileType){
 
         try {
 
@@ -34,7 +34,15 @@ public class LvGen_FileManager {
                 String line = "";
                 for (int j = 0; j < map[0].length; j++) {
 
-                    line += map[i][j].getTile_ID();
+                    if (map[i][j].getTile_ID() != 0) { // needed for plotting locations (100 needs to be wood, not nothing)
+
+                        if (tileType == 0)
+                            line += map[i][j].getTile_ID();
+                        else
+                            line += 100 + map[i][j].getTile_ID() / 2;
+
+                    } else
+                        line += "0";
 
                     line += " ";
 

@@ -18,7 +18,7 @@ public class LvGen_Main extends JPanel{
 
     public static LvGen_Main getInstance(){
         if (instance == null)
-            instance = new LvGen_Main();
+            instance = new LvGen_Main(0);
 
         return instance;
     }
@@ -28,16 +28,27 @@ public class LvGen_Main extends JPanel{
 
     private LvGen_Tile[][] map;
 
+    private int tileType;
     private boolean showGrid;
     private boolean showID;
 
     private int currentID;
 
-    public LvGen_Main(){
+    public LvGen_Main(int tileType){
+
+        // tiletype
+        // 0 tilemap, 1 locationmap
+
+        this.tileType = tileType;
 
         currentID = LvGen_TileManager.DEFAULT_ID;
 
-        map = new LvGen_Tile[15][15];
+        if (tileType == 0)
+            map = new LvGen_Tile[15][15];
+        else
+            map = new LvGen_Tile[10][10];
+
+
         for (int i = 0; i < map.length; i++)
             for (int j = 0; j < map[i].length; j++)
                 map[i][j] = new LvGen_Tile();
@@ -46,7 +57,7 @@ public class LvGen_Main extends JPanel{
 
         // window
 
-        window = new LvGen_Window(this);
+        window = new LvGen_Window(this, tileType);
 
         window.addMouseListener(new MouseListener() {
 
@@ -87,6 +98,10 @@ public class LvGen_Main extends JPanel{
 
         });
 
+    }
+
+    public int getTileType(){
+        return tileType;
     }
 
     public LvGen_Tile[][] getMap(){

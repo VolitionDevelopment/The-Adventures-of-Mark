@@ -14,6 +14,7 @@ import volition.adv_of_mark.location.Location;
 import volition.adv_of_mark.mapObject.ObjectEvent;
 import volition.adv_of_mark.location.tile.Tile;
 import volition.adv_of_mark.move.impl.BadPun;
+import volition.adv_of_mark.move.impl.Dance;
 import volition.adv_of_mark.util.Animator;
 import volition.adv_of_mark.util.GameManager;
 import volition.adv_of_mark.util.ImageManager;
@@ -55,6 +56,7 @@ public class Player extends Entity{
         addItem(new Spoon());
 
         addMove(new BadPun());
+        addMove(new Dance());
 
         modMoney(1000);
 

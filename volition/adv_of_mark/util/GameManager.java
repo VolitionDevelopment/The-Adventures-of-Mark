@@ -19,8 +19,7 @@ public class GameManager {
         if(gameManager == null) {
             // start the game
             gameManager = new GameManager();
-
-            LocationManager.setMap(LocationManager.loadDungeon(LocationManager.FIRST_FLOOR));
+            LocationManager.setMap(LocationManager.loadMap(LocationManager.CENTRALTOWN));
             LocationManager.getCurrentLocation().enterRoom();
         }
 

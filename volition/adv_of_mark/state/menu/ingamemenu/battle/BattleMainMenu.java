@@ -2,6 +2,7 @@ package volition.adv_of_mark.state.menu.ingamemenu.battle;
 
 import volition.adv_of_mark.state.StateManager;
 import volition.adv_of_mark.state.battle.BattleState;
+import volition.adv_of_mark.util.AudioManager;
 import volition.adv_of_mark.util.GameManager;
 
 /**
@@ -19,8 +20,7 @@ public class BattleMainMenu extends BattleMenu {
         else if (currentIndex == 1)
             setSubMenu(new ItemMenu(this));
         else {
-            getBattleState().getPlayer().setAbleMove(true);
-            StateManager.setCurrentState(GameManager.getInstance().getGameState());
+            getBattleState().finishFight(true);
         }
     }
 }

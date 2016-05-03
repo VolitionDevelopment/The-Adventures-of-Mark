@@ -19,15 +19,23 @@ public class AudioManager {
         return instance;
     }
 
-    private static float volume;
+    private static float effectsVolume;
+    private static float musicVolume;
     private boolean isMuted;
+
+    private Clip music;
+
+
+    public static void setEffectsVolume(float vol) {
+        effectsVolume = vol;
+    }
+
+    public static void setMusicVolume(float vol) {
+        musicVolume = vol;
+    }
 
     public boolean isMuted(){
         return isMuted;
-    }
-
-    public void flipMuted(){
-        setIsMuted(!isMuted);
     }
 
     public void setIsMuted(boolean isMuted) {
@@ -41,10 +49,6 @@ public class AudioManager {
 
     }
 
-    public static void setVolume(float vol) {
-        volume = vol;
-    }
-
     public void playSound(String path) {
         if (!isMuted) {
             try {
@@ -55,7 +59,7 @@ public class AudioManager {
                 clip.open(ais);
 
                 FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-                gainControl.setValue(volume);
+                gainControl.setValue(effectsVolume);
 
                 clip.start();
 
@@ -63,28 +67,27 @@ public class AudioManager {
         }
     }
 
-    private Clip music;
-
     public void playMusic(String path) {
+
         if (!isMuted) {
             try {
 
-                if (music == null) {
-                    AudioInputStream ais = AudioSystem.getAudioInputStream(getClass().getResource(path));
-                    music = AudioSystem.getClip();
+                if (music != null)
+                    stopMusic();
 
-                    music.open(ais);
+                AudioInputStream ais = AudioSystem.getAudioInputStream(getClass().getResource(path));
+                music = AudioSystem.getClip();
 
-                    FloatControl gainControl = (FloatControl) music.getControl(FloatControl.Type.MASTER_GAIN);
-                    gainControl.setValue(volume);
+                music.open(ais);
 
-                    music.start();
+                FloatControl gainControl = (FloatControl) music.getControl(FloatControl.Type.MASTER_GAIN);
+                gainControl.setValue(musicVolume);
 
-                } else
-                    music.setMicrosecondPosition(0);
+                music.start();
 
             } catch (Exception e) { e.printStackTrace(); }
         }
+
     }
 
     public void stopMusic(){

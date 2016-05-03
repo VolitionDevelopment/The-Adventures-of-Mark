@@ -92,6 +92,9 @@ public class BattleState implements State {
     @Override
     public void update(double delta) {
 
+        if (AudioManager.getInstance().musicDone())
+            AudioManager.getInstance().playMusic("/volition/adv_of_mark/assets/sound/music/battle.wav");
+
         enemies.stream().filter(e -> e != null).forEach(e -> e.update(delta));
 
         player.update(delta);
@@ -122,7 +125,7 @@ public class BattleState implements State {
                 });
 
                 if (GameManager.getInstance().getGameState().getPlayer().getTolerance() != cHealth)
-                    AudioManager.getInstance().playSound("/volition/adv_of_mark/assets/sound/hit.wav");
+                    AudioManager.getInstance().playSound("/volition/adv_of_mark/assets/sound/effects/hit.wav");
 
                 switchTurns();
 
@@ -142,7 +145,7 @@ public class BattleState implements State {
                 if (e != null)
                     isDone = false;
             if (isDone)
-                finish();
+                finishFight(false);
             for (int i = 0; i < enemies.size(); i++) {
                 if (enemies.get(i) != null && enemies.get(i).getTolerance() <= 0)
                     enemies.set(i, null);
@@ -152,21 +155,26 @@ public class BattleState implements State {
         playerTurn = !playerTurn;
     }
 
-    public void finish(){
-        Random random = new Random();
+    public void finishFight(boolean ranaway){
 
-        for (int i = 0; i < enemies.size(); i++) {
+        if (!ranaway) {
+            Random random = new Random();
 
-            Item item= ObjectManager.getRandomUsable(10);
-            if (item != null)
-                player.addItem(item);
+            for (int i = 0; i < enemies.size(); i++) {
 
-            player.modExp(random.nextInt(50) + 20);
-            player.modMoney(random.nextInt(30) + 20);
+                Item item = ObjectManager.getRandomUsable(10);
+                if (item != null)
+                    player.addItem(item);
+
+                player.modExp(random.nextInt(50) + 20);
+                player.modMoney(random.nextInt(30) + 20);
+            }
         }
 
         player.setAbleMove(true);
         StateManager.setCurrentState(GameManager.getInstance().getGameState());
+
+        AudioManager.getInstance().stopMusic();
     }
 
     @Override

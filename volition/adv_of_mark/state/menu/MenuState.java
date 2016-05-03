@@ -57,7 +57,7 @@ public abstract class MenuState implements State {
     }
 
     public void onKeyPress(){
-        AudioManager.getInstance().playSound("/volition/adv_of_mark/assets/sound/menu_blip.wav");
+        AudioManager.getInstance().playSound("/volition/adv_of_mark/assets/sound/effects/menu_blip.wav");
     }
 
     @Override
@@ -90,7 +90,7 @@ public abstract class MenuState implements State {
 
         else if (k == KeyEvent.VK_ENTER) {
             hasSelected = true;
-            AudioManager.getInstance().playSound("/volition/adv_of_mark/assets/sound/menu_select.wav");
+            AudioManager.getInstance().playSound("/volition/adv_of_mark/assets/sound/effects/menu_select.wav");
         }
 
     }

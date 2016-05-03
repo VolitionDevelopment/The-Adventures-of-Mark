@@ -40,7 +40,7 @@ public class GameState implements State {
     public void update(double delta) {
 
         if (AudioManager.getInstance().musicDone())
-            AudioManager.getInstance().playMusic("/volition/adv_of_mark/assets/sound/main.wav");
+            AudioManager.getInstance().playMusic("/volition/adv_of_mark/assets/sound/music/walkaround.wav");
 
         if (inGameMenu == null) {
 

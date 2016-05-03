@@ -22,11 +22,9 @@ import java.util.Random;
 
 public abstract class Location {
 
-    private String name;
     private int x, y;
     private ArrayList<PlaceableObject> placeableObjects;
     private ArrayList<MapObject> perspectiveList;
-    private int numSurroundingLocations;
     private Tile[][] tilemap;
     private BufferedImage tileImage, bgImage;
     private double bg_x, bg_y, bg_horizOffset, bg_vertOffset;
@@ -41,8 +39,7 @@ public abstract class Location {
     private static final int DIST_CONST = 15; //for collision detection
 
 
-    public Location(String name, int x, int y) {
-        this.name = name;
+    public Location(int x, int y) {
 
         placeableObjects = new ArrayList<>();
         npcs = new ArrayList<>();
@@ -53,6 +50,8 @@ public abstract class Location {
         this.y = y;
 
         loadMap();
+
+        /*
 
         Random rand = new Random();
         if (rand.nextInt(3) > 0) {
@@ -82,13 +81,11 @@ public abstract class Location {
             }
         }
 
+        */
+
         perspectiveList.addAll(placeableObjects);
         perspectiveList.addAll(npcs);
 
-    }
-
-    public String getName(){
-        return name;
     }
 
     public int getX(){
@@ -116,8 +113,9 @@ public abstract class Location {
     }
 
     public BufferedImage getTileImage(){
-        if (tileImage == null)
-            tileImage = ImageManager.makeImageFromMap(getTilemap());
+
+        if (this.tileImage == null)
+            this.tileImage = ImageManager.makeImageFromMap(getTilemap());
 
         return tileImage;
     }
@@ -186,12 +184,16 @@ public abstract class Location {
 
             //end of transition
             if (Math.sqrt(Math.pow(finalTransitionX - bg_x, 2) + Math.pow(finalTransitionY - bg_y, 2)) <= 215) {
+
                 isTransitioning = false;
                 finalTransitionX = 0;
                 finalTransitionY = 0;
 
-                //GameManager.getInstance().getGameState().setInGameMenu(new LoadMenu());
                 toExit.enter(player);
+
+                bgImage.flush();
+                bgImage = null;
+
             }
 
         } else {
@@ -224,6 +226,8 @@ public abstract class Location {
 
                 BattleManager.startBattle(player, enemyParty.getMembers(), playerTile.getImage());
 
+                AudioManager.getInstance().stopMusic();
+
                 enemyParties.remove(enemyParty);
                 playerTile.setEnemyParty(null);
             }
@@ -248,8 +252,7 @@ public abstract class Location {
         for (EnemyParty party: enemyParties)
             party.reset();
 
-        if (bgImage == null)
-            bgImage = ImageManager.makeBackgroundImage(LocationManager.getSurroundingLocations(this));
+        bgImage = ImageManager.makeBackgroundImage(LocationManager.getSurroundingLocations(this));
 
         bg_horizOffset = (Window.WINDOW_WIDTH - 5 * getTileImage().getWidth()) / 2;
         bg_vertOffset = ((Window.WINDOW_HEIGHT - 5 * getTileImage().getHeight()) / 2) - Tile.TILE_SIZE / 4;

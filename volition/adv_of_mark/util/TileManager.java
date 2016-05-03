@@ -45,6 +45,11 @@ public class TileManager {
 
         // street
         properties.put(7, new TileProperty(false, im.loadImage("/volition/adv_of_mark/assets/image/tiles/streetfloor.png")));
+        properties.put(8, new TileProperty(true, im.loadImage("/volition/adv_of_mark/assets/image/tiles/streetwall.png"))); //UNUSED, ORGANIZATION
+
+        //tree
+        properties.put(9, new TileProperty(false, im.loadImage("/volition/adv_of_mark/assets/image/tiles/treefloor.png"))); //UNUSED, ORGANIZATION
+        properties.put(10, new TileProperty(true, im.loadImage("/volition/adv_of_mark/assets/image/tiles/treewall.png")));
 
     }
 

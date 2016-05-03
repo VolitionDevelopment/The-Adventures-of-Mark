@@ -20,9 +20,13 @@ public class LvGen_Window {
     private JFrame frame;
     private JToolBar toolBar;
 
+    private int tileType;
+
     private boolean mapSwitch;
 
-    public LvGen_Window(JPanel jPanel){
+    public LvGen_Window(JPanel jPanel, int tileType){
+
+        this.tileType = tileType;
 
         frame = new JFrame();
         frame.setTitle("LvGen");
@@ -45,7 +49,7 @@ public class LvGen_Window {
 
         JButton save = new JButton("Save");
         save.addActionListener(e -> {
-            LvGen_FileManager.getInstance().save("volition/adv_of_mark/assets/maps/LVGEN.txt", LvGen_Main.getInstance().getMap());
+            LvGen_FileManager.getInstance().save("volition/adv_of_mark/assets/maps/chunk/centraltown/LVGEN.txt", LvGen_Main.getInstance().getMap(), tileType);
         });
         toolBar.add(save);
         toolBar.addSeparator();

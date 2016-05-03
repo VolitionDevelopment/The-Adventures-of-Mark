@@ -2,13 +2,12 @@ package volition.adv_of_mark.util;
 
 import volition.adv_of_mark.location.Exit;
 import volition.adv_of_mark.location.Location;
-import volition.adv_of_mark.location.impl.Inside_Apartment;
-import volition.adv_of_mark.location.impl.Outside_ApartmentEntrance;
-import volition.adv_of_mark.location.impl.Outside_Grass;
+import volition.adv_of_mark.location.impl.*;
 import volition.adv_of_mark.location.tile.Tile;
 import volition.adv_of_mark.mapObject.entity.Entity;
 import volition.adv_of_mark.mapObject.entity.shopkeepers.Peppito;
 
+import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -16,10 +15,30 @@ import java.util.Random;
  */
 public class LocationManager {
 
-    public static final int FIRST_FLOOR = 0;
+    private static HashMap<Integer, Class<? extends Location>> locationProperties;
+    public static final int CENTRALTOWN = 200;
 
     private static Location[][] map;
     private static int loc_x, loc_y;
+
+    public static Class<? extends Location> getLocationFromID(int id){
+
+        if (locationProperties == null) {
+
+            locationProperties = new HashMap<>();
+
+            locationProperties.put(0, null);
+            locationProperties.put(100, Apartment.class);
+            locationProperties.put(101, House.class);
+            locationProperties.put(102, Grass.class);
+            locationProperties.put(103, Street.class);
+            locationProperties.put(104, Forest.class);
+
+        }
+
+        return locationProperties.get(id);
+
+    }
 
     public static Location getCurrentLocation(){
         return map[loc_y][loc_x];
@@ -34,7 +53,7 @@ public class LocationManager {
     public static void setMap(Location[][] map1) {
         map = map1;
 
-        loc_x = 5;
+        loc_x = 15;
         loc_y = 5;
     }
 
@@ -43,25 +62,12 @@ public class LocationManager {
         loc_y = y;
     }
 
-    public static Location[][] loadDungeon(int dungeonType){
+    public static Location[][] loadMap(int mapType){
 
         Location[][] map = null;
 
-        if (dungeonType == FIRST_FLOOR)
-            map = loadApartmentLocation();
-
-        Random rand = new Random();
-        // add shop keeper
-        Entity shopkeeper = new Peppito((rand.nextInt(14) + 1) * Tile.TILE_SIZE, (rand.nextInt(14) + 1) * Tile.TILE_SIZE);
-        int x = -1;
-        int y = -1;
-
-        while (y == -1 || map[y][x] == null) {
-            x = rand.nextInt(map[0].length);
-            y = rand.nextInt(map.length);
-        }
-
-        map[y][x].addNpc(shopkeeper);
+        if (mapType == CENTRALTOWN)
+            map = loadCentralTown();
 
         // add exits to other rooms
         if (map != null) {
@@ -88,88 +94,17 @@ public class LocationManager {
             }
         }
 
-        printDungeon(map);
-
         return map;
 
     }
 
-    private static Location[][] loadApartmentLocation(){
+    private static Location[][] loadCentralTown(){
 
-        Location[][] map = new Location[10][10];
+        Location[][] map = new Location[10][30];
 
-        int numRooms = 10;
-
-        Random rand = new Random();
-        boolean outside = true;
-
-        int i = 0;
-        int x = 5, y = 5;
-        while (i < numRooms) {
-
-            if (outside) {
-                map[y][x] = new Outside_Grass(x, y);
-
-                if (Math.random() < 0.1)
-                    map[y][x] = new Outside_ApartmentEntrance(x, y);
-
-                else if (Math.random() < 0.1)
-                    outside = false;
-
-            } else
-                map[y][x] = new Inside_Apartment(x, y);
-
-            int r;
-            while (map[y][x] != null) {
-                r = rand.nextInt(4);
-
-                if (r == 0)
-                    x++;
-                else if (r == 1)
-                    x--;
-                else if (r == 2)
-                    y++;
-                else if (r == 3)
-                    y--;
-
-                if (y < 0 || y >= map.length || x < 0 || x >= map[0].length) {
-                    x = 5;
-                    y = 5;
-                    outside = true;
-                }
-
-            }
-
-            i++;
-
-        }
-
-        // add/remove walls inside
-        for (int r = 0; r < map.length; r++) {
-            for(int c = 0; c < map[r].length; c++) {
-                if(map[r][c] != null && map[r][c].getName().equals("Apartment Room")) {
-
-                    Tile[][] tilemap = map[r][c].getTilemap();
-
-                    if (r > 0 && map[r - 1][c] != null) // north
-                        for (int k = 1; k < tilemap[0].length - 1; k++)
-                            tilemap[0][k].setId(1);
-
-                    if (c > 0 && map[r][c - 1] != null) // west
-                        for (int k = 1; k < tilemap.length - 1; k++)
-                            tilemap[k][0].setId(1);
-
-                    if (r < map.length - 1 && map[r + 1][c] != null) // south
-                        for (int k = 1; k < tilemap[0].length - 1; k++)
-                            tilemap[tilemap.length - 1][k].setId(1);
-
-                    if (c < map[r].length - 1 && map[r][c + 1] != null) // east
-                        for (int k = 1; k < tilemap.length - 1; k++)
-                            tilemap[k][tilemap[0].length - 1].setId(1);
-
-                }
-            }
-        }
+        FileManager.getInstance().loadLocationChunkFromText("/volition/adv_of_mark/assets/maps/chunk/centraltown/ct00.txt", map, 0, 0);
+        FileManager.getInstance().loadLocationChunkFromText("/volition/adv_of_mark/assets/maps/chunk/centraltown/ct10.txt", map, 10, 0);
+        FileManager.getInstance().loadLocationChunkFromText("/volition/adv_of_mark/assets/maps/chunk/centraltown/ct20.txt", map, 20, 0);
 
         return map;
 

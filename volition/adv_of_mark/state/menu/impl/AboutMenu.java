@@ -43,8 +43,9 @@ public class AboutMenu extends BottomTextMenu {
                 "    - Scrubby the Mop ",
                 "This is their last game before going to college, so they will make this one their best yet!",
                 "",
-                "",
-                "We would like to thank 8-Bit Universe for his 8 Bit remix of Centuries (Fall out boy)"
+                "Music Credits:",
+                "Walkaround - 8-Bit Classical, 8 Bit remix / Sheep May Safely Graze (Bach)",
+                "Battle - RPD310, 8 bit remix / Simple and Clean (Kingdom Hearts)",
         };
 
 

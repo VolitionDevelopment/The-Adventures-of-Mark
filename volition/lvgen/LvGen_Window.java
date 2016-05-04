@@ -22,8 +22,6 @@ public class LvGen_Window {
 
     private int tileType;
 
-    private boolean mapSwitch;
-
     public LvGen_Window(JPanel jPanel, int tileType){
 
         this.tileType = tileType;

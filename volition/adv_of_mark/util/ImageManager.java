@@ -37,7 +37,7 @@ public class ImageManager {
         BufferedImage image =
                 new BufferedImage(
                         tilemap.length * Tile.TILE_SIZE / 2 + tilemap[0].length * Tile.TILE_SIZE / 2,
-                        tilemap.length * Tile.TILE_SIZE / 4 + tilemap[0].length * Tile.TILE_SIZE / 4 + Tile.TILE_SIZE / 2,
+                        tilemap.length * Tile.TILE_SIZE / 4 + tilemap[0].length * Tile.TILE_SIZE / 4 + Tile.TILE_SIZE,
                         BufferedImage.TYPE_INT_ARGB
                 );
         Graphics g = image.createGraphics();
@@ -49,7 +49,7 @@ public class ImageManager {
                         tilemap[i][j].getImage(),
                         (tilemap.length * Tile.TILE_SIZE / 2) // centers the map
                                 + (Tile.TILE_SIZE / 2) * j - (Tile.TILE_SIZE / 2) * i - Tile.TILE_SIZE / 2, //draws x
-                        (Tile.TILE_SIZE / 4) * j + (Tile.TILE_SIZE / 4) * i, // draws y
+                        (Tile.TILE_SIZE / 4) * j + (Tile.TILE_SIZE / 4) * i + Tile.TILE_SIZE / 2, // draws y
                         null
                 );
 
@@ -59,7 +59,7 @@ public class ImageManager {
                             tilemap[i][j].getImage(),
                             (tilemap.length * Tile.TILE_SIZE / 2) // centers the map
                                     + (Tile.TILE_SIZE / 2) * j - (Tile.TILE_SIZE / 2) * i - Tile.TILE_SIZE / 2, //draws x
-                            (Tile.TILE_SIZE / 4) * j + (Tile.TILE_SIZE / 4) * i - Tile.TILE_SIZE / 2, // draws y
+                            (Tile.TILE_SIZE / 4) * j + (Tile.TILE_SIZE / 4) * i, // draws y
                             null
                     );
             }

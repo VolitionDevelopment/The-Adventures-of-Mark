@@ -16,9 +16,12 @@ public class LvGen_Main extends JPanel{
 
     private static LvGen_Main instance;
 
+    // tiletype
+    // 0 tilemap, 1 locationmap
+
     public static LvGen_Main getInstance(){
         if (instance == null)
-            instance = new LvGen_Main(0);
+            instance = new LvGen_Main(1);
 
         return instance;
     }
@@ -35,9 +38,6 @@ public class LvGen_Main extends JPanel{
     private int currentID;
 
     public LvGen_Main(int tileType){
-
-        // tiletype
-        // 0 tilemap, 1 locationmap
 
         this.tileType = tileType;
 

@@ -23,7 +23,6 @@ public class LvGen_FileManager {
     public void save(String name, LvGen_Tile[][] map, int tileType){
 
         try {
-
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File(name)));
 
             bufferedWriter.write(map.length + " :: " + map[0].length);
